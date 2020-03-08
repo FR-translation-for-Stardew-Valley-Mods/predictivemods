@@ -1,0 +1,63 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PublicAccessTV", "PublicAccessTV\PublicAccessTV.csproj", "{A1BDBE8B-E5D8-4EA8-A008-CBD57DB1ADDB}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "PredictiveCore", "PredictiveCore\PredictiveCore.shproj", "{B910A4B7-B0C6-4A80-8613-1311C136D001}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0813966A-63C0-4A53-BD9E-6F81014E0435}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1BDBE8B-E5D8-4EA8-A008-CBD57DB1ADDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1BDBE8B-E5D8-4EA8-A008-CBD57DB1ADDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1BDBE8B-E5D8-4EA8-A008-CBD57DB1ADDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1BDBE8B-E5D8-4EA8-A008-CBD57DB1ADDB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		version = 0.1.0
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$0.TextStylePolicy = $2
+		$2.inheritsSet = null
+		$2.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $3
+		$3.scope = text/x-csharp
+		$3.IndentSwitchSection = False
+		$3.SpacingAfterMethodDeclarationName = True
+		$3.SpaceAfterMethodCallName = True
+		$3.SpaceAfterCast = True
+		$0.TextStylePolicy = $4
+		$4.FileWidth = 80
+		$4.NoTabsAfterNonTabs = True
+		$4.EolMarker = Unix
+		$4.scope = text/plain
+		$0.TextStylePolicy = $5
+		$5.inheritsSet = null
+		$5.scope = application/config+xml
+		$0.XmlFormattingPolicy = $6
+		$6.inheritsSet = null
+		$6.scope = application/config+xml
+		$0.TextStylePolicy = $7
+		$7.inheritsSet = null
+		$7.scope = application/xml
+		$0.XmlFormattingPolicy = $8
+		$8.scope = application/xml
+		$0.TextStylePolicy = $9
+		$9.FileWidth = 80
+		$9.TabWidth = 2
+		$9.TabsToSpaces = True
+		$9.IndentWidth = 2
+		$9.EolMarker = Unix
+		$9.scope = application/json
+		description = ""Public Access TV" and "Scrying Orb" are Stardew Valley mods that make the information from the Stardew Predictor tool by MouseyPounds available in-game in a lore-friendly, balanced way."
+	EndGlobalSection
+EndGlobal

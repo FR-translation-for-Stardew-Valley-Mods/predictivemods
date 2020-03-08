@@ -1,0 +1,28 @@
+﻿{
+  // Garbage ("In the Cans") - Linus
+  "garbage.title": "In the Cans",
+
+  // Mining ("Mining Advisory") - Marlon and Gil
+  "mining.title": "Mining Advisory",
+
+  // Movies ("Movie Sneak Preview") - Claire (concession stand worker)
+  "movies.title": "Movie Sneak Preview",
+  "movies.opening": "Hello Pelican Town, it's Claire coming to you from the movie theater with a sneak peek at what's showing.",
+  "movies.current": "Our current feature is \"{{title}}\". {{description}} Get your tickets now!",
+  "movies.lobby.cranegame": "Stop by the concession stand for a tasty treat before your movie. And try out the exciting crane game in the lobby...there's no line for it today!",
+  "movies.lobby.concession": "Our lobby is buzzing with activity today. The crane game is sure to be busy, but visit the concession stand for a delicious snack before the show.",
+  "movies.next": "Planning ahead? Starting on {{date}}, we'll be showing \"{{title}}\". {{description}}",
+  "movies.closing": "That's it from the theater. I hope to see you soon!",
+
+  // Night Events ("Governor's Message") - Governor
+  "nightEvents.title": "Governor's Message",
+
+  // Shopping ("Shop the Valley") - Lewis
+  "shopping.title": "Shop the Valley",
+
+  // Tailoring ("Fashion Showcase") - Emily and Haley
+  "tailoring.title": "Fashion Showcase",
+
+  // Trains ("Train Timetable") - Demetrius
+  "trains.title": "Train Timetable",
+}
