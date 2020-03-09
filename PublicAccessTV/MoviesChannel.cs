@@ -21,15 +21,18 @@ namespace PublicAccessTV
 		{
 			MoviePrediction prediction = Movies.PredictForDate (Utilities.Now ());
 
-			TemporaryAnimatedSprite claireBackground = LoadSprite (tv,
+			TemporaryAnimatedSprite screenBackground = LoadSprite (tv,
 				"MovieTheaterScreen_TileSheet", new Rectangle (31, 0, 162, 108));
-			TemporaryAnimatedSprite claireOverlay = LoadSprite (tv,
+			TemporaryAnimatedSprite hostOverlay = LoadSprite (tv,
 				"MovieTheater_TileSheet", new Rectangle (240, 160, 16, 26),
 				positionOffset: new Vector2 (18f, 2f), overlay: true);
 
-			// Opening scene: Claire greets the viewer.
-			QueueScene (Helper.Translation.Get ("movies.opening"),
-				claireBackground, claireOverlay);
+			// Opening scene: the concessionaire greets the viewer.
+			bool sve = Helper.ModRegistry.IsLoaded ("FlashShifter.StardewValleyExpandedCP");
+			QueueScene (Helper.Translation.Get ("movies.opening", new
+			{
+				host = Helper.Translation.Get ($"movies.host.{(sve ? "sve" : "base")}"),
+			}), screenBackground, hostOverlay);
 
 			// Current movie poster, title and description
 			QueueScene (Helper.Translation.Get ("movies.current", new
@@ -70,9 +73,9 @@ namespace PublicAccessTV
 				description = prediction.NextMovie.Description,
 			}), LoadMoviePoster (tv, prediction.NextMovie));
 
-			// Closing scene: Claire signs off.
+			// Closing scene: the concessionaire signs off.
 			QueueScene (Helper.Translation.Get ("movies.closing"),
-				claireBackground, claireOverlay);
+				screenBackground, hostOverlay);
 
 			RunProgram (tv);
 		}

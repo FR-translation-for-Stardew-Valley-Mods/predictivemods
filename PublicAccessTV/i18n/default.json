@@ -11,9 +11,11 @@
   // Mining ("Mining Advisory") - Marlon and Gil
   "mining.title": "Mining Advisory",
 
-  // Movies ("Movie Sneak Preview") - Claire (concession stand worker)
+  // Movies ("Movie Sneak Preview") - concession stand worker (Claire in SVE)
   "movies.title": "Movie Sneak Preview",
-  "movies.opening": "Hello Pelican Town, it's Claire coming to you from the movie theater with a sneak peek at what's showing.",
+  "movies.host.base": "your friendly concessionaire",
+  "movies.host.sve": "Claire",
+  "movies.opening": "Hello Pelican Town, it's {{host}} coming to you from the movie theater with a sneak peek at what's showing.",
   "movies.current": "Our current feature is \"{{title}}\". {{description}} Get your tickets now!",
   "movies.lobby.craneGame": "Stop by the concession stand for a tasty treat before your movie. And try out the exciting crane game in the lobby...there's no line for it today!",
   "movies.lobby.concession": "Our lobby is buzzing with activity today. The crane game is sure to be busy, but visit the concession stand for a delicious snack before the show.",
@@ -23,13 +25,13 @@
   // Night Events ("Governor's Message") - Governor
   "nightEvents.title": "Governor's Message",
   "nightEvents.Meteorite.opening": "Fellow citizens, the Republic Warning Service has informed me that a meteor shower will reach its peak over our region tonight.",
-  "nightEvents.Meteorite.reaction": "I urge you to remain safely in your homes all night. The view can be enjoyed from your windows. Please report any meteorite impacts to your local authorities.",
+  "nightEvents.Meteorite.reaction": "We urge you to remain indoors all night. The view can be enjoyed from your windows. Please report any meteorite impacts to your local authorities.",
   "nightEvents.Meteorite.closing": "I wish you all a safe and enjoyable evening.",
   "nightEvents.StrangeCapsule.opening": "Fellow citizens, rumors have been circulating about extraterrestrial activity in the skies over our region tonight.",
   "nightEvents.StrangeCapsule.reaction": "I can assure you that this is nonsense. Aliens do not exist. You have not heard any rumors. I am one of you. Everything is fine. THE OFFSPRING ARE FINE.",
   "nightEvents.StrangeCapsule.closing": "*ahem* I wish you all a normal and human evening.",
   "nightEvents.NewYear.opening": "Fellow citizens, we have come to the end of another successful year for our region and the entire Ferngill Republic.",
-  "nightEvents.NewYear.reaction": "I congratulate our industries on their ever-improving production, particularly the excellent crops from Stardew Valley.",
+  "nightEvents.NewYear.reaction": "Congratulations to our industries on their ever-improving production, particularly the excellent crops from Stardew Valley.",
   "nightEvents.NewYear.closing": "I wish you all a prosperous new year.",
 
   // Shopping ("Shop the Valley") - Lewis
