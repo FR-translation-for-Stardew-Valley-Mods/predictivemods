@@ -12,20 +12,20 @@ namespace PublicAccessTV
 		public MoviesChannel ()
 			: base ("movies")
 		{
-			Helper.Content.Load<Texture2D> ("assets/movies/cranegame.png");
+			Helper.Content.Load<Texture2D> ("assets/movies_craneGame.png");
 		}
 
 		internal override bool IsAvailable => base.IsAvailable && Movies.IsAvailable;
 
 		internal override void Show (TV tv)
 		{
-			MoviePrediction prediction = Movies.PredictForDate (Game1.Date);
+			MoviePrediction prediction = Movies.PredictForDate (Utilities.Now ());
 
 			TemporaryAnimatedSprite claireBackground = LoadSprite (tv,
 				"MovieTheaterScreen_TileSheet", new Rectangle (31, 0, 162, 108));
 			TemporaryAnimatedSprite claireOverlay = LoadSprite (tv,
 				"MovieTheater_TileSheet", new Rectangle (240, 160, 16, 26),
-				9999f, 1, new Vector2 (18f, 2f), true);
+				positionOffset: new Vector2 (18f, 2f), overlay: true);
 
 			// Opening scene: Claire greets the viewer.
 			QueueScene (Helper.Translation.Get ("movies.opening"),
@@ -45,13 +45,13 @@ namespace PublicAccessTV
 			TemporaryAnimatedSprite lobbyOverlay;
 			if (prediction.CraneGameAvailable)
 			{
-				lobbyMessage = Helper.Translation.Get ("movies.lobby.cranegame");
-				string assetName = Helper.Content.GetActualAssetKey ("assets/movies/cranegame.png");
+				lobbyMessage = Helper.Translation.Get ("movies.lobby.craneGame");
+				string assetName = Helper.Content.GetActualAssetKey ("assets/movies_craneGame.png");
 				lobbyBackground = LoadSprite (tv, assetName,
 					new Rectangle (0, 0, 94, 63));
 				lobbyOverlay = LoadSprite (tv, assetName,
 					new Rectangle (94, 0, 94, 63), 250f, 2, new Vector2 (),
-					true, true);
+					overlay: true, scaleToFit: true);
 			}
 			else
 			{
@@ -65,7 +65,7 @@ namespace PublicAccessTV
 			// Upcoming movie poster, title and description.
 			QueueScene (Helper.Translation.Get ("movies.next", new
 			{
-				date = prediction.FirstDateOfNextMovie.Localize (),
+				season = Helper.Translation.Get ($"season.{prediction.FirstDateOfNextMovie.Season}"),
 				title = prediction.NextMovie.Title,
 				description = prediction.NextMovie.Description,
 			}), LoadMoviePoster (tv, prediction.NextMovie));
@@ -80,7 +80,7 @@ namespace PublicAccessTV
 		private TemporaryAnimatedSprite LoadMoviePoster (TV tv, MovieData movie)
 		{
 			return LoadSprite (tv, "LooseSprites\\Movies",
-				new Rectangle (16, 128 * movie.SheetIndex, 90, 61));
+				new Rectangle (15, 128 * movie.SheetIndex, 92, 61));
 		}
 	}
 }

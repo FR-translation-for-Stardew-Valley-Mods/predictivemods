@@ -16,10 +16,20 @@ namespace PublicAccessTV
 			// Set up PredictiveCore.
 			Utilities.Initialize (this, helper);
 
+			// Add console commands.
+			Utilities.Helper.ConsoleCommands.Add ("reset_channels",
+				"Resets the availability of the custom channels to reflect current conditions.",
+				(_command, args) =>
+				{
+					InitializeChannels ();
+					Monitor.Log ("Channel availability reset to reflect current conditions.",
+						LogLevel.Info);
+				});
+
 			// Listen for game events.
 			_Helper = helper;
 			helper.Events.GameLoop.GameLaunched += OnGameLaunched;
-			helper.Events.GameLoop.DayStarted += OnDayStarted;
+			helper.Events.GameLoop.DayStarted += (_sender, _args) => InitializeChannels ();
 		}
 
 		private void OnGameLaunched (object sender, GameLaunchedEventArgs e)
@@ -36,21 +46,21 @@ namespace PublicAccessTV
 			}
 
 			// Create the channels.
-			Channels = new[]
+			Channels = new Channel[]
 			{
-				// TODO: new GarbageChannel ()
-				// TODO: new MiningChannel ()
+				// TODO: new NightEventsChannel (),
+				// TODO: new MiningChannel (),
+				// TODO: new ShoppingChannel (),
+				// TODO: new GarbageChannel (),
+				// TODO: new TailoringChannel (),
+				new TrainsChannel (),
 				new MoviesChannel ()
-				// TODO: new NightEventsChannel ()
-				// TODO: new ShoppingChannel ()
-				// TODO: new TailoringChannel ()
-				// TODO: new TrainsChannel ()
 			};
 		}
 
-		private void OnDayStarted (object sender, DayStartedEventArgs e)
+		private void InitializeChannels ()
 		{
-			// Set up each channel for the day.
+			// Initialize each channel based on current conditions.
 			foreach (Channel channel in Channels)
 			{
 				channel.Initialize ();

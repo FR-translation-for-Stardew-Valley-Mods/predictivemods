@@ -3,6 +3,7 @@ using StardewValley;
 using StardewValley.GameData.Movies;
 using StardewValley.Locations;
 using System;
+using System.Collections.Generic;
 
 namespace PredictiveCore
 {
@@ -49,18 +50,20 @@ namespace PredictiveCore
 		{
 			Utilities.Helper.ConsoleCommands.Add ("predict_movies",
 				"Predicts the current and next movie and Crane Game status on a given date, or today by default.\n\nUsage: predict_movies [<year> <season> <day>]\n- year: the target year (a number starting from 1).\n- season: the target season (one of 'spring', 'summer', 'fall', 'winter').\n- day: the target day (a number from 1 to 28).",
-				ConsoleCommand);
+				(_command, args) => ConsoleCommand (new List<string> (args)));
 		}
 
-		private static void ConsoleCommand (string _command, string[] args)
+		private static void ConsoleCommand (List<string> args)
 		{
 			try
 			{
-				WorldDate date = (args.Length == 0)
-					? Game1.Date
-					: Utilities.ArgsToWorldDate (args);
+				WorldDate date = Utilities.ArgsToWorldDate (args);
 				MoviePrediction prediction = PredictForDate (date);
-				Utilities.Monitor.Log ($"On {prediction.EffectiveDate.Localize ()}, the movie showing will be '{prediction.CurrentMovie.Title}'.\n  {prediction.CurrentMovie.Description}\nThe Crane Game {(prediction.CraneGameAvailable ? "WILL" : "will NOT")} be available.\n\nThe next movie, '{prediction.NextMovie.Title}', will begin showing on {prediction.FirstDateOfNextMovie.Localize ()}.\n  {prediction.NextMovie.Description}",
+				Utilities.Monitor.Log ($"On {prediction.EffectiveDate}, the movie showing will be \"{prediction.CurrentMovie.Title}\". \"{prediction.CurrentMovie.Description}\"",
+					LogLevel.Info);
+				Utilities.Monitor.Log ($"The Crane Game {(prediction.CraneGameAvailable ? "WILL" : "will NOT")} be available.",
+					LogLevel.Info);
+				Utilities.Monitor.Log ($"The next movie, \"{prediction.NextMovie.Title}\", will begin showing on {prediction.FirstDateOfNextMovie}. \"{prediction.NextMovie.Description}\"",
 					LogLevel.Info);
 			}
 			catch (Exception e)

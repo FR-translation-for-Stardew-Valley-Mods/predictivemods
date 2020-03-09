@@ -17,11 +17,17 @@ namespace PredictiveCore
 	{
 		private static readonly List<string> Seasons = new List<string> (new[] { "spring", "summer", "fall", "winter" });
 
-		// Parses a series of three console arguments (Y M D) as a WorldDate.
-		public static WorldDate ArgsToWorldDate (string[] args)
+		// Parses a list of three console arguments (year, season, day) as a
+		// WorldDate. If the list is empty, returns the current date.
+		public static WorldDate ArgsToWorldDate (List<string> args)
 		{
-			if (args.Length != 3)
+			switch (args.Count)
 			{
+			case 0:
+				return Now ();
+			case 3:
+				break;
+			default:
 				throw new ArgumentException ("Wrong number of arguments.");
 			}
 
@@ -42,6 +48,22 @@ namespace PredictiveCore
 			}
 
 			return new WorldDate (year, season, day);
+		}
+
+		// Converts a TotalDays count to a WorldDate.
+		public static WorldDate TotalDaysToWorldDate (int totalDays)
+		{
+			int months = totalDays / WorldDate.DaysPerMonth;
+			int day = (totalDays % WorldDate.DaysPerMonth) + 1;
+			int year = (months / WorldDate.MonthsPerYear) + 1;
+			string season = Seasons[months % WorldDate.MonthsPerYear];
+			return new WorldDate (year, season, day);
+		}
+
+		// Returns the current WorldDate, since Game1.Date seems to have bugs.
+		public static WorldDate Now ()
+		{
+			return new WorldDate (Game1.year, Game1.currentSeason, Game1.dayOfMonth);
 		}
 
 		// Returns the first day of the next season after a given date.
@@ -87,6 +109,7 @@ namespace PredictiveCore
 			Helper = helper;
 
 			Movies.Initialize ();
+			Trains.Initialize ();
 		}
 
 		internal static void CheckWorldReady ()

@@ -1,4 +1,10 @@
 ﻿{
+  // season names, used in "movies.next"
+  "season.spring": "spring",
+  "season.summer": "summer",
+  "season.fall": "fall",
+  "season.winter": "winter",
+
   // Garbage ("In the Cans") - Linus
   "garbage.title": "In the Cans",
 
@@ -9,9 +15,9 @@
   "movies.title": "Movie Sneak Preview",
   "movies.opening": "Hello Pelican Town, it's Claire coming to you from the movie theater with a sneak peek at what's showing.",
   "movies.current": "Our current feature is \"{{title}}\". {{description}} Get your tickets now!",
-  "movies.lobby.cranegame": "Stop by the concession stand for a tasty treat before your movie. And try out the exciting crane game in the lobby...there's no line for it today!",
+  "movies.lobby.craneGame": "Stop by the concession stand for a tasty treat before your movie. And try out the exciting crane game in the lobby...there's no line for it today!",
   "movies.lobby.concession": "Our lobby is buzzing with activity today. The crane game is sure to be busy, but visit the concession stand for a delicious snack before the show.",
-  "movies.next": "Planning ahead? Starting on {{date}}, we'll be showing \"{{title}}\". {{description}}",
+  "movies.next": "Planning ahead? Starting in {{season}}, we'll be showing \"{{title}}\". {{description}}",
   "movies.closing": "That's it from the theater. I hope to see you soon!",
 
   // Night Events ("Governor's Message") - Governor
@@ -25,4 +31,10 @@
 
   // Trains ("Train Timetable") - Demetrius
   "trains.title": "Train Timetable",
+  "trains.opening": "Greetings, neighbors! Demetrius here to keep you apprised of the happenings up at the railroad.",
+  "trains.next.today": "There's a train coming today! Grab your cameras and head north, railfans. The train will be here at {{time}}.",
+  "trains.next.thisWeek": "We don't have long to wait. This {{dayOfWeek}}, a train will pass through at {{time}}.",
+  "trains.next.later": "Sorry, the next train won't pass through until {{date}} at {{time}}. We have to be patient.",
+  "trains.later": "Looking further down the schedule, I see that trains are also scheduled to pass through on {{date1}} and {{date2}}.",
+  "trains.closing": "Remember that you'll probably miss the train if you've been away from the valley overnight. Happy trainspotting!"
 }

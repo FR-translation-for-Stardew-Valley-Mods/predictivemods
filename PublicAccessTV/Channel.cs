@@ -104,23 +104,34 @@ namespace PublicAccessTV
 			};
 		}
 
-		// Convenience class to handle common configuration needs for TV sprites.
+		// Convenience method to handle common values for TV sprites.
 		protected TemporaryAnimatedSprite LoadSprite (TV tv, string textureName,
 			Rectangle sourceRect, float animationInterval = 9999f,
 			int animationLength = 1, Vector2 positionOffset = new Vector2 (),
-			bool overlay = false, bool? scale = null)
+			bool overlay = false, bool? scaleToFit = null, float extraScale = 1f)
 		{
+			float scale = extraScale *
+				((scaleToFit ?? !overlay)
+					? Math.Min (42f / sourceRect.Width, 28f / sourceRect.Height)
+				: 1f);
 			return new TemporaryAnimatedSprite (textureName, sourceRect,
 				animationInterval, animationLength, 999999,
 				tv.getScreenPosition () + (positionOffset * tv.getScreenSizeModifier ()),
 				false, false, (float) (((tv.boundingBox.Bottom - 1) / 10000.0) +
 					(overlay ? 1.99999994947575E-05 : 9.99999974737875E-06)),
-				0.0f, Color.White, tv.getScreenSizeModifier () *
-					((scale ?? !overlay)
-						? Math.Min (42f / sourceRect.Width, 28f / sourceRect.Height)
-						: 1f),
+				0.0f, Color.White, tv.getScreenSizeModifier () * scale,
 				0.0f, 0.0f, 0.0f,
 				false);
+		}
+
+		// Convenience method for portrait overlay TV sprites.
+		protected TemporaryAnimatedSprite LoadPortrait (TV tv, string npc,
+			int xIndex = 0, int yIndex = 0)
+		{
+			return LoadSprite (tv, $"Portraits\\{npc}",
+				new Rectangle (new Point (xIndex * 64, yIndex * 64), new Point (64, 64)),
+				positionOffset: new Vector2 (17.5f, 3.5f), overlay: true,
+				scaleToFit: true, extraScale: 0.875f);
 		}
 
 		protected void CallCustomTVMod (string methodName, params object[] arguments)

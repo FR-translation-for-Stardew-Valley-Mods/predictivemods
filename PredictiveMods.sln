@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0813966A-63C0-4A53-BD9E-6F81014E0435}"
 	ProjectSection(SolutionItems) = preProject
 		LICENSE = LICENSE
+		ROADMAP = ROADMAP
 	EndProjectSection
 EndProject
 Global

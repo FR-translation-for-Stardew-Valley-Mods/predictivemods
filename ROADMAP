@@ -1,0 +1,164 @@
+PredictiveCore
+	Garbage
+		ListGarbageForDate
+		FindItemInGarbage
+	Geodes
+		ListContentOfGeodes
+		FindItemInGeodes
+	ItemFinder
+		FindItem
+		FindItemByCombat
+		FindItemByCooking
+		FindItemByCrafting
+		FindItemByFarming
+		FindItemByFishing
+		FindItemByForaging
+		FindItemBySpecial
+	Mining
+		ListFloorsForDate
+		FindMushroomFloors
+		FindDinosaurFloors
+		FindItemByMining
+	NightEvents
+		ListNextEvents
+		ListEventsOfType
+	Shopping
+		ListSalesForDate
+		ListKrobusForDate
+		ListPierreForDate
+		ListSandyForDate
+		ListTravelingCartForDate
+		FindItemByShopping
+	Tailoring
+		ChooseRandomClothing
+		FindItemByTailoring
+
+PublicAccessTV
+	Require the player to purchase a cable TV subscription (weekly/seasonal automatic charge, a la Help for Hire) to receive the channels.
+	Add introductory events/dialogue/mail/etc. for the hosts of most channels.
+	GarbageChannel
+		name: "In the Cans"
+		host: Linus
+		condition: four hearts with Linus
+		content: items to be found in Garbage Cans today
+	MiningChannel
+		name: "Mining Advisory"
+		hosts: Marlon and Gil
+		conditions: "Initiation" quest completed; SVE only: also two hearts with Marlon
+		content:
+			monster, slime and quarry infestations
+			mushroom floors (all, if 80th floor reached)
+			Skull Cavern dinosaur floors (up to N, if Skull Cavern reached)
+	NightEventsChannel
+		name: "Governor's Message"
+		host: Governor
+		conditions/content:
+			day of Meteorite night: PSA about meteor shower
+			day of Strange Capsule night: denial about UFOs
+			28th of Winter: new year's greeting
+	ShoppingChannel
+		name: "Shop the Valley"
+		host: Lewis
+		condition: two hearts with Lewis
+		content:
+			today's wallpaper and flooring at Pierre's General Store
+			today's shirt at Sandy's Oasis (if bus repaired)
+			today's/this week's items at the Traveling Cart
+	TailoringChannel
+		name: "Fashion Showcase"
+		hosts: Emily and Haley
+		conditions: sewing machine access; two hearts with Emily
+		content:
+			random tailoring recipe
+			fashion commentary from Haley (connect to SVO??)
+	modules not available: Geodes, ItemFinder
+ 
+ScryingOrb
+	Garbage
+		criterion: any can checked
+		offering: any Trash item
+		Today
+			content: as for "In the Cans"
+		Future Day
+			input: date
+			content: as for "In the Cans"
+	Geodes
+		criterion: any geode processed
+		offering: any Mineral item except Limestone or Prismatic Shard
+		content: item in the next N geodes processed if of each type
+	Mining
+		criterion: 1st floor reached
+		offering: any ore or Coal
+		Today
+			content: as for "Mining Advisory"
+		Future Day
+			input: date
+			content: as for "Mining Advisory"
+		Upcoming Mushroom Floors
+			criterion: 80th floor reached
+			content: days (within next N) and floors when mushrooms may be present
+		Upcoming Dinosaur Floors
+			criterion: Skull Cavern reached
+			content: days (within next N) and floors (within first M) when dinosaurs may be present
+	NightEvents
+		offering: 3 Bat Wing, Void Egg, Void Essence, Void Mayonnaise or Void Salmon
+		Upcoming
+			content: next 3(?) night events that may occur (below plus Earthquake on 2 Sum 1)
+		Fairy
+			content: next 3(?) nights that Fairy may visit
+		Witch
+			content: next 3(?) nights that Witch may visit
+		Meteor
+			content: next 3(?) nights that Meteor may appear
+		Stone Owl
+			content: next 3(?) nights that Stone Owl may appear
+		Strange Capsule
+			content: next 3(?) nights that Strange Capsule may appear
+	Shopping
+		offering: any Fruit, Vegetable or Forage item except Sap, Salmonberry, Blackberry or Spring Onion
+		Today
+			content: as for "Shopper's Report", plus Krobus's Fish/Cooking item (if Krobus met)
+		Future Day
+			input: date
+			content: as for "Shopper's Report", plus Krobus's Fish/Cooking item (if Krobus met)
+	ItemFinder
+		offering: any Animal Product, Artisan Goods, Cooking or Flower item except Fried Egg, Magic Rock Candy, Salmonberry Wine, Tulip, Void Egg or Void Mayonnaise
+		criterion: any item (text search to deal with huge list; precedents to borrow?)
+		content:
+			days, stores and prices when item will be sold
+			Ns and types of upcoming geodes to contain item
+			days and garbage cans when item will be trashed
+			cooking, crafting and tailoring recipes for item
+			mining, combat, foraging and fishing drops of item
+			farming of item from seeds/trees/animals
+			special ways of getting item
+	Unlimited
+		offering: Prismatic Shard, Pearl, Golden Pumpkin, Treasure Chest, Magic Rock Candy
+		content:
+			unlimited orb use for N days
+			refuse offerings during that time
+			show menu of disciplines instead
+	modules not available: Movies, Tailoring, Trains
+
+Future channel possibilities
+	ArtsChannel
+		hosts: Elliott, Evelyn, Leah
+	CraftingChannel
+		hosts: Maru, Robin, (SVE) Susan
+	DesertChannel
+		hosts: Pam, Sandy
+	HistoryChannel
+		hosts: Gunther, Penny
+	MagicChannel
+		hosts: Wizard, (SVE) Camilla
+	MusicChannel
+		hosts: Abigail, Sam, Sebastian
+	RanchingChannel
+		hosts: Marnie, Shane
+	WellnessChannel
+		host: Alex, Caroline, Harvey
+
+Other NPCs without channels
+	base: Bouncer, Clint, Dwarf, George, Grandpa, Gus, Henchman, Jas, Jodi, Kent, Krobus, Morris, Pierre, Mr. Qi, Vincent, Willy
+	SVE: Alesia, Andy, Isaac, Olivia, Scarlett, Sophia, Victor
+
