@@ -40,12 +40,14 @@
 		<Compile Include="Channel.cs" />
 		<Compile Include="MoviesChannel.cs" />
 		<Compile Include="TrainsChannel.cs" />
+		<Compile Include="NightEventsChannel.cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="manifest.json" />
 		<None Include="i18n\default.json" />
 		<None Include="assets\movies_craneGame.png" />
 		<None Include="assets\trains_background.png" />
+		<None Include="assets\nightEvents_background.png" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="i18n\" />

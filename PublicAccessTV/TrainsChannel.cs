@@ -82,11 +82,5 @@ namespace PublicAccessTV
 
 			RunProgram (tv);
 		}
-
-		private TemporaryAnimatedSprite LoadMoviePoster (TV tv, MovieData movie)
-		{
-			return LoadSprite (tv, "LooseSprites\\Movies",
-				new Rectangle (16, 128 * movie.SheetIndex, 90, 61));
-		}
 	}
 }

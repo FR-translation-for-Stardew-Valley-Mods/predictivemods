@@ -59,6 +59,11 @@ Global
 		$9.IndentWidth = 2
 		$9.EolMarker = Unix
 		$9.scope = application/json
+		$0.VersionControlPolicy = $10
+		$10.CommitMessageStyle = $11
+		$11.Header = @ \n\n
+		$11.LastFilePostfix = "@:\n  "
+		$11.IncludeDirectoryPaths = True
 		description = ""Public Access TV" and "Scrying Orb" are Stardew Valley mods that make the information from the Stardew Predictor tool by MouseyPounds available in-game in a lore-friendly, balanced way."
 	EndGlobalSection
 EndGlobal

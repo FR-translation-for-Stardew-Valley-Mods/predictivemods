@@ -82,6 +82,9 @@ namespace PredictiveCore
 			}
 		}
 
+		internal const int MaxHorizon =
+			WorldDate.DaysPerMonth * WorldDate.MonthsPerYear * 50;
+
 		// Returns whether the farmer or any farmhand has a friendship of at
 		// least the given level with the named NPC.
 		public static bool AnyoneHasFriendship (string npcName, int level)
@@ -109,6 +112,7 @@ namespace PredictiveCore
 			Helper = helper;
 
 			Movies.Initialize ();
+			NightEvents.Initialize ();
 			Trains.Initialize ();
 		}
 

@@ -36,12 +36,15 @@ namespace PublicAccessTV
 		protected readonly string LocalID;
 		protected readonly string GlobalID;
 		protected readonly string Title;
+		private readonly Action<TV, TemporaryAnimatedSprite, Farmer, string> Callback;
 
 		protected Channel (string localID)
 		{
 			LocalID = localID ?? throw new ArgumentNullException (nameof (localID));
 			GlobalID = $"kdau.PublicAccessTV.{localID}";
 			Title = Helper.Translation.Get ($"{localID}.title");
+			Callback = (tv, _sprite, _who, _response) => Show (tv);
+			CallCustomTVMod ("addChannel", GlobalID, Title, Callback);
 		}
 
 		// Whether the channel should be available to players at present.
@@ -53,9 +56,7 @@ namespace PublicAccessTV
 		{
 			if (IsAvailable)
 			{
-				Action<TV, TemporaryAnimatedSprite, Farmer, string> action =
-					(TV tv, TemporaryAnimatedSprite sprite, Farmer who, string response) => Show (tv);
-				CallCustomTVMod ("addChannel", GlobalID, Title, action);
+				CallCustomTVMod ("addChannel", GlobalID, Title, Callback);
 			}
 			else
 			{
@@ -126,12 +127,18 @@ namespace PublicAccessTV
 
 		// Convenience method for portrait overlay TV sprites.
 		protected TemporaryAnimatedSprite LoadPortrait (TV tv, string npc,
-			int xIndex = 0, int yIndex = 0)
+			int xIndex, int yIndex)
 		{
 			return LoadSprite (tv, $"Portraits\\{npc}",
 				new Rectangle (new Point (xIndex * 64, yIndex * 64), new Point (64, 64)),
 				positionOffset: new Vector2 (17.5f, 3.5f), overlay: true,
 				scaleToFit: true, extraScale: 0.875f);
+		}
+		protected TemporaryAnimatedSprite LoadPortrait (TV tv, string npc,
+			Point? index = null)
+		{
+			Point _index = index ?? new Point (0, 0);
+			return LoadPortrait (tv, npc, _index.X, _index.Y);
 		}
 
 		protected void CallCustomTVMod (string methodName, params object[] arguments)

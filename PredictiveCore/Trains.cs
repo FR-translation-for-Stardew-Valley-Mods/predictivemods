@@ -33,7 +33,8 @@ namespace PredictiveCore
 			List<TrainPrediction> predictions = new List<TrainPrediction> ();
 
 			for (int days = Math.Max (fromDate.TotalDays, 30);
-				predictions.Count < limit && days < fromDate.TotalDays + 5600;
+				predictions.Count < limit &&
+					days < fromDate.TotalDays + Utilities.MaxHorizon;
 				++days)
 			{
 				Random rng = new Random (((int) Game1.uniqueIDForThisGame / 2) +

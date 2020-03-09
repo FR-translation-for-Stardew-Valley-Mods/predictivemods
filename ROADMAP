@@ -19,9 +19,6 @@ PredictiveCore
 		FindMushroomFloors
 		FindDinosaurFloors
 		FindItemByMining
-	NightEvents
-		ListNextEvents
-		ListEventsOfType
 	Shopping
 		ListSalesForDate
 		ListKrobusForDate
@@ -49,13 +46,6 @@ PublicAccessTV
 			monster, slime and quarry infestations
 			mushroom floors (all, if 80th floor reached)
 			Skull Cavern dinosaur floors (up to N, if Skull Cavern reached)
-	NightEventsChannel
-		name: "Governor's Message"
-		host: Governor
-		conditions/content:
-			day of Meteorite night: PSA about meteor shower
-			day of Strange Capsule night: denial about UFOs
-			28th of Winter: new year's greeting
 	ShoppingChannel
 		name: "Shop the Valley"
 		host: Lewis

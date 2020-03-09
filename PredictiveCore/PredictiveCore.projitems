@@ -12,5 +12,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Movies.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Trains.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NightEvents.cs" />
   </ItemGroup>
 </Project>

@@ -48,7 +48,7 @@ namespace PublicAccessTV
 			// Create the channels.
 			Channels = new Channel[]
 			{
-				// TODO: new NightEventsChannel (),
+				new NightEventsChannel (),
 				// TODO: new MiningChannel (),
 				// TODO: new ShoppingChannel (),
 				// TODO: new GarbageChannel (),
