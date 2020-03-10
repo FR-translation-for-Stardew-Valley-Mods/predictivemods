@@ -27,8 +27,10 @@ namespace ScryingOrb
 
 		private void OnButtonPressed (object sender, ButtonPressedEventArgs args)
 		{
-			// Only respond to the action button, and only if the world is ready.
-			if (!args.Button.IsActionButton () || !Context.IsWorldReady)
+			// Only respond to the action button, and only if the world is ready
+			// and the player is free to interact with an orb.
+			if (!Context.IsWorldReady || !Context.IsPlayerFree ||
+				!args.Button.IsActionButton ())
 			{
 				return;
 			}
@@ -52,7 +54,7 @@ namespace ScryingOrb
 				// TODO: Experience.Try<GarbageExperience> (orb, offering) ||
 				// TODO: Experience.Try<GeodesExperience> (orb, offering) ||
 				// TODO: Experience.Try<MiningExperience> (orb, offering) ||
-				// TODO: Experience.Try<NightEventsExperience> (orb, offering) ||
+				Experience.Try<NightEventsExperience> (orb, offering) ||
 				// TODO: Experience.Try<ShoppingExperience> (orb, offering) ||
 				// TODO: Experience.Try<ItemFinderExperience> (orb, offering) ||
 				Experience.Try<FallbackExperience> (orb, offering))

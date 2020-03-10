@@ -38,7 +38,7 @@ namespace ScryingOrb
 			// TODO: "garbage",
 			// TODO: "geodes",
 			// TODO: "mining",
-			// TODO: "nightEvents",
+			"nightEvents",
 			// TODO: "shopping",
 			// TODO: "itemFinder",
 			"leave",
@@ -51,47 +51,45 @@ namespace ScryingOrb
 			if (Utilities.Now ().TotalDays <= saveData.ExpirationDay)
 			{
 				PlaySound ("yoba");
-				ShowMessage ("unlimited.following", 500);
+				ShowMessage ("unlimited.following", 250);
 				Game1.afterDialogues = Run;
 				return true;
 			}
 
-			if (!base.Try ())
+			// Consume an appropriate offering.
+			if (!base.Try () || !AcceptedOfferings.Contains (Offering.Name))
 				return false;
+			ConsumeOffering ();
 
-			// If offering appropriate, consume it, start an unlimited period
-			// and show the topic menu dramatically.
-			if (AcceptedOfferings.Contains (Offering.Name))
-			{
-				--Offering.Stack;
-				// TODO: Is that enough for a stack of 1, or do we need to destroy the object?
+			// Start an unlimited period.
+			saveData.ExpirationDay = Utilities.Now ().TotalDays + 7;
+			Helper.Data.WriteSaveData ("Unlimited", saveData);
 
-				saveData.ExpirationDay = Utilities.Now ().TotalDays + 7;
-				Helper.Data.WriteSaveData ("Unlimited", saveData);
+			// Show the topic menu dramatically.
+			PlaySound ("reward");
+			ShowAnimation ("TileSheets\\animations",
+				new Rectangle (0, 192, 64, 64), 125f, 8, 1);
+			ShowMessage ("unlimited.initial", 1000);
+			Game1.afterDialogues = Run;
 
-				PlaySound ("reward");
-				ShowAnimation ("TileSheets\\animations",
-					new Rectangle (0, 192, 64, 64), 125f, 8, 1);
-				ShowMessage ("unlimited.initial", 1000);
-				Game1.afterDialogues = Run;
-				return true;
-			}
-
-			return false;
+			return true;
 		}
 
 		public void Run ()
 		{
-			// Set up the list of topic choices available when unlimited.
+			// Show the menu of topics.
 			List<Response> choices = Topics.Select ((t) => new Response (t,
 				Helper.Translation.Get ($"unlimited.topic.{t}"))).ToList ();
-
-			// Show the menu.
 			Game1.drawObjectQuestionDialogue
 				(Helper.Translation.Get ("unlimited.topic.question"), choices);
 
+			// Hand over control to the selected experience. Since that class
+			// may also use afterQuestion and uses of it can't be synchronously
+			// nested, use a nominal DelayedAction to break out of it.
 			Game1.currentLocation.afterQuestion = (Farmer _who, string topic) =>
+				DelayedAction.functionAfterDelay (() =>
 			{
+				Game1.currentLocation.afterQuestion = null;
 				switch (topic)
 				{
 				case "garbage":
@@ -104,7 +102,7 @@ namespace ScryingOrb
 					// TODO: new MiningExperience ().Run ();
 					break;
 				case "nightEvents":
-					// TODO: new NightEventsExperience ().Run ();
+					new NightEventsExperience ().Run ();
 					break;
 				case "shopping":
 					// TODO: new ShoppingExperience ().Run ();
@@ -117,7 +115,7 @@ namespace ScryingOrb
 				default:
 					throw new ArgumentException ($"Invalid orb topic \"{topic}\" selected.");
 				}
-			};
+			}, 1);
 		}
 
 		internal static void Reset ()

@@ -19,6 +19,8 @@ PredictiveCore
 		FindMushroomFloors
 		FindDinosaurFloors
 		FindItemByMining
+	NightEvents
+		FindItemByNightEvents
 	Shopping
 		ListSalesForDate
 		ListKrobusForDate
@@ -92,20 +94,6 @@ ScryingOrb
 		Upcoming Dinosaur Floors
 			criterion: Skull Cavern reached
 			content: days (within next N) and floors (within first M) when dinosaurs may be present
-	NightEventsExperience
-		offering: 3 Bat Wing, Void Egg, Void Essence, Void Mayonnaise or Void Salmon
-		Upcoming
-			content: next 3(?) night events that may occur (below plus Earthquake on 2 Sum 1)
-		Fairy
-			content: next 3(?) nights that Fairy may visit
-		Witch
-			content: next 3(?) nights that Witch may visit
-		Meteor
-			content: next 3(?) nights that Meteor may appear
-		Stone Owl
-			content: next 3(?) nights that Stone Owl may appear
-		Strange Capsule
-			content: next 3(?) nights that Strange Capsule may appear
 	ShoppingExperience
 		offering: any Fruit, Vegetable or Forage item except Sap, Salmonberry, Blackberry or Spring Onion
 		Today

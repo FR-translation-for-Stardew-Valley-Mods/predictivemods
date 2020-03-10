@@ -15,5 +15,22 @@
   "luckyPurple.initial": "The spirits are not amused.^The orb is not an underwear drawer!^Do not try that again.",
   "luckyPurple.following": "The orb seems to peer back at you reproachfully.",
 
+  "nightEvents.opening": "The spirits of the night accept your dark offering.",
+  "nightEvents.subtopic.question": "What occurrences do you wish to scry?",
+  "nightEvents.subtopic.upcoming": "Any imminent occurrences",
+  "nightEvents.subtopic.Fairy": "Visits from fairies",
+  "nightEvents.subtopic.Witch": "Flyovers by witches",
+  "nightEvents.subtopic.Meteorite": "Rocks raining from the heavens",
+  "nightEvents.subtopic.StrangeCapsule": "Visitors from other worlds",
+  "nightEvents.subtopic.StoneOwl": "Petrification of birds",
+  "nightEvents.subtopic.leave": "(Leave)",
+  "nightEvents.prediction.Earthquake": "> An earthquake may shake your town^  on {{date}}.",
+  "nightEvents.prediction.Fairy": "> A fairy may visit your farm^  on {{date}}.",
+  "nightEvents.prediction.Witch": "> A witch may fly over your farm^  on {{date}}.",
+  "nightEvents.prediction.Meteorite": "> A meteorite may fall from the sky^  on {{date}}.",
+  "nightEvents.prediction.StrangeCapsule": "> An extraterrestrial may crash on your planet^  on {{date}}.",
+  "nightEvents.prediction.StoneOwl": "> A bird may be petrified on your farm^  on {{date}}.",
+  "nightEvents.closing": "Know that the beings of shadow are capricious.^No occurrence can be foreseen with certainty.",
+
   "fallback.message": "The spirits do not recognize your offering.",
 }

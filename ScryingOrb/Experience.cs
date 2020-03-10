@@ -38,6 +38,27 @@ namespace ScryingOrb
 			return Offering != null && (Offering is StardewValley.Object);
 		}
 
+		protected void ConsumeOffering (int count = 1)
+		{
+			if (Offering == null)
+			{
+				throw new NullReferenceException ("No offering is available to be consumed.");
+			}
+
+			if (Offering.Stack > count)
+			{
+				Offering.Stack -= count;
+			}
+			else if (Offering.Stack == count)
+			{
+				Game1.player.removeItemFromInventory (Offering);
+			}
+			else
+			{
+				throw new ArgumentOutOfRangeException ($"Offering stack of {Offering.Stack} insufficient for count of {count}.");
+			}
+		}
+
 		protected void ShowMessage (string messageKey, int delay = 0)
 		{
 			DelayedAction.showDialogueAfterDelay (Helper.Translation.Get (messageKey), delay);
