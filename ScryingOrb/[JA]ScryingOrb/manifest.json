@@ -1,0 +1,12 @@
+﻿{
+  "Name": "Scrying Orb (Json Assets pack)",
+  "Author": "kdau",
+  "Version": "0.1.0",
+  "Description": "Json Assets content pack for Scrying Orb mod",
+  "UniqueID": "kdau.ScryingOrb.JA",
+  "MinimumApiVersion": "3.0.0",
+  "Dependencies": [
+    { "UniqueID": "kdau.ScryingOrb" }
+  ],
+  "ContentPackFor": { "UniqueID": "spacechase0.JsonAssets" }
+}

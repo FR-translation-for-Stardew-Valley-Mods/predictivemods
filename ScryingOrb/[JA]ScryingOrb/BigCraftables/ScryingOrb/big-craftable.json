@@ -1,0 +1,51 @@
+﻿{
+  "Name": "Scrying Orb",
+  "Price": 50,
+  "Description": "Make an appropriate offering to predict the future.",
+  "ProvidesLight": false,
+  "Recipe":
+  {
+    "ResultCount": 1,
+    "Ingredients":
+    [
+      {
+        "Object": 338, // Refined Quartz
+        "Count": 3,
+      },
+      {
+        "Object": 390, // Stone
+        "Count": 10,
+      },
+    ],
+    "IsDefault": false,
+    "CanPurchase": false,
+  },
+  "NameLocalization":
+  {
+      // "es": "",
+      // "ko": "",
+      // "de": "",
+      // "fr": "",
+      // "hu": "",
+      // "it": "",
+      // "ja": "",
+      // "pt": "",
+      // "ru": "",
+      // "tr": "",
+      // "zh": "",
+  },
+  "DescriptionLocalization":
+  {
+      // "es": "",
+      // "ko": "",
+      // "de": "",
+      // "fr": "",
+      // "hu": "",
+      // "it": "",
+      // "ja": "",
+      // "pt": "",
+      // "ru": "",
+      // "tr": "",
+      // "zh": "",
+  }
+}

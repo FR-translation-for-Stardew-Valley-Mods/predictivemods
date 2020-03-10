@@ -1,0 +1,12 @@
+﻿{
+  "Name": "Scrying Orb",
+  "Author": "kdau",
+  "Version": "0.1.0",
+  "Description": "Craftable machine that takes offerings to predict future events",
+  "UniqueID": "kdau.ScryingOrb",
+  "EntryDll": "ScryingOrb.dll",
+  "MinimumApiVersion": "3.0.0",
+  "Dependencies": [
+  ],
+  "UpdateKeys": []
+}

@@ -9,12 +9,12 @@ namespace PredictiveCore
 {
 	public struct MoviePrediction
 	{
-        public WorldDate EffectiveDate;
-        public MovieData CurrentMovie;
-        public bool CraneGameAvailable;
+		public WorldDate EffectiveDate;
+		public MovieData CurrentMovie;
+		public bool CraneGameAvailable;
 
-        public WorldDate FirstDateOfNextMovie;
-        public MovieData NextMovie;
+		public WorldDate FirstDateOfNextMovie;
+		public MovieData NextMovie;
 	}
 
 	public static class Movies
@@ -46,8 +46,12 @@ namespace PredictiveCore
 			return prediction;
 		}
 
-		internal static void Initialize ()
+		internal static void Initialize (bool addConsoleCommands)
 		{
+			if (!addConsoleCommands)
+			{
+				return;
+			}
 			Utilities.Helper.ConsoleCommands.Add ("predict_movies",
 				"Predicts the current and next movie and Crane Game status on a given date, or today by default.\n\nUsage: predict_movies [<year> <season> <day>]\n- year: the target year (a number starting from 1).\n- season: the target season (one of 'spring', 'summer', 'fall', 'winter').\n- day: the target day (a number from 1 to 28).",
 				(_command, args) => ConsoleCommand (new List<string> (args)));

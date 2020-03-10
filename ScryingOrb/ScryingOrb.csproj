@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
-		<AssemblyName>PublicAccessTV</AssemblyName>
-		<RootNamespace>PublicAccessTV</RootNamespace>
+		<AssemblyName>ScryingOrb</AssemblyName>
+		<RootNamespace>ScryingOrb</RootNamespace>
 		<ReleaseVersion>0.1.0</ReleaseVersion>
 		<TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
 		<OutputType>Library</OutputType>
 		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
 		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-		<ProjectGuid>{A1BDBE8B-E5D8-4EA8-A008-CBD57DB1ADDB}</ProjectGuid>
+		<ProjectGuid>{6B2D3929-4EFB-46AC-88C1-D0FAEED7AAC0}</ProjectGuid>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
 		<DebugSymbols>true</DebugSymbols>
@@ -29,7 +29,6 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<Reference Include="System" />
-		<Reference Include="System.Data.DataSetExtensions" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="3.1.0" />
@@ -37,20 +36,36 @@
 	<ItemGroup>
 		<Compile Include="ModEntry.cs" />
 		<Compile Include="Properties\AssemblyInfo.cs" />
-		<Compile Include="Channel.cs" />
-		<Compile Include="MoviesChannel.cs" />
-		<Compile Include="TrainsChannel.cs" />
-		<Compile Include="NightEventsChannel.cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="manifest.json" />
 		<None Include="i18n\default.json" />
-		<None Include="assets\movies_craneGame.png" />
-		<None Include="assets\trains_background.png" />
-		<None Include="assets\nightEvents_background.png" />
+		<None Include="[JA]ScryingOrb\manifest.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="[JA]ScryingOrb\BigCraftables\ScryingOrb\big-craftable.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="[JA]ScryingOrb\BigCraftables\ScryingOrb\big-craftable.xcf" />
+		<None Include="[JA]ScryingOrb\BigCraftables\ScryingOrb\big-craftable.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="[MFM]ScryingOrb\manifest.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="[MFM]ScryingOrb\mail.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="[MFM]ScryingOrb\i18n\default.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="i18n\" />
+		<Folder Include="[JA]ScryingOrb\BigCraftables\" />
+		<Folder Include="[JA]ScryingOrb\BigCraftables\ScryingOrb\" />
+		<Folder Include="[MFM]ScryingOrb\" />
+		<Folder Include="[MFM]ScryingOrb\i18n\" />
 	</ItemGroup>
 	<Import Project="..\PredictiveCore\PredictiveCore.projitems" Label="Shared" Condition="Exists('..\PredictiveCore\PredictiveCore.projitems')" />
 	<Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

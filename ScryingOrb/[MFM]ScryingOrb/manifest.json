@@ -1,0 +1,12 @@
+﻿{
+  "Name": "Scrying Orb (Mail Framework Mod pack)",
+  "Author": "kdau",
+  "Version": "0.1.0",
+  "Description": "Mail Framework Mod content pack for Scrying Orb mod",
+  "UniqueID": "kdau.ScryingOrb.MFM",
+  "MinimumApiVersion": "3.0.0",
+  "Dependencies": [
+    { "UniqueID": "kdau.ScryingOrb" }
+  ],
+  "ContentPackFor": { "UniqueID": "DIGUS.MailFrameworkMod" }
+}

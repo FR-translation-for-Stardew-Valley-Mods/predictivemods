@@ -111,9 +111,15 @@ namespace PredictiveCore
 			Monitor = mod.Monitor;
 			Helper = helper;
 
-			Movies.Initialize ();
-			NightEvents.Initialize ();
-			Trains.Initialize ();
+			// If multiple mods are consuming PredictiveCore, only add the
+			// console commands in one of them (arbitrarily, PublicAccessTV).
+			bool addConsoleCommands =
+				mod.ModManifest.UniqueID == "kdau.PublicAccessTV" ||
+				!helper.ModRegistry.IsLoaded ("kdau.PublicAccessTV");
+
+			Movies.Initialize (addConsoleCommands);
+			NightEvents.Initialize (addConsoleCommands);
+			Trains.Initialize (addConsoleCommands);
 		}
 
 		internal static void CheckWorldReady ()

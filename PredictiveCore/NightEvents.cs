@@ -19,8 +19,8 @@ namespace PredictiveCore
 
 	public struct NightEventPrediction
 	{
-        public WorldDate Date;
-        public NightEventType Type;
+		public WorldDate Date;
+		public NightEventType Type;
 	}
 
 	public static class NightEvents
@@ -99,8 +99,12 @@ namespace PredictiveCore
 			return predictions;
 		}
 
-		internal static void Initialize ()
+		internal static void Initialize (bool addConsoleCommands)
 		{
+			if (!addConsoleCommands)
+			{
+				return;
+			}
 			Utilities.Helper.ConsoleCommands.Add ("predict_night_events",
 				"Predicts the next several night events to occur on or after a given date, or tonight by default.\n\nUsage: predict_night_events [<limit> [<year> <season> <day>]]\n- limit: number of events to predict (default 20)\n- year: the target year (a number starting from 1).\n- season: the target season (one of 'spring', 'summer', 'fall', 'winter').\n- day: the target day (a number from 1 to 28).",
 				(_command, args) => ConsoleCommand (new List<string> (args)));

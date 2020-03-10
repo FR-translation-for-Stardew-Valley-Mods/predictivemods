@@ -7,8 +7,8 @@ namespace PredictiveCore
 {
 	public struct TrainPrediction
 	{
-        public WorldDate Date;
-        public int Time;
+		public WorldDate Date;
+		public int Time;
 	}
 
 	public static class Trains
@@ -58,8 +58,12 @@ namespace PredictiveCore
 			return predictions;
 		}
 
-		internal static void Initialize ()
+		internal static void Initialize (bool addConsoleCommands)
 		{
+			if (!addConsoleCommands)
+			{
+				return;
+			}
 			Utilities.Helper.ConsoleCommands.Add ("predict_trains",
 				"Predicts the next several trains to arrive on or after a given date, or today by default.\n\nUsage: predict_trains [<limit> [<year> <season> <day>]]\n- limit: number of trains to predict (default 20)\n- year: the target year (a number starting from 1).\n- season: the target season (one of 'spring', 'summer', 'fall', 'winter').\n- day: the target day (a number from 1 to 28).",
 				(_command, args) => ConsoleCommand (new List<string> (args)));

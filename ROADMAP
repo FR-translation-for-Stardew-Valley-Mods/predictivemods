@@ -61,10 +61,10 @@ PublicAccessTV
 		content:
 			random tailoring recipe
 			fashion commentary from Haley (connect to SVO??)
-	modules not available: Geodes, ItemFinder
+	channels not available: Geodes, ItemFinder
  
 ScryingOrb
-	Garbage
+	GarbageExperience
 		criterion: any can checked
 		offering: any Trash item
 		Today
@@ -72,11 +72,11 @@ ScryingOrb
 		Future Day
 			input: date
 			content: as for "In the Cans"
-	Geodes
+	GeodesExperience
 		criterion: any geode processed
 		offering: any Mineral item except Limestone or Prismatic Shard
 		content: item in the next N geodes processed if of each type
-	Mining
+	MiningExperience
 		criterion: 1st floor reached
 		offering: any ore or Coal
 		Today
@@ -90,7 +90,7 @@ ScryingOrb
 		Upcoming Dinosaur Floors
 			criterion: Skull Cavern reached
 			content: days (within next N) and floors (within first M) when dinosaurs may be present
-	NightEvents
+	NightEventsExperience
 		offering: 3 Bat Wing, Void Egg, Void Essence, Void Mayonnaise or Void Salmon
 		Upcoming
 			content: next 3(?) night events that may occur (below plus Earthquake on 2 Sum 1)
@@ -104,14 +104,14 @@ ScryingOrb
 			content: next 3(?) nights that Stone Owl may appear
 		Strange Capsule
 			content: next 3(?) nights that Strange Capsule may appear
-	Shopping
+	ShoppingExperience
 		offering: any Fruit, Vegetable or Forage item except Sap, Salmonberry, Blackberry or Spring Onion
 		Today
 			content: as for "Shopper's Report", plus Krobus's Fish/Cooking item (if Krobus met)
 		Future Day
 			input: date
 			content: as for "Shopper's Report", plus Krobus's Fish/Cooking item (if Krobus met)
-	ItemFinder
+	ItemFinderExperience
 		offering: any Animal Product, Artisan Goods, Cooking or Flower item except Fried Egg, Magic Rock Candy, Salmonberry Wine, Tulip, Void Egg or Void Mayonnaise
 		criterion: any item (text search to deal with huge list; precedents to borrow?)
 		content:
@@ -122,15 +122,15 @@ ScryingOrb
 			mining, combat, foraging and fishing drops of item
 			farming of item from seeds/trees/animals
 			special ways of getting item
-	Unlimited
+	UnlimitedExperience
 		offering: Prismatic Shard, Pearl, Golden Pumpkin, Treasure Chest, Magic Rock Candy
 		content:
 			unlimited orb use for N days
 			refuse offerings during that time
 			show menu of disciplines instead
-	modules not available: Movies, Tailoring, Trains
+	experiences not available: Movies, Tailoring, Trains
 
-Future channel possibilities
+Future channel ideas (non-predictive)
 	ArtsChannel
 		hosts: Elliott, Evelyn, Leah
 	CraftingChannel
@@ -139,16 +139,10 @@ Future channel possibilities
 		hosts: Pam, Sandy
 	HistoryChannel
 		hosts: Gunther, Penny
-	MagicChannel
-		hosts: Wizard, (SVE) Camilla
 	MusicChannel
 		hosts: Abigail, Sam, Sebastian
 	RanchingChannel
 		hosts: Marnie, Shane
 	WellnessChannel
 		host: Alex, Caroline, Harvey
-
-Other NPCs without channels
-	base: Bouncer, Clint, Dwarf, George, Grandpa, Gus, Henchman, Jas, Jodi, Kent, Krobus, Morris, Pierre, Mr. Qi, Vincent, Willy
-	SVE: Alesia, Andy, Isaac, Olivia, Scarlett, Sophia, Victor
 

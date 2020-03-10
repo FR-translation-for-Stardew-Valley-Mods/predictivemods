@@ -34,8 +34,8 @@ namespace PublicAccessTV
 
 		private void OnGameLaunched (object sender, GameLaunchedEventArgs e)
 		{
-			// Use reflection to access CustomTVMod in PyTK, to work around
-			// a cross-platform problem when developing from Linux.
+			// Access CustomTVMod in PyTK. Using reflection to work around the
+			// base game's cross-platform assembly name inconsistency.
 			CustomTVMod = Helper.ModRegistry.GetApi ("Platonymous.Toolkit")
 				?.GetType ()?.Assembly?.GetType ("PyTK.CustomTV.CustomTVMod");
 			if (CustomTVMod == null)
