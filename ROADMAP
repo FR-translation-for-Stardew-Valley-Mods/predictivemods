@@ -33,6 +33,7 @@ PredictiveCore
 PublicAccessTV
 	Require the player to purchase a cable TV subscription (weekly/seasonal automatic charge, a la Help for Hire) to receive the channels.
 	Add introductory events/dialogue/mail/etc. for the hosts of most channels.
+	Add config to allow bypassing subscription and/or relationship requirements.
 	GarbageChannel
 		name: "In the Cans"
 		host: Linus
@@ -64,6 +65,7 @@ PublicAccessTV
 	channels not available: Geodes, ItemFinder
  
 ScryingOrb
+	Add config for immediate availability of crafting recipe and always unlimited mode.
 	GarbageExperience
 		criterion: any can checked
 		offering: any Trash item
@@ -122,12 +124,6 @@ ScryingOrb
 			mining, combat, foraging and fishing drops of item
 			farming of item from seeds/trees/animals
 			special ways of getting item
-	UnlimitedExperience
-		offering: Prismatic Shard, Pearl, Golden Pumpkin, Treasure Chest, Magic Rock Candy
-		content:
-			unlimited orb use for N days
-			refuse offerings during that time
-			show menu of disciplines instead
 	experiences not available: Movies, Tailoring, Trains
 
 Future channel ideas (non-predictive)

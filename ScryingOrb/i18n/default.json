@@ -1,2 +1,19 @@
 ﻿{
+  "unlimited.initial": "The spirits are most pleased by your generous offering. You may seek their counsel as much as you desire for the next week.",
+  "unlimited.following": "The orb still glows bright with the power of your earlier generous offering.",
+  "unlimited.topic.question": "What wisdom do you seek from the spirits?",
+  "unlimited.topic.garbage": "Garbage cans",
+  "unlimited.topic.geodes": "Geode contents",
+  "unlimited.topic.mining": "Mines and caverns",
+  "unlimited.topic.nightEvents": "Nighttime occurrences",
+  "unlimited.topic.shopping": "Shopping opportunities",
+  "unlimited.topic.itemFinder": "Seek a particular item",
+  "unlimited.topic.leave": "(Leave)",
+
+  "nothing.message": "The spirits wait patiently for an offering.",
+
+  "luckyPurple.initial": "The spirits are not amused.^The orb is not an underwear drawer!^Do not try that again.",
+  "luckyPurple.following": "The orb seems to peer back at you reproachfully.",
+
+  "fallback.message": "The spirits do not recognize your offering.",
 }

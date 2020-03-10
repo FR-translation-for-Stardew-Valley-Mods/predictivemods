@@ -30,8 +30,8 @@ namespace PublicAccessTV
 
 	public class Channel
 	{
-		internal static IModHelper Helper { get => ModEntry._Helper; }
-		internal static Type CustomTVMod { get => ModEntry.CustomTVMod; }
+		internal static IModHelper Helper => ModEntry._Helper;
+		internal static Type CustomTVMod => ModEntry.CustomTVMod;
 
 		protected readonly string LocalID;
 		protected readonly string GlobalID;
@@ -115,14 +115,13 @@ namespace PublicAccessTV
 				((scaleToFit ?? !overlay)
 					? Math.Min (42f / sourceRect.Width, 28f / sourceRect.Height)
 				: 1f);
+			float layerDepth = (float) (((tv.boundingBox.Bottom - 1) / 10000.0) +
+				(overlay ? 1.99999994947575E-05 : 9.99999974737875E-06));
 			return new TemporaryAnimatedSprite (textureName, sourceRect,
 				animationInterval, animationLength, 999999,
 				tv.getScreenPosition () + (positionOffset * tv.getScreenSizeModifier ()),
-				false, false, (float) (((tv.boundingBox.Bottom - 1) / 10000.0) +
-					(overlay ? 1.99999994947575E-05 : 9.99999974737875E-06)),
-				0.0f, Color.White, tv.getScreenSizeModifier () * scale,
-				0.0f, 0.0f, 0.0f,
-				false);
+				false, false, layerDepth, 0f, Color.White,
+				tv.getScreenSizeModifier () * scale, 0f, 0f, 0f, false);
 		}
 
 		// Convenience method for portrait overlay TV sprites.
