@@ -1,8 +1,8 @@
-﻿using System;
-using PredictiveCore;
+﻿using PredictiveCore;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
+using System;
 
 namespace ScryingOrb
 {

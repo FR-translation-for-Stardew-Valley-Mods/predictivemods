@@ -1,7 +1,4 @@
-﻿using System;
-using StardewValley;
-
-namespace ScryingOrb
+﻿namespace ScryingOrb
 {
 	public class NothingExperience : Experience
 	{

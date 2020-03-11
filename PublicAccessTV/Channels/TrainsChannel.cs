@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PredictiveCore;
 using StardewValley;
-using StardewValley.GameData.Movies;
 using StardewValley.Objects;
+using System;
+using System.Collections.Generic;
 
 namespace PublicAccessTV
 {

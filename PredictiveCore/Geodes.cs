@@ -1,10 +1,10 @@
 ﻿using StardewModdingAPI;
 using StardewValley;
-using SObject = StardewValley.Object;
+using StardewValley.Locations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using StardewValley.Locations;
+using SObject = StardewValley.Object;
 
 namespace PredictiveCore
 {

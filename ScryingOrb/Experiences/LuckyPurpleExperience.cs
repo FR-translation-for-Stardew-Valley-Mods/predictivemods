@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using StardewValley;
+﻿using Microsoft.Xna.Framework;
 
 namespace ScryingOrb
 {
