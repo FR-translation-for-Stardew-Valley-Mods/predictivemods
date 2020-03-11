@@ -76,18 +76,20 @@ namespace ScryingOrb
 
 		protected void ShowDialogues (List<string> dialogues, int delay = 0)
 		{
+			// Equivalent to DelayedAction.showDialogueAfterDelay except for
+			// instant locking of player and use of List<string> constructor of
+			// DialogueBox. The latter works around the height estimation bug
+			// with multi-page dialogues.
+			if (Game1.activeClickableMenu != null)
+			{
+				Game1.activeClickableMenu.emergencyShutDown ();
+			}
+			Game1.player.CanMove = false;
+			Game1.dialogueUp = true;
+
 			DelayedAction.functionAfterDelay (() =>
 			{
-				// Equivalent to Game1.drawObjectDialogue except for use of
-				// List<string> constructor of DialogueBox. This works around
-				// the height estimation bug with multi-page dialogues.
-				if (Game1.activeClickableMenu != null)
-				{
-					Game1.activeClickableMenu.emergencyShutDown ();
-				}
 				Game1.activeClickableMenu = new DialogueBox (dialogues);
-				Game1.player.CanMove = false;
-				Game1.dialogueUp = true;
 
 				// Suppress typing of dialogue, at least on first page.
 				// Equivalent to Game1.drawDialogueNoTyping.
