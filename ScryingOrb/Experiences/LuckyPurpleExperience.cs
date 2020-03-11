@@ -44,7 +44,7 @@ namespace ScryingOrb
 
 				PlaySound ("death");
 				ShowAnimation ("TileSheets\\animations",
-					new Rectangle (0, 1920, 64, 64), 250f, 4, 4);
+					new Rectangle (0, 1920, 64, 64), 250f, 4, 2);
 				ShowMessage ("luckyPurple.initial", 1000);
 			}
 

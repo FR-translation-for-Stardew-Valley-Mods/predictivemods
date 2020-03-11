@@ -76,10 +76,20 @@ namespace ScryingOrb
 
 		protected void ShowDialogues (List<string> dialogues, int delay = 0)
 		{
-			// Equivalent to DelayedAction.showDialogueAfterDelay except for
-			// instant locking of player and use of List<string> constructor of
-			// DialogueBox. The latter works around the height estimation bug
+			// Equivalent to DelayedAction.showDialogueAfterDelay combined with
+			// Game1.drawDialogueNoTyping, except that the player is locked
+			// instantly before the delay and the List<string> constructor of
+			// DialogueBox is used to work around the height estimation bug
 			// with multi-page dialogues.
+
+			// Pad each line of each page with a space to work around a width
+			// estimation bug in the List-based DialogueBox. *sigh*
+			for (int i = 0; i < dialogues.Count; ++i)
+			{
+				dialogues[i] = dialogues[i].Replace ("^", " ^") + " ";
+			}
+
+			// Prepare the UI and player before the delay.
 			if (Game1.activeClickableMenu != null)
 			{
 				Game1.activeClickableMenu.emergencyShutDown ();
@@ -89,10 +99,10 @@ namespace ScryingOrb
 
 			DelayedAction.functionAfterDelay (() =>
 			{
+				// Display the dialogues.
 				Game1.activeClickableMenu = new DialogueBox (dialogues);
 
 				// Suppress typing of dialogue, at least on first page.
-				// Equivalent to Game1.drawDialogueNoTyping.
 				if (Game1.activeClickableMenu != null &&
 					Game1.activeClickableMenu is DialogueBox dialogueBox)
 				{
@@ -111,7 +121,8 @@ namespace ScryingOrb
 			Rectangle sourceRect, float interval, int length, int loops,
 			int delay = 0)
 		{
-			Vector2 position = new Vector2 (Orb.TileLocation.X, Orb.TileLocation.Y - 1f);
+			Vector2 position = new Vector2 (Orb.TileLocation.X,
+				Orb.TileLocation.Y - (sourceRect.Height / 64f));
 			position *= Game1.tileSize;
 			float layerDepth = (float) (((Orb.TileLocation.Y + 1.0) * 64.0 / 10000.0)
 				+ 9.99999974737875E-05);

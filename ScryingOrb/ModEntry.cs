@@ -83,7 +83,7 @@ namespace ScryingOrb
 				Experience.Try<GeodesExperience> (orb, offering) ||
 				Experience.Try<NightEventsExperience> (orb, offering) ||
 				// TODO: Experience.Try<ShoppingExperience> (orb, offering) ||
-				// TODO: Experience.Try<GarbageExperience> (orb, offering) ||
+				Experience.Try<GarbageExperience> (orb, offering) ||
 				// TODO: Experience.Try<ItemFinderExperience> (orb, offering) ||
 				Experience.Try<FallbackExperience> (orb, offering))
 			{} // (if-block used to allow boolean fallback)

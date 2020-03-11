@@ -46,7 +46,7 @@ namespace PublicAccessTV
 				new NightEventsChannel (),
 				// TODO: new MiningChannel (),
 				// TODO: new ShoppingChannel (),
-				// TODO: new GarbageChannel (),
+				new GarbageChannel (),
 				// TODO: new TailoringChannel (),
 				new TrainsChannel (),
 				new MoviesChannel ()

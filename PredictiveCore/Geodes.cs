@@ -113,6 +113,17 @@ namespace PredictiveCore
 			return predictions;
 		}
 
+		// Returns whether future progress by the player could alter the result
+		// of cracking geodes.
+		public static bool IsProgressDependent
+		{
+			get
+			{
+				Utilities.CheckWorldReady ();
+				return Game1.player.deepestMineLevel <= 75;
+			}
+		}
+
 		internal static void Initialize (bool addConsoleCommands)
 		{
 			if (!addConsoleCommands)

@@ -48,7 +48,6 @@ namespace PublicAccessTV
 		}
 
 		// Whether the channel should be available to players at present.
-		// TODO: Conditionalize this on the TV subscription.
 		internal virtual bool IsAvailable => true;
 
 		// Add or remove the channel based on its availability for the day.

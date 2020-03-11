@@ -40,7 +40,7 @@ namespace ScryingOrb
 				{ "geodes", new GeodesExperience () },
 				{ "nightEvents", new NightEventsExperience () },
 				// TODO: { "shopping", new ShoppingExperience () },
-				// TODO: { "garbage", new GarbageExperience () },
+				{ "garbage", new GarbageExperience () },
 				// TODO: { "itemFinder", new ItemFinderExperience () },
 				{ "leave", null },
 			};
@@ -48,8 +48,8 @@ namespace ScryingOrb
 
 		protected override bool Try ()
 		{
-			// If currently in an unlimited period, ignore the offering and show
-			// the experience menu.
+			// If currently in an unlimited period, ignore the offering, react
+			// to the ongoing period, then proceed to run.
 			if (Utilities.Now ().TotalDays <= saveData.ExpirationDay)
 			{
 				PlaySound ("yoba");
@@ -67,7 +67,7 @@ namespace ScryingOrb
 			saveData.ExpirationDay = Utilities.Now ().TotalDays + 7;
 			Helper.Data.WriteSaveData ("Unlimited", saveData);
 
-			// Show the experience menu dramatically.
+			// React to the offering dramatically, then proceed to run.
 			PlaySound ("reward");
 			ShowAnimation ("TileSheets\\animations",
 				new Rectangle (0, 192, 64, 64), 125f, 8, 1);

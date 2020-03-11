@@ -33,7 +33,7 @@
   "geodes.header.Omni": "If they be Omni Geodes, the next 10 geodes^cracked are sure to offer:^",
   "geodes.header.Trove": "If they be Artifact Troves, the next 10 geodes^cracked shall manifest:^",
   "geodes.footer": "^^$ treasures are deemed more valuable by mortals.^= treasures are sought by another in your village.",
-  "geodes.closing.deeper": "Your journey to the depths of the mines is^incomplete, young one. Should you explore further,^these rocks may reveal different, greater treasures.",
+  "geodes.closing.progress": "Your journey to the depths of the mines is^incomplete, young one. Should you explore further,^these rocks may reveal different, greater treasures.",
 
   "nightEvents.opening": "The spirits of darkest night accept your offering.",
   "nightEvents.type.question": "What nocturnal occurrences do you wish to scry?",
@@ -51,6 +51,23 @@
   "nightEvents.prediction.StrangeCapsule": "> An extraterrestrial may crash on your planet^  on {{date}}.",
   "nightEvents.prediction.StoneOwl": "> A bird may be petrified on your farm^  on {{date}}.",
   "nightEvents.closing": "Know that the beings of shadow are capricious.^No occurrence can be foreseen with certainty.",
+
+  "garbage.opening": "The spirits of the desolate wastes accept your offering.",
+  "garbage.none.today": "No garbage reveals itself today.",
+  "garbage.none.later": "The cans are portented to be empty on {{date}}.",
+  "garbage.header.today": "On this day:",
+  "garbage.header.later": "On the day the mortals shall know as {{date}}:",
+  "garbage.dishOfTheDay": "a hot meal",
+  "garbage.prediction.SamHouse": "> A young family will no longer need {{itemName}}.",
+  "garbage.prediction.HaleyHouse": "> Two sisters will throw away {{itemName}}.",
+  "garbage.prediction.ManorHouse": "> A longtime leader will dispense with {{itemName}}.",
+  "garbage.prediction.ArchaeologyHouse": "> A man of the book will discard {{itemName}}.",
+  "garbage.prediction.Blacksmith": "> From a firey forge will be slagged {{itemName}}.",
+  "garbage.prediction.Saloon": "> A warm inn full of friends will toss {{itemName}}.",
+  "garbage.prediction.JoshHouse": "> The elders of the town will lay aside {{itemName}}.",
+  "garbage.prediction.JojaMart": "> A corporate behemoth will dump {{itemName}}.",
+  "garbage.prediction.MovieTheater": "> A house of illusions will scrap {{itemName}}.",
+  "garbage.closing.progress": "You have not yet probed through much waste,^young one. Should you gain more experience^by then, you may well find more in the cans.",
 
   "fallback.message": "The spirits do not recognize your offering.",
 }

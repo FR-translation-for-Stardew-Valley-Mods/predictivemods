@@ -38,7 +38,7 @@ namespace ScryingOrb
 				return false;
 			ConsumeOffering ();
 
-			// Show the type menu.
+			// React to the offering, then proceed to run.
 			PlaySound ("discoverMineral");
 			ShowAnimation ("TileSheets\\animations",
 				new Rectangle (0, 512, 64, 64), 125f, 8, 1);
@@ -122,9 +122,9 @@ namespace ScryingOrb
 
 				// If deeper mine level could alter the results, add an
 				// appropriate closing.
-				if (Game1.player.deepestMineLevel <= 75)
+				if (Geodes.IsProgressDependent)
 				{
-					pages.Add (Helper.Translation.Get ("geodes.closing.deeper"));
+					pages.Add (Helper.Translation.Get ("geodes.closing.progress"));
 				}
 
 				// Show the predictions.

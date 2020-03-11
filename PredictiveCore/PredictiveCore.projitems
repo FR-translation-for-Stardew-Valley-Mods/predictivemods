@@ -9,11 +9,12 @@
 		<Import_RootNamespace>PredictiveCore</Import_RootNamespace>
 	</PropertyGroup>
 	<ItemGroup>
-		<Compile Include="$(MSBuildThisFileDirectory)Movies.cs" />
-		<Compile Include="$(MSBuildThisFileDirectory)Utilities.cs" />
-		<Compile Include="$(MSBuildThisFileDirectory)Trains.cs" />
-		<Compile Include="$(MSBuildThisFileDirectory)NightEvents.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)Garbage.cs" />
 		<Compile Include="$(MSBuildThisFileDirectory)Geodes.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)Movies.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)NightEvents.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)Trains.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)Utilities.cs" />
 	</ItemGroup>
 	<UsingTask TaskName="FixZipAndDeploySafely" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
 		<ParameterGroup>
@@ -42,6 +43,11 @@
 						.Select ((e) => e.FullName).ToList ();
 					foreach (string oldFullName in oldFullNames)
 					{
+						if (oldFullName.EndsWith (".xcf"))
+						{
+							zip.GetEntry (oldFullName).Delete ();
+							continue;
+						}
 						if (!oldFullName.StartsWith ($"{ModFolderName}/[",
 							System.StringComparison.Ordinal))
 						{

@@ -1,6 +1,5 @@
 PredictiveCore
 	Garbage
-		ListGarbageForDate
 		FindItemInGarbage
 	Geodes
 		FindItemInGeodes
@@ -32,13 +31,9 @@ PredictiveCore
 		FindItemByTailoring
 
 PublicAccessTV
+	Make the host portraits stand out against the backgrounds better.
 	Add introductory events/dialogue/mail/etc. for the hosts of most channels.
 	Add config option to bypass relationship requirements.
-	GarbageChannel
-		name: "In the Cans"
-		host: Linus
-		condition: four hearts with Linus
-		content: items to be found in Garbage Cans today
 	MiningChannel
 		name: "Mining Advisory"
 		hosts: Marlon and Gil
@@ -65,14 +60,7 @@ PublicAccessTV
 	channels not available: Geodes, ItemFinder
  
 ScryingOrb
-	GarbageExperience
-		criterion: any can checked
-		offering: any Trash item
-		Today
-			content: as for "In the Cans"
-		Future Day
-			input: date
-			content: as for "In the Cans"
+	Make the orb glow with mystical blue light while in use.
 	MiningExperience
 		criterion: 1st floor reached
 		offering: any ore or Coal

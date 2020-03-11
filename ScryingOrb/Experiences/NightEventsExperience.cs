@@ -38,7 +38,7 @@ namespace ScryingOrb
 				return false;
 			ConsumeOffering ((Offering.Name == "Bat Wing") ? 3 : 1);
 
-			// Show the type menu.
+			// React to the offering, then proceed to run.
 			PlaySound ("shadowpeep");
 			ShowAnimation ("TileSheets\\animations",
 				new Rectangle (0, 2880, 64, 64), 125f, 10, 1);

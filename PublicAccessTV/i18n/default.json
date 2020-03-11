@@ -7,6 +7,23 @@
 
   // Garbage ("In the Cans") - Linus
   "garbage.title": "In the Cans",
+  "garbage.opening": "Psst. Hi there {{playerName}}. It's your friend Linus here to let you know what you can expect in today's garbage.",
+  "garbage.none": "It looks like all the cans are empty today. Maybe we can forage in the woods instead.",
+  "garbage.can.SamHouse": "Let's check outside Jodi's house.",
+  "garbage.can.HaleyHouse": "What could Emily and Haley's can hold?",
+  "garbage.can.ManorHouse": "Mayor Lewis might have tossed something nice.",
+  "garbage.can.ArchaeologyHouse": "I love the library. Let's see what Gunther tossed.",
+  "garbage.can.Blacksmith": "You'll probably enjoy Clint's trash more than me.",
+  "garbage.can.Saloon": "Has Gus left something tasty for us?",
+  "garbage.can.JoshHouse": "I hope the Mullners have been baking again.",
+  "garbage.can.JojaMart": "The JojaMart makes me sad, but if we must...",
+  "garbage.can.MovieTheater": "This new movie theater could have something good.",
+  "garbage.item.garbageHat": "Wow, this lid is ready to see the world! It should make a lovely Garbage Hat.",
+  "garbage.item.special": "Oh, there's {{itemName}} here.",
+  "garbage.item.generic": "Just some {{itemName}} in here.",
+  "garbage.dishOfTheDay": "a hot meal",
+  "garbage.closing.standard": "I'll be back tomorrow with another look In the Cans. Let's keep this between you and me, okay?",
+  "garbage.closing.progress": "This is just what you're ready to find, though, young friend. Learn to listen to the cans and they'll have more to offer you.",
 
   // Mining ("Mining Advisory") - Marlon and Gil
   "mining.title": "Mining Advisory",
