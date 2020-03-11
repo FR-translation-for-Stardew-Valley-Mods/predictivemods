@@ -76,13 +76,16 @@ namespace ScryingOrb
 				}
 
 				// Show a list of the predictions.
-				List<string> messages = predictions.Select ((p) =>
+				List<string> predictionStrings = predictions.Select ((p) =>
 					Helper.Translation.Get ($"nightEvents.prediction.{p.Type}", new
 					{
 						date = p.Date.Localize (),
 					}).ToString ()).ToList ();
-				Game1.drawObjectDialogue (string.Join ("^", messages) + "#" +
-					Helper.Translation.Get ("nightEvents.closing"));
+				ShowDialogues (new List<string>
+				{
+					string.Join ("^", predictionStrings),
+					Helper.Translation.Get ("nightEvents.closing"),
+				});
 			};
 		}
 	}

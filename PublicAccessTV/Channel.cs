@@ -9,8 +9,8 @@ using System.Reflection;
 
 namespace PublicAccessTV
 {
-	// Container for a pairing of TV message and sprite, allowing changing of
-	// scenes between messages.
+	// Container for a pairing of a TV message and sprites, allowing changing of
+	// graphics between messages.
 	internal struct Scene
 	{
 		public string Message;

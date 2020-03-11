@@ -69,56 +69,66 @@ namespace ScryingOrb
 				// Gather the appropriate predictions.
 				List<GeodePrediction> predictions =
 				Geodes.ListTreasures (Game1.player.stats.GeodesCracked + 1,
-					(type == "any") ? 1u : 5u);
+					(type == "any") ? 3u : 10u);
 				if (predictions.Count == 0)
 				{
 					throw new Exception ("Could not predict geode treasures.");
 				}
 
-				string message;
+				List<string> pages = new List<string> ();
+				string footer = Helper.Translation.Get ("geodes.footer");
 
-				// For the next geode of any type, build a list of types.
+				// For the next geode of any type, build a page for each geode
+				// with a list of types.
 				if (type == "any")
 				{
-					message = string.Join ("^", predictions[0].Treasures.Select ((tp) =>
+					foreach (GeodePrediction p in predictions)
 					{
-						Treasure t = tp.Value;
-						return string.Join (" ", new string[]
+						uint num = p.Number - Game1.player.stats.GeodesCracked;
+						string header = Helper.Translation.Get ($"geodes.header.any{num}");
+						pages.Add (header + string.Join ("^", p.Treasures.Select ((tt) =>
 						{
-							t.GeodeObject.DisplayName + ":",
-							(t.Stack > 1) ? t.Stack.ToString () : null,
-							t.DisplayName,
-							t.Valuable ? "$" : null,
-							t.NeedDonation ? "=" : null,
-						}.Where ((s) => s != null));
-					}));
+							Treasure t = tt.Value;
+							return string.Join (" ", new string[]
+							{
+								">",
+								t.GeodeObject.DisplayName + ":",
+								(t.Stack > 1) ? t.Stack.ToString () : null,
+								t.DisplayName,
+								t.Valuable ? "$" : null,
+								t.NeedDonation ? "=" : null,
+							}.Where ((s) => s != null));
+						})) + footer);
+					}
 				}
 				// For specific types, build a list of geodes.
 				else
 				{
-					message = string.Join ("^", predictions.Select ((p) =>
+					string header = Helper.Translation.Get ($"geodes.header.{type}");
+					pages.Add (header + string.Join ("^", predictions.Select ((p) =>
 					{
 						Treasure t = p.Treasures[Types[type] ?? GeodeType.Regular];
+						uint num = p.Number - Game1.player.stats.GeodesCracked;
 						return string.Join (" ", new string[]
 						{
-							(p.Number - Game1.player.stats.GeodesCracked).ToString () + ".",
+							string.Format ("{0,2:D}.", num),
 							(t.Stack > 1) ? t.Stack.ToString () : null,
 							t.DisplayName,
 							t.Valuable ? "$" : null,
 							t.NeedDonation ? "=" : null,
 						}.Where ((s) => s != null));
-					}));
+					})) + footer);
 				}
 
 				// If deeper mine level could alter the results, add an
 				// appropriate closing.
 				if (Game1.player.deepestMineLevel <= 75)
 				{
-					message += "#" + Helper.Translation.Get ("geodes.closing.deeper");
+					pages.Add (Helper.Translation.Get ("geodes.closing.deeper"));
 				}
 
 				// Show the predictions.
-				Game1.drawObjectDialogue (message);
+				ShowDialogues (pages);
 			};
 		}
 	}

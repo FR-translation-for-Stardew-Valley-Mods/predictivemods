@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewValley;
+using StardewValley.Menus;
 using SObject = StardewValley.Object;
 
 namespace ScryingOrb
@@ -68,7 +70,33 @@ namespace ScryingOrb
 
 		protected void ShowMessage (string messageKey, int delay = 0)
 		{
-			DelayedAction.showDialogueAfterDelay (Helper.Translation.Get (messageKey), delay);
+			ShowDialogues (new List<string> { Helper.Translation.Get (messageKey) },
+				delay);
+		}
+
+		protected void ShowDialogues (List<string> dialogues, int delay = 0)
+		{
+			DelayedAction.functionAfterDelay (() =>
+			{
+				// Equivalent to Game1.drawObjectDialogue except for use of
+				// List<string> constructor of DialogueBox. This works around
+				// the height estimation bug with multi-page dialogues.
+				if (Game1.activeClickableMenu != null)
+				{
+					Game1.activeClickableMenu.emergencyShutDown ();
+				}
+				Game1.activeClickableMenu = new DialogueBox (dialogues);
+				Game1.player.CanMove = false;
+				Game1.dialogueUp = true;
+
+				// Suppress typing of dialogue, at least on first page.
+				// Equivalent to Game1.drawDialogueNoTyping.
+				if (Game1.activeClickableMenu != null &&
+					Game1.activeClickableMenu is DialogueBox dialogueBox)
+				{
+					dialogueBox.finishTyping ();
+				}
+			}, delay);
 		}
 
 		protected void PlaySound (string soundName, int delay = 0)
