@@ -31,7 +31,7 @@ namespace PredictiveCore
 		// Returns the next several night events to occur on or after the given
 		// date, up to the given limit, optionally of a given type.
 		public static List<NightEventPrediction> ListNextEventsForDate
-			(WorldDate fromDate, int limit, NightEventType? onlyType = null)
+			(WorldDate fromDate, uint limit, NightEventType? onlyType = null)
 		{
 			Utilities.CheckWorldReady ();
 
@@ -114,10 +114,10 @@ namespace PredictiveCore
 		{
 			try
 			{
-				int limit = 20;
+				uint limit = 20;
 				if (args.Count > 0)
 				{
-					if (!int.TryParse (args[0], out limit) || limit < 1)
+					if (!uint.TryParse (args[0], out limit) || limit < 1)
 					{
 						throw new ArgumentException ($"Invalid limit '{args[0]}', must be a number 1 or higher.");
 					}

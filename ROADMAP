@@ -3,7 +3,6 @@ PredictiveCore
 		ListGarbageForDate
 		FindItemInGarbage
 	Geodes
-		ListContentOfGeodes
 		FindItemInGeodes
 	ItemFinder
 		FindItem
@@ -76,10 +75,6 @@ ScryingOrb
 		Future Day
 			input: date
 			content: as for "In the Cans"
-	GeodesExperience
-		criterion: any geode processed
-		offering: any Mineral item except Limestone or Prismatic Shard
-		content: item in the next N geodes processed if of each type
 	MiningExperience
 		criterion: 1st floor reached
 		offering: any ore or Coal

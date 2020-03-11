@@ -7,8 +7,8 @@ namespace ScryingOrb
 	{
 		protected override bool Try ()
 		{
-			// Unlike all other experiences, looking for the base check to fail.
-			if (base.Try ())
+			// Unlike all other experiences, look for the offering check to fail.
+			if (!IsAvailable || base.Try ())
 				return false;
 
 			ShowMessage ("nothing.message");

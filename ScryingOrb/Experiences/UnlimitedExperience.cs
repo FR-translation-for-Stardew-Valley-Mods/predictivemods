@@ -33,21 +33,24 @@ namespace ScryingOrb
 			"Treasure Chest",
 		};
 
-		public static readonly List<string> Topics = new List<string>
+		private static Dictionary<string, Experience> GetExperiences ()
 		{
-			// TODO: "garbage",
-			// TODO: "geodes",
-			// TODO: "mining",
-			"nightEvents",
-			// TODO: "shopping",
-			// TODO: "itemFinder",
-			"leave",
-		};
+			return new Dictionary<string, Experience>
+			{
+				// TODO: { "mining", new MiningExperience () },
+				{ "geodes", new GeodesExperience () },
+				{ "nightEvents", new NightEventsExperience () },
+				// TODO: { "shopping", new ShoppingExperience () },
+				// TODO: { "garbage", new GarbageExperience () },
+				// TODO: { "itemFinder", new ItemFinderExperience () },
+				{ "leave", null },
+			};
+		}
 
 		protected override bool Try ()
 		{
 			// If currently in an unlimited period, ignore the offering and show
-			// the topic menu.
+			// the experience menu.
 			if (Utilities.Now ().TotalDays <= saveData.ExpirationDay)
 			{
 				PlaySound ("yoba");
@@ -65,7 +68,7 @@ namespace ScryingOrb
 			saveData.ExpirationDay = Utilities.Now ().TotalDays + 7;
 			Helper.Data.WriteSaveData ("Unlimited", saveData);
 
-			// Show the topic menu dramatically.
+			// Show the experience menu dramatically.
 			PlaySound ("reward");
 			ShowAnimation ("TileSheets\\animations",
 				new Rectangle (0, 192, 64, 64), 125f, 8, 1);
@@ -75,45 +78,29 @@ namespace ScryingOrb
 			return true;
 		}
 
-		public void Run ()
+		public override void Run ()
 		{
-			// Show the menu of topics.
-			List<Response> choices = Topics.Select ((t) => new Response (t,
-				Helper.Translation.Get ($"unlimited.topic.{t}"))).ToList ();
+			// Show the menu of experiences.
+			Dictionary<string, Experience> experiences = GetExperiences ();
+			List<Response> choices = experiences
+				.Where ((e) => e.Value == null || e.Value.IsAvailable)
+				.Select ((e) => new Response (e.Key,
+					Helper.Translation.Get ($"unlimited.experience.{e.Key}")))
+				.ToList ();
 			Game1.drawObjectQuestionDialogue
-				(Helper.Translation.Get ("unlimited.topic.question"), choices);
+				(Helper.Translation.Get ("unlimited.experience.question"), choices);
 
 			// Hand over control to the selected experience. Since that class
 			// may also use afterQuestion and uses of it can't be synchronously
 			// nested, use a nominal DelayedAction to break out of it.
-			Game1.currentLocation.afterQuestion = (Farmer _who, string topic) =>
+			Game1.currentLocation.afterQuestion = (Farmer _who, string response) =>
 				DelayedAction.functionAfterDelay (() =>
 			{
 				Game1.currentLocation.afterQuestion = null;
-				switch (topic)
+				Experience experience = experiences[response];
+				if (experience != null)
 				{
-				case "garbage":
-					// TODO: new GarbageExperience ().Run ();
-					break;
-				case "geodes":
-					// TODO: new GeodesExperience ().Run ();
-					break;
-				case "mining":
-					// TODO: new MiningExperience ().Run ();
-					break;
-				case "nightEvents":
-					new NightEventsExperience ().Run ();
-					break;
-				case "shopping":
-					// TODO: new ShoppingExperience ().Run ();
-					break;
-				case "itemFinder":
-					// TODO: new ItemFinderExperience ().Run ();
-					break;
-				case "leave":
-					break;
-				default:
-					throw new ArgumentException ($"Invalid orb topic \"{topic}\" selected.");
+					experience.Run ();
 				}
 			}, 1);
 		}

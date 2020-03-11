@@ -19,7 +19,7 @@ namespace PredictiveCore
 		// Returns the next several trains to arrive on or after the given date,
 		// up to the given limit.
 		public static List<TrainPrediction> ListNextTrainsForDate (WorldDate fromDate,
-			int limit)
+			uint limit)
 		{
 			Utilities.CheckWorldReady ();
 			if (!IsAvailable)
@@ -73,10 +73,10 @@ namespace PredictiveCore
 		{
 			try
 			{
-				int limit = 20;
+				uint limit = 20;
 				if (args.Count > 0)
 				{
-					if (!int.TryParse (args[0], out limit) || limit < 1)
+					if (!uint.TryParse (args[0], out limit) || limit < 1)
 					{
 						throw new ArgumentException ($"Invalid limit '{args[0]}', must be a number 1 or higher.");
 					}

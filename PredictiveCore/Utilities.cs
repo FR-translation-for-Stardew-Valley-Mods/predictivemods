@@ -117,8 +117,14 @@ namespace PredictiveCore
 				mod.ModManifest.UniqueID == "kdau.PublicAccessTV" ||
 				!helper.ModRegistry.IsLoaded ("kdau.PublicAccessTV");
 
+			// TODO: Garbage.Initialize (addConsoleCommands);
+			Geodes.Initialize (addConsoleCommands);
+			// TODO: ItemFinder.Initialize (addConsoleCommands);
+			// TODO: Mining.Initialize (addConsoleCommands);
 			Movies.Initialize (addConsoleCommands);
 			NightEvents.Initialize (addConsoleCommands);
+			// TODO: Shopping.Initialize (addConsoleCommands);
+			// TODO: Tailoring.Initialize (addConsoleCommands);
 			Trains.Initialize (addConsoleCommands);
 		}
 

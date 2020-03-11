@@ -42,6 +42,7 @@
 		<Compile Include="Experiences\NothingExperience.cs" />
 		<Compile Include="Experiences\UnlimitedExperience.cs" />
 		<Compile Include="Experiences\NightEventsExperience.cs" />
+		<Compile Include="Experiences\GeodesExperience.cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="manifest.json" />

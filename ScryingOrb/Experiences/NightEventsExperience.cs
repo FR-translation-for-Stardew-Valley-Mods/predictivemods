@@ -18,10 +18,10 @@ namespace ScryingOrb
 			"Void Salmon",
 		};
 
-		public static readonly Dictionary<string, NightEventType?> Subtopics =
+		public static readonly Dictionary<string, NightEventType?> Types =
 			new Dictionary<string, NightEventType?>
 		{
-			{ "upcoming", null },
+			{ "any", null },
 			{ "Fairy", NightEventType.Fairy },
 			{ "Witch", NightEventType.Witch },
 			{ "Meteorite", NightEventType.Meteorite },
@@ -34,11 +34,11 @@ namespace ScryingOrb
 		{
 			// Consume an appropriate offering.
 			if (!base.Try () || !AcceptedOfferings.Contains (Offering.Name) ||
-				(Offering.Name == "Bat Wing" && Offering.Stack < 3))
+					(Offering.Name == "Bat Wing" && Offering.Stack < 3))
 				return false;
 			ConsumeOffering ((Offering.Name == "Bat Wing") ? 3 : 1);
 
-			// Show the subtopic menu.
+			// Show the type menu.
 			PlaySound ("shadowpeep");
 			ShowAnimation ("TileSheets\\animations",
 				new Rectangle (0, 2880, 64, 64), 125f, 10, 1);
@@ -48,20 +48,20 @@ namespace ScryingOrb
 			return true;
 		}
 
-		public void Run ()
+		public override void Run ()
 		{
-			// Show the menu of subtopics.
-			List<Response> choices = Subtopics.Select ((s) => new Response (s.Key,
-				Helper.Translation.Get ($"nightEvents.subtopic.{s.Key}"))).ToList ();
+			// Show the menu of types.
+			List<Response> types = Types.Select ((t) => new Response (t.Key,
+				Helper.Translation.Get ($"nightEvents.type.{t.Key}"))).ToList ();
 			Game1.drawObjectQuestionDialogue
-				(Helper.Translation.Get ("nightEvents.subtopic.question"), choices);
+				(Helper.Translation.Get ("nightEvents.type.question"), types);
 
-			Game1.currentLocation.afterQuestion = (Farmer _who, string subtopic) =>
+			Game1.currentLocation.afterQuestion = (Farmer _who, string type) =>
 			{
 				Game1.currentLocation.afterQuestion = null;
 
 				// If "leave", we're done.
-				if (subtopic == "leave")
+				if (type == "leave")
 				{
 					return;
 				}
@@ -69,10 +69,10 @@ namespace ScryingOrb
 				// Gather the appropriate predictions.
 				List<NightEventPrediction> predictions =
 					NightEvents.ListNextEventsForDate (Utilities.Now (), 3,
-						Subtopics[subtopic]);
+						Types[type]);
 				if (predictions.Count == 0)
 				{
-					throw new Exception ("Could not predict night events.");
+					throw new Exception ($"Could not predict night events of {type} type.");
 				}
 
 				// Show a list of the predictions.
@@ -81,10 +81,8 @@ namespace ScryingOrb
 					{
 						date = p.Date.Localize (),
 					}).ToString ()).ToList ();
-				Game1.drawObjectDialogue (string.Join ("^", messages));
-
-				// Show closing message.
-				Game1.afterDialogues = () => ShowMessage ("nightEvents.closing");
+				Game1.drawObjectDialogue (string.Join ("^", messages) + "#" +
+					Helper.Translation.Get ("nightEvents.closing"));
 			};
 		}
 	}

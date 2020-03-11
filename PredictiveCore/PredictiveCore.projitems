@@ -13,9 +13,9 @@
 		<Compile Include="$(MSBuildThisFileDirectory)Utilities.cs" />
 		<Compile Include="$(MSBuildThisFileDirectory)Trains.cs" />
 		<Compile Include="$(MSBuildThisFileDirectory)NightEvents.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)Geodes.cs" />
 	</ItemGroup>
-	<UsingTask TaskName="FixZipAndDeploySafely" TaskFactory="CodeTaskFactory"
-		AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll" >
+	<UsingTask TaskName="FixZipAndDeploySafely" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
 		<ParameterGroup>
 			<ModZipPath Required="true" />
 			<ModFolderName Required="true" />

@@ -51,11 +51,11 @@ namespace ScryingOrb
 			if (Experience.Try<UnlimitedExperience> (orb, offering) ||
 				Experience.Try<NothingExperience> (orb, offering) ||
 				Experience.Try<LuckyPurpleExperience> (orb, offering) ||
-				// TODO: Experience.Try<GarbageExperience> (orb, offering) ||
-				// TODO: Experience.Try<GeodesExperience> (orb, offering) ||
 				// TODO: Experience.Try<MiningExperience> (orb, offering) ||
+				Experience.Try<GeodesExperience> (orb, offering) ||
 				Experience.Try<NightEventsExperience> (orb, offering) ||
 				// TODO: Experience.Try<ShoppingExperience> (orb, offering) ||
+				// TODO: Experience.Try<GarbageExperience> (orb, offering) ||
 				// TODO: Experience.Try<ItemFinderExperience> (orb, offering) ||
 				Experience.Try<FallbackExperience> (orb, offering))
 			{} // (if-block used to allow boolean fallback)

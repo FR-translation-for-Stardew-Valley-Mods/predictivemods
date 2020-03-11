@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewValley;
+using SObject = StardewValley.Object;
 
 namespace ScryingOrb
 {
@@ -9,7 +10,10 @@ namespace ScryingOrb
 	{
 		internal static IModHelper Helper => ModEntry._Helper;
 
-		public static bool Try<T> (StardewValley.Object orb, Item offering)
+		// Whether the experience should be available to players at present.
+		internal virtual bool IsAvailable => true;
+
+		public static bool Try<T> (SObject orb, Item offering)
 			where T : Experience, new()
 		{
 			try
@@ -27,15 +31,18 @@ namespace ScryingOrb
 			}
 		}
 
-		protected Experience ()
-		{ }
+		public virtual void Run ()
+		{}
 
-		protected StardewValley.Object Orb { get; private set; }
+		protected Experience ()
+		{}
+
+		protected SObject Orb { get; private set; }
 		protected Item Offering { get; private set; }
 
 		protected virtual bool Try ()
 		{
-			return Offering != null && (Offering is StardewValley.Object);
+			return IsAvailable && Offering != null && (Offering is SObject);
 		}
 
 		protected void ConsumeOffering (int count = 1)
@@ -80,7 +87,7 @@ namespace ScryingOrb
 				+ 9.99999974737875E-05);
 			TemporaryAnimatedSprite sprite = new TemporaryAnimatedSprite
 				(textureName, sourceRect, interval, length, loops, position,
-				false, false, layerDepth, -0.5f, Color.White, 64f / sourceRect.Width,
+				false, false, layerDepth, 0f, Color.White, 64f / sourceRect.Width,
 				0f, 0f, 0f, false);
 			DelayedAction.addTemporarySpriteAfterDelay (sprite,
 				Game1.currentLocation, delay);
