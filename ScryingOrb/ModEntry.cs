@@ -6,12 +6,22 @@ using StardewValley;
 
 namespace ScryingOrb
 {
+	internal class ModConfig
+	{
+		public bool InstantRecipe { get; set; } = false;
+		public bool UnlimitedUse { get; set; } = false;
+	}
+
 	public class ModEntry : Mod
 	{
 		internal static IModHelper _Helper;
+		private ModConfig Config;
 
 		public override void Entry (IModHelper helper)
 		{
+			// Read the configuration.
+			this.Config = this.Helper.ReadConfig<ModConfig> ();
+
 			// Set up PredictiveCore.
 			Utilities.Initialize (this, helper);
 
@@ -22,7 +32,18 @@ namespace ScryingOrb
 
 			// Listen for game events.
 			_Helper = helper;
+			helper.Events.GameLoop.DayStarted += (_sender, _args) => CheckRecipe ();
 			Helper.Events.Input.ButtonPressed += OnButtonPressed;
+		}
+
+		private void CheckRecipe ()
+		{
+			// If the instant recipe cheat is enabled, add the recipe now.
+			if (Config.InstantRecipe &&
+				!Game1.player.craftingRecipes.ContainsKey ("Scrying Orb"))
+			{
+				Game1.player.craftingRecipes.Add ("Scrying Orb", 0);
+			}
 		}
 
 		private void OnButtonPressed (object sender, ButtonPressedEventArgs args)
@@ -45,6 +66,13 @@ namespace ScryingOrb
 
 			// Suppress the button so it won't cause any other effects.
 			Helper.Input.Suppress (args.Button);
+
+			// If the unlimited use cheat is enabled, skip to the menu.
+			if (Config.UnlimitedUse)
+			{
+				new UnlimitedExperience ().Run ();
+				return;
+			}
 
 			Item offering = Game1.player.CurrentItem;
 

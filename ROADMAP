@@ -32,9 +32,8 @@ PredictiveCore
 		FindItemByTailoring
 
 PublicAccessTV
-	Require the player to purchase a cable TV subscription (weekly/seasonal automatic charge, a la Help for Hire) to receive the channels.
 	Add introductory events/dialogue/mail/etc. for the hosts of most channels.
-	Add config to allow bypassing subscription and/or relationship requirements.
+	Add config option to bypass relationship requirements.
 	GarbageChannel
 		name: "In the Cans"
 		host: Linus
@@ -66,7 +65,6 @@ PublicAccessTV
 	channels not available: Geodes, ItemFinder
  
 ScryingOrb
-	Add config for immediate availability of crafting recipe and always unlimited mode.
 	GarbageExperience
 		criterion: any can checked
 		offering: any Trash item
