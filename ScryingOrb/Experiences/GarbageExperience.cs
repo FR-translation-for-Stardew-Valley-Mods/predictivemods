@@ -3,7 +3,6 @@ using PredictiveCore;
 using StardewValley;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ScryingOrb
 {
@@ -12,14 +11,16 @@ namespace ScryingOrb
 		internal override bool IsAvailable =>
 			base.IsAvailable && Garbage.IsAvailable;
 
-		protected override bool Try ()
+		protected override bool Try (Item offering)
 		{
 			// Consume an appropriate offering.
-			if (!base.Try () || Offering.Category != StardewValley.Object.junkCategory)
+			if (!base.Try (offering) ||
+					Offering.Category != StardewValley.Object.junkCategory)
 				return false;
 			ConsumeOffering ();
 
-			// Show the type menu.
+			// React to the offering, then proceed to run.
+			Illuminate ();
 			PlaySound ("trashcan");
 			ShowAnimation ("TileSheets\\animations",
 				new Rectangle (256, 1856, 64, 128), 150f, 6, 1);
@@ -78,6 +79,7 @@ namespace ScryingOrb
 
 				// Show the predictions.
 				ShowDialogues (pages);
+				Game1.afterDialogues = Extinguish;
 			};
 
 			callback (Utilities.Now ()); // TODO: remove temporary call

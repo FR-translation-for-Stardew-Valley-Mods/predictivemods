@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using StardewValley;
 
 namespace ScryingOrb
 {
@@ -19,9 +20,9 @@ namespace ScryingOrb
 			}
 		}
 
-		protected override bool Try ()
+		protected override bool Try (Item offering)
 		{
-			if (!base.Try ())
+			if (!base.Try (offering))
 				return false;
 
 			// Only accept the Lucky Purple Shorts. Don't consume them.
@@ -42,10 +43,12 @@ namespace ScryingOrb
 				saveData.AlreadyTried = true;
 				Helper.Data.WriteSaveData ("LuckyPurple", saveData);
 
+				Illuminate (255, 0, 0);
 				PlaySound ("death");
 				ShowAnimation ("TileSheets\\animations",
 					new Rectangle (0, 1920, 64, 64), 250f, 4, 2);
 				ShowMessage ("luckyPurple.initial", 1000);
+				Game1.afterDialogues = Extinguish;
 			}
 
 			return true;

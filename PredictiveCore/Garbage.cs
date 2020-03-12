@@ -3,7 +3,6 @@ using StardewValley;
 using StardewValley.Objects;
 using System;
 using System.Collections.Generic;
-using SItem = StardewValley.Item;
 using SObject = StardewValley.Object;
 
 namespace PredictiveCore
@@ -25,7 +24,7 @@ namespace PredictiveCore
 	{
 		public WorldDate Date;
 		public GarbageCan Can;
-		public SItem Loot;
+		public Item Loot;
 	}
 
 	public static class Garbage
@@ -43,7 +42,7 @@ namespace PredictiveCore
 
 			foreach (GarbageCan can in Enum.GetValues (typeof (GarbageCan)))
 			{
-				SItem loot = GetLootForDateAndCan (date, can);
+				Item loot = GetLootForDateAndCan (date, can);
 				if (loot != null)
 				{
 					predictions.Add (new GarbagePrediction
@@ -132,7 +131,7 @@ namespace PredictiveCore
 			{ GarbageCan.MovieTheater, (110 * 653) + (56 * 777) },
 		};
 
-		private static SItem GetLootForDateAndCan (WorldDate date, GarbageCan can)
+		private static Item GetLootForDateAndCan (WorldDate date, GarbageCan can)
 		{
 			// Logic from StardewValley.Locations.Town.checkAction()
 			// as implemented in Stardew Predictor by MouseyPounds.

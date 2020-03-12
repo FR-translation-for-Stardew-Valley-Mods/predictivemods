@@ -30,15 +30,17 @@ namespace ScryingOrb
 		internal override bool IsAvailable =>
 			base.IsAvailable && Geodes.IsAvailable;
 
-		protected override bool Try ()
+		protected override bool Try (Item offering)
 		{
 			// Consume an appropriate offering.
-			if (!base.Try () || RejectedOfferings.Contains (Offering.Name) ||
-					Offering.Category != StardewValley.Object.mineralsCategory)
+			if (!base.Try (offering) ||
+					Offering.Category != StardewValley.Object.mineralsCategory ||
+					RejectedOfferings.Contains (Offering.Name))
 				return false;
 			ConsumeOffering ();
 
 			// React to the offering, then proceed to run.
+			Illuminate ();
 			PlaySound ("discoverMineral");
 			ShowAnimation ("TileSheets\\animations",
 				new Rectangle (0, 512, 64, 64), 125f, 8, 1);
@@ -63,6 +65,7 @@ namespace ScryingOrb
 				// If "leave", we're done.
 				if (type == "leave")
 				{
+					Extinguish ();
 					return;
 				}
 
@@ -129,6 +132,7 @@ namespace ScryingOrb
 
 				// Show the predictions.
 				ShowDialogues (pages);
+				Game1.afterDialogues = Extinguish;
 			};
 		}
 	}

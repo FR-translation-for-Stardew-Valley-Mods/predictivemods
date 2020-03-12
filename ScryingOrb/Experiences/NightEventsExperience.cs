@@ -30,15 +30,17 @@ namespace ScryingOrb
 			{ "leave", NightEventType.None },
 		};
 
-		protected override bool Try ()
+		protected override bool Try (Item offering)
 		{
 			// Consume an appropriate offering.
-			if (!base.Try () || !AcceptedOfferings.Contains (Offering.Name) ||
+			if (!base.Try (offering) ||
+					!AcceptedOfferings.Contains (Offering.Name) ||
 					(Offering.Name == "Bat Wing" && Offering.Stack < 3))
 				return false;
 			ConsumeOffering ((Offering.Name == "Bat Wing") ? 3 : 1);
 
 			// React to the offering, then proceed to run.
+			Illuminate ();
 			PlaySound ("shadowpeep");
 			ShowAnimation ("TileSheets\\animations",
 				new Rectangle (0, 2880, 64, 64), 125f, 10, 1);
@@ -63,6 +65,7 @@ namespace ScryingOrb
 				// If "leave", we're done.
 				if (type == "leave")
 				{
+					Extinguish ();
 					return;
 				}
 
@@ -86,6 +89,7 @@ namespace ScryingOrb
 					string.Join ("^", predictionStrings),
 					Helper.Translation.Get ("nightEvents.closing"),
 				});
+				Game1.afterDialogues = Extinguish;
 			};
 		}
 	}

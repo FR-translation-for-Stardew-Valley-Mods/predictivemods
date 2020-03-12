@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
@@ -11,6 +12,7 @@ namespace ScryingOrb
 	public class Experience
 	{
 		internal static IModHelper Helper => ModEntry._Helper;
+		internal static IMonitor Monitor => ModEntry._Monitor;
 
 		// Whether the experience should be available to players at present.
 		internal virtual bool IsAvailable => true;
@@ -20,12 +22,8 @@ namespace ScryingOrb
 		{
 			try
 			{
-				T experience = new T
-				{
-					Orb = orb,
-					Offering = offering
-				};
-				return experience.Try ();
+				T experience = new T { Orb = orb };
+				return experience.Try (offering);
 			}
 			catch (Exception)
 			{
@@ -33,19 +31,37 @@ namespace ScryingOrb
 			}
 		}
 
-		public virtual void Run ()
-		{}
+		public static void Run<T> (SObject orb)
+			where T : Experience, new()
+		{
+			T experience = new T { Orb = orb };
+			experience.Run ();
+		}
 
 		protected Experience ()
-		{}
-
-		protected SObject Orb { get; private set; }
-		protected Item Offering { get; private set; }
-
-		protected virtual bool Try ()
 		{
-			return IsAvailable && Offering != null && (Offering is SObject);
+			Helper.Content.Load<Texture2D> ("assets/illumination.png");
 		}
+
+		public SObject Orb { get; internal set; }
+		public SObject Offering { get; internal set; }
+
+		protected virtual bool Try (Item offering)
+		{
+			if (!IsAvailable)
+			{
+				return false;
+			}
+			if (!(offering is SObject o))
+			{
+				return false;
+			}
+			Offering = o;
+			return true;
+		}
+
+		public virtual void Run ()
+		{}
 
 		protected void ConsumeOffering (int count = 1)
 		{
@@ -117,12 +133,12 @@ namespace ScryingOrb
 				Game1.currentLocation);
 		}
 
-		protected void ShowAnimation (string textureName,
+		protected TemporaryAnimatedSprite ShowAnimation (string textureName,
 			Rectangle sourceRect, float interval, int length, int loops,
 			int delay = 0)
 		{
 			Vector2 position = new Vector2 (Orb.TileLocation.X,
-				Orb.TileLocation.Y - (sourceRect.Height / 64f));
+				Orb.TileLocation.Y - (sourceRect.Height / (float) sourceRect.Width));
 			position *= Game1.tileSize;
 			float layerDepth = (float) (((Orb.TileLocation.Y + 1.0) * 64.0 / 10000.0)
 				+ 9.99999974737875E-05);
@@ -132,6 +148,50 @@ namespace ScryingOrb
 				0f, 0f, 0f, false);
 			DelayedAction.addTemporarySpriteAfterDelay (sprite,
 				Game1.currentLocation, delay);
+			return sprite;
+		}
+
+		protected LightSource Illuminate (int r = 153, int g = 217, int b = 234)
+		{
+			if (Orb == null)
+			{
+				return null;
+			}
+
+			// Replace any existing light source.
+			Extinguish ();
+
+			// Calculate the light source properties.
+			Vector2 position = new Vector2 ((Orb.TileLocation.X * 64f) + 32f,
+				(Orb.TileLocation.Y * 64f) - 32f);
+			Color color = new Color (255 - r, 255 - g, 255 - b) * 2f;
+			int identifier = (int) ((Orb.TileLocation.X * 2000f) +
+				Orb.TileLocation.Y);
+
+			// Switch the orb to its illuminated sprite, unless not lit blue.
+			if (b > r && b > g)
+			{
+				TemporaryAnimatedSprite sprite = ShowAnimation
+					(Helper.Content.GetActualAssetKey ("assets/illumination.png"),
+					new Rectangle (0, 0, 16, 16), 150f, 5, 9999);
+				sprite.id = identifier;
+			}
+			
+			// Construct and apply the light source.
+			Orb.lightSource = new LightSource (LightSource.cauldronLight,
+				position, 1f, color, identifier);
+			return Orb.lightSource;
+		}
+
+		protected void Extinguish ()
+		{
+			if (Orb == null || Orb.lightSource == null)
+			{
+				return;
+			}
+			Game1.currentLocation.removeTemporarySpritesWithID (Orb.lightSource.Identifier);
+			Game1.currentLocation.removeLightSource (Orb.lightSource.Identifier);
+			Orb.lightSource = null;
 		}
 	}
 }

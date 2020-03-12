@@ -58,7 +58,6 @@ PublicAccessTV
 	channels not available: Geodes, ItemFinder
  
 ScryingOrb
-	Make the orb glow with mystical blue light while in use.
 	MiningExperience
 		criterion: 1st floor reached
 		offering: any ore or Coal
@@ -80,6 +79,8 @@ ScryingOrb
 		Future Day
 			input: date
 			content: as for "Shopper's Report", plus Krobus's Fish/Cooking item (if Krobus met)
+	GarbageExperience
+		implement date picker
 	ItemFinderExperience
 		offering: any Animal Product, Artisan Goods, Cooking or Flower item except Fried Egg, Magic Rock Candy, Salmonberry Wine, Tulip, Void Egg or Void Mayonnaise
 		criterion: any item (text search to deal with huge list; precedents to borrow?)

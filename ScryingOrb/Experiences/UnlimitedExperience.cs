@@ -32,26 +32,13 @@ namespace ScryingOrb
 			"Treasure Chest",
 		};
 
-		private static Dictionary<string, Experience> GetExperiences ()
-		{
-			return new Dictionary<string, Experience>
-			{
-				// TODO: { "mining", new MiningExperience () },
-				{ "geodes", new GeodesExperience () },
-				{ "nightEvents", new NightEventsExperience () },
-				// TODO: { "shopping", new ShoppingExperience () },
-				{ "garbage", new GarbageExperience () },
-				// TODO: { "itemFinder", new ItemFinderExperience () },
-				{ "leave", null },
-			};
-		}
-
-		protected override bool Try ()
+		protected override bool Try (Item offering)
 		{
 			// If currently in an unlimited period, ignore the offering, react
 			// to the ongoing period, then proceed to run.
 			if (Utilities.Now ().TotalDays <= saveData.ExpirationDay)
 			{
+				Illuminate ();
 				PlaySound ("yoba");
 				ShowMessage ("unlimited.following", 250);
 				Game1.afterDialogues = Run;
@@ -59,7 +46,8 @@ namespace ScryingOrb
 			}
 
 			// Consume an appropriate offering.
-			if (!base.Try () || !AcceptedOfferings.Contains (Offering.Name))
+			if (!base.Try (offering) ||
+					!AcceptedOfferings.Contains (Offering.Name))
 				return false;
 			ConsumeOffering ();
 
@@ -68,6 +56,7 @@ namespace ScryingOrb
 			Helper.Data.WriteSaveData ("Unlimited", saveData);
 
 			// React to the offering dramatically, then proceed to run.
+			Illuminate ();
 			PlaySound ("reward");
 			ShowAnimation ("TileSheets\\animations",
 				new Rectangle (0, 192, 64, 64), 125f, 8, 1);
@@ -79,8 +68,21 @@ namespace ScryingOrb
 
 		public override void Run ()
 		{
+			// In case we were called directly by ModEntry.
+			Illuminate ();
+
 			// Show the menu of experiences.
-			Dictionary<string, Experience> experiences = GetExperiences ();
+			Dictionary<string, Experience> experiences =
+				new Dictionary<string, Experience>
+			{
+				// TODO: { "mining", new MiningExperience { Orb = Orb } },
+				{ "geodes", new GeodesExperience { Orb = Orb } },
+				{ "nightEvents", new NightEventsExperience { Orb = Orb } },
+				// TODO: { "shopping", new ShoppingExperience { Orb = Orb } },
+				{ "garbage", new GarbageExperience { Orb = Orb } },
+				// TODO: { "itemFinder", new ItemFinderExperience { Orb = Orb } },
+				{ "leave", null },
+			};
 			List<Response> choices = experiences
 				.Where ((e) => e.Value == null || e.Value.IsAvailable)
 				.Select ((e) => new Response (e.Key,
@@ -100,6 +102,10 @@ namespace ScryingOrb
 				if (experience != null)
 				{
 					experience.Run ();
+				}
+				else
+				{
+					Extinguish ();
 				}
 			}, 1);
 		}

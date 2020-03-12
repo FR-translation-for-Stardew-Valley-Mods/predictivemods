@@ -67,6 +67,8 @@
 		<None Include="[MFM]ScryingOrb\i18n\default.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
+		<None Include="assets\illumination.xcf" />
+		<None Include="assets\illumination.png" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="i18n\" />
