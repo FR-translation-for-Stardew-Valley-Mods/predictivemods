@@ -11,8 +11,8 @@ namespace ScryingOrb
 {
 	public class Experience
 	{
-		internal static IModHelper Helper => ModEntry._Helper;
-		internal static IMonitor Monitor => ModEntry._Monitor;
+		protected static IModHelper Helper => ModEntry._Helper;
+		protected static IMonitor Monitor => ModEntry._Monitor;
 
 		// Whether the experience should be available to players at present.
 		internal virtual bool IsAvailable => true;
@@ -25,8 +25,9 @@ namespace ScryingOrb
 				T experience = new T { Orb = orb };
 				return experience.Try (offering);
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+				Monitor.Log ($"{typeof (T).Name} failed: {e.Message}", LogLevel.Warn);
 				return false;
 			}
 		}
@@ -158,6 +159,9 @@ namespace ScryingOrb
 				return null;
 			}
 
+			// Switch to the special mouse cursor.
+			++ModEntry.OrbsIlluminated;
+
 			// Replace any existing light source.
 			Extinguish ();
 
@@ -173,7 +177,7 @@ namespace ScryingOrb
 			{
 				TemporaryAnimatedSprite sprite = ShowAnimation
 					(Helper.Content.GetActualAssetKey ("assets/illumination.png"),
-					new Rectangle (0, 0, 16, 16), 150f, 5, 9999);
+					new Rectangle (0, 0, 16, 16), 200f, 5, 9999);
 				sprite.id = identifier;
 			}
 			
@@ -189,6 +193,11 @@ namespace ScryingOrb
 			{
 				return;
 			}
+
+			// Restore the regular mouse cursor.
+			--ModEntry.OrbsIlluminated;
+
+			// Remove the illumination light source and animation.
 			Game1.currentLocation.removeTemporarySpritesWithID (Orb.lightSource.Identifier);
 			Game1.currentLocation.removeLightSource (Orb.lightSource.Identifier);
 			Orb.lightSource = null;

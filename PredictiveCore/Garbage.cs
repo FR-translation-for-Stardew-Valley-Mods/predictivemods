@@ -49,7 +49,7 @@ namespace PredictiveCore
 					{
 						Date = date,
 						Can = can,
-						Loot = loot,
+						Loot = loot
 					});
 				}
 			}
@@ -111,7 +111,7 @@ namespace PredictiveCore
 			}
 			catch (Exception e)
 			{
-				Utilities.Monitor.Log (e.Message, LogLevel.Alert);
+				Utilities.Monitor.Log (e.Message, LogLevel.Error);
 			}
 		}
 
@@ -128,7 +128,7 @@ namespace PredictiveCore
 			{ GarbageCan.Saloon, (47 * 653) + (70 * 777) },
 			{ GarbageCan.JoshHouse, (52 * 653) + (63 * 777) },
 			{ GarbageCan.JojaMart, (110 * 653) + (56 * 777) },
-			{ GarbageCan.MovieTheater, (110 * 653) + (56 * 777) },
+			{ GarbageCan.MovieTheater, (110 * 653) + (56 * 777) }
 		};
 
 		private static Item GetLootForDateAndCan (WorldDate date, GarbageCan can)
@@ -287,7 +287,7 @@ namespace PredictiveCore
 
 			return new SObject (itemID, 1)
 			{
-				Flipped = seasonal || locationSpecific,
+				Flipped = seasonal || locationSpecific
 			};
 		}
 	}

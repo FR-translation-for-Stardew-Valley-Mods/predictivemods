@@ -12,7 +12,7 @@ namespace ScryingOrb
 		public static readonly List<string> RejectedOfferings = new List<string>
 		{
 			"Limestone", // too cheap
-			"Prismatic Shard", // accepted by UnlimitedExperience
+			"Prismatic Shard" // accepted by UnlimitedExperience
 		};
 
 		public static readonly Dictionary<string, GeodeType?> Types =
@@ -24,7 +24,7 @@ namespace ScryingOrb
 			{ "Magma", GeodeType.Magma },
 			{ "Omni", GeodeType.Omni },
 			{ "Trove", GeodeType.Trove },
-			{ "leave", null },
+			{ "leave", null }
 		};
 
 		internal override bool IsAvailable =>
@@ -99,7 +99,7 @@ namespace ScryingOrb
 								(t.Stack > 1) ? t.Stack.ToString () : null,
 								t.DisplayName,
 								t.Valuable ? "$" : null,
-								t.NeedDonation ? "=" : null,
+								t.NeedDonation ? "=" : null
 							}.Where ((s) => s != null));
 						})) + footer);
 					}
@@ -118,7 +118,7 @@ namespace ScryingOrb
 							(t.Stack > 1) ? t.Stack.ToString () : null,
 							t.DisplayName,
 							t.Valuable ? "$" : null,
-							t.NeedDonation ? "=" : null,
+							t.NeedDonation ? "=" : null
 						}.Where ((s) => s != null));
 					})) + footer);
 				}

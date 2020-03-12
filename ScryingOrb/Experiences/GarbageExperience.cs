@@ -56,7 +56,7 @@ namespace ScryingOrb
 						Helper.Translation.Get ($"garbage.header.{(today ? "today" : "later")}", new
 						{
 							date = date.Localize (),
-						}),
+						})
 					};
 					foreach (GarbagePrediction prediction in predictions)
 					{
@@ -66,7 +66,7 @@ namespace ScryingOrb
 								? Helper.Translation.Get ("garbage.dishOfTheDay")
 								: prediction.Loot.DisplayName,
 						}));
-					};
+					}
 					pages.Add (string.Join ("^", lines));
 				}
 

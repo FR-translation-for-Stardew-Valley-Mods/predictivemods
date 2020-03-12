@@ -29,18 +29,20 @@ namespace ScryingOrb
 			"Magic Rock Candy",
 			"Pearl",
 			"Prismatic Shard",
-			"Treasure Chest",
+			"Treasure Chest"
 		};
 
 		protected override bool Try (Item offering)
 		{
 			// If currently in an unlimited period, ignore the offering, react
 			// to the ongoing period, then proceed to run.
-			if (Utilities.Now ().TotalDays <= saveData.ExpirationDay)
+			int totalDays = Utilities.Now ().TotalDays;
+			if (totalDays <= saveData.ExpirationDay)
 			{
 				Illuminate ();
 				PlaySound ("yoba");
-				ShowMessage ("unlimited.following", 250);
+				ShowMessage ((totalDays == saveData.ExpirationDay)
+					? "unlimited.lastDay" : "unlimited.following", 250);
 				Game1.afterDialogues = Run;
 				return true;
 			}
@@ -81,7 +83,7 @@ namespace ScryingOrb
 				// TODO: { "shopping", new ShoppingExperience { Orb = Orb } },
 				{ "garbage", new GarbageExperience { Orb = Orb } },
 				// TODO: { "itemFinder", new ItemFinderExperience { Orb = Orb } },
-				{ "leave", null },
+				{ "leave", null }
 			};
 			List<Response> choices = experiences
 				.Where ((e) => e.Value == null || e.Value.IsAvailable)

@@ -15,7 +15,7 @@ namespace ScryingOrb
 			"Void Egg",
 			"Void Essence",
 			"Void Mayonnaise",
-			"Void Salmon",
+			"Void Salmon"
 		};
 
 		public static readonly Dictionary<string, NightEventType?> Types =
@@ -27,7 +27,7 @@ namespace ScryingOrb
 			{ "Meteorite", NightEventType.Meteorite },
 			{ "StrangeCapsule", NightEventType.StrangeCapsule },
 			{ "StoneOwl", NightEventType.StoneOwl },
-			{ "leave", NightEventType.None },
+			{ "leave", NightEventType.None }
 		};
 
 		protected override bool Try (Item offering)
@@ -87,7 +87,7 @@ namespace ScryingOrb
 				ShowDialogues (new List<string>
 				{
 					string.Join ("^", predictionStrings),
-					Helper.Translation.Get ("nightEvents.closing"),
+					Helper.Translation.Get ("nightEvents.closing")
 				});
 				Game1.afterDialogues = Extinguish;
 			};

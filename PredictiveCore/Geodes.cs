@@ -30,7 +30,7 @@ namespace PredictiveCore
 			"Iridium Ore",
 			"Golden Pumpkin",
 			"Treasure Chest",
-			"Pearl",
+			"Pearl"
 		};
 
 		private static readonly Dictionary<GeodeType, int> GeodeObjects =
@@ -40,7 +40,7 @@ namespace PredictiveCore
 			{ GeodeType.Frozen, 536 },
 			{ GeodeType.Magma, 537 },
 			{ GeodeType.Omni, 749 },
-			{ GeodeType.Trove, 275 },
+			{ GeodeType.Trove, 275 }
 		};
 
 		internal Treasure (uint geodeNumber, GeodeType geodeType)
@@ -186,7 +186,7 @@ namespace PredictiveCore
 			}
 			catch (Exception e)
 			{
-				Utilities.Monitor.Log (e.Message, LogLevel.Alert);
+				Utilities.Monitor.Log (e.Message, LogLevel.Error);
 			}
 		}
 	}

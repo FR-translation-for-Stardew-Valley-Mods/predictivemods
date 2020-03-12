@@ -95,7 +95,7 @@ namespace PredictiveCore
 			}
 			catch (Exception e)
 			{
-				Utilities.Monitor.Log (e.Message, LogLevel.Alert);
+				Utilities.Monitor.Log (e.Message, LogLevel.Error);
 			}
 		}
 	}

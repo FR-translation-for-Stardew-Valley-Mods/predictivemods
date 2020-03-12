@@ -20,12 +20,32 @@ namespace ScryingOrb
 	{
 		internal static IModHelper _Helper;
 		internal static IMonitor _Monitor;
-		private ModConfig Config;
+
+		internal static ModConfig Config;
+
+		private static uint orbsIlluminated;
+		internal static uint OrbsIlluminated
+		{
+			get => orbsIlluminated;
+			set
+			{
+				uint oldValue = orbsIlluminated;
+				orbsIlluminated = value;
+
+				// Let the cursor editor know to do its thing.
+				if ((oldValue == 0 && value > 0) || (oldValue > 0 && value == 0))
+				{
+					cursorEditor.Invalidate ();
+				}
+			}
+		}
+
+		private static CursorEditor cursorEditor;
 
 		public override void Entry (IModHelper helper)
 		{
 			// Read the configuration.
-			this.Config = this.Helper.ReadConfig<ModConfig> ();
+			Config = this.Helper.ReadConfig<ModConfig> ();
 
 			// Set up PredictiveCore.
 			Utilities.Initialize (this, helper);
@@ -43,6 +63,10 @@ namespace ScryingOrb
 			_Monitor = Monitor;
 			helper.Events.GameLoop.DayStarted += (_sender, _args) => CheckRecipe ();
 			Helper.Events.Input.ButtonPressed += OnButtonPressed;
+
+			// Set up the asset editor for the mouse cursor.
+			cursorEditor = new CursorEditor ();
+			Helper.Content.AssetEditors.Add (cursorEditor);
 		}
 
 		private void CheckRecipe ()
@@ -110,7 +134,7 @@ namespace ScryingOrb
 			}
 			catch (Exception e)
 			{
-				Monitor.Log (e.Message, LogLevel.Alert);
+				Monitor.Log (e.Message, LogLevel.Error);
 			}
 		}
 
@@ -124,22 +148,25 @@ namespace ScryingOrb
 
 				Game1.player.addItemsByMenuIfNecessary (new List<Item>
 				{
-					new SObject (Vector2.Zero, orbID), // Scrying Orb
-					new SObject (Vector2.Zero, orbID), // Scrying Orb
-					new SObject (Vector2.Zero, orbID), // Scrying Orb
-					// TODO: item for MiningExperience
-					new SObject (541, 50), // Aerinite for GeodesExperience
-					new SObject (767, 150), // 3 Bat Wing for NightEventsExperience
-					// TODO: item for ShoppingExperience
-					new SObject (168, 50), // Trash for GarbageExperience
-					// TODO: item for ItemFinderExperience
-					new SObject (789, 1), // Lucky Purple Shorts for LuckyPurpleExperience
 					new SObject (74, 50), // Prismatic Shard for UnlimitedExperience
+					new SObject (789, 1), // Lucky Purple Shorts for LuckyPurpleExperience
+					// TODO: item for ItemFinderExperience
+					new SObject (168, 50), // Trash for GarbageExperience
+					// TODO: item for ShoppingExperience
+					new SObject (767, 150), // 3 Bat Wing for NightEventsExperience
+					new SObject (541, 50), // Aerinite for GeodesExperience
+					// TODO: item for MiningExperience
+					new SObject (Vector2.Zero, orbID), // Scrying Orb
+					new SObject (Vector2.Zero, orbID), // Scrying Orb
+					new SObject (Vector2.Zero, orbID) // Scrying Orb
 				});
+
+				Monitor.Log ("Scrying Orb test kit placed in inventory.",
+					LogLevel.Info);
 			}
 			catch (Exception e)
 			{
-				Monitor.Log (e.Message, LogLevel.Alert);
+				Monitor.Log (e.Message, LogLevel.Error);
 			}
 		}
 	}

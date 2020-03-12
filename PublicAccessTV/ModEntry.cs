@@ -82,7 +82,7 @@ namespace PublicAccessTV
 			}
 			catch (Exception e)
 			{
-				Monitor.Log (e.Message, LogLevel.Alert);
+				Monitor.Log (e.Message, LogLevel.Error);
 			}
 		}
 	}

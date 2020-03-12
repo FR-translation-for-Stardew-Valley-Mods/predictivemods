@@ -55,7 +55,7 @@ namespace PublicAccessTV
 					new Rectangle (0, 0, 94, 63));
 				lobbyOverlay = LoadSprite (tv, assetName,
 					new Rectangle (94, 0, 94, 63), 250f, 2, new Vector2 (),
-					overlay: true, scaleToFit: true);
+					true, true);
 			}
 			else
 			{

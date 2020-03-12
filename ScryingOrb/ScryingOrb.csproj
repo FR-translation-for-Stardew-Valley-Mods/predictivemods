@@ -36,6 +36,7 @@
 	<ItemGroup>
 		<Compile Include="ModEntry.cs" />
 		<Compile Include="Properties\AssemblyInfo.cs" />
+		<Compile Include="CursorEditor.cs" />
 		<Compile Include="Experience.cs" />
 		<Compile Include="Experiences\FallbackExperience.cs" />
 		<Compile Include="Experiences\GarbageExperience.cs" />
@@ -47,6 +48,9 @@
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="manifest.json" />
+		<None Include="assets\cursor.png" />
+		<None Include="assets\illumination.xcf" />
+		<None Include="assets\illumination.png" />
 		<None Include="i18n\default.json" />
 		<None Include="[JA]ScryingOrb\manifest.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -67,8 +71,6 @@
 		<None Include="[MFM]ScryingOrb\i18n\default.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
-		<None Include="assets\illumination.xcf" />
-		<None Include="assets\illumination.png" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="i18n\" />
