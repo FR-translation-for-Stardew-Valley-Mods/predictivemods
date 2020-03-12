@@ -31,9 +31,7 @@ PredictiveCore
 		FindItemByTailoring
 
 PublicAccessTV
-	Make the host portraits stand out against the backgrounds better.
-	Add introductory events/dialogue/mail/etc. for the hosts of most channels.
-	Add config option to bypass relationship requirements.
+	Add introductory events/dialogue/mail/etc. for hosts: Demetrius, Emily, Lewis, Linus, Marlon.
 	MiningChannel
 		name: "Mining Advisory"
 		hosts: Marlon and Gil

@@ -15,7 +15,8 @@ namespace PublicAccessTV
 			Helper.Content.Load<Texture2D> ("assets/movies_craneGame.png");
 		}
 
-		internal override bool IsAvailable => base.IsAvailable && Movies.IsAvailable;
+		internal override bool IsAvailable =>
+			base.IsAvailable && Movies.IsAvailable;
 
 		internal override void Show (TV tv)
 		{

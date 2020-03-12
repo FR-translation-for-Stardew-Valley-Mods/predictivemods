@@ -5,14 +5,23 @@ using System;
 
 namespace PublicAccessTV
 {
+	internal class ModConfig
+	{
+		public bool BypassFriendships { get; set; } = false;
+	}
+
 	public class ModEntry : Mod
 	{
 		internal static IModHelper _Helper;
 		internal static Type CustomTVMod;
+		internal static ModConfig Config;
 		internal Channel[] Channels;
 
 		public override void Entry (IModHelper helper)
 		{
+			// Read the configuration.
+			Config = this.Helper.ReadConfig<ModConfig> ();
+
 			// Set up PredictiveCore.
 			Utilities.Initialize (this, helper);
 

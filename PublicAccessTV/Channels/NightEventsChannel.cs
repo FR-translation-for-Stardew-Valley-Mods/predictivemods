@@ -16,8 +16,9 @@ namespace PublicAccessTV
 			Helper.Content.Load<Texture2D> ("assets/nightEvents_background.png");
 		}
 
-		internal override bool IsAvailable => base.IsAvailable &&
-			NightEvents.IsAvailable && GetCurrentEvent () != NightEventType.None;
+		internal override bool IsAvailable =>
+			base.IsAvailable && NightEvents.IsAvailable &&
+			GetCurrentEvent () != NightEventType.None;
 
 		internal override void Show (TV tv)
 		{

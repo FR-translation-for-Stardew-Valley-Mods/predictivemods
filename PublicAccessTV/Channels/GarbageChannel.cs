@@ -16,8 +16,9 @@ namespace PublicAccessTV
 			Helper.Content.Load<Texture2D> ("assets/garbage_backgrounds.png");
 		}
 
-		internal override bool IsAvailable => base.IsAvailable &&
-			Garbage.IsAvailable && Utilities.AnyoneHasFriendship ("Linus", 1000);
+		internal override bool IsAvailable =>
+			base.IsAvailable && Garbage.IsAvailable &&
+			(ModEntry.Config.BypassFriendships || Utilities.AnyoneHasFriendship ("Linus", 1000));
 
 		internal override void Show (TV tv)
 		{

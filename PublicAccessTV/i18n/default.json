@@ -23,7 +23,7 @@
   "garbage.item.generic": "Just some {{itemName}} in here.",
   "garbage.dishOfTheDay": "a hot meal",
   "garbage.closing.standard": "I'll be back tomorrow with another look In the Cans. Let's keep this between you and me, okay?",
-  "garbage.closing.progress": "This is just what you're ready to find, though, young friend. Learn to listen to the cans and they'll have more to offer you.",
+  "garbage.closing.progress": "This is only what you're ready to find, young friend. Learn to listen to the cans and they'll have more to offer you.",
 
   // Mining ("Mining Advisory") - Marlon and Gil
   "mining.title": "Mining Advisory",

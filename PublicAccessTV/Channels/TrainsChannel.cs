@@ -16,8 +16,9 @@ namespace PublicAccessTV
 			Helper.Content.Load<Texture2D> ("assets/trains_background.png");
 		}
 
-		internal override bool IsAvailable => base.IsAvailable &&
-			Trains.IsAvailable && Utilities.AnyoneHasFriendship ("Demetrius", 500);
+		internal override bool IsAvailable =>
+			base.IsAvailable && Trains.IsAvailable &&
+			(ModEntry.Config.BypassFriendships || Utilities.AnyoneHasFriendship ("Demetrius", 500));
 
 		internal override void Show (TV tv)
 		{
