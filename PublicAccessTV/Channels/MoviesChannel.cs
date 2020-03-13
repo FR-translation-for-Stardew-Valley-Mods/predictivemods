@@ -29,10 +29,15 @@ namespace PublicAccessTV
 				positionOffset: new Vector2 (18f, 2f), overlay: true);
 
 			// Opening scene: the concessionaire greets the viewer.
-			bool sve = Helper.ModRegistry.IsLoaded ("FlashShifter.StardewValleyExpandedCP");
+			string hostName =
+				Helper.ModRegistry.IsLoaded ("Lemurkat.NPCJuliet")
+					? "Juliet"
+					: Helper.ModRegistry.IsLoaded ("FlashShifter.StardewValleyExpandedCP")
+						? "Claire"
+						: Helper.Translation.Get ("movies.host.generic");
 			QueueScene (Helper.Translation.Get ("movies.opening", new
 			{
-				host = Helper.Translation.Get ($"movies.host.{(sve ? "sve" : "base")}"),
+				host = hostName,
 			}), screenBackground, hostOverlay);
 
 			// Current movie poster, title and description

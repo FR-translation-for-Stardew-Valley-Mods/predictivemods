@@ -1,11 +1,9 @@
 ﻿{
-  // season names, used in "movies.next"
   "season.spring": "spring",
   "season.summer": "summer",
   "season.fall": "fall",
   "season.winter": "winter",
 
-  // Garbage ("In the Cans") - Linus
   "garbage.title": "In the Cans",
   "garbage.opening": "Psst. Hi there {{playerName}}. It's your friend Linus here to let you know what you can expect in today's garbage.",
   "garbage.none": "It looks like all the cans are empty today. Maybe we can forage in the woods instead.",
@@ -25,13 +23,10 @@
   "garbage.closing.standard": "I'll be back tomorrow with another look In the Cans. Let's keep this between you and me, okay?",
   "garbage.closing.progress": "This is only what you're ready to find, young friend. Learn to listen to the cans and they'll have more to offer you.",
 
-  // Mining ("Mining Advisory") - Marlon and Gil
   "mining.title": "Mining Advisory",
 
-  // Movies ("Movie Sneak Preview") - concession stand worker (Claire in SVE)
   "movies.title": "Movie Sneak Preview",
-  "movies.host.base": "your friendly concessionaire",
-  "movies.host.sve": "Claire",
+  "movies.host.generic": "your friendly concessionaire",
   "movies.opening": "Hello Pelican Town, it's {{host}} coming to you from the movie theater with a sneak peek at what's showing.",
   "movies.current": "Our current feature is \"{{title}}\". {{description}} Get your tickets now!",
   "movies.lobby.craneGame": "Stop by the concession stand for a tasty treat before your movie. And try out the exciting crane game in the lobby...there's no line for it today!",
@@ -39,7 +34,6 @@
   "movies.next": "Planning ahead? Starting in {{season}}, we'll be showing \"{{title}}\". {{description}}",
   "movies.closing": "That's it from the theater. I hope to see you soon!",
 
-  // Night Events ("Governor's Message") - Governor
   "nightEvents.title": "Governor's Message",
   "nightEvents.Meteorite.opening": "Fellow citizens, the Republic Warning Service has informed me that a meteor shower will reach its peak over our region tonight.",
   "nightEvents.Meteorite.reaction": "We urge you to remain indoors all night. The view can be enjoyed from your windows. Please report any meteorite impacts to your local authorities.",
@@ -51,18 +45,15 @@
   "nightEvents.NewYear.reaction": "Congratulations to our industries on their ever-improving production, particularly the excellent crops from Stardew Valley.",
   "nightEvents.NewYear.closing": "I wish you all a prosperous new year.",
 
-  // Shopping ("Shop the Valley") - Lewis
   "shopping.title": "Shop the Valley",
 
-  // Tailoring ("Fashion Showcase") - Emily and Haley
   "tailoring.title": "Fashion Showcase",
 
-  // Trains ("Train Timetable") - Demetrius
   "trains.title": "Train Timetable",
   "trains.opening": "Greetings, neighbors! Demetrius here to keep you apprised of the happenings up at the railroad.",
   "trains.next.today": "There's a train coming today! Grab your cameras and head north, railfans. The train will be here at {{time}}.",
   "trains.next.thisWeek": "We don't have long to wait. This {{dayOfWeek}}, a train will pass through at {{time}}.",
   "trains.next.later": "Sorry, the next train won't pass through until {{date}} at {{time}}. We have to be patient.",
   "trains.later": "Looking further down the schedule, I see that trains are also scheduled to pass through on {{date1}} and {{date2}}.",
-  "trains.closing": "Remember that you'll probably miss the train if you've been away from the valley overnight. Happy trainspotting!",
+  "trains.closing": "Remember that you'll probably miss the train if you've been away from the valley overnight. Happy trainspotting!"
 }
