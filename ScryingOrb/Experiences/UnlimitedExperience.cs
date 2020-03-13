@@ -68,7 +68,7 @@ namespace ScryingOrb
 			return true;
 		}
 
-		public override void Run ()
+		protected override void DoRun ()
 		{
 			// In case we were called directly by ModEntry.
 			Illuminate ();

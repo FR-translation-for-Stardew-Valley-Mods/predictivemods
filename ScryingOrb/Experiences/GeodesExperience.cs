@@ -50,7 +50,7 @@ namespace ScryingOrb
 			return true;
 		}
 
-		public override void Run ()
+		protected override void DoRun ()
 		{
 			// Show the menu of types.
 			List<Response> types = Types.Select ((t) => new Response (t.Key,

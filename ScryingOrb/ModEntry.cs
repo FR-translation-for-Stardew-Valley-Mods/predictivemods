@@ -23,6 +23,23 @@ namespace ScryingOrb
 
 		internal static ModConfig Config;
 
+		private static bool orbHovered;
+		internal static bool OrbHovered
+		{
+			get => orbHovered;
+			set
+			{
+				bool oldValue = orbHovered;
+				orbHovered = value;
+
+				// Let the cursor editor know to do its thing.
+				if (oldValue != value)
+				{
+					cursorEditor.Invalidate ();
+				}
+			}
+		}
+
 		private static uint orbsIlluminated;
 		internal static uint OrbsIlluminated
 		{
@@ -53,15 +70,16 @@ namespace ScryingOrb
 			// Add console commands.
 			Utilities.Helper.ConsoleCommands.Add ("reset_orbs",
 				"Resets the state of Scrying Orbs to default values.",
-				(_command, args) => ResetOrbs ());
+				(_command, _args) => ResetOrbs ());
 			Utilities.Helper.ConsoleCommands.Add ("orb_test_kit",
 				"Puts a Scrying Orb and all types of offering into inventory.",
-				(_command, args) => OrbTestKit ());
+				(_command, _args) => OrbTestKit ());
 
 			// Listen for game events.
 			_Helper = helper;
 			_Monitor = Monitor;
 			helper.Events.GameLoop.DayStarted += (_sender, _args) => CheckRecipe ();
+			Helper.Events.Input.CursorMoved += OnCursorMoved;
 			Helper.Events.Input.ButtonPressed += OnButtonPressed;
 
 			// Set up the asset editor for the mouse cursor.
@@ -77,6 +95,22 @@ namespace ScryingOrb
 			{
 				Game1.player.craftingRecipes.Add ("Scrying Orb", 0);
 			}
+		}
+
+		private void OnCursorMoved (object sender, CursorMovedEventArgs args)
+		{
+			// Only hovering if the world is ready and the player is free to
+			// interact with an orb.
+			if (!Context.IsWorldReady || !Context.IsPlayerFree)
+			{
+				OrbHovered = false;
+				return;
+			}
+
+			// Only hovering when a Scrying Orb is pointed at.
+			StardewValley.Object orb = Game1.currentLocation.getObjectAtTile
+				((int) args.NewPosition.Tile.X, (int) args.NewPosition.Tile.Y);
+			OrbHovered = orb != null && orb.Name == "Scrying Orb";
 		}
 
 		private void OnButtonPressed (object sender, ButtonPressedEventArgs args)

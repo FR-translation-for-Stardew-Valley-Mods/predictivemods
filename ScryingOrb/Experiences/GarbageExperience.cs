@@ -30,59 +30,58 @@ namespace ScryingOrb
 			return true;
 		}
 
-		public override void Run ()
+		protected override void DoRun ()
 		{
 			// TODO: Show a date selection dialog box.
+			OnDateChosen (Utilities.Now ()); // TODO: remove temporary call
+		}
+		
+		private void OnDateChosen (WorldDate date)
+		{
+			// Gather the appropriate predictions.
+			List<GarbagePrediction> predictions =
+				Garbage.ListLootForDate (date);
 
-			Action<WorldDate> callback = (WorldDate date) =>
+			bool today = date == Utilities.Now ();
+			List<string> pages = new List<string> ();
+
+			// Show a special message for all cans being empty.
+			if (predictions.Count == 0)
 			{
-				// Gather the appropriate predictions.
-				List<GarbagePrediction> predictions =
-					Garbage.ListLootForDate (date);
-
-				bool today = date == Utilities.Now ();
-				List<string> pages = new List<string> ();
-
-				// Show a special message for all cans being empty.
-				if (predictions.Count == 0)
+				pages.Add (Helper.Translation.Get ($"garbage.none.{(today ? "today" : "later")}"));
+			}
+			else
+			{
+				// Build the list of predictions.
+				List<string> lines = new List<string>
 				{
-					pages.Add (Helper.Translation.Get ($"garbage.none.{(today ? "today" : "later")}"));
-				}
-				else
-				{
-					// Build the list of predictions.
-					List<string> lines = new List<string>
+					Helper.Translation.Get ($"garbage.header.{(today ? "today" : "later")}", new
 					{
-						Helper.Translation.Get ($"garbage.header.{(today ? "today" : "later")}", new
-						{
-							date = date.Localize (),
-						})
-					};
-					foreach (GarbagePrediction prediction in predictions)
-					{
-						lines.Add (Helper.Translation.Get ($"garbage.prediction.{prediction.Can}", new
-						{
-							itemName = (prediction.Loot.ParentSheetIndex == 217)
-								? Helper.Translation.Get ("garbage.dishOfTheDay")
-								: prediction.Loot.DisplayName,
-						}));
-					}
-					pages.Add (string.Join ("^", lines));
-				}
-
-				// If checking more cans could alter the results, add an
-				// appropriate closing.
-				if (Garbage.IsProgressDependent)
+						date = date.Localize (),
+					})
+				};
+				foreach (GarbagePrediction prediction in predictions)
 				{
-					pages.Add (Helper.Translation.Get ("garbage.closing.progress"));
+					lines.Add (Helper.Translation.Get ($"garbage.prediction.{prediction.Can}", new
+					{
+						itemName = (prediction.Loot.ParentSheetIndex == 217)
+							? Helper.Translation.Get ("garbage.dishOfTheDay")
+							: prediction.Loot.DisplayName,
+					}));
 				}
+				pages.Add (string.Join ("^", lines));
+			}
 
-				// Show the predictions.
-				ShowDialogues (pages);
-				Game1.afterDialogues = Extinguish;
-			};
+			// If checking more cans could alter the results, add an
+			// appropriate closing.
+			if (Garbage.IsProgressDependent)
+			{
+				pages.Add (Helper.Translation.Get ("garbage.closing.progress"));
+			}
 
-			callback (Utilities.Now ()); // TODO: remove temporary call
+			// Show the predictions.
+			ShowDialogues (pages);
+			Game1.afterDialogues = Extinguish;
 		}
 	}
 }

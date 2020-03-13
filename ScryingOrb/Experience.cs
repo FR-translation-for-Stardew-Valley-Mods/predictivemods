@@ -39,6 +39,19 @@ namespace ScryingOrb
 			experience.Run ();
 		}
 
+		public void Run ()
+		{
+			try
+			{
+				DoRun ();
+			}
+			catch (Exception e)
+			{
+				Monitor.Log ($"{GetType ().Name} failed: {e.Message}", LogLevel.Error);
+				Extinguish ();
+			}
+		}
+
 		protected Experience ()
 		{
 			Helper.Content.Load<Texture2D> ("assets/illumination.png");
@@ -61,7 +74,7 @@ namespace ScryingOrb
 			return true;
 		}
 
-		public virtual void Run ()
+		protected virtual void DoRun ()
 		{}
 
 		protected void ConsumeOffering (int count = 1)
