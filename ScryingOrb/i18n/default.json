@@ -1,4 +1,8 @@
 ﻿{
+  "datePicker.prevLabel": "Previous Day",
+  "datePicker.nextLabel": "Next Day",
+  "datePicker.scryLabel": "Scry This Day",
+
   "unlimited.initial": "The spirits are most pleased by your generous offering. You may seek their counsel as much as you desire for the next week.",
   "unlimited.following": "The orb glows bright with the power of your earlier offering.",
   "unlimited.lastDay": "The orb glows faintly as your earlier offering wanes.",
@@ -54,6 +58,7 @@
   "nightEvents.closing": "Know that the beings of shadow are capricious.^No occurrence can be foreseen with certainty.",
 
   "garbage.opening": "The spirits of the desolate wastes accept your foul offering.",
+  "garbage.date.question": "What day's refuse do you wish to foretell?",
   "garbage.none.today": "No garbage reveals itself today.",
   "garbage.none.later": "The cans are portented to be empty on {{date}}.",
   "garbage.header.today": "On this day:",

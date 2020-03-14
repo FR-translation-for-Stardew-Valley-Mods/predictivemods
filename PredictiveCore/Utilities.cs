@@ -15,8 +15,6 @@ namespace PredictiveCore
 
 	public static class Utilities
 	{
-		private static readonly List<string> Seasons = new List<string> (new[] { "spring", "summer", "fall", "winter" });
-
 		// Parses a list of three console arguments (year, season, day) as a
 		// WorldDate. If the list is empty, returns the current date.
 		public static WorldDate ArgsToWorldDate (List<string> args)
@@ -37,7 +35,7 @@ namespace PredictiveCore
 			}
 
 			string season = args[1];
-			if (!Seasons.Contains (season))
+			if (Utility.getSeasonNumber (season) == -1)
 			{
 				throw new ArgumentException ($"Invalid season '{args[1]}', must be 'spring', 'summer', 'fall' or 'winter'.");
 			}
@@ -53,11 +51,7 @@ namespace PredictiveCore
 		// Converts a TotalDays count to a WorldDate.
 		public static WorldDate TotalDaysToWorldDate (int totalDays)
 		{
-			int months = totalDays / WorldDate.DaysPerMonth;
-			int day = (totalDays % WorldDate.DaysPerMonth) + 1;
-			int year = (months / WorldDate.MonthsPerYear) + 1;
-			string season = Seasons[months % WorldDate.MonthsPerYear];
-			return new WorldDate (year, season, day);
+			return new WorldDate () { TotalDays = totalDays };
 		}
 
 		// Returns the current WorldDate, since Game1.Date seems to have bugs.
@@ -82,8 +76,8 @@ namespace PredictiveCore
 			}
 		}
 
-		internal const int MaxHorizon =
-			WorldDate.DaysPerMonth * WorldDate.MonthsPerYear * 50;
+		// Limits prediction calculations to 50 years from start date.
+		internal const int MaxHorizon = 28 * 4 * 50;
 
 		// Returns whether the farmer or any farmhand has a friendship of at
 		// least the given level with the named NPC.

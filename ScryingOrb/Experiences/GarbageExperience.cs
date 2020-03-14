@@ -32,8 +32,8 @@ namespace ScryingOrb
 
 		protected override void DoRun ()
 		{
-			// TODO: Show a date selection dialog box.
-			OnDateChosen (Utilities.Now ()); // TODO: remove temporary call
+			Game1.activeClickableMenu = new DatePicker (Utilities.Now (),
+				Helper.Translation.Get ("garbage.date.question"), OnDateChosen);
 		}
 		
 		private void OnDateChosen (WorldDate date)
@@ -48,7 +48,10 @@ namespace ScryingOrb
 			// Show a special message for all cans being empty.
 			if (predictions.Count == 0)
 			{
-				pages.Add (Helper.Translation.Get ($"garbage.none.{(today ? "today" : "later")}"));
+				pages.Add (Helper.Translation.Get ($"garbage.none.{(today ? "today" : "later")}", new
+				{
+					date = date.Localize (),
+				}));
 			}
 			else
 			{

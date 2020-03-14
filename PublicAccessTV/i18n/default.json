@@ -1,9 +1,4 @@
 ﻿{
-  "season.spring": "spring",
-  "season.summer": "summer",
-  "season.fall": "fall",
-  "season.winter": "winter",
-
   "garbage.title": "In the Cans",
   "garbage.opening": "Psst. Hi there {{playerName}}. It's your friend Linus here to let you know what you can expect in today's garbage.",
   "garbage.none": "It looks like all the cans are empty today. Maybe we can forage in the woods instead.",

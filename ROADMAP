@@ -79,8 +79,6 @@ ScryingOrb
 		Future Day
 			input: date
 			content: as for "Shopper's Report", plus Krobus's Fish/Cooking item (if Krobus met)
-	GarbageExperience
-		implement date picker
 	ItemFinderExperience
 		offering: any Animal Product, Artisan Goods, Cooking or Flower item except Fried Egg, Magic Rock Candy, Salmonberry Wine, Tulip, Void Egg or Void Mayonnaise
 		criterion: any item (text search to deal with huge list; precedents to borrow?)

@@ -37,6 +37,7 @@
 		<Compile Include="ModEntry.cs" />
 		<Compile Include="Properties\AssemblyInfo.cs" />
 		<Compile Include="CursorEditor.cs" />
+		<Compile Include="DatePicker.cs" />
 		<Compile Include="Experience.cs" />
 		<Compile Include="Experiences\FallbackExperience.cs" />
 		<Compile Include="Experiences\GarbageExperience.cs" />
@@ -48,7 +49,11 @@
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="manifest.json" />
+		<None Include="assets\calendar.png" />
+		<None Include="assets\calendar.svg" />
 		<None Include="assets\cursor.png" />
+		<None Include="assets\dayButton.png" />
+		<None Include="assets\dayButton.xcf" />
 		<None Include="assets\illumination.xcf" />
 		<None Include="assets\illumination.png" />
 		<None Include="i18n\default.json" />

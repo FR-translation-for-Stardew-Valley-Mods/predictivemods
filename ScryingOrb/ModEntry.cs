@@ -71,9 +71,12 @@ namespace ScryingOrb
 			Utilities.Helper.ConsoleCommands.Add ("reset_orbs",
 				"Resets the state of Scrying Orbs to default values.",
 				(_command, _args) => ResetOrbs ());
-			Utilities.Helper.ConsoleCommands.Add ("orb_test_kit",
+			Utilities.Helper.ConsoleCommands.Add ("test_scrying_orb",
 				"Puts a Scrying Orb and all types of offering into inventory.",
-				(_command, _args) => OrbTestKit ());
+				(_command, _args) => TestScryingOrb ());
+			Utilities.Helper.ConsoleCommands.Add ("test_date_picker",
+				"Runs a DatePicker dialog for testing use.",
+				(_command, _args) => TestDatePicker ());
 
 			// Listen for game events.
 			_Helper = helper;
@@ -172,7 +175,7 @@ namespace ScryingOrb
 			}
 		}
 
-		private void OrbTestKit ()
+		private void TestScryingOrb ()
 		{
 			try
 			{
@@ -197,6 +200,28 @@ namespace ScryingOrb
 
 				Monitor.Log ("Scrying Orb test kit placed in inventory.",
 					LogLevel.Info);
+			}
+			catch (Exception e)
+			{
+				Monitor.Log (e.Message, LogLevel.Error);
+			}
+		}
+
+		private void TestDatePicker ()
+		{
+			try
+			{
+				WorldDate initialDate = new WorldDate (2, "spring", 15);
+				string prompt = "Where on the wheel of the year do you seek?";
+				if (Context.IsWorldReady)
+					++OrbsIlluminated; // use the special cursor in the dialog
+				Game1.activeClickableMenu = new DatePicker (initialDate, prompt,
+					(date) =>
+					{
+						if (Context.IsWorldReady)
+							--OrbsIlluminated;
+						Monitor.Log ($"DatePicker chose {date}", LogLevel.Info);
+					});
 			}
 			catch (Exception e)
 			{

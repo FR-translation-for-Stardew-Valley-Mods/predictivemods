@@ -74,7 +74,8 @@ namespace PublicAccessTV
 			// Upcoming movie poster, title and description.
 			QueueScene (Helper.Translation.Get ("movies.next", new
 			{
-				season = Helper.Translation.Get ($"season.{prediction.FirstDateOfNextMovie.Season}"),
+				season = Utility.getSeasonNameFromNumber
+					(prediction.FirstDateOfNextMovie.SeasonIndex),
 				title = prediction.NextMovie.Title,
 				description = prediction.NextMovie.Description,
 			}), LoadMoviePoster (tv, prediction.NextMovie));

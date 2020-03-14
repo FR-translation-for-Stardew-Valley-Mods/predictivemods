@@ -43,27 +43,32 @@
 						.Select ((e) => e.FullName).ToList ();
 					foreach (string oldFullName in oldFullNames)
 					{
-						if (oldFullName.EndsWith (".xcf"))
+						if (oldFullName.EndsWith (".xcf",
+								System.StringComparison.Ordinal) ||
+							oldFullName.EndsWith (".svg",
+								System.StringComparison.Ordinal))
 						{
+							Log.LogMessage (MessageImportance.Low,
+								$"...removing working file {oldFullName}");
 							zip.GetEntry (oldFullName).Delete ();
 							continue;
 						}
-						if (!oldFullName.StartsWith ($"{ModFolderName}/[",
+
+						if (oldFullName.StartsWith ($"{ModFolderName}/[",
 							System.StringComparison.Ordinal))
 						{
-							continue;
+							Log.LogMessage (MessageImportance.Low,
+								$"...fixing entry {oldFullName}");
+							ZipArchiveEntry oldEntry = zip.GetEntry (oldFullName);
+							ZipArchiveEntry newEntry = zip.CreateEntry (oldFullName
+								.Substring (ModFolderName.Length + 1));
+							using (Stream oldStream = oldEntry.Open ())
+							using (Stream newStream = newEntry.Open ())
+							{
+								oldStream.CopyTo (newStream);
+							}
+							oldEntry.Delete ();
 						}
-						Log.LogMessage (MessageImportance.Low,
-							$"...fixing entry {oldFullName}");
-						ZipArchiveEntry oldEntry = zip.GetEntry (oldFullName);
-						ZipArchiveEntry newEntry = zip.CreateEntry (oldFullName
-							.Substring (ModFolderName.Length + 1));
-						using (Stream oldStream = oldEntry.Open ())
-						using (Stream newStream = newEntry.Open ())
-						{
-							oldStream.CopyTo (newStream);
-						}
-						oldEntry.Delete ();
 					}
 					zip.Dispose ();
 

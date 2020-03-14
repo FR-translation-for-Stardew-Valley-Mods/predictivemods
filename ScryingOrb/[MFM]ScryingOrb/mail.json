@@ -1,6 +1,5 @@
 ﻿[
   {
-    // letter sent by Welwick with crafting recipe
     "Id": "kdau.ScryingOrb.welwickRecipe",
     "GroupId": "kdau.PredictiveMods",
     "Title": "welwickRecipe.title",
@@ -12,5 +11,5 @@
     [
       { "NpcName": "Wizard", "FriendshipLevel": 2 }
     ]
-  },
+  }
 ]
