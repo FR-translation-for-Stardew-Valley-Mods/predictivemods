@@ -97,9 +97,6 @@ Read this document to peer into the future of these very mods! Spooky.
 
 ## ScryingOrb
 
-* Add MetaExperience for offering a Scrying Orb to the Scrying Orb ;)
-* LuckyPurpleExperience: on second attempt, reduce daily luck
-* GarbageExperience: randomize list order
 * Experiences not planned: ~~MoviesExperience~~ (why would the spirits care?), ~~TailoringExperience~~ (no future component), ~~TrainsExperience~~ (Demetrius already knows the future schedule)
 
 ### MiningExperience

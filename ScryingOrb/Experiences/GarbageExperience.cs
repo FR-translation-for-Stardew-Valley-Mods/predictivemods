@@ -3,6 +3,7 @@ using PredictiveCore;
 using StardewValley;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ScryingOrb
 {
@@ -63,7 +64,13 @@ namespace ScryingOrb
 						date = date.Localize (),
 					})
 				};
-				foreach (GarbagePrediction prediction in predictions)
+
+				// Randomize the order of predictions for variety.
+				Random rng = new Random ((int) Game1.uniqueIDForThisGame +
+					date.TotalDays);
+
+				foreach (GarbagePrediction prediction in
+					predictions.OrderBy ((GarbagePrediction a) => rng.Next ()))
 				{
 					lines.Add (Helper.Translation.Get ($"garbage.prediction.{prediction.Can}", new
 					{

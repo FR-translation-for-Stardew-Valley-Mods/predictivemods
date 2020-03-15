@@ -156,6 +156,7 @@ namespace ScryingOrb
 			if (Experience.Try<UnlimitedExperience> (orb, offering) ||
 				Experience.Try<NothingExperience> (orb, offering) ||
 				Experience.Try<LuckyPurpleExperience> (orb, offering) ||
+				Experience.Try<MetaExperience> (orb, offering) ||
 				// TODO: Experience.Try<MiningExperience> (orb, offering) ||
 				Experience.Try<GeodesExperience> (orb, offering) ||
 				Experience.Try<NightEventsExperience> (orb, offering) ||
@@ -173,6 +174,7 @@ namespace ScryingOrb
 				Utilities.CheckWorldReady ();
 				UnlimitedExperience.Reset ();
 				LuckyPurpleExperience.Reset ();
+				MetaExperience.Reset ();
 				Monitor.Log ("Scrying Orb state reset to defaults.",
 					LogLevel.Info);
 			}
