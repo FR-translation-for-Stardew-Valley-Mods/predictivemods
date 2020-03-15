@@ -5,6 +5,7 @@ using StardewValley;
 using StardewValley.Menus;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using SObject = StardewValley.Object;
 
 namespace ScryingOrb
@@ -54,7 +55,8 @@ namespace ScryingOrb
 
 		protected Experience ()
 		{
-			Helper.Content.Load<Texture2D> ("assets/illumination.png");
+			Helper.Content.Load<Texture2D>
+				(Path.Combine ("assets", "illumination.png"));
 		}
 
 		public SObject Orb { get; internal set; }
@@ -189,7 +191,8 @@ namespace ScryingOrb
 			if (b > r && b > g)
 			{
 				TemporaryAnimatedSprite sprite = ShowAnimation
-					(Helper.Content.GetActualAssetKey ("assets/illumination.png"),
+					(Helper.Content.GetActualAssetKey
+						(Path.Combine ("assets", "illumination.png")),
 					new Rectangle (0, 0, 16, 16), 200f, 5, 9999);
 				sprite.id = identifier;
 			}

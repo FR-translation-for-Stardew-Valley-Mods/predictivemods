@@ -4,6 +4,7 @@ using PredictiveCore;
 using StardewValley;
 using StardewValley.GameData.Movies;
 using StardewValley.Objects;
+using System.IO;
 
 namespace PublicAccessTV
 {
@@ -12,7 +13,8 @@ namespace PublicAccessTV
 		public MoviesChannel ()
 			: base ("movies")
 		{
-			Helper.Content.Load<Texture2D> ("assets/movies_craneGame.png");
+			Helper.Content.Load<Texture2D>
+				(Path.Combine ("assets", "movies_craneGame.png"));
 		}
 
 		internal override bool IsAvailable =>
@@ -55,7 +57,8 @@ namespace PublicAccessTV
 			if (prediction.CraneGameAvailable)
 			{
 				lobbyMessage = Helper.Translation.Get ("movies.lobby.craneGame");
-				string assetName = Helper.Content.GetActualAssetKey ("assets/movies_craneGame.png");
+				string assetName = Helper.Content.GetActualAssetKey
+					(Path.Combine ("assets", "movies_craneGame.png"));
 				lobbyBackground = LoadSprite (tv, assetName,
 					new Rectangle (0, 0, 94, 63));
 				lobbyOverlay = LoadSprite (tv, assetName,

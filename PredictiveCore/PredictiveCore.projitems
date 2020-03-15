@@ -33,7 +33,9 @@
 			<![CDATA[
 				try
 				{
-					string archivePath = Directory.GetFiles (ModZipPath).First
+					var archives = Directory.GetFiles (ModZipPath);
+					Array.Sort (archives);
+					string archivePath = archives.Last
 						((f) => f.EndsWith (".zip", System.StringComparison.Ordinal));
 
 					Log.LogMessage (MessageImportance.High,

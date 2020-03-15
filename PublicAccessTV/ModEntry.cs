@@ -26,9 +26,9 @@ namespace PublicAccessTV
 			Utilities.Initialize (this, helper);
 
 			// Add console commands.
-			Utilities.Helper.ConsoleCommands.Add ("reset_channels",
-				"Resets the availability of the custom channels to reflect current conditions.",
-				(_command, args) => ResetChannels ());
+			Utilities.Helper.ConsoleCommands.Add ("update_patv_channels",
+				"Updates the availability of the custom channels to reflect current conditions.",
+				(_command, args) => UpdateChannels ());
 
 			// Listen for game events.
 			_Helper = helper;
@@ -71,13 +71,13 @@ namespace PublicAccessTV
 			}
 		}
 
-		private void ResetChannels ()
+		private void UpdateChannels ()
 		{
 			try
 			{
 				Utilities.CheckWorldReady ();
 				InitializeChannels ();
-				Monitor.Log ("Channel availability reset to reflect current conditions.",
+				Monitor.Log ("Channel availability updated to reflect current conditions.",
 					LogLevel.Info);
 			}
 			catch (Exception e)

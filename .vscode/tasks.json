@@ -4,12 +4,52 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "Build the mods",
+			"label": "Build",
 			"type": "shell",
 			"command": "msbuild",
 			"args": [
 				"/property:GenerateFullPaths=true",
 				"/t:build",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"presentation": {
+				"reveal": "silent",
+				"panel": "dedicated",
+				"clear": true
+			},
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Rebuild",
+			"type": "shell",
+			"command": "msbuild",
+			"args": [
+				"/property:GenerateFullPaths=true",
+				"/t:rebuild",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"presentation": {
+				"reveal": "silent",
+				"panel": "dedicated",
+				"clear": true
+			},
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Clean",
+			"type": "shell",
+			"command": "msbuild",
+			"args": [
+				"/property:GenerateFullPaths=true",
+				"/t:clean",
 				"/consoleloggerparameters:NoSummary"
 			],
 			"group": {

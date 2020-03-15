@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<AssemblyName>PublicAccessTV</AssemblyName>
 		<RootNamespace>PublicAccessTV</RootNamespace>
-		<ReleaseVersion>0.1.0</ReleaseVersion>
+		<ReleaseVersion>1.0.0</ReleaseVersion>
 		<TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
 		<OutputType>Library</OutputType>
 		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -46,12 +46,9 @@
 		<None Include="manifest.json" />
 		<None Include="i18n\default.json" />
 		<None Include="assets\garbage_backgrounds.png" />
-		<None Include="assets\garbage_backgrounds.xcf" />
 		<None Include="assets\movies_craneGame.png" />
 		<None Include="assets\nightEvents_background.png" />
-		<None Include="assets\nightEvents_background.xcf" />
 		<None Include="assets\trains_background.png" />
-		<None Include="assets\trains_background.xcf" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="i18n\" />

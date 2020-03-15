@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
 using StardewValley;
+using System.IO;
 
 namespace ScryingOrb
 {
@@ -16,7 +17,8 @@ namespace ScryingOrb
 
 		public CursorEditor()
 		{
-			Cursor = Helper.Content.Load<Texture2D> ("assets/cursor.png");
+			Cursor = Helper.Content.Load<Texture2D>
+				(Path.Combine ("assets", "cursor.png"));
 		}
 
 		public bool CanEdit<_T> (IAssetInfo asset)

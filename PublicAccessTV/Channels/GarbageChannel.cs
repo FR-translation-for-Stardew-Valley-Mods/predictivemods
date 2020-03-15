@@ -4,6 +4,7 @@ using PredictiveCore;
 using StardewValley;
 using StardewValley.Objects;
 using System.Collections.Generic;
+using System.IO;
 using SObject = StardewValley.Object;
 
 namespace PublicAccessTV
@@ -13,7 +14,8 @@ namespace PublicAccessTV
 		public GarbageChannel ()
 			: base ("garbage")
 		{
-			Helper.Content.Load<Texture2D> ("assets/garbage_backgrounds.png");
+			Helper.Content.Load<Texture2D>
+				(Path.Combine ("assets", "garbage_backgrounds.png"));
 		}
 
 		internal override bool IsAvailable =>
@@ -86,7 +88,8 @@ namespace PublicAccessTV
 		{
 			int canIndex = can.HasValue ? (int) can.Value + 1 : 0;
 			return LoadSprite (tv,
-				Helper.Content.GetActualAssetKey ("assets/garbage_backgrounds.png"),
+				Helper.Content.GetActualAssetKey
+					(Path.Combine ("assets", "garbage_backgrounds.png")),
 				new Rectangle (seasonIndex * 120, canIndex * 80, 120, 80));
 		}
 	}

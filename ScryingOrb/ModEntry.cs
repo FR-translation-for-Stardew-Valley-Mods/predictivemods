@@ -68,9 +68,9 @@ namespace ScryingOrb
 			Utilities.Initialize (this, helper);
 
 			// Add console commands.
-			Utilities.Helper.ConsoleCommands.Add ("reset_orbs",
+			Utilities.Helper.ConsoleCommands.Add ("reset_scrying_orbs",
 				"Resets the state of Scrying Orbs to default values.",
-				(_command, _args) => ResetOrbs ());
+				(_command, _args) => ResetScryingOrbs ());
 			Utilities.Helper.ConsoleCommands.Add ("test_scrying_orb",
 				"Puts a Scrying Orb and all types of offering into inventory.",
 				(_command, _args) => TestScryingOrb ());
@@ -92,9 +92,16 @@ namespace ScryingOrb
 
 		private void CheckRecipe ()
 		{
+			// If the recipe is already given, nothing else to do.
+			if (Game1.player.craftingRecipes.ContainsKey ("Scrying Orb"))
+				return;
+
 			// If the instant recipe cheat is enabled, add the recipe now.
-			if (Config.InstantRecipe &&
-				!Game1.player.craftingRecipes.ContainsKey ("Scrying Orb"))
+			// If not, but the Mail Framework Mod isn't installed, add the
+			// recipe when the player reaches two hearts with the Wizard.
+			if (Config.InstantRecipe ||
+				(!Helper.ModRegistry.IsLoaded ("DIGUS.MailFrameworkMod") &&
+					Game1.player.getFriendshipHeartLevelForNPC ("Wizard") >= 2))
 			{
 				Game1.player.craftingRecipes.Add ("Scrying Orb", 0);
 			}
@@ -159,7 +166,7 @@ namespace ScryingOrb
 			{} // (if-block used to allow boolean fallback)
 		}
 
-		private void ResetOrbs ()
+		private void ResetScryingOrbs ()
 		{
 			try
 			{

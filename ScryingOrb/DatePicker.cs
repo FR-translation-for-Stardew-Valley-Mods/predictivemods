@@ -8,6 +8,7 @@ using StardewValley.BellsAndWhistles;
 using StardewValley.Menus;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace ScryingOrb
 {
@@ -95,8 +96,10 @@ namespace ScryingOrb
 			PromptMessage = promptMessage;
 			OnConfirm = onConfirm;
 
-			CalendarTile = Helper.Content.Load<Texture2D> ("assets/calendar.png");
-			DayButtonTiles = Helper.Content.Load<Texture2D> ("assets/dayButton.png");
+			CalendarTile = Helper.Content.Load<Texture2D>
+				(Path.Combine ("assets", "calendar.png"));
+			DayButtonTiles = Helper.Content.Load<Texture2D>
+				(Path.Combine ("assets", "dayButton.png"));
 
 			ArrangeInterface ();
 		}
@@ -307,9 +310,7 @@ namespace ScryingOrb
 				return;
 			SeasonSpriteHits[seasonIndex] = 0;
 
-			uint seed = Context.IsWorldReady ? Game1.player.stats.stepsTaken : 0u;
-			Random rng = new Random ((int) seed);
-
+			Random rng = new Random ();
 			Rectangle spriteBounds = SeasonSprites[seasonIndex].bounds;
 
 			SeasonDebris.Clear ();

@@ -5,6 +5,7 @@ using StardewValley;
 using StardewValley.Objects;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace PublicAccessTV
 {
@@ -13,7 +14,8 @@ namespace PublicAccessTV
 		public TrainsChannel ()
 			: base ("trains")
 		{
-			Helper.Content.Load<Texture2D> ("assets/trains_background.png");
+			Helper.Content.Load<Texture2D>
+				(Path.Combine ("assets", "trains_background.png"));
 		}
 
 		internal override bool IsAvailable =>
@@ -30,7 +32,8 @@ namespace PublicAccessTV
 			}
 
 			TemporaryAnimatedSprite background = LoadSprite (tv,
-				Helper.Content.GetActualAssetKey ("assets/trains_background.png"),
+				Helper.Content.GetActualAssetKey
+					(Path.Combine ("assets", "trains_background.png")),
 				new Rectangle (0, 0, 96, 64));
 			TemporaryAnimatedSprite portrait = LoadPortrait (tv, "Demetrius");
 

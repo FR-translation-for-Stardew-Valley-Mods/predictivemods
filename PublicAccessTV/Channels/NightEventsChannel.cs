@@ -5,6 +5,7 @@ using StardewValley;
 using StardewValley.Objects;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace PublicAccessTV
 {
@@ -13,7 +14,8 @@ namespace PublicAccessTV
 		public NightEventsChannel ()
 			: base ("nightEvents")
 		{
-			Helper.Content.Load<Texture2D> ("assets/nightEvents_background.png");
+			Helper.Content.Load<Texture2D>
+				(Path.Combine ("assets", "nightEvents_background.png"));
 		}
 
 		internal override bool IsAvailable =>
@@ -29,7 +31,8 @@ namespace PublicAccessTV
 			}
 
 			TemporaryAnimatedSprite background = LoadSprite (tv,
-				Helper.Content.GetActualAssetKey ("assets/nightEvents_background.png"),
+				Helper.Content.GetActualAssetKey
+					(Path.Combine ("assets", "nightEvents_background.png")),
 				new Rectangle (0, 0, 120, 80));
 			TemporaryAnimatedSprite portrait = LoadPortrait (tv, "Governor", 1, 0);
 
