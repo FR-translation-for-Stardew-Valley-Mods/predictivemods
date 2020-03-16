@@ -25,9 +25,8 @@ However, some other mods do change the way the game works in the areas that the 
 
 1. Install the latest version of [SMAPI](https://smapi.io/).
 1. Install the [Json Assets](https://www.nexusmods.com/stardewvalley/mods/1720) mod.
-1. Optionally, install the [Mail Framework Mod](https://www.nexusmods.com/stardewvalley/mods/1536) to receive the crafting recipe by mail.
 1. Download this mod from its Nexus page<!-- TODO: ScryingOrb Nexus files link --> or ModDrop page<!-- TODO: ScryingOrb ModDrop link -->.
-1. Unzip the mod and place the `ScryingOrb`, `[JA]ScryingOrb` and `[MFM]ScryingOrb` folders inside your `Mods` folder.
+1. Unzip the mod and place the `ScryingOrb` and `[JA]ScryingOrb` folders inside your `Mods` folder.
 1. Run the game using SMAPI.
 
 ## Use
@@ -121,11 +120,10 @@ This mod can be translated into any language supported by Stardew Valley. No tra
 
 Your contribution would be welcome. Please see the [details on the wiki](https://stardewvalleywiki.com/Modding:Translations) for help. You can send me your work in an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues), on Nexus<!-- TODO: ScryingOrb Nexus issues link --> or by DM on Discord.
 
-For this mod, there are translatable strings in three files:
+For this mod, there are translatable strings in two files:
 
 * `i18n/default.json`
 * `[JA]ScryingOrb/BigCraftables/ScryingOrb/big-craftable.json`
-* `[MFM]ScryingOrb/i18n/default.json`
 
 ## Acknowledgments
 

@@ -85,9 +85,10 @@ namespace ScryingOrb
 			Helper.Events.Input.CursorMoved += OnCursorMoved;
 			Helper.Events.Input.ButtonPressed += OnButtonPressed;
 
-			// Set up the asset editor for the mouse cursor.
+			// Set up asset editors.
 			cursorEditor = new CursorEditor ();
 			Helper.Content.AssetEditors.Add (cursorEditor);
+			Helper.Content.AssetEditors.Add (new MailEditor ());
 		}
 
 		private void CheckRecipe ()
@@ -97,14 +98,15 @@ namespace ScryingOrb
 				return;
 
 			// If the instant recipe cheat is enabled, add the recipe now.
-			// If not, but the Mail Framework Mod isn't installed, add the
-			// recipe when the player reaches two hearts with the Wizard.
-			if (Config.InstantRecipe ||
-				(!Helper.ModRegistry.IsLoaded ("DIGUS.MailFrameworkMod") &&
-					Game1.player.getFriendshipHeartLevelForNPC ("Wizard") >= 2))
+			if (Config.InstantRecipe)
 			{
 				Game1.player.craftingRecipes.Add ("Scrying Orb", 0);
+				return;
 			}
+
+			// Otherwise, if the friendship is adequate, send the letter.
+			if (Game1.player.getFriendshipHeartLevelForNPC ("Wizard") >= 2)
+				Game1.mailbox.Add ("kdau.ScryingOrb.welwickInstructions");
 		}
 
 		private void OnCursorMoved (object sender, CursorMovedEventArgs args)

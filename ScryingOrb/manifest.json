@@ -7,8 +7,7 @@
   "EntryDll": "ScryingOrb.dll",
   "MinimumApiVersion": "3.3.2",
   "Dependencies": [
-    { "UniqueID": "spacechase0.JsonAssets" },
-    { "UniqueID": "DIGUS.MailFrameworkMod", "IsRequired": false }
+    { "UniqueID": "spacechase0.JsonAssets" }
   ],
   "UpdateKeys": []
 }

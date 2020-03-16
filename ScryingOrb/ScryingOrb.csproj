@@ -39,6 +39,7 @@
 		<Compile Include="CursorEditor.cs" />
 		<Compile Include="DatePicker.cs" />
 		<Compile Include="Experience.cs" />
+		<Compile Include="MailEditor.cs" />
 		<Compile Include="Experiences\FallbackExperience.cs" />
 		<Compile Include="Experiences\GarbageExperience.cs" />
 		<Compile Include="Experiences\GeodesExperience.cs" />
@@ -65,23 +66,12 @@
 		<None Include="[JA]ScryingOrb\BigCraftables\ScryingOrb\big-craftable.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
-		<None Include="[MFM]ScryingOrb\manifest.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Include="[MFM]ScryingOrb\mail.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Include="[MFM]ScryingOrb\i18n\default.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="i18n\" />
 		<Folder Include="Experiences\" />
 		<Folder Include="[JA]ScryingOrb\BigCraftables\" />
 		<Folder Include="[JA]ScryingOrb\BigCraftables\ScryingOrb\" />
-		<Folder Include="[MFM]ScryingOrb\" />
-		<Folder Include="[MFM]ScryingOrb\i18n\" />
 	</ItemGroup>
 	<Import Project="..\PredictiveCore\PredictiveCore.projitems" Label="Shared" Condition="Exists('..\PredictiveCore\PredictiveCore.projitems')" />
 	<Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
