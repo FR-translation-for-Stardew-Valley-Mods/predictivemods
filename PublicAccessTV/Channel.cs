@@ -4,30 +4,12 @@ using StardewValley;
 using StardewValley.Objects;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
 namespace PublicAccessTV
 {
-	// Container for a pairing of a TV message and sprites, allowing changing of
-	// graphics between messages.
-	internal struct Scene
-	{
-		public string Message;
-		public TemporaryAnimatedSprite Background;
-		public TemporaryAnimatedSprite Overlay;
-		public Action AfterAction;
-
-		public Scene (string message, TemporaryAnimatedSprite background,
-			TemporaryAnimatedSprite overlay = null, Action afterAction = null)
-		{
-			Message = message;
-			Background = background;
-			Overlay = overlay;
-			AfterAction = afterAction;
-		}
-	}
-
 	public class Channel
 	{
 		internal static IModHelper Helper => ModEntry._Helper;
@@ -71,37 +53,25 @@ namespace PublicAccessTV
 
 		private Queue<Scene> Scenes = new Queue<Scene> ();
 
-		// Add one message-and-sprite pair to the queue for display on TV.
-		protected void QueueScene (string message, TemporaryAnimatedSprite background,
-			TemporaryAnimatedSprite overlay = null, Action afterAction = null)
+		// Add a scene to the queue for display on TV.
+		protected void QueueScene (Scene scene)
 		{
-			Scenes.Enqueue (new Scene (message, background, overlay, afterAction));
+			Scenes.Enqueue (scene);
 		}
 
 		// Run a program of all the queued scenes on the TV in order.
-		protected void RunProgram (TV tv)
+		public void RunProgram (TV tv)
 		{
 			if (Scenes.Count == 0)
 			{
 				tv.turnOffTV ();
-				return;
+				Game1.stopMusicTrack (Game1.MusicContext.Event);
 			}
-
-			Scene scene = Scenes.Dequeue ();
-			Helper.Reflection.GetField<TemporaryAnimatedSprite> (tv, "screen")
-				.SetValue (scene.Background);
-			Helper.Reflection.GetField<TemporaryAnimatedSprite> (tv, "screenOverlay")
-				.SetValue (scene.Overlay);
-			Game1.drawObjectDialogue (Game1.parseText (scene.Message));
-
-			Game1.afterDialogues = () =>
+			else
 			{
-				if (scene.AfterAction != null)
-				{
-					scene.AfterAction.Invoke ();
-				}
-				RunProgram (tv);
-			};
+				Scene scene = Scenes.Dequeue ();
+				scene.Run (tv, this);
+			}
 		}
 
 		// Convenience method to handle common values for TV sprites.
@@ -121,6 +91,16 @@ namespace PublicAccessTV
 				tv.getScreenPosition () + (positionOffset * tv.getScreenSizeModifier ()),
 				false, false, layerDepth, 0f, Color.White,
 				tv.getScreenSizeModifier () * scale, 0f, 0f, 0f, false);
+		}
+
+		// Convenience method for background TV sprites from tilesheets.
+		protected TemporaryAnimatedSprite LoadBackground (TV tv, int scene,
+			int condition = 0)
+		{
+			return LoadSprite (tv,
+				Helper.Content.GetActualAssetKey
+					(Path.Combine ("assets", $"{LocalID}_backgrounds.png")),
+				new Rectangle (condition * 120, scene * 80, 120, 80));
 		}
 
 		// Convenience method for portrait overlay TV sprites.

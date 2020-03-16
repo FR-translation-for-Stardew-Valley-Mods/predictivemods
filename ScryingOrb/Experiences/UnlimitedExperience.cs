@@ -53,9 +53,10 @@ namespace ScryingOrb
 				return false;
 			ConsumeOffering ();
 
-			// Start an unlimited period.
+			// Start an unlimited period and increase luck for the day.
 			saveData.ExpirationDay = Utilities.Now ().TotalDays + 7;
 			Helper.Data.WriteSaveData ("Unlimited", saveData);
+			Game1.player.team.sharedDailyLuck.Value = 0.12;
 
 			// React to the offering dramatically, then proceed to run.
 			Illuminate ();
@@ -77,7 +78,7 @@ namespace ScryingOrb
 			Dictionary<string, Experience> experiences =
 				new Dictionary<string, Experience>
 			{
-				// TODO: { "mining", new MiningExperience { Orb = Orb } },
+				{ "mining", new MiningExperience { Orb = Orb } },
 				{ "geodes", new GeodesExperience { Orb = Orb } },
 				{ "nightEvents", new NightEventsExperience { Orb = Orb } },
 				// TODO: { "shopping", new ShoppingExperience { Orb = Orb } },

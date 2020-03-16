@@ -10,24 +10,24 @@ This mod is based on the [Stardew Predictor](https://mouseypounds.github.io/star
 * [Compatibility](#compatibility)
 * [Installation](#installation)
 * [Use](#use)
-	* [Offerings](#offerings)
-	* [Cheats](#cheats)
+* [Configuration](#configuration)
 * [Translation](#translation)
 * [Acknowledgments](#acknowledgments)
 * [See also](#see-also)
 
 ## Compatibility
 
-Scrying Orb is compatible with Stardew Valley 1.4+. There are no known conflicts with other mods, cross-platform issues or problems with multiplayer.
+Scrying Orb is compatible with Stardew Valley 1.4.5+. There are no known conflicts with other mods, cross-platform issues or problems with multiplayer.
 
-However, some other mods do change the way the game works in the areas that the Scrying Orb predicts. The orb will make incorrect predictions in these cases. If you would like me to consider accommodating such a mod, please open an issue on GitLab or on the Nexus page.
+However, some other mods do change the way the game works in the areas that the Scrying Orb predicts. The orb will make incorrect predictions in these cases. If you would like me to consider accommodating such a mod, please open an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues) or on the Nexus page<!-- TODO: ScryingOrb Nexus issues link -->.
 
 ## Installation
 
 1. Install the latest version of [SMAPI](https://smapi.io/).
 1. Install the [Json Assets](https://www.nexusmods.com/stardewvalley/mods/1720) mod.
 1. Optionally, install the [Mail Framework Mod](https://www.nexusmods.com/stardewvalley/mods/1536) to receive the crafting recipe by mail.
-1. Install this mod from its Nexus page<!-- TODO: ScryingOrb Nexus link --> or ModDrop page<!-- TODO: ScryingOrb ModDrop link -->.
+1. Download this mod from its Nexus page<!-- TODO: ScryingOrb Nexus files link --> or ModDrop page<!-- TODO: ScryingOrb ModDrop link -->.
+1. Unzip the mod and place the `ScryingOrb`, `[JA]ScryingOrb` and `[MFM]ScryingOrb` folders inside your `Mods` folder.
 1. Run the game using SMAPI.
 
 ## Use
@@ -36,25 +36,40 @@ The day after you reach two hearts of friendship with the Wizard, you will recei
 
 Welwick's letter will give you the recipe for crafting the Scrying Orb. Craft the orb with 3 Refined Quartz (for the orb) and 10 Stone (for the pedestal). You can place it anywhere that is convenient, indoors or outdoors. A pickaxe or axe is needed to pick it up again.
 
-To commune with the spirits, offer the orb an item that is symbolic of the topic on which you wish to enquire. Invalid offerings will be rejected without being consumed. A few very special offerings will give you an in-game week of unlimited offering-free scrying.
+To commune with the spirits, offer the orb an item that is symbolic of the topic about which you wish to enquire. Invalid offerings will be rejected without being consumed. A few very valuable offerings will give you an (in-game) week of unlimited scrying without further offerings.
 
-You can figure out appropriate items as you go, as with gifting. If you're in a hurry, check the topics below to see what is accepted.
+You can figure out the appropriate items as you go, like giving gifts. If you're in a hurry, check the topics below to see what is accepted.
 
-### Offerings
+### Mines and caverns
 
-Each scrying topic accepts a different set of items.
-
-<!-- TODO: Mines and caverns -->
+Learn what floors of the mines and caverns will have monster infestations or valuable caches on any day in the next year. <em>Must have entered the mines.</em>
 
 <details>
-<summary>Geode treasures</summary>
-(must have cracked at least one geode)
+<summary>Offerings</summary>
+
+* 5 Copper Ore
+* 3 Iron Ore
+* Gold Ore
+* Iridium Ore
+* 2 Coal
+</details>
+
+### Geode treasures
+
+Learn what will be found inside the next three geodes of any type, or the next 10 geodes of a particular type. <em>Must have cracked at least one geode.</em>
+
+<details>
+<summary>Offerings</summary>
 
 * any Mineral item other than Limestone or Prismatic Shard
 </details>
 
+### Nocturnal occurrences
+
+Learn what strange events may occur over upcoming nights, or when a particular strange event may next occur.
+
 <details>
-<summary>Nocturnal occurrences</summary>
+<summary>Offerings</summary>
 
 * 3 Bat Wing
 * Void Egg
@@ -65,17 +80,22 @@ Each scrying topic accepts a different set of items.
 
 <!-- TODO: Market offerings -->
 
+### Garbage finds
+
+Learn what items will be found in garbage cans on any day in the next year. <em>Must have looked in at least one can.</em>
+
 <details>
-<summary>Garbage finds</summary>
-(must have looked in at least one can)
+<summary>Offerings</summary>
 
 * any Trash item
 </details>
 
 <!-- TODO: Seek a particular item -->
 
+### Week of unlimited use
+
 <details>
-<summary>Week of unlimited use</summary>
+<summary>Offerings</summary>
 
 * Golden Pumpkin
 * Magic Rock Candy
@@ -84,22 +104,28 @@ Each scrying topic accepts a different set of items.
 * Treasure Chest
 </details>
 
-There is also one item which will get a special reaction from the spirits. <span style="color: #9355ea">You probably know <span style="color: #d98cff">which one</span> I mean.</span>
+### Other
 
-### Cheats
+There is a particular item which will get a special reaction from the spirits. <span style="color: #9355ea">You probably know which one I mean.</span>
 
-The first time you run the mod, it will generate a `config.json` file in its main folder (`Mods/ScryingOrb`). There are no regular options there, but two cheat options are available:
+## Configuration
 
-* `InstantRecipe`: Set this to `true` to enable the Scrying Orb crafting recipe immediately instead of requiring two hearts with the Wizard.
+The first time you run the mod, it will generate a `config.json` file in its main folder (`Mods/ScryingOrb`). Two cheat options are available:
+
+* `InstantRecipe`: Set this to `true` to give the Scrying Orb crafting recipe immediately instead of needing two hearts with the Wizard.
 * `UnlimitedUse`: Set this to `true` to have the Scrying Orb work without taking offerings permanently.
 
 ## Translation
 
 This mod can be translated into any language supported by Stardew Valley. No translations are currently available, however.
 
-Your contribution would be welcome. Please see the [details on the wiki](https://stardewvalleywiki.com/Modding:Translations) for help. You can send me your work in an issue on GitLab or Nexus or by DM on Discord.
+Your contribution would be welcome. Please see the [details on the wiki](https://stardewvalleywiki.com/Modding:Translations) for help. You can send me your work in an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues), on Nexus<!-- TODO: ScryingOrb Nexus issues link --> or by DM on Discord.
 
-For this mod, in addition to `i18n/default.json`, there are translatable strings in `[JA]ScryingOrb/BigCraftables/ScryingOrb/big-craftable.json` (`Name` and `Description`) and `[MFM]ScryingOrb/i18n/default.json`.
+For this mod, there are translatable strings in three files:
+
+* `i18n/default.json`
+* `[JA]ScryingOrb/BigCraftables/ScryingOrb/big-craftable.json`
+* `[MFM]ScryingOrb/i18n/default.json`
 
 ## Acknowledgments
 
@@ -116,5 +142,6 @@ For this mod, in addition to `i18n/default.json`, there are translatable strings
 * This mod on Nexus<!-- TODO: ScryingOrb Nexus link -->
 * This mod on ModDrop<!-- TODO: ScryingOrb ModDrop link -->
 * [This mod on GitLab](https://gitlab.com/kdau/predictivemods/-/tree/master/ScryingOrb)
+---
 * Public Access TV<!-- TODO: PublicAccessTV Nexus link --> mod <small>([source](../PublicAccessTV))</small> for friendship-based, same-day predictions
 * [Stardew Predictor](https://mouseypounds.github.io/stardew-predictor/) web app to see it all at once

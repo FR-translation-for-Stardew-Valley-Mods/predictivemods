@@ -20,7 +20,8 @@ namespace PredictiveCore
 	public static class Movies
 	{
 		// Whether this module should be available for player use.
-		public static bool IsAvailable => Game1.player.mailReceived.Contains ("ccMovieTheater");
+		public static bool IsAvailable =>
+			Utility.doesMasterPlayerHaveMailReceivedButNotMailForTomorrow ("ccMovieTheater");
 
 		// Returns the current and next movie and crane game status as of the
 		// given date.

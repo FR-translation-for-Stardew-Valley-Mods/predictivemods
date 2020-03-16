@@ -44,6 +44,7 @@
 		<Compile Include="Experiences\GeodesExperience.cs" />
 		<Compile Include="Experiences\LuckyPurpleExperience.cs" />
 		<Compile Include="Experiences\MetaExperience.cs" />
+		<Compile Include="Experiences\MiningExperience.cs" />
 		<Compile Include="Experiences\NightEventsExperience.cs" />
 		<Compile Include="Experiences\NothingExperience.cs" />
 		<Compile Include="Experiences\UnlimitedExperience.cs" />

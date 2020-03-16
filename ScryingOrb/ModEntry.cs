@@ -157,7 +157,7 @@ namespace ScryingOrb
 				Experience.Try<NothingExperience> (orb, offering) ||
 				Experience.Try<LuckyPurpleExperience> (orb, offering) ||
 				Experience.Try<MetaExperience> (orb, offering) ||
-				// TODO: Experience.Try<MiningExperience> (orb, offering) ||
+				Experience.Try<MiningExperience> (orb, offering) ||
 				Experience.Try<GeodesExperience> (orb, offering) ||
 				Experience.Try<NightEventsExperience> (orb, offering) ||
 				// TODO: Experience.Try<ShoppingExperience> (orb, offering) ||
@@ -201,7 +201,7 @@ namespace ScryingOrb
 					// TODO: item for ShoppingExperience
 					new SObject (767, 150), // 3 Bat Wing for NightEventsExperience
 					new SObject (541, 50), // Aerinite for GeodesExperience
-					// TODO: item for MiningExperience
+					new SObject (382, 100), // 2 Coal for MiningExperience
 					new SObject (Vector2.Zero, orbID), // Scrying Orb
 					new SObject (Vector2.Zero, orbID), // Scrying Orb
 					new SObject (Vector2.Zero, orbID) // Scrying Orb

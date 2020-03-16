@@ -11,6 +11,7 @@
 	<ItemGroup>
 		<Compile Include="$(MSBuildThisFileDirectory)Garbage.cs" />
 		<Compile Include="$(MSBuildThisFileDirectory)Geodes.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)Mining.cs" />
 		<Compile Include="$(MSBuildThisFileDirectory)Movies.cs" />
 		<Compile Include="$(MSBuildThisFileDirectory)NightEvents.cs" />
 		<Compile Include="$(MSBuildThisFileDirectory)Trains.cs" />

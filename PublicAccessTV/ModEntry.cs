@@ -53,7 +53,7 @@ namespace PublicAccessTV
 			Channels = new Channel[]
 			{
 				new NightEventsChannel (),
-				// TODO: new MiningChannel (),
+				new MiningChannel (),
 				// TODO: new ShoppingChannel (),
 				new GarbageChannel (),
 				// TODO: new TailoringChannel (),

@@ -15,7 +15,7 @@ namespace PublicAccessTV
 			: base ("nightEvents")
 		{
 			Helper.Content.Load<Texture2D>
-				(Path.Combine ("assets", "nightEvents_background.png"));
+				(Path.Combine ("assets", "nightEvents_backgrounds.png"));
 		}
 
 		internal override bool IsAvailable =>
@@ -30,36 +30,34 @@ namespace PublicAccessTV
 				throw new Exception ("No night event found.");
 			}
 
-			TemporaryAnimatedSprite background = LoadSprite (tv,
-				Helper.Content.GetActualAssetKey
-					(Path.Combine ("assets", "nightEvents_background.png")),
-				new Rectangle (0, 0, 120, 80));
+			TemporaryAnimatedSprite background = LoadBackground (tv, 0);
 			TemporaryAnimatedSprite portrait = LoadPortrait (tv, "Governor", 1, 0);
+			bool newYear = currentEvent == NightEventType.NewYear;
 
 			// Opening scene: the governor greets the viewer.
-			QueueScene (Helper.Translation.Get ($"nightEvents.{currentEvent}.opening"),
-				background, portrait);
+			QueueScene (new Scene
+				(Helper.Translation.Get ($"nightEvents.{currentEvent}.opening"),
+				background, portrait)
+				{ SoundAsset = newYear
+					? "nightEvents_newYear" : "nightEvents_opening" });
 
 			// The governor reacts to the event.
-			Point reactionIndex;
-			switch (currentEvent)
+			TemporaryAnimatedSprite reactionBackground = background;
+			string reactionSound = null;
+			Point reactionIndex = new Point (0, newYear ? 0 : 1);
+			if (currentEvent == NightEventType.StrangeCapsule)
 			{
-			case NightEventType.StrangeCapsule:
+				reactionBackground = LoadBackground (tv, 0, 1);
+				reactionSound = "UFO";
 				reactionIndex = new Point (1, 1);
-				break;
-			case NightEventType.NewYear:
-				reactionIndex = new Point (0, 0);
-				break;
-			default:
-				reactionIndex = new Point (0, 1);
-				break;
 			}
-			QueueScene (Helper.Translation.Get ($"nightEvents.{currentEvent}.reaction"),
-				background, LoadPortrait (tv, "Governor", reactionIndex));
+			QueueScene (new Scene (Helper.Translation.Get ($"nightEvents.{currentEvent}.reaction"),
+				reactionBackground, LoadPortrait (tv, "Governor", reactionIndex))
+				{ SoundCueName = reactionSound });
 
 			// Closing scene: the governor signs off.
-			QueueScene (Helper.Translation.Get ($"nightEvents.{currentEvent}.closing"),
-				background, portrait);
+			QueueScene (new Scene (Helper.Translation.Get ($"nightEvents.{currentEvent}.closing"),
+				background, portrait));
 
 			RunProgram (tv);
 		}

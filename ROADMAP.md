@@ -4,12 +4,6 @@ Read this document to peer into the future of these very mods! Spooky.
 
 ## PredictiveCore
 
-### Mining
-
-* ListFloorsForDate
-* FindMushroomFloors
-* FindDinosaurFloors
-
 ### Shopping
 
 * ListSalesForDate
@@ -17,12 +11,10 @@ Read this document to peer into the future of these very mods! Spooky.
 * ListPierreForDate
 * ListSandyForDate
 * ListTravelingCartForDate
-* FindItemByShopping
 
 ### Tailoring
 
 * ChooseRandomClothing
-* FindItemByTailoring
 
 ### ItemFinder
 
@@ -41,27 +33,17 @@ Read this document to peer into the future of these very mods! Spooky.
 * Geodes.FindItemInGeodes
 * NightEvents.FindItemByNightEvents
 * Mining.FindItemByMining
+* Shopping.FindItemByShopping
+* Tailoring.FindItemByTailoring
 
 ## PublicAccessTV
 
 * Add introductory events/dialogue/mail/etc. for hosts:
-	* Demetrius
-	* Emily
-	* Lewis
-	* Linus
-	* Marlon
-
-### MiningChannel
-
-* name: "Mining Advisory"
-* hosts: Marlon and Gil
-* conditions:
-	* "Initiation" quest completed
-	* SVE only: also two hearts with Marlon
-* content:
-	* monster, slime and quarry infestations
-	* mushroom floors (all, if 80th floor reached)
-	* Skull Cavern dinosaur floors (up to N, if Skull Cavern reached)
+	* Trains/Demetrius
+	* Tailoring/Emily
+	* Shopping/Lewis
+	* Garbage/Linus
+	* Mining/Marlon
 
 ### ShoppingChannel
 
@@ -93,32 +75,20 @@ Read this document to peer into the future of these very mods! Spooky.
 * MusicChannel (hosts: Abigail, Sam, Sebastian)
 * RanchingChannel (hosts: Marnie, Shane)
 * WellnessChannel (hosts: Alex, Caroline, Harvey)
-* Channels not planned: ~~GeodesChannel~~ (who would know this in advance?), ~~ItemFinderChannel~~ (wouldn't fit with TV interface)
+
+### Channels not planned
+
+* ~~GeodesChannel~~ (who would know this in advance?)
+* ~~ItemFinderChannel~~ (wouldn't fit with TV interface)
 
 ## ScryingOrb
-
-* Experiences not planned: ~~MoviesExperience~~ (why would the spirits care?), ~~TailoringExperience~~ (no future component), ~~TrainsExperience~~ (Demetrius already knows the future schedule)
-
-### MiningExperience
-
-* criterion: 1st floor reached
-* offering: Copper Ore, Iron Ore, Gold Ore, Iridium Ore or Coal
-* Specific Day
-	* input: date
-	* content: as for "Mining Advisory"
-* Upcoming Mushroom Floors
-	* criterion: 80th floor reached
-	* content: days (within next week) and floors when mushrooms may be present
-* Upcoming Dinosaur Floors
-	* criterion: Skull Cavern reached
-	* content: days (within next week) and floors (within those explored/first 50) when dinosaurs may be present
 
 ### ShoppingExperience
 
 * offering categories: Fruit, Vegetable or Forage
 * offering exceptions: Sap, Salmonberry, Blackberry or Spring Onion
 * input: date
-* content: as for "Shopper's Report", plus Krobus's Fish/Cooking item (if Krobus met)
+* content: as for "Shop the Valley", plus Krobus's Fish/Cooking item (if Krobus met)
 
 ### ItemFinderExperience
 
@@ -133,3 +103,9 @@ Read this document to peer into the future of these very mods! Spooky.
 	* mining, combat, foraging and fishing drops of item
 	* farming of item from seeds/trees/animals
 	* special ways of getting item
+
+### Experiences not planned
+
+* ~~MoviesExperience~~ (why would the spirits care?)
+* ~~TailoringExperience~~ (no future component)
+* ~~TrainsExperience~~ (Demetrius already knows the future schedule)

@@ -79,20 +79,6 @@ namespace PredictiveCore
 		// Limits prediction calculations to 50 years from start date.
 		internal const int MaxHorizon = 28 * 4 * 50;
 
-		// Returns whether the farmer or any farmhand has a friendship of at
-		// least the given level with the named NPC.
-		public static bool AnyoneHasFriendship (string npcName, int level)
-		{
-			foreach (Farmer farmer in Game1.getAllFarmers ())
-			{
-				if (farmer.getFriendshipLevelForNPC (npcName) >= level)
-				{
-					return true;
-				}
-			}
-			return false;
-		}
-
 		internal static IMonitor Monitor;
 		internal static IModHelper Helper;
 
@@ -114,7 +100,7 @@ namespace PredictiveCore
 			Garbage.Initialize (addConsoleCommands);
 			Geodes.Initialize (addConsoleCommands);
 			// TODO: ItemFinder.Initialize (addConsoleCommands);
-			// TODO: Mining.Initialize (addConsoleCommands);
+			Mining.Initialize (addConsoleCommands);
 			Movies.Initialize (addConsoleCommands);
 			NightEvents.Initialize (addConsoleCommands);
 			// TODO: Shopping.Initialize (addConsoleCommands);

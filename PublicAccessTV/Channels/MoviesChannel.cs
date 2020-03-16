@@ -37,55 +37,52 @@ namespace PublicAccessTV
 					: Helper.ModRegistry.IsLoaded ("FlashShifter.StardewValleyExpandedCP")
 						? "Claire"
 						: Helper.Translation.Get ("movies.host.generic");
-			QueueScene (Helper.Translation.Get ("movies.opening", new
-			{
-				host = hostName,
-			}), screenBackground, hostOverlay);
+			QueueScene (new Scene (Helper.Translation.Get ("movies.opening",
+				new { host = hostName }), screenBackground, hostOverlay)
+				{ SoundCueName = "Cowboy_Secret" });
 
 			// Current movie poster, title and description
-			QueueScene (Helper.Translation.Get ("movies.current", new
-			{
-				title = prediction.CurrentMovie.Title,
-				description = prediction.CurrentMovie.Description,
-			}), LoadMoviePoster (tv, prediction.CurrentMovie));
+			QueueScene (new Scene (Helper.Translation.Get ("movies.current", new
+				{
+					title = prediction.CurrentMovie.Title,
+					description = prediction.CurrentMovie.Description,
+				}), LoadMoviePoster (tv, prediction.CurrentMovie))
+				{ MusicTrack = prediction.CurrentMovie.Scenes[0].Music });
 
 			// Lobby advertisement. If the crane game is available, it is
-			// shown/promoted; otherwise, the concession stand is shown/promoted.
-			string lobbyMessage;
-			TemporaryAnimatedSprite lobbyBackground;
-			TemporaryAnimatedSprite lobbyOverlay;
+			// promoted; otherwise, the concession stand is promoted.
 			if (prediction.CraneGameAvailable)
 			{
-				lobbyMessage = Helper.Translation.Get ("movies.lobby.craneGame");
 				string assetName = Helper.Content.GetActualAssetKey
 					(Path.Combine ("assets", "movies_craneGame.png"));
-				lobbyBackground = LoadSprite (tv, assetName,
+				TemporaryAnimatedSprite craneGame = LoadSprite (tv, assetName,
 					new Rectangle (0, 0, 94, 63));
-				lobbyOverlay = LoadSprite (tv, assetName,
+				TemporaryAnimatedSprite craneFlash = LoadSprite (tv, assetName,
 					new Rectangle (94, 0, 94, 63), 250f, 2, new Vector2 (),
 					true, true);
+				QueueScene (new Scene (Helper.Translation.Get ("movies.lobby.craneGame"),
+					craneGame, craneFlash) { SoundCueName = "crane_game" });
 			}
 			else
 			{
-				lobbyMessage = Helper.Translation.Get ("movies.lobby.concession");
-				lobbyBackground = LoadSprite (tv, "MovieTheater_TileSheet",
-					new Rectangle (2, 3, 84, 56));
-				lobbyOverlay = null;
+				QueueScene (new Scene (Helper.Translation.Get ("movies.lobby.concession"),
+					LoadSprite (tv, "MovieTheater_TileSheet", new Rectangle (2, 3, 84, 56)))
+					{ SoundAsset = "movies_concession" });
 			}
-			QueueScene (lobbyMessage, lobbyBackground, lobbyOverlay);
 
 			// Upcoming movie poster, title and description.
-			QueueScene (Helper.Translation.Get ("movies.next", new
-			{
-				season = Utility.getSeasonNameFromNumber
-					(prediction.FirstDateOfNextMovie.SeasonIndex),
-				title = prediction.NextMovie.Title,
-				description = prediction.NextMovie.Description,
-			}), LoadMoviePoster (tv, prediction.NextMovie));
+			QueueScene (new Scene (Helper.Translation.Get ("movies.next", new
+				{
+					season = Utility.getSeasonNameFromNumber
+						(prediction.FirstDateOfNextMovie.SeasonIndex),
+					title = prediction.NextMovie.Title,
+					description = prediction.NextMovie.Description,
+				}), LoadMoviePoster (tv, prediction.NextMovie))
+				{ MusicTrack = prediction.NextMovie.Scenes[0].Music });
 
 			// Closing scene: the concessionaire signs off.
-			QueueScene (Helper.Translation.Get ("movies.closing"),
-				screenBackground, hostOverlay);
+			QueueScene (new Scene (Helper.Translation.Get ("movies.closing"),
+				screenBackground, hostOverlay));
 
 			RunProgram (tv);
 		}

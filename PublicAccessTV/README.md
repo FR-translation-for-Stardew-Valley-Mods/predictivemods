@@ -10,64 +10,64 @@ This mod is largely based on the [Stardew Predictor](https://mouseypounds.github
 * [Compatibility](#compatibility)
 * [Installation](#installation)
 * [Use](#use)
-	* [TV schedule](#tv-schedule)
-	* [Cheats](#cheats)
+* [Configuration](#configuration)
 * [Translation](#translation)
 * [Acknowledgments](#acknowledgments)
 * [See also](#see-also)
 
 ## Compatibility
 
-Public Access TV is compatible with Stardew Valley 1.4+. There are no known conflicts with other mods, cross-platform issues or problems with multiplayer.
+Public Access TV is compatible with Stardew Valley 1.4.5+. There are no known conflicts with other mods, cross-platform issues or problems with multiplayer.
 
-However, some other mods do change the way the game works in the areas that the TV channels cover. The TV will make incorrect announcements in these cases. If you would like me to consider accommodating such a mod, please open an issue on GitLab or on the Nexus page.
+However, some other mods do change the way the game works in the areas that the TV channels cover. The TV will make incorrect announcements in these cases. If you would like me to consider accommodating such a mod, please open an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues) or on the Nexus page<!-- TODO: PublicAccessTV Nexus issues link -->.
 
 ## Installation
 
 1. Install the latest version of [SMAPI](https://smapi.io/).
 1. Install the [PyTK](https://www.nexusmods.com/stardewvalley/mods/1726) mod.
-1. Install this mod from its Nexus page<!-- TODO: PublicAccessTV Nexus link --> or ModDrop page<!-- TODO: PublicAccessTV ModDrop link -->.
+1. Download this mod from its Nexus page<!-- TODO: PublicAccessTV Nexus files link --> or ModDrop page<!-- TODO: PublicAccessTV ModDrop link -->.
+1. Unzip the mod and place the `PublicAccessTV` folder inside your `Mods` folder.
 1. Run the game using SMAPI.
 
 ## Use
 
-In most cases, you will need to befriend the host of a program to a certain number of hearts for them to start broadcasting. Once that has happened, simply turn on any TV and choose the program you want to see. The programs and their requirements are detailed below.
+In most cases, you will need to befriend the host of a program to a certain number of hearts for them to start broadcasting. Once that has happened, simply turn on any TV and choose the program you want to see.
 
-### TV schedule
+The standard TV programs, plus any programs added by other mods, will continue to air as they normally do. The new programs and their requirements are detailed below.
 
-The standard TV programs, plus any programs added by other mods, will continue to air as they normally do.
-
-#### Governor's Message
+### Governor's Message
 
 The Governor will go live to announce rare events to the entire region. This program is available immediately, but only airs when there is an event to announce. Keep an eye out for it!
 
-<!-- TODO: Mining Advisory -->
+### Mining Advisory
+
+Tune in to Marlon and Gil at the Adventurer's Guild on any day you're considering a trek into the mines. They'll give you advance warning of major monster activity and point you to any particularly valuable caches. Complete the "Initiation" quest to access this members-only program. *[SVE](https://www.nexusmods.com/stardewvalley/mods/3753) players will also need two hearts of friendship with Marlon.*
 
 <!-- TODO: Shop the Valley -->
 
-#### In the Cans
+### In the Cans
 
 Hosted by Linus, this daily program clues you in on loot you can find in garbage cans that day. This is a passion project he's sharing with you on a little-known channel. Reach four hearts of friendship with Linus, plus look in at least one can yourself, to inspire him to go on the air.
 
 <!-- TODO: Fashion Showcase -->
 
-#### Train Timetable
+### Train Timetable
 
 Each day, Demetrius comes to you from his lab with a look at the trains scheduled to pass through town soon. Once the railroad is accessible, reach two hearts of friendship with Demetrius and he'll decide to keep his fellow railfans in the loop.
 
-#### Other channels
+### Other channels
 
 <details>
 <summary>(Spoiler for late-game 1.4 content)</summary>
 
-#### Movie Sneak Preview
+### Movie Sneak Preview
 
 Once the movie theater opens, your friendly concessionaire will announce the featured and coming attraction daily. She'll also tip you off on whether there's a line for the ever-popular crane game.
 </details>
 
-### Cheats
+## Configuration
 
-The first time you run the mod, it will generate a `config.json` file in its main folder (`Mods/PublicAccessTV`). There are no regular options there, but a cheat option is available:
+The first time you run the mod, it will generate a `config.json` file in its main folder (`Mods/PublicAccessTV`). One cheat option is available:
 
 * `BypassFriendships`: Set this to `true` to put all TV hosts on the job as soon as applicable, regardless of their friendship level with the player.
 
@@ -75,7 +75,7 @@ The first time you run the mod, it will generate a `config.json` file in its mai
 
 This mod can be translated into any language supported by Stardew Valley. No translations are currently available, however.
 
-Your contribution would be welcome. Please see the [details on the wiki](https://stardewvalleywiki.com/Modding:Translations) for help. You can send me your work in an issue on GitLab or Nexus or by DM on Discord.
+Your contribution would be welcome. Please see the [details on the wiki](https://stardewvalleywiki.com/Modding:Translations) for help. You can send me your work in an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues), on Nexus<!-- TODO: PublicAccessTV Nexus issues link --> or by DM on Discord.
 
 ## Acknowledgments
 
@@ -84,6 +84,13 @@ Your contribution would be welcome. Please see the [details on the wiki](https:/
 * This mod would not function without [SMAPI](https://smapi.io/) by Pathoschild and [PyTK](https://www.nexusmods.com/stardewvalley/mods/1726) by Platonymous.
 * Coding of this mod relied on [Climates of Ferngill](http://www.nexusmods.com/stardewvalley/mods/604) by Sakorona as a key example.
 * The #making-mods channel on the [Stardew Valley Discord](https://discordapp.com/invite/StardewValley) offered valuable guidance and feedback.
+* The "Governor's Message" channel's opening jingles are clipped from [News jingle](https://freesound.org/people/jobro/sounds/169214/) by [jobro](https://freesound.org/people/jobro/), used under [CC BY-NC 3.0](http://creativecommons.org/licenses/by-nc/3.0/), and [jingle news](https://freesound.org/people/Jay_You/sounds/460424/) by [Stonefree](http://www.stonefree.de/), used under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
+* The "Train Timetable" channel's opening and closing jingles are clipped from [acoustic guitar interlude](https://freesound.org/people/graham_makes/sounds/447527/) by [graham_makes](https://freesound.org/people/graham_makes/), used under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
+<details>
+<summary>(Spoiler for late-game 1.4 content)</summary>
+
+* The "Movie Sneak Preview" channel's concessions ambient is assembled from [Popcorn Machine.mp3](https://freesound.org/people/kentdavies959/sounds/466661/) by [kentdavies959](https://freesound.org/people/kentdavies959/), used under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), and [Pouring Carbonated Beverage Fizz.wav](https://freesound.org/people/baidonovan/sounds/187355/) by [baidonovan](https://freesound.org/people/baidonovan/), in the public domain.
+</details>
 
 ## See also
 
@@ -91,7 +98,9 @@ Your contribution would be welcome. Please see the [details on the wiki](https:/
 * This mod on Nexus<!-- TODO: PublicAccessTV Nexus link -->
 * This mod on ModDrop<!-- TODO: PublicAccessTV ModDrop link -->
 * [This mod on GitLab](https://gitlab.com/kdau/predictivemods/-/tree/master/PublicAccessTV)
+---
 * Scrying Orb<!-- TODO: ScryingOrb Nexus link --> mod <small>([source](../ScryingOrb))</small> for mystical, forward-looking predictions
 * [Stardew Predictor](https://mouseypounds.github.io/stardew-predictor/) web app to see it all at once
+---
 * [Gardening with Hisame](https://www.nexusmods.com/stardewvalley/mods/5485) mod for another TV program to enjoy
-* [Monthly Mail](https://www.nexusmods.com/stardewvalley/mods/4523) mod for more content themed around your game activity
+* [Monthly Mail](https://www.nexusmods.com/stardewvalley/mods/4523) mod for more periodic content themed around your game activity

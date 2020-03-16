@@ -9,13 +9,14 @@ namespace ScryingOrb
 {
 	public class NightEventsExperience : Experience
 	{
-		public static readonly List<string> AcceptedOfferings = new List<string>
+		public static readonly Dictionary<string, int> AcceptedOfferings =
+			new Dictionary<string, int>
 		{
-			"Bat Wing", // 3x
-			"Void Egg",
-			"Void Essence",
-			"Void Mayonnaise",
-			"Void Salmon"
+			{ "Bat Wing", 3 },
+			{ "Void Egg", 1 },
+			{ "Void Essence", 1 },
+			{ "Void Mayonnaise", 1 },
+			{ "Void Salmon", 1 },
 		};
 
 		public static readonly Dictionary<string, NightEventType?> Types =
@@ -34,10 +35,10 @@ namespace ScryingOrb
 		{
 			// Consume an appropriate offering.
 			if (!base.Try (offering) ||
-					!AcceptedOfferings.Contains (Offering.Name) ||
-					(Offering.Name == "Bat Wing" && Offering.Stack < 3))
+					!AcceptedOfferings.ContainsKey (Offering.Name) ||
+					Offering.Stack < AcceptedOfferings[Offering.Name])
 				return false;
-			ConsumeOffering ((Offering.Name == "Bat Wing") ? 3 : 1);
+			ConsumeOffering (AcceptedOfferings[Offering.Name]);
 
 			// React to the offering, then proceed to run.
 			Illuminate ();
