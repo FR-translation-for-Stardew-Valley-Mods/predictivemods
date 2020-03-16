@@ -2,9 +2,22 @@
 
 Read this document to peer into the future of these very mods! Spooky.
 
-## PredictiveCore
+## Public Access TV introductory events
 
-### Shopping
+* "Train Timetable": event with Demetrius at Railroad
+* "In the Cans": dialogue with Linus
+* "Mining Advisory": event with Marlon in Adventurer's Guild
+
+## Version 1.0.0 release
+
+* Also pending CustomTV second page fix in PyTK
+* Create Nexus and ModDrop entries
+
+---
+
+## Shopping channel/experience
+
+### PredictiveCore.Shopping
 
 * ListSalesForDate
 * ListKrobusForDate
@@ -12,11 +25,49 @@ Read this document to peer into the future of these very mods! Spooky.
 * ListSandyForDate
 * ListTravelingCartForDate
 
-### Tailoring
+### PublicAccessTV.ShoppingChannel
+
+* name: "Shop the Valley"
+* host: Lewis
+* condition: two hearts with Lewis
+* introductory event: TBD
+* content:
+	* today's wallpaper and flooring at Pierre's General Store
+	* today's shirt at Sandy's Oasis (if bus repaired)
+	* today's items at the Traveling Cart
+
+### ScryingOrb.ShoppingExperience
+
+* offering categories: Fruit, Vegetable or Forage
+* offering exceptions: Sap, Salmonberry, Blackberry or Spring Onion
+* input: date
+* content: as for "Shop the Valley", plus Krobus's Fish/Cooking item (if Krobus met)
+
+## Tailoring channel
+
+### PredictiveCore.Tailoring
 
 * ChooseRandomClothing
 
-### ItemFinder
+### PublicAccessTV.TailoringChannel
+
+* name: "Fashion Showcase"
+* hosts: Emily and Haley
+* conditions:
+	* sewing machine access
+	* two hearts with Emily
+* introductory event: TBD
+* content:
+	* random tailoring recipe
+	* fashion commentary from Haley (connect to mods like Seasonal Villager Outfits?)
+
+## Version 1.1.0 release
+
+---
+
+## Item Finder experience
+
+### PredictiveCore.ItemFinder
 
 * FindItem
 * FindItemByCombat
@@ -27,7 +78,7 @@ Read this document to peer into the future of these very mods! Spooky.
 * FindItemByForaging
 * FindItemBySpecial
 
-#### Supporting methods
+### PredictiveCore supporting methods
 
 * Garbage.FindItemInGarbage
 * Geodes.FindItemInGeodes
@@ -36,61 +87,7 @@ Read this document to peer into the future of these very mods! Spooky.
 * Shopping.FindItemByShopping
 * Tailoring.FindItemByTailoring
 
-## PublicAccessTV
-
-* Add introductory events/dialogue/mail/etc. for hosts:
-	* Trains/Demetrius
-	* Tailoring/Emily
-	* Shopping/Lewis
-	* Garbage/Linus
-	* Mining/Marlon
-
-### ShoppingChannel
-
-* name: "Shop the Valley"
-* host: Lewis
-* condition: two hearts with Lewis
-* content:
-	* today's wallpaper and flooring at Pierre's General Store
-	* today's shirt at Sandy's Oasis (if bus repaired)
-	* today's/this week's items at the Traveling Cart
-
-### TailoringChannel
-
-* name: "Fashion Showcase"
-* hosts: Emily and Haley
-* conditions:
-	* sewing machine access
-	* two hearts with Emily
-* content:
-	* random tailoring recipe
-	* fashion commentary from Haley (connect to mods like Seasonal Villager Outfits?)
- 
-### Future channel ideas
-
-* ArtsChannel (hosts: Elliott, Evelyn, Leah)
-* CraftingChannel (hosts: Maru, Robin)
-* DesertChannel (hosts: Pam, Sandy)
-* HistoryChannel (hosts: Gunther, Penny)
-* MusicChannel (hosts: Abigail, Sam, Sebastian)
-* RanchingChannel (hosts: Marnie, Shane)
-* WellnessChannel (hosts: Alex, Caroline, Harvey)
-
-### Channels not planned
-
-* ~~GeodesChannel~~ (who would know this in advance?)
-* ~~ItemFinderChannel~~ (wouldn't fit with TV interface)
-
-## ScryingOrb
-
-### ShoppingExperience
-
-* offering categories: Fruit, Vegetable or Forage
-* offering exceptions: Sap, Salmonberry, Blackberry or Spring Onion
-* input: date
-* content: as for "Shop the Valley", plus Krobus's Fish/Cooking item (if Krobus met)
-
-### ItemFinderExperience
+### ScryingOrb.ItemFinderExperience
 
 * offering categories: Animal Product, Artisan Goods, Cooking or Flower
 * offering exceptions: Fried Egg, Magic Rock Candy, Salmonberry Wine, Tulip, Void Egg or Void Mayonnaise
@@ -104,7 +101,30 @@ Read this document to peer into the future of these very mods! Spooky.
 	* farming of item from seeds/trees/animals
 	* special ways of getting item
 
-### Experiences not planned
+## Version 1.2.0 release
+
+---
+
+## Future ideas
+
+### Public Access TV channels (non-predictive)
+
+* Arts (hosts: Elliott, Evelyn, Leah)
+* Crafting (hosts: Maru, Robin)
+* Desert (hosts: Pam, Sandy)
+* History (hosts: Gunther, Penny)
+* Music (hosts: Abigail, Sam, Sebastian)
+* Ranching (hosts: Marnie, Shane)
+* Wellness (hosts: Alex, Caroline, Harvey)
+
+## Not planned
+
+### Public Access TV channels
+
+* ~~GeodesChannel~~ (who would know this in advance?)
+* ~~ItemFinderChannel~~ (wouldn't fit with TV interface)
+
+### Scrying Orb experiences
 
 * ~~MoviesExperience~~ (why would the spirits care?)
 * ~~TailoringExperience~~ (no future component)
