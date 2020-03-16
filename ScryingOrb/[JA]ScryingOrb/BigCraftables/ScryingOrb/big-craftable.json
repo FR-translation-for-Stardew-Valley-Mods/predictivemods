@@ -9,11 +9,13 @@
     "Ingredients":
     [
       {
-        "Object": "Refined Quartz",
+        "Object": 338,
+        "//ObjectName": "Refined Quartz",
         "Count": 3
       },
       {
-        "Object": "Stone",
+        "Object": 390,
+        "//ObjectName": "Stone",
         "Count": 10
       }
     ],
