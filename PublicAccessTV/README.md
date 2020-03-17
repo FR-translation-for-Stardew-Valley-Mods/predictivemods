@@ -17,9 +17,9 @@ This mod is largely based on the [Stardew Predictor](https://mouseypounds.github
 
 ## Compatibility
 
-Public Access TV is compatible with Stardew Valley 1.4.5+. There are no known conflicts with other mods, cross-platform issues or problems with multiplayer.
+Public Access TV is compatible with Stardew Valley 1.4.4+. Since it relies heavily on how the game calculates certain events, future updates to the base game are likely to make it inaccurate. When game version 1.5 arrives, take this mod's information with a grain of salt until I have a new version ready.
 
-However, some other mods do change the way the game works in the areas that the TV channels cover. The TV will make incorrect announcements in these cases. If you would like me to consider accommodating such a mod, please open an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues) or on the Nexus page<!-- TODO: PublicAccessTV Nexus issues link -->.
+There are no known conflicts with other mods, problems with multiplayer or cross-platform issues. However, some other mods do change the way the game works in the areas that the TV channels cover. The TV will make incorrect announcements in these cases. If you would like me to consider accommodating such a mod, please open an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues) or on the Nexus page<!-- TODO: PublicAccessTV Nexus issues link -->.
 
 ## Installation
 
@@ -41,19 +41,19 @@ The Governor will go live to announce rare events to the entire region. This pro
 
 ### Mining Advisory
 
-Tune in to Marlon and Gil at the Adventurer's Guild on any day you're considering a trek into the mines. They'll give you advance warning of major monster activity and point you to any particularly valuable caches. Complete the "Initiation" quest to access this members-only program. *[SVE](https://www.nexusmods.com/stardewvalley/mods/3753) players will also need two hearts of friendship with Marlon.*
+Tune in to Marlon and Gil at the Adventurer's Guild on any day you're considering a trek into the mines. They'll give you advance warning of major monster activity and point you to any particularly valuable caches. Complete the "Initiation" quest to access this members-only program; Marlon will write you a letter when it's available to you. *[SVE](https://www.nexusmods.com/stardewvalley/mods/3753) players will also need two hearts of friendship with Marlon.*
 
 <!-- TODO: Shop the Valley -->
 
 ### In the Cans
 
-Hosted by Linus, this daily program clues you in on loot you can find in garbage cans that day. This is a passion project he's sharing with you on a little-known channel. Reach four hearts of friendship with Linus, plus look in at least one can yourself, to inspire him to go on the air.
+Hosted by Linus, this daily program clues you in on loot you can find in garbage cans that day. This is a passion project he's sharing with you on a little-known channel. Reach four hearts of friendship with Linus, then look in a can yourself, to inspire him to go on the air.
 
 <!-- TODO: Fashion Showcase -->
 
 ### Train Timetable
 
-Each day, Demetrius comes to you from his lab with a look at the trains scheduled to pass through town soon. Once the railroad is accessible, reach two hearts of friendship with Demetrius and he'll decide to keep his fellow railfans in the loop.
+Each day, Demetrius comes to you from his lab with a look at the trains scheduled to pass through town soon. Once the railroad is accessible and you have at least two hearts of friendship with Demetrius, meet him by the tracks. If you share his interest, he'll decide to keep his fellow railfans in the loop.
 
 ### Other channels
 
@@ -85,7 +85,6 @@ Your contribution would be welcome. Please see the [details on the wiki](https:/
 * Coding of this mod relied on [Climates of Ferngill](http://www.nexusmods.com/stardewvalley/mods/604) by Sakorona as a key example.
 * The #making-mods channel on the [Stardew Valley Discord](https://discordapp.com/invite/StardewValley) offered valuable guidance and feedback.
 * The "Governor's Message" channel's opening jingles are clipped from [News jingle](https://freesound.org/people/jobro/sounds/169214/) by [jobro](https://freesound.org/people/jobro/), used under [CC BY-NC 3.0](http://creativecommons.org/licenses/by-nc/3.0/), and [jingle news](https://freesound.org/people/Jay_You/sounds/460424/) by [Stonefree](http://www.stonefree.de/), used under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
-* The "Train Timetable" channel's opening and closing jingles are clipped from [acoustic guitar interlude](https://freesound.org/people/graham_makes/sounds/447527/) by [graham_makes](https://freesound.org/people/graham_makes/), used under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
 <details>
 <summary>(Spoiler for late-game 1.4 content)</summary>
 

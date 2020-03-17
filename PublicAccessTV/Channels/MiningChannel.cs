@@ -29,10 +29,24 @@ namespace PublicAccessTV
 
 		internal override bool IsAvailable =>
 			base.IsAvailable && Mining.IsAvailable &&
-			Game1.player.mailReceived.Contains ("guildMember") &&
-			(ModEntry.Config.BypassFriendships ||
-				!Helper.ModRegistry.IsLoaded ("FlashShifter.MarlonSVE") ||
-				Game1.player.getFriendshipHeartLevelForNPC ("MarlonFay") >= 2);
+			(Game1.player.mailReceived.Contains ("kdau.PublicAccessTV.mining") ||
+				Game1.player.mailbox.Contains ("kdau.PublicAccessTV.mining"));
+
+		internal override void Initialize ()
+		{
+			if (base.IsAvailable && Mining.IsAvailable &&
+				!Game1.player.mailReceived.Contains ("kdau.PublicAccessTV.mining") &&
+				!Game1.player.mailbox.Contains ("kdau.PublicAccessTV.mining") &&
+				Game1.player.mailReceived.Contains ("guildMember") &&
+				(ModEntry.Config.BypassFriendships ||
+					!Helper.ModRegistry.IsLoaded ("FlashShifter.MarlonSVE") ||
+					Game1.player.getFriendshipHeartLevelForNPC ("MarlonFay") >= 2))
+			{
+				Game1.player.mailbox.Add ("kdau.PublicAccessTV.mining");
+			}
+
+			base.Initialize ();
+		}
 
 		internal override void Show (TV tv)
 		{

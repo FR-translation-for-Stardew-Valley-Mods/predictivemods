@@ -17,9 +17,9 @@ This mod is based on the [Stardew Predictor](https://mouseypounds.github.io/star
 
 ## Compatibility
 
-Scrying Orb is compatible with Stardew Valley 1.4.5+. There are no known conflicts with other mods, cross-platform issues or problems with multiplayer.
+Scrying Orb is compatible with Stardew Valley 1.4.4+. Since it relies heavily on how the game calculates certain events, future updates to the base game are likely to make it inaccurate. When game version 1.5 arrives, take this mod's predictions with a grain of salt until I have a new version ready.
 
-However, some other mods do change the way the game works in the areas that the Scrying Orb predicts. The orb will make incorrect predictions in these cases. If you would like me to consider accommodating such a mod, please open an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues) or on the Nexus page<!-- TODO: ScryingOrb Nexus issues link -->.
+There are no known conflicts with other mods, problems with multiplayer or cross-platform issues. However, some other mods do change the way the game works in the areas that the Scrying Orb predicts. The orb will make incorrect predictions in these cases. If you would like me to consider accommodating such a mod, please open an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues) or on the Nexus page<!-- TODO: ScryingOrb Nexus issues link -->.
 
 ## Installation
 

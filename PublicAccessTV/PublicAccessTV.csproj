@@ -37,6 +37,9 @@
 		<Compile Include="ModEntry.cs" />
 		<Compile Include="Properties\AssemblyInfo.cs" />
 		<Compile Include="Channel.cs" />
+		<Compile Include="DialogueEditor.cs" />
+		<Compile Include="EventsEditor.cs" />
+		<Compile Include="MailEditor.cs" />
 		<Compile Include="Scene.cs" />
 		<Compile Include="Channels\GarbageChannel.cs" />
 		<Compile Include="Channels\MiningChannel.cs" />
@@ -49,13 +52,12 @@
 		<None Include="i18n\default.json" />
 		<None Include="assets\garbage_backgrounds.png" />
 		<None Include="assets\mining_backgrounds.png" />
+		<None Include="assets\movies_concession.wav" />
 		<None Include="assets\movies_craneGame.png" />
 		<None Include="assets\nightEvents_backgrounds.png" />
 		<None Include="assets\nightEvents_newYear.wav" />
 		<None Include="assets\nightEvents_opening.wav" />
 		<None Include="assets\trains_backgrounds.png" />
-		<None Include="assets\trains_closing.wav" />
-		<None Include="assets\trains_opening.wav" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="i18n\" />

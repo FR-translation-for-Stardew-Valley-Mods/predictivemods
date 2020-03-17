@@ -4,9 +4,7 @@ Read this document to peer into the future of these very mods! Spooky.
 
 ## Public Access TV introductory events
 
-* "Train Timetable": event with Demetrius at Railroad
-* "In the Cans": dialogue with Linus
-* "Mining Advisory": event with Marlon in Adventurer's Guild
+* "In the Cans": event with Linus in Town after can checked
 
 ## Version 1.0.0 release
 

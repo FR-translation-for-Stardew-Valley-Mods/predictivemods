@@ -78,9 +78,11 @@ namespace ScryingOrb
 				"Runs a DatePicker dialog for testing use.",
 				(_command, _args) => TestDatePicker ());
 
-			// Listen for game events.
+			// Make resources available.
 			_Helper = helper;
 			_Monitor = Monitor;
+
+			// Listen for game events.
 			helper.Events.GameLoop.DayStarted += (_sender, _args) => CheckRecipe ();
 			Helper.Events.Input.CursorMoved += OnCursorMoved;
 			Helper.Events.Input.ButtonPressed += OnButtonPressed;
@@ -104,9 +106,10 @@ namespace ScryingOrb
 				return;
 			}
 
-			// Otherwise, if the friendship is adequate, send the letter.
-			if (Game1.player.getFriendshipHeartLevelForNPC ("Wizard") >= 2)
-				Game1.mailbox.Add ("kdau.ScryingOrb.welwickInstructions");
+			// Otherwise, if the friendship is adequate, deliver the letter.
+			if (Game1.player.getFriendshipHeartLevelForNPC ("Wizard") >= 2 &&
+					!Game1.player.mailbox.Contains ("kdau.ScryingOrb.welwickInstructions"))
+				Game1.player.mailbox.Add ("kdau.ScryingOrb.welwickInstructions");
 		}
 
 		private void OnCursorMoved (object sender, CursorMovedEventArgs args)

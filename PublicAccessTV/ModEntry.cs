@@ -1,6 +1,7 @@
 ﻿using PredictiveCore;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
+using StardewValley;
 using System;
 
 namespace PublicAccessTV
@@ -13,8 +14,11 @@ namespace PublicAccessTV
 	public class ModEntry : Mod
 	{
 		internal static IModHelper _Helper;
+		internal static IMonitor _Monitor;
 		internal static Type CustomTVMod;
+
 		internal static ModConfig Config;
+
 		internal Channel[] Channels;
 
 		public override void Entry (IModHelper helper)
@@ -30,10 +34,18 @@ namespace PublicAccessTV
 				"Updates the availability of the custom channels to reflect current conditions.",
 				(_command, args) => UpdateChannels ());
 
-			// Listen for game events.
+			// Make resources available.
 			_Helper = helper;
+			_Monitor = Monitor;
+
+			// Listen for game events.
 			helper.Events.GameLoop.GameLaunched += OnGameLaunched;
 			helper.Events.GameLoop.DayStarted += (_sender, _args) => InitializeChannels ();
+
+			// Set up asset editors.
+			Helper.Content.AssetEditors.Add (new DialogueEditor ());
+			Helper.Content.AssetEditors.Add (new EventsEditor ());
+			Helper.Content.AssetEditors.Add (new MailEditor ());
 		}
 
 		private void OnGameLaunched (object sender, GameLaunchedEventArgs e)

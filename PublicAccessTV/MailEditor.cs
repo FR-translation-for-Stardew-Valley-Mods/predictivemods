@@ -1,6 +1,6 @@
 ﻿using StardewModdingAPI;
 
-namespace ScryingOrb
+namespace PublicAccessTV
 {
 	internal class MailEditor : IAssetEditor
 	{
@@ -15,10 +15,9 @@ namespace ScryingOrb
 		public void Edit<_T> (IAssetData asset)
 		{
 			var data = asset.AsDictionary<string, string> ().Data;
-			string letter = Helper.Translation.Get ("welwickLetter.content") +
-				"%item craftingRecipe Scrying_Orb %%[#]" +
-				Helper.Translation.Get ("welwickLetter.title");
-			data["kdau.ScryingOrb.welwickInstructions"] = letter;
+			string letter = Helper.Translation.Get ("mining.letter.content") +
+				"[#]" + Helper.Translation.Get ("mining.letter.title");
+			data["kdau.PublicAccessTV.mining"] = letter;
 		}
 	}
 }
