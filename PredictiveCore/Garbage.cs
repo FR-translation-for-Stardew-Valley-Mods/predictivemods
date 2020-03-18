@@ -3,6 +3,7 @@ using StardewValley;
 using StardewValley.Objects;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using xTile.Dimensions;
 using SObject = StardewValley.Object;
 
@@ -56,6 +57,22 @@ namespace PredictiveCore
 			}
 
 			return predictions;
+		}
+
+		// Returns the next Garbage Hat to be found on or after the given date.
+		public static GarbagePrediction? FindGarbageHat (WorldDate fromDate)
+		{
+			for (int days = fromDate.TotalDays;
+				days < fromDate.TotalDays + Utilities.MaxHorizon;
+				++days)
+			{
+				List<GarbagePrediction> predictions =
+					ListLootForDate (Utilities.TotalDaysToWorldDate (days))
+					.Where ((p) => p.Loot is Hat).ToList ();
+				if (predictions.Count > 0)
+					return predictions[0];
+			}
+			return null;
 		}
 
 		// Returns whether future progress by the player could alter the result
