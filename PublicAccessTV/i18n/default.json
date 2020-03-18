@@ -1,4 +1,19 @@
 ﻿{
+  "garbage.event.linus01": "Find anything good?",
+  "garbage.event.linus02": "Hello @. I'm pleased to see that the cans are still calling to you.",
+  "garbage.event.linus03": "I just got some old vinegar out of Pierre's can. It's a little cloudy, but it will still taste great on wild roots.",
+  "garbage.event.linus04": "You seem to understand the value of things that others consider useless. I'd like to pass on some of my experience to you.",
+  "garbage.event.linus05": "There's a channel in the public access band that no one ever watches. I could film my morning trek through town and share it with you there each day.",
+  "garbage.event.linus06": "Would you like to further your recycling skills?",
+  "garbage.event.farmer01": "Definitely. I'm eager to learn.",
+  "garbage.event.linus07a": "Wonderful. This will be an exciting way to share what I've learned. We can get started tomorrow morning after I pick up the equipment.",
+  "garbage.event.farmer02": "I think so. I'm still worried about how our neighbors might react.",
+  "garbage.event.linus07b": "I understand. We'll keep this project quiet, of course. I'll start broadcasting tomorrow morning while everyone is still asleep.",
+  "garbage.event.farmer03": "No. I may look in cans from time to time, but this isn't how I want to live.",
+  "garbage.event.linus07c": "Oh. I thought you were different than the others. I'm sorry to disturb you then.",
+  "garbage.event.linus08": "Well, good gathering to you. I must go catch up with the driftwood on the beach.",
+  "garbage.event.linus09": "Television signals can pester the birds. I'll take care to keep the program short.",
+
   "garbage.title": "In the Cans",
   "garbage.opening": "Psst. Hi there {{playerName}}. It's your friend Linus here to let you know what you can expect in today's garbage.",
   "garbage.none": "It looks like all the cans are empty today. Maybe we can forage in the woods instead.",
@@ -20,6 +35,7 @@
 
   "mining.letter.title": "Marlon's Broadcast",
   "mining.letter.content": "@,^^Starting today, you'll be able to tune in to Gil and me on the public access channel. Our \"Mining Advisory\" will tip you off on good finds and warn you what floors to avoid. Be sure to give it a look.^^   -Marlon",
+
   "mining.title": "Mining Advisory",
   "mining.opening": "Hey, adventurers. Gil and I have some news on what's in the mines today.",
   "mining.floor": "floor {{num}}",
@@ -72,6 +88,7 @@
   "trains.event.demetrius07c": "Oh. Well, hey, some of us really like trains. I suppose I could start a newsletter instead.",
   "trains.event.demetrius08": "Anyway, I've taken up enough of your time, @. I'm sure you need to get back to your crops.",
   "trains.event.demetrius09": "Don't forget to watch my first episode tomorrow!",
+
   "trains.title": "Train Timetable",
   "trains.opening": "Greetings, neighbors! Demetrius here to keep you apprised of the happenings up at the railroad.",
   "trains.next.today": "There's a train coming today! Grab your cameras and head north, railfans. The train will be here at {{time}}.",

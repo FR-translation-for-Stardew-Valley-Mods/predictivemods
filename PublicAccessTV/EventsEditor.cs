@@ -1,5 +1,6 @@
 ﻿using StardewModdingAPI;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace PublicAccessTV
@@ -14,7 +15,7 @@ namespace PublicAccessTV
 			if (ModEntry.Config.BypassFriendships)
 				return false;
 
-			return // TODO: asset.AssetNameEquals ($"Data\\Events\\{GarbageChannel.EventMap}") ||
+			return asset.AssetNameEquals ($"Data\\Events\\{GarbageChannel.EventMap}") ||
 				// TODO: asset.AssetNameEquals ($"Data\\Events\\{ShoppingChannel.EventMap}") ||
 				// TODO: asset.AssetNameEquals ($"Data\\Events\\{TailoringChannel.EventMap}") ||
 				asset.AssetNameEquals ($"Data\\Events\\{TrainsChannel.EventMap}");
@@ -24,10 +25,8 @@ namespace PublicAccessTV
 		{
 			var data = asset.AsDictionary<string, string> ().Data;
 
-			/* TODO:
 			if (asset.AssetNameEquals ($"Data\\Events\\{GarbageChannel.EventMap}"))
 				ApplyEvents ("garbage", data, GarbageChannel.Events);
-			*/
 
 			/* TODO:
 			if (asset.AssetNameEquals ($"Data\\Events\\{ShoppingChannel.EventMap}"))
@@ -46,9 +45,9 @@ namespace PublicAccessTV
 		private void ApplyEvents (string module, IDictionary<string, string> to,
 			IDictionary<string, string> from)
 		{
-			foreach (string key in from.Keys)
+			foreach (string key in from.Keys.ToList ())
 			{
-				to[key] = Regex.Replace (from[key], @"\{\{([^}]+)\}\}",
+				to[key] = from[key] = Regex.Replace (from[key], @"\{\{([^}]+)\}\}",
 					(match) => Helper.Translation.Get ($"{module}.event.{match.Groups[1]}"));
 			}
 		}

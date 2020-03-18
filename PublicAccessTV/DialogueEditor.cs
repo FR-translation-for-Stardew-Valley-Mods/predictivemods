@@ -1,5 +1,6 @@
 ﻿using StardewModdingAPI;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace PublicAccessTV
@@ -14,7 +15,7 @@ namespace PublicAccessTV
 			if (ModEntry.Config.BypassFriendships)
 				return false;
 
-			return // TODO: asset.AssetNameEquals ($"Characters\\Dialogue\\{GarbageChannel.DialogueCharacter}") ||
+			return asset.AssetNameEquals ($"Characters\\Dialogue\\{GarbageChannel.DialogueCharacter}") ||
 				// TODO: asset.AssetNameEquals ($"Characters\\Dialogue\\{ShoppingChannel.DialogueCharacter}") ||
 				// TODO: asset.AssetNameEquals ($"Characters\\Dialogue\\{TailoringChannel.DialogueCharacter}") ||
 				asset.AssetNameEquals ($"Characters\\Dialogue\\{TrainsChannel.DialogueCharacter}");
@@ -24,10 +25,8 @@ namespace PublicAccessTV
 		{
 			var data = asset.AsDictionary<string, string> ().Data;
 
-			/* TODO:
 			if (asset.AssetNameEquals ($"Characters\\Dialogue\\{GarbageChannel.DialogueCharacter}"))
 				ApplyDialogue ("garbage", data, GarbageChannel.Dialogue);
-			*/
 
 			/* TODO:
 			if (asset.AssetNameEquals ($"Characters\\Dialogue\\{ShoppingChannel.DialogueCharacter}"))
@@ -46,9 +45,9 @@ namespace PublicAccessTV
 		private void ApplyDialogue (string module, IDictionary<string, string> to,
 			IDictionary<string, string> from)
 		{
-			foreach (string key in from.Keys)
+			foreach (string key in from.Keys.ToList ())
 			{
-				to[key] = Regex.Replace (from[key], @"\{\{([^}]+)\}\}",
+				to[key] = from[key] = Regex.Replace (from[key], @"\{\{([^}]+)\}\}",
 					(match) => Helper.Translation.Get ($"{module}.event.{match.Groups[1]}"));
 			}
 		}

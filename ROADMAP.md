@@ -2,13 +2,10 @@
 
 Read this document to peer into the future of these very mods! Spooky.
 
-## Public Access TV introductory events
-
-* "In the Cans": event with Linus in Town after can checked
-
 ## Version 1.0.0 release
 
-* Also pending CustomTV second page fix in PyTK
+* Fix Garbage predictions and GarbageChannel event positioning for SVE
+* Pending CustomTV second page fix in PyTK
 * Create Nexus and ModDrop entries
 
 ---

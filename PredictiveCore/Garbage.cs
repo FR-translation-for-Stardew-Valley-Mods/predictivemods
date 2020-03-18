@@ -3,6 +3,7 @@ using StardewValley;
 using StardewValley.Objects;
 using System;
 using System.Collections.Generic;
+using xTile.Dimensions;
 using SObject = StardewValley.Object;
 
 namespace PredictiveCore
@@ -115,20 +116,18 @@ namespace PredictiveCore
 			}
 		}
 
-		// The seasonal item roll is affected by the location of the can. The
-		// seeds are hardcoded here.
-		private static readonly Dictionary<GarbageCan, int> RandomSeedAdditions =
-			new Dictionary<GarbageCan, int>
+		public static readonly Dictionary<GarbageCan, Location> CanLocations =
+			new Dictionary<GarbageCan, Location>
 		{
-			{ GarbageCan.SamHouse, (13 * 653) + (86 * 777) },
-			{ GarbageCan.HaleyHouse, (19 * 653) + (89 * 777) },
-			{ GarbageCan.ManorHouse, (56 * 653) + (85 * 777) },
-			{ GarbageCan.ArchaeologyHouse, (108 * 653) + (91 * 777) },
-			{ GarbageCan.Blacksmith, (97 * 653) + (80 * 777) },
-			{ GarbageCan.Saloon, (47 * 653) + (70 * 777) },
-			{ GarbageCan.JoshHouse, (52 * 653) + (63 * 777) },
-			{ GarbageCan.JojaMart, (110 * 653) + (56 * 777) },
-			{ GarbageCan.MovieTheater, (110 * 653) + (56 * 777) }
+			{ GarbageCan.SamHouse, new Location (13, 86) },
+			{ GarbageCan.HaleyHouse, new Location (19, 89) },
+			{ GarbageCan.ManorHouse, new Location (56, 85) },
+			{ GarbageCan.ArchaeologyHouse, new Location (108, 91) },
+			{ GarbageCan.Blacksmith, new Location (97, 80) },
+			{ GarbageCan.Saloon, new Location (47, 70) },
+			{ GarbageCan.JoshHouse, new Location (52, 63) },
+			{ GarbageCan.JojaMart, new Location (110, 56) },
+			{ GarbageCan.MovieTheater, new Location (110, 56) }
 		};
 
 		private static Item GetLootForDateAndCan (WorldDate date, GarbageCan can)
@@ -204,8 +203,10 @@ namespace PredictiveCore
 				break;
 			case 6:
 				seasonal = true;
+				Location location = CanLocations[can];
 				itemID = Utility.getRandomItemFromSeason (date.Season,
-					RandomSeedAdditions[can] + daysPlayed, false, false);
+					(location.X * 653) + (location.Y * 777) + daysPlayed,
+					false, false);
 				break;
 			case 7:
 				itemID = 403; // Field Snack

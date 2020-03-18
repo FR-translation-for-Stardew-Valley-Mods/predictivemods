@@ -40,7 +40,10 @@ namespace PublicAccessTV
 
 			// Listen for game events.
 			helper.Events.GameLoop.GameLaunched += OnGameLaunched;
-			helper.Events.GameLoop.DayStarted += (_sender, _args) => InitializeChannels ();
+			helper.Events.GameLoop.DayStarted +=
+				(_sender, _args) => InitializeChannels ();
+			helper.Events.GameLoop.OneSecondUpdateTicked +=
+				(_sender, _args) => GarbageChannel.CheckEvent ();
 
 			// Set up asset editors.
 			Helper.Content.AssetEditors.Add (new DialogueEditor ());
