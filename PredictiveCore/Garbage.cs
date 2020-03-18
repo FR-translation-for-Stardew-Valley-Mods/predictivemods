@@ -35,16 +35,33 @@ namespace PredictiveCore
 		public static bool IsAvailable =>
 			Game1.stats.getStat ("trashCansChecked") > 0;
 
-		// Returns the loot to be found in Garbage Cans on the given date.
-		public static List<GarbagePrediction> ListLootForDate (WorldDate date)
+		// Whether future progress by the player could alter the loot found in
+		// cans. This intentionally disregards the crafting recipes, cooking
+		// recipes, mine progress and vault bundle completion considered by
+		// Utility.getRandomItemFromSeason, as the combination of those would
+		// keep this confusingly true well into the midgame.
+		public static bool IsProgressDependent
+		{
+			get
+			{
+				Utilities.CheckWorldReady ();
+				return Game1.stats.getStat ("trashCansChecked") + 1 <= 20;
+			}
+		}
+
+		// Lists the loot to be found in Garbage Cans on the given date.
+		public static List<GarbagePrediction> ListLootForDate (WorldDate date,
+			bool hatOnly = false)
 		{
 			Utilities.CheckWorldReady ();
+			if (!IsAvailable)
+				throw new InvalidOperationException ("No garbage cans have been checked.");
 
 			List<GarbagePrediction> predictions = new List<GarbagePrediction> ();
 
 			foreach (GarbageCan can in Enum.GetValues (typeof (GarbageCan)))
 			{
-				Item loot = GetLootForDateAndCan (date, can);
+				Item loot = GetLootForDateAndCan (date, can, hatOnly);
 				if (loot != null)
 				{
 					predictions.Add (new GarbagePrediction
@@ -59,7 +76,7 @@ namespace PredictiveCore
 			return predictions;
 		}
 
-		// Returns the next Garbage Hat to be found on or after the given date.
+		// Finds the next Garbage Hat to be available on or after the given date.
 		public static GarbagePrediction? FindGarbageHat (WorldDate fromDate)
 		{
 			for (int days = fromDate.TotalDays;
@@ -67,26 +84,12 @@ namespace PredictiveCore
 				++days)
 			{
 				List<GarbagePrediction> predictions =
-					ListLootForDate (Utilities.TotalDaysToWorldDate (days))
+					ListLootForDate (Utilities.TotalDaysToWorldDate (days), true)
 					.Where ((p) => p.Loot is Hat).ToList ();
 				if (predictions.Count > 0)
 					return predictions[0];
 			}
 			return null;
-		}
-
-		// Returns whether future progress by the player could alter the result
-		// of checking cans. This intentionally disregards the crafting recipes,
-		// cooking recipes, mine progress and vault bundle completion considered
-		// by Utility.getRandomItemFromSeason, as the combination of those would
-		// keep this true well into the midgame.
-		public static bool IsProgressDependent
-		{
-			get
-			{
-				Utilities.CheckWorldReady ();
-				return Game1.stats.getStat ("trashCansChecked") + 1 <= 20;
-			}
 		}
 
 		internal static void Initialize (bool addConsoleCommands)
@@ -147,19 +150,18 @@ namespace PredictiveCore
 			{ GarbageCan.MovieTheater, new Location (110, 56) }
 		};
 
-		private static Item GetLootForDateAndCan (WorldDate date, GarbageCan can)
+		private static Item GetLootForDateAndCan (WorldDate date, GarbageCan can,
+			bool hatOnly)
 		{
 			// Logic from StardewValley.Locations.Town.checkAction()
 			// as implemented in Stardew Predictor by MouseyPounds.
 
 			// Handle the special case of JojaMart/MovieTheater.
 			bool hasTheater = Utility.doesMasterPlayerHaveMailReceivedButNotMailForTomorrow ("ccMovieTheater") &&
-					!Utility.doesMasterPlayerHaveMailReceivedButNotMailForTomorrow ("ccMovieTheaterJoja");
+				!Utility.doesMasterPlayerHaveMailReceivedButNotMailForTomorrow ("ccMovieTheaterJoja");
 			if ((hasTheater && can == GarbageCan.JojaMart) ||
 				(!hasTheater && can == GarbageCan.MovieTheater))
-			{
 				return null;
-			}
 			int canValue = (int) ((can == GarbageCan.MovieTheater)
 				? GarbageCan.JojaMart : can);
 
@@ -169,14 +171,10 @@ namespace PredictiveCore
 				daysPlayed + 777 + canValue * 77);
 			int prewarm = rng.Next (0, 100);
 			for (int i = 0; i < prewarm; i++)
-			{
 				rng.NextDouble ();
-			}
 			prewarm = rng.Next (0, 100);
 			for (int j = 0; j < prewarm; j++)
-			{
 				rng.NextDouble ();
-			}
 
 			// Roll for regular items.
 			uint trashCansChecked = Game1.stats.getStat ("trashCansChecked") + 1;
@@ -184,9 +182,9 @@ namespace PredictiveCore
 
 			// Roll for the Garbage Hat.
 			if (trashCansChecked > 20 && rng.NextDouble () < 0.002)
-			{
 				return new Hat (66);
-			}
+			else if (hatOnly)
+				return null;
 
 			// If the regular roll failed, roll for luck and then give up.
 			// Use today's luck for today, else a liquidated value.
@@ -194,9 +192,7 @@ namespace PredictiveCore
 			double dailyLuck = today ? Game1.player.DailyLuck
 				: Game1.player.hasSpecialCharm ? 0.125 : 0.1;
 			if (!regular && !(rng.NextDouble () < 0.2 + dailyLuck))
-			{
 				return null;
-			}
 
 			// Roll for a generic or seasonal item.
 			int itemID;
@@ -248,13 +244,9 @@ namespace PredictiveCore
 				{
 					locationSpecific = true;
 					if (rng.NextDouble () < 0.05)
-					{
 						itemID = 749; // Omni Geode
-					}
 					else
-					{
 						itemID = 535; // Geode
-					}
 				}
 				break;
 			case GarbageCan.Blacksmith:
@@ -270,13 +262,9 @@ namespace PredictiveCore
 				{
 					locationSpecific = true;
 					if (!today)
-					{
 						itemID = 217; // placeholder for dish of the day
-					}
 					else if (Game1.dishOfTheDay != null)
-					{
 						itemID = Game1.dishOfTheDay.ParentSheetIndex;
-					}
 				}
 				break;
 			case GarbageCan.JoshHouse:
@@ -287,7 +275,8 @@ namespace PredictiveCore
 				}
 				break;
 			case GarbageCan.JojaMart:
-				if (rng.NextDouble () < 0.2 && !Utility.HasAnyPlayerSeenEvent (191393))
+				if (rng.NextDouble () < 0.2 &&
+					!Utility.HasAnyPlayerSeenEvent (191393))
 				{
 					locationSpecific = true;
 					itemID = 167; // Joja Cola
@@ -304,9 +293,7 @@ namespace PredictiveCore
 			}
 
 			return new SObject (itemID, 1)
-			{
-				Flipped = seasonal || locationSpecific
-			};
+				{ Flipped = seasonal || locationSpecific };
 		}
 	}
 }

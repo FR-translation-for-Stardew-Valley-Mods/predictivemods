@@ -79,15 +79,18 @@ namespace PredictiveCore
 		public readonly uint Number;
 		public readonly SortedDictionary<GeodeType, Treasure> Treasures;
 
+		private static readonly GeodeType[] Types = new GeodeType[]
+		{
+			GeodeType.Regular, GeodeType.Frozen, GeodeType.Magma,
+			GeodeType.Omni, GeodeType.Trove,
+		};
+
 		internal GeodePrediction (uint number)
 		{
 			Number = number;
 			Treasures = new SortedDictionary<GeodeType, Treasure> ();
-			foreach (GeodeType type in new GeodeType[]
-				{ GeodeType.Regular, GeodeType.Frozen, GeodeType.Magma, GeodeType.Omni, GeodeType.Trove })
-			{
+			foreach (GeodeType type in Types)
 				Treasures.Add (type, new Treasure (number, type));
-			}
 		}
 	}
 
@@ -96,25 +99,8 @@ namespace PredictiveCore
 		// Whether this module should be available for player use.
 		public static bool IsAvailable => Game1.player.stats.GeodesCracked > 0;
 
-		// Returns the treasures in the next several geodes to be cracked on or
-		// after the given geode number, up to the given limit.
-		public static List<GeodePrediction> ListTreasures
-			(uint fromNumber, uint limit)
-		{
-			Utilities.CheckWorldReady ();
-
-			List<GeodePrediction> predictions = new List<GeodePrediction> ();
-
-			for (uint number = fromNumber; number < fromNumber + limit; ++number)
-			{
-				predictions.Add (new GeodePrediction (number));
-			}
-
-			return predictions;
-		}
-
-		// Returns whether future progress by the player could alter the result
-		// of cracking geodes.
+		// Whether future progress by the player could alter the treasures found
+		// when cracking geodes.
 		public static bool IsProgressDependent
 		{
 			get
@@ -124,12 +110,27 @@ namespace PredictiveCore
 			}
 		}
 
+		// Lists the treasures in the next several geodes to be cracked on or
+		// after the given geode number, up to the given limit.
+		public static List<GeodePrediction> ListTreasures
+			(uint fromNumber, uint limit)
+		{
+			Utilities.CheckWorldReady ();
+			if (!IsAvailable)
+				throw new InvalidOperationException ("No geodes have been cracked.");
+
+			List<GeodePrediction> predictions = new List<GeodePrediction> ();
+
+			for (uint number = fromNumber; number < fromNumber + limit; ++number)
+				predictions.Add (new GeodePrediction (number));
+
+			return predictions;
+		}
+
 		internal static void Initialize (bool addConsoleCommands)
 		{
 			if (!addConsoleCommands)
-			{
 				return;
-			}
 			Utilities.Helper.ConsoleCommands.Add ("predict_geodes",
 				"Predicts the treasures in the next several geodes to be cracked on or after a given geode, or the next geodes by default.\n\nUsage: predict_geodes [<limit> [<number>]]\n- limit: number of treasures to predict (default 20)\n- number: the number of geodes cracked after the first treasure to predict (a number starting from 1).",
 				(_command, args) => ConsoleCommand (new List<string> (args)));
@@ -145,9 +146,7 @@ namespace PredictiveCore
 				if (args.Count > 0)
 				{
 					if (!uint.TryParse (args[0], out limit) || limit < 1)
-					{
 						throw new ArgumentException ($"Invalid limit '{args[0]}', must be a number 1 or higher.");
-					}
 					args.RemoveAt (0);
 				}
 
@@ -155,9 +154,7 @@ namespace PredictiveCore
 				if (args.Count > 0)
 				{
 					if (!uint.TryParse (args[0], out number) || number < 1)
-					{
 						throw new ArgumentException ($"Invalid geode number '{args[0]}', must be a number 1 or higher.");
-					}
 					args.RemoveAt (0);
 				}
 				WorldDate date = Utilities.ArgsToWorldDate (args);

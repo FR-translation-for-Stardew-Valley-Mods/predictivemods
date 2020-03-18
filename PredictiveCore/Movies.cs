@@ -23,21 +23,22 @@ namespace PredictiveCore
 		public static bool IsAvailable =>
 			Utility.doesMasterPlayerHaveMailReceivedButNotMailForTomorrow ("ccMovieTheater");
 
-		// Returns the current and next movie and crane game status as of the
+		// Lists the current and next movie and crane game status as of the
 		// given date.
 		public static MoviePrediction PredictForDate (WorldDate date)
 		{
 			Utilities.CheckWorldReady ();
 			if (!IsAvailable)
-			{
 				throw new InvalidOperationException ("The Movie Theater is not available.");
-			}
 
-			MoviePrediction prediction = new MoviePrediction { EffectiveDate = date };
-			prediction.CurrentMovie = MovieTheater.GetMovieForDate (date);
-
-			prediction.FirstDateOfNextMovie = Utilities.GetNextSeasonStart (date);
-			prediction.NextMovie = MovieTheater.GetMovieForDate (prediction.FirstDateOfNextMovie);
+			MoviePrediction prediction =
+				new MoviePrediction { EffectiveDate = date };
+			prediction.CurrentMovie =
+				MovieTheater.GetMovieForDate (date);
+			prediction.FirstDateOfNextMovie =
+				Utilities.GetNextSeasonStart (date);
+			prediction.NextMovie =
+				MovieTheater.GetMovieForDate (prediction.FirstDateOfNextMovie);
 
 			// Logic from StardewValley.Locations.MovieTheater.addRandomNPCs()
 			// as implemented in Stardew Predictor by MouseyPounds.
@@ -50,9 +51,7 @@ namespace PredictiveCore
 		internal static void Initialize (bool addConsoleCommands)
 		{
 			if (!addConsoleCommands)
-			{
 				return;
-			}
 			Utilities.Helper.ConsoleCommands.Add ("predict_movies",
 				"Predicts the current and next movie and Crane Game status on a given date, or today by default.\n\nUsage: predict_movies [<year> <season> <day>]\n- year: the target year (a number starting from 1).\n- season: the target season (one of 'spring', 'summer', 'fall', 'winter').\n- day: the target day (a number from 1 to 28).",
 				(_command, args) => ConsoleCommand (new List<string> (args)));

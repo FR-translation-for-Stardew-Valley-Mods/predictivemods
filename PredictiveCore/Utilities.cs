@@ -85,9 +85,7 @@ namespace PredictiveCore
 		public static void Initialize (IMod mod, IModHelper helper)
 		{
 			if (Monitor != null)
-			{
 				return;
-			}
 			Monitor = mod.Monitor;
 			Helper = helper;
 
@@ -111,9 +109,7 @@ namespace PredictiveCore
 		internal static void CheckWorldReady ()
 		{
 			if (!Context.IsWorldReady)
-			{
 				throw new WorldUnreadyException ();
-			}
 		}
 	}
 }

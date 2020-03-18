@@ -36,10 +36,26 @@ namespace PredictiveCore
 		public static bool IsAvailable =>
 			MineShaft.lowestLevelReached >= 1;
 
-		// Returns the special floors to be found in mines on the given date.
+		// Whether future progress by the player could alter the special floors
+		// in the mines. This intentionally disregards the Skull Cavern, since
+		// its existence is a spoiler until discovered and doesn't affect the
+		// floors of the regular mines.
+		public static bool IsProgressDependent
+		{
+			get
+			{
+				Utilities.CheckWorldReady ();
+				return MineShaft.lowestLevelReached < 120 ||
+					!Utility.doesMasterPlayerHaveMailReceivedButNotMailForTomorrow ("ccCraftsRoom");
+			}
+		}
+
+		// Lists the special floors to be found in mines on the given date.
 		public static List<MiningPrediction> ListFloorsForDate (WorldDate date)
 		{
 			Utilities.CheckWorldReady ();
+			if (!IsAvailable)
+				throw new InvalidOperationException ("The mines have not been reached.");
 
 			List<MiningPrediction> predictions = new List<MiningPrediction> ();
 
@@ -149,20 +165,6 @@ namespace PredictiveCore
 			}
 
 			return predictions;
-		}
-
-		// Returns whether future progress by the player could alter the special
-		// floors in the mines. This intentionally disregards the Skull Cavern,
-		// since its existence is a spoiler until discovered and doesn't affect
-		// the floors of the regular mines.
-		public static bool IsProgressDependent
-		{
-			get
-			{
-				Utilities.CheckWorldReady ();
-				return MineShaft.lowestLevelReached < 120 ||
-					!Utility.doesMasterPlayerHaveMailReceivedButNotMailForTomorrow ("ccCraftsRoom");
-			}
 		}
 
 		internal static void Initialize (bool addConsoleCommands)
