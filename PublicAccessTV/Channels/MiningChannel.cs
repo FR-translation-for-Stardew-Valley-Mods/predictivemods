@@ -64,7 +64,8 @@ namespace PublicAccessTV
 			TemporaryAnimatedSprite gil = LoadPortrait (tv, "Gil");
 
 			// Opening scene: Marlon greets the viewer.
-			QueueScene (new Scene (Helper.Translation.Get ("mining.opening"),
+			QueueScene (new Scene (Helper.Translation.Get ((predictions.Count == 0)
+				? "mining.opening.none" : "mining.opening"),
 				background, marlon) { MusicTrack = "MarlonsTheme" });
 
 			// Marlon or Gil reports on each type of special floor.

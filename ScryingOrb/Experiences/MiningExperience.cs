@@ -92,6 +92,8 @@ namespace ScryingOrb
 				lines.Add (Helper.Translation.Get ($"mining.prediction.{type}",
 					new { floors = floorsText }));
 			}
+			if (predictions.Count == 0)
+				lines.Add (Helper.Translation.Get ("mining.prediction.none"));
 			pages.Add (string.Join ("^", lines));
 
 			// If going deeper in the mines could alter the results, add an

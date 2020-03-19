@@ -42,6 +42,7 @@
 
   "mining.title": "Mining Advisory",
   "mining.opening": "Hey, adventurers. Gil and I have some news on what's in the mines today.",
+  "mining.opening.none": "Hey, adventurers. Nothing to report on in the mines today.",
   "mining.floor": "floor {{num}}",
   "mining.floors": "floors {{nums}} and {{lastNum}}",
   "mining.prediction.Mushroom": "There's fungus among us! Our scouts spotted mushrooms poppin' up on {{floors}}.",

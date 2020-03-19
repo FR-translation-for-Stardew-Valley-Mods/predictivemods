@@ -44,6 +44,7 @@
   "mining.prediction.QuarryInfested": "> Swarms of flying skulls will haunt {{floors}}.",
   "mining.prediction.Treasure": "> Unclaimed treasure will lie on {{floors}}.",
   "mining.prediction.PepperRex": "> Beneath the shifting sands, ancient reptiles may roam {{floors}}.",
+  "mining.prediction.none": "> No particular phenomena will reveal themselves.",
   "mining.closing.progress": "You have not yet reached the end of your^subterranean quest, apprentice. More surprises await you in the murky depths.",
   
   "geodes.opening": "The spirits of the crystal spires accept your stony offering.",
