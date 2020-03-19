@@ -4,10 +4,11 @@ Read this document to peer into the future of these very mods! Spooky.
 
 ## Version 1.0.0 release
 
-* Pending CustomTV second page fix in PyTK
 * Check on balancing
 * Additional testing: Windows/Mac? other common mods? multiplayer?
-* Create Nexus and ModDrop entries
+* Publish Nexus pages
+* Create ModDrop pages
+* Wait for CustomTV second page fix to release in PyTK
 * Announce in places
 
 ---

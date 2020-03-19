@@ -75,18 +75,18 @@
 					}
 					zip.Dispose ();
 
-					Log.LogMessage (MessageImportance.High,
-						$"Deploy safely to {DeployDir} from from ZIP file at {archivePath}...");
-					if (Directory.Exists (DeployDir))
+					if (DeployDir != "-")
 					{
-						Directory.Delete (DeployDir, true);
+						Log.LogMessage (MessageImportance.High,
+							$"Deploy safely to {DeployDir} from from ZIP file at {archivePath}...");
+						if (Directory.Exists (DeployDir))
+							Directory.Delete (DeployDir, true);
+						ZipFile.ExtractToDirectory (archivePath, DeployDir);
 					}
-					ZipFile.ExtractToDirectory (archivePath, DeployDir);
 				}
 				catch (Exception ex)
 				{
 					Log.LogErrorFromException (ex);
-					return false;
 				}
 			]]>
 			</Code>

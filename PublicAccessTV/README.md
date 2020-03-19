@@ -1,9 +1,9 @@
 # ![[icon]](assets/icon.png) Public Access TV
 *a [Stardew Valley](http://stardewvalley.net/) mod by kdau*
 
-Your friends in the valley take to the airwaves to keep you apprised of today's mining conditions, shopping opportunities, garbage loot, train schedules, rare events and more.
+Your friends in the valley take to the airwaves to keep you apprised of today's mining conditions<!-- TODO: , shopping opportunities -->, garbage loot, train schedules, rare events and more.
 
-This mod is largely based on the [Stardew Predictor](https://mouseypounds.github.io/stardew-predictor/) web app by MouseyPounds, whose tools are all worth a look. Its companion mod, Scrying Orb<!-- TODO: ScryingOrb Nexus link --> <small>([source](../ScryingOrb))</small>, offers a different route to some of the same information and more, but looks well beyond the current game day.
+This mod is largely based on the [Stardew Predictor](https://mouseypounds.github.io/stardew-predictor/) web app by MouseyPounds, whose tools are all worth a look. Its companion mod, [Scrying Orb](https://www.nexusmods.com/stardewvalley/mods/5603) <small>([source](../ScryingOrb))</small>, offers a different route to some of the same information and more, but looks well beyond the current game day.
 
 ## Contents
 
@@ -25,13 +25,13 @@ Some other mods change the way the game works in the areas that the TV channels 
 
 * [Stardew Valley Expanded](https://www.nexusmods.com/stardewvalley/mods/3753): different arrangement of garbage cans
 
-If any of your other mods affect the areas this mod covers, the TV will make incorrect announcements. If you would like me to consider accommodating such a mod, please open an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues) or on the Nexus page<!-- TODO: PublicAccessTV Nexus issues link -->.
+If any of your other mods affect the areas this mod covers, the TV will make incorrect announcements. If you would like me to consider accommodating such a mod, please open an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues) or [on the Nexus page](https://www.nexusmods.com/stardewvalley/mods/5605?tab=bugs).
 
 ## Installation
 
 1. Install the latest version of [SMAPI](https://smapi.io/).
 1. Install the [PyTK](https://www.nexusmods.com/stardewvalley/mods/1726) mod.
-1. Download this mod from its Nexus page<!-- TODO: PublicAccessTV Nexus files link --> or ModDrop page<!-- TODO: PublicAccessTV ModDrop link -->.
+1. Download this mod from its [Nexus page](https://www.nexusmods.com/stardewvalley/mods/5605?tab=files)<!-- TODO: or ModDrop page -->.
 1. Unzip the mod and place the `PublicAccessTV` folder inside your `Mods` folder.
 1. Run the game using SMAPI.
 
@@ -81,7 +81,7 @@ The first time you run the mod, it will generate a `config.json` file in its mai
 
 This mod can be translated into any language supported by Stardew Valley. No translations are currently available, however.
 
-Your contribution would be welcome. Please see the [details on the wiki](https://stardewvalleywiki.com/Modding:Translations) for help. You can send me your work in an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues), on Nexus<!-- TODO: PublicAccessTV Nexus issues link --> or by DM on Discord.
+Your contribution would be welcome. Please see the [details on the wiki](https://stardewvalleywiki.com/Modding:Translations) for help. You can send me your work in an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues), [on Nexus](https://www.nexusmods.com/stardewvalley/mods/5605?tab=bugs) or by DM on Discord.
 
 ## Acknowledgments
 
@@ -100,11 +100,11 @@ Your contribution would be welcome. Please see the [details on the wiki](https:/
 ## See also
 
 * [Release notes](RELEASE-NOTES.md)
-* This mod on Nexus<!-- TODO: PublicAccessTV Nexus link -->
-* This mod on ModDrop<!-- TODO: PublicAccessTV ModDrop link -->
+* [This mod on Nexus](https://www.nexusmods.com/stardewvalley/mods/5605)
+<!-- TODO: * This mod on ModDrop -->
 * [This mod on GitLab](https://gitlab.com/kdau/predictivemods/-/tree/master/PublicAccessTV)
 ---
-* Scrying Orb<!-- TODO: ScryingOrb Nexus link --> mod <small>([source](../ScryingOrb))</small> for mystical, forward-looking predictions
+* [Scrying Orb](https://www.nexusmods.com/stardewvalley/mods/5603) mod <small>([source](../ScryingOrb))</small> for mystical, forward-looking predictions
 * [Stardew Predictor](https://mouseypounds.github.io/stardew-predictor/) web app to see it all at once
 ---
 * [Gardening with Hisame](https://www.nexusmods.com/stardewvalley/mods/5485) mod for another TV program to enjoy

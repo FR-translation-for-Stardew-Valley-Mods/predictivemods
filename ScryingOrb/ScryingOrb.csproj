@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<AssemblyName>ScryingOrb</AssemblyName>
 		<RootNamespace>ScryingOrb</RootNamespace>
-		<ReleaseVersion>1.0.0</ReleaseVersion>
+		<ReleaseVersion>1.0.0-beta.0</ReleaseVersion>
 		<TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
 		<OutputType>Library</OutputType>
 		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -19,6 +19,7 @@
 		<ErrorReport>prompt</ErrorReport>
 		<WarningLevel>4</WarningLevel>
 		<ConsolePause>false</ConsolePause>
+		<DeployDir>bin\Mods</DeployDir>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 		<Optimize>true</Optimize>
@@ -26,6 +27,7 @@
 		<ErrorReport>prompt</ErrorReport>
 		<WarningLevel>4</WarningLevel>
 		<ConsolePause>false</ConsolePause>
+		<DeployDir>-</DeployDir>
 	</PropertyGroup>
 	<ItemGroup>
 		<Reference Include="System" />
@@ -77,6 +79,6 @@
 	<Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 	<Target Name="AfterBuild">
 		<DeployModTask ModFolderName="$(ModFolderName)" ModZipPath="$(ModZipPath)" EnableModDeploy="false" EnableModZip="true" ProjectDir="$(ProjectDir)" TargetDir="$(TargetDir)" GameDir="$(GamePath)" IgnoreModFilePatterns="$(IgnoreModFilePatterns)" />
-		<FixZipAndDeploySafely ModZipPath="$(ModZipPath)" ModFolderName="$(ModFolderName)" DeployDir="bin\Mods" />
+		<FixZipAndDeploySafely ModZipPath="$(ModZipPath)" ModFolderName="$(ModFolderName)" DeployDir="$(DeployDir)" />
 	</Target>
 </Project>
