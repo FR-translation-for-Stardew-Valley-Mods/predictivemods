@@ -20,6 +20,16 @@ namespace PredictiveCore
 		JoshHouse, // Alex, Evelyn, George
 		JojaMart, // Morris
 		MovieTheater, // (only when replaing JojaMart)
+		Max,
+		// alternate can sequence for SVE
+		SVE_SamHouse = 100, // Jodi, Kent*, Sam, Vincent
+		SVE_HaleyHouse, // Emily, Haley
+		SVE_AdventureGuild, // Marlon
+		SVE_JoshHouse, // Alex, Evelyn, George
+		SVE_Saloon, // Gus
+		SVE_JenkinsHouse, // Olivia, Victor
+		SVE_ManorHouse, // Lewis
+		SVE_Max,
 	}
 
 	public struct GarbagePrediction
@@ -59,15 +69,19 @@ namespace PredictiveCore
 
 			List<GarbagePrediction> predictions = new List<GarbagePrediction> ();
 
-			foreach (GarbageCan can in Enum.GetValues (typeof (GarbageCan)))
+			bool sve = Utilities.Helper.ModRegistry.IsLoaded
+				("FlashShifter.StardewValleyExpandedALL");
+			for (int can = sve ? 100 : 0;
+				can < (sve ? (int) GarbageCan.SVE_Max : (int) GarbageCan.Max);
+				++can)
 			{
-				Item loot = GetLootForDateAndCan (date, can, hatOnly);
+				Item loot = GetLootForDateAndCan (date, (GarbageCan) can, hatOnly);
 				if (loot != null)
 				{
 					predictions.Add (new GarbagePrediction
 					{
 						Date = date,
-						Can = can,
+						Can = (GarbageCan) can,
 						Loot = loot
 					});
 				}
@@ -147,7 +161,15 @@ namespace PredictiveCore
 			{ GarbageCan.Saloon, new Location (47, 70) },
 			{ GarbageCan.JoshHouse, new Location (52, 63) },
 			{ GarbageCan.JojaMart, new Location (110, 56) },
-			{ GarbageCan.MovieTheater, new Location (110, 56) }
+			{ GarbageCan.MovieTheater, new Location (110, 56) },
+			// alternate can locations for SVE
+			{ GarbageCan.SVE_SamHouse, new Location (5, 89) },
+			{ GarbageCan.SVE_HaleyHouse, new Location (27, 84) },
+			{ GarbageCan.SVE_AdventureGuild, new Location (28, 98) },
+			{ GarbageCan.SVE_JoshHouse, new Location (52, 63) },
+			{ GarbageCan.SVE_Saloon, new Location (47, 70) },
+			{ GarbageCan.SVE_JenkinsHouse, new Location (66, 52) },
+			{ GarbageCan.SVE_ManorHouse, new Location (56, 85) },
 		};
 
 		private static Item GetLootForDateAndCan (WorldDate date, GarbageCan can,
@@ -155,6 +177,10 @@ namespace PredictiveCore
 		{
 			// Logic from StardewValley.Locations.Town.checkAction()
 			// as implemented in Stardew Predictor by MouseyPounds.
+			
+			// Handle the presence of SVE's altered town map.
+			GarbageCan standardCan = (GarbageCan) ((int) can % 100);
+			int canValue = (int) standardCan;
 
 			// Handle the special case of JojaMart/MovieTheater.
 			bool hasTheater = Utility.doesMasterPlayerHaveMailReceivedButNotMailForTomorrow ("ccMovieTheater") &&
@@ -162,8 +188,8 @@ namespace PredictiveCore
 			if ((hasTheater && can == GarbageCan.JojaMart) ||
 				(!hasTheater && can == GarbageCan.MovieTheater))
 				return null;
-			int canValue = (int) ((can == GarbageCan.MovieTheater)
-				? GarbageCan.JojaMart : can);
+			if (can == GarbageCan.MovieTheater)
+				canValue = (int) GarbageCan.JojaMart;
 
 			// Create and prewarm the random generator.
 			int daysPlayed = date.TotalDays + 1;
@@ -235,9 +261,10 @@ namespace PredictiveCore
 				break;
 			}
 
-			// Roll for location-specific overrides.
+			// Roll for location-specific overrides. These do not care about
+			// SVE, so take the standard can identity.
 			bool locationSpecific = false;
-			switch (can)
+			switch (standardCan)
 			{
 			case GarbageCan.ArchaeologyHouse:
 				if (rng.NextDouble () < 0.2 + dailyLuck)

@@ -4,9 +4,11 @@ Read this document to peer into the future of these very mods! Spooky.
 
 ## Version 1.0.0 release
 
-* Fix Garbage predictions and GarbageChannel event positioning for SVE
 * Pending CustomTV second page fix in PyTK
+* Check on balancing
+* Additional testing: Windows/Mac? other common mods? multiplayer?
 * Create Nexus and ModDrop entries
+* Announce in places
 
 ---
 

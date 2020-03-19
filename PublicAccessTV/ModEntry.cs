@@ -32,7 +32,10 @@ namespace PublicAccessTV
 			// Add console commands.
 			Utilities.Helper.ConsoleCommands.Add ("update_patv_channels",
 				"Updates the availability of the custom channels to reflect current conditions.",
-				(_command, args) => UpdateChannels ());
+				(_command, args) => UpdateChannels (true));
+			Utilities.Helper.ConsoleCommands.Add ("reset_patv_channels",
+				"Resets the custom channels to their unlaunched states (before letters, events, etc.).",
+				(_command, args) => ResetChannels (true));
 
 			// Make resources available.
 			_Helper = helper;
@@ -41,7 +44,7 @@ namespace PublicAccessTV
 			// Listen for game events.
 			helper.Events.GameLoop.GameLaunched += OnGameLaunched;
 			helper.Events.GameLoop.DayStarted +=
-				(_sender, _args) => InitializeChannels ();
+				(_sender, _args) => UpdateChannels ();
 			helper.Events.GameLoop.OneSecondUpdateTicked +=
 				(_sender, _args) => GarbageChannel.CheckEvent ();
 
@@ -77,27 +80,41 @@ namespace PublicAccessTV
 			};
 		}
 
-		private void InitializeChannels ()
-		{
-			// Initialize each channel based on current conditions.
-			foreach (Channel channel in Channels)
-			{
-				channel.Initialize ();
-			}
-		}
-
-		private void UpdateChannels ()
+		private void UpdateChannels (bool isCommand = false)
 		{
 			try
 			{
 				Utilities.CheckWorldReady ();
-				InitializeChannels ();
-				Monitor.Log ("Channel availability updated to reflect current conditions.",
-					LogLevel.Info);
+				foreach (Channel channel in Channels)
+					channel.Update ();
 			}
 			catch (Exception e)
 			{
 				Monitor.Log (e.Message, LogLevel.Error);
+			}
+			if (isCommand)
+			{
+				Monitor.Log ("Channel availability updated to reflect current conditions.",
+					LogLevel.Info);
+			}
+		}
+
+		private void ResetChannels (bool isCommand = false)
+		{
+			try
+			{
+				Utilities.CheckWorldReady ();
+				foreach (Channel channel in Channels)
+					channel.Reset ();
+			}
+			catch (Exception e)
+			{
+				Monitor.Log (e.Message, LogLevel.Error);
+			}
+			if (isCommand)
+			{
+				Monitor.Log ("Channels reset to initial states.",
+					LogLevel.Info);
 			}
 		}
 	}

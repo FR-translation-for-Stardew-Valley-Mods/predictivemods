@@ -40,6 +40,13 @@ namespace PublicAccessTV
 			(ModEntry.Config.BypassFriendships ||
 				Game1.player.mailReceived.Contains ("kdau.PublicAccessTV.trains"));
 
+		internal override void Reset ()
+		{
+			Game1.player.mailReceived.Remove ("kdau.PublicAccessTV.trains");
+			Game1.player.mailForTomorrow.Remove ("kdau.PublicAccessTV.trains%&NL&%");
+			Game1.player.eventsSeen.Remove (79400101);
+		}
+
 		internal override void Show (TV tv)
 		{
 			List<TrainPrediction> predictions =
@@ -53,9 +60,12 @@ namespace PublicAccessTV
 				(Game1.isRaining || Game1.isDarkOut ()) ? 1 : 0);
 			TemporaryAnimatedSprite portrait = LoadPortrait (tv, "Demetrius");
 
+			bool sve = Helper.ModRegistry.IsLoaded ("FlashShifter.SVEMusic");
+			string musicTrack = sve ? "distantBanjo" : "archaeo";
+
 			// Opening scene: Demetrius greets the viewer.
 			QueueScene (new Scene (Helper.Translation.Get ("trains.opening"),
-				background, portrait) { MusicTrack = "archaeo" });
+				background, portrait) { MusicTrack = musicTrack });
 
 			// Next scheduled train. Demetrius's reaction depends on whether the
 			// train is today, later in the next 7 days, or later than that.
@@ -87,7 +97,7 @@ namespace PublicAccessTV
 					time = Game1.getTimeOfDayString (predictions[0].Time),
 				}),
 				background, nextPortrait)
-				{ MusicTrack = "archaeo", SoundCueName = nextSound });
+				{ MusicTrack = musicTrack, SoundCueName = nextSound });
 
 			// Second and third scheduled trains.
 			if (predictions.Count >= 3)
@@ -97,12 +107,12 @@ namespace PublicAccessTV
 					date1 = predictions[1].Date.Localize (),
 					date2 = predictions[2].Date.Localize (),
 				}), background, LoadPortrait (tv, "Demetrius", 1, 1))
-				{ MusicTrack = "archaeo" });
+				{ MusicTrack = musicTrack });
 			}
 
 			// Closing scene: Demetrius signs off.
 			QueueScene (new Scene (Helper.Translation.Get ("trains.closing"),
-				background, portrait) { MusicTrack = "archaeo" });
+				background, portrait) { MusicTrack = musicTrack });
 
 			RunProgram (tv);
 		}

@@ -61,7 +61,7 @@ namespace PublicAccessTV
 					new Rectangle (94, 0, 94, 63), 250f, 2, new Vector2 (),
 					true, true);
 				QueueScene (new Scene (Helper.Translation.Get ("movies.lobby.craneGame"),
-					craneGame, craneFlash) { SoundCueName = "crane_game" });
+					craneGame, craneFlash) { MusicTrack = "crane_game" });
 			}
 			else
 			{

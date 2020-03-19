@@ -107,7 +107,8 @@ namespace ScryingOrb
 				foreach (GarbagePrediction prediction in
 					predictions.OrderBy ((GarbagePrediction a) => rng.Next ()))
 				{
-					lines.Add (Helper.Translation.Get ($"garbage.prediction.{prediction.Can}", new
+					string can = prediction.Can.ToString ().Replace ("SVE_", "");
+					lines.Add (Helper.Translation.Get ($"garbage.prediction.{can}", new
 					{
 						itemName = (prediction.Loot is Hat)
 							? Helper.Translation.Get ("garbage.item.hat")

@@ -34,7 +34,7 @@ namespace PublicAccessTV
 		internal virtual bool IsAvailable => true;
 
 		// Add or remove the channel based on its availability for the day.
-		internal virtual void Initialize ()
+		internal virtual void Update ()
 		{
 			if (IsAvailable)
 			{
@@ -45,6 +45,10 @@ namespace PublicAccessTV
 				CallCustomTVMod ("removeChannel", GlobalID);
 			}
 		}
+
+		// Reset any persistent state for the channel.
+		internal virtual void Reset ()
+		{}
 
 		// Called by CustomTVMod to start the program. Override to implement.
 		internal virtual void Show (TV tv)

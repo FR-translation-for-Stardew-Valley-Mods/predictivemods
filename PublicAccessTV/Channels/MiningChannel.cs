@@ -32,7 +32,7 @@ namespace PublicAccessTV
 			(Game1.player.mailReceived.Contains ("kdau.PublicAccessTV.mining") ||
 				Game1.player.mailbox.Contains ("kdau.PublicAccessTV.mining"));
 
-		internal override void Initialize ()
+		internal override void Update ()
 		{
 			if (base.IsAvailable && Mining.IsAvailable &&
 				!Game1.player.mailReceived.Contains ("kdau.PublicAccessTV.mining") &&
@@ -45,7 +45,13 @@ namespace PublicAccessTV
 				Game1.player.mailbox.Add ("kdau.PublicAccessTV.mining");
 			}
 
-			base.Initialize ();
+			base.Update ();
+		}
+
+		internal override void Reset ()
+		{
+			Game1.player.mailReceived.Remove ("kdau.PublicAccessTV.mining");
+			Game1.player.mailbox.Remove ("kdau.PublicAccessTV.mining");
 		}
 
 		internal override void Show (TV tv)

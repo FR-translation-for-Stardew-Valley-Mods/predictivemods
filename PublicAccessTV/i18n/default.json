@@ -1,4 +1,6 @@
 ﻿{
+  "//Note to Translators": "Your contribution is welcome! I would prefer to publish translations as part of the main mod to keep everything up to date. Please see README.md for how to prepare the translation and send me your work.",
+
   "garbage.event.linus01": "Find anything good?",
   "garbage.event.linus02": "Hello @. I'm pleased to see that the cans are still calling to you.",
   "garbage.event.linus03": "I just got some old vinegar out of Pierre's can. It's a little cloudy, but it will still taste great on wild roots.",
@@ -26,10 +28,12 @@
   "garbage.can.JoshHouse": "I hope the Mullners have been baking again.",
   "garbage.can.JojaMart": "The JojaMart makes me sad, but if we must...",
   "garbage.can.MovieTheater": "This new movie theater could have something good.",
+  "garbage.can.AdventureGuild": "The Adventurer's Guild might have something interesting.",
+  "garbage.can.JenkinsHouse": "I doubt the Jenkins have parted with one of their wines.",
   "garbage.item.garbageHat": "Wow, this lid is ready to see the world! It should make a lovely Garbage Hat.",
+  "garbage.item.dishOfTheDay": "Wonderful, it's a hot meal.",
   "garbage.item.special": "Oh, there's {{itemName}} here.",
   "garbage.item.generic": "Just some {{itemName}} in here.",
-  "garbage.dishOfTheDay": "a hot meal",
   "garbage.closing.standard": "I'll be back tomorrow with another look In the Cans. Let's keep this between you and me, okay?",
   "garbage.closing.progress": "This is only what you're ready to find, young friend. Learn to listen to the cans and they'll have more to offer you. Go in peace.",
 

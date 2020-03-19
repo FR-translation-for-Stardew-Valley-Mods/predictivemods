@@ -17,9 +17,15 @@ This mod is based on the [Stardew Predictor](https://mouseypounds.github.io/star
 
 ## Compatibility
 
-Scrying Orb is compatible with Stardew Valley 1.4.4+. Since it relies heavily on how the game calculates certain events, future updates to the base game are likely to make it inaccurate. When game version 1.5 arrives, take this mod's predictions with a grain of salt until I have a new version ready.
+This version of Scrying Orb is compatible with **Stardew Valley 1.4**. Since it relies heavily on how the game calculates certain events, future updates to the base game are likely to make it inaccurate. When game version 1.5 arrives, take this mod's information with a grain of salt until I have a new version ready.
 
-There are no known conflicts with other mods, problems with multiplayer or cross-platform issues. However, some other mods do change the way the game works in the areas that the Scrying Orb predicts. The orb will make incorrect predictions in these cases. If you would like me to consider accommodating such a mod, please open an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues) or on the Nexus page<!-- TODO: ScryingOrb Nexus issues link -->.
+This mod should work on **Linux, Mac or Windows**. There are no known problems with multiplayer use.
+
+Some other mods change the way the game works in the areas that the Scrying Orb predicts. The following mods are supported:
+
+* [Stardew Valley Expanded](https://www.nexusmods.com/stardewvalley/mods/3753): different arrangement of garbage cans
+
+If any of your other mods affect the areas this mod covers, the orb will make incorrect predictions. If you would like me to consider accommodating such a mod, please open an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues) or on the Nexus page<!-- TODO: ScryingOrb Nexus issues link -->.
 
 ## Installation
 
@@ -119,11 +125,6 @@ The first time you run the mod, it will generate a `config.json` file in its mai
 This mod can be translated into any language supported by Stardew Valley. No translations are currently available, however.
 
 Your contribution would be welcome. Please see the [details on the wiki](https://stardewvalleywiki.com/Modding:Translations) for help. You can send me your work in an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues), on Nexus<!-- TODO: ScryingOrb Nexus issues link --> or by DM on Discord.
-
-For this mod, there are translatable strings in two files:
-
-* `i18n/default.json`
-* `[JA]ScryingOrb/BigCraftables/ScryingOrb/big-craftable.json`
 
 ## Acknowledgments
 

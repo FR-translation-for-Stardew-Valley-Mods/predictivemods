@@ -18,7 +18,7 @@ namespace PublicAccessTV
 		internal static readonly Dictionary<string,string> Events =
 			new Dictionary<string, string>
 		{
-			{ "79400102/n kdau.never", "echos/<<viewport>>/farmer <<farmerstart>> Linus <<linusstart>>/move Linus <<linusmove1>> true/playSound dirtyHit/pause 1000/playSound slimeHit/pause 1000/textAboveHead Linus \"{{linus01}}\"/pause 250/jump farmer/pause 750/faceDirection farmer <<farmerface>>/pause 250/emote farmer 16/move Linus <<linusmove2>>/pause 500/speak Linus \"{{linus02}}#$b#{{linus03}}$h\"/emote farmer 32/speak Linus \"{{linus04}}#$b#{{linus05}}\"/emote farmer 40/speak Linus \"$q -1 null#{{linus06}}#$r -1 50 kdau.PublicAccessTV.garbage1#{{farmer01}}#$r -1 0 kdau.PublicAccessTV.garbage2#{{farmer02}}#$r -1 -50 kdau.PublicAccessTV.garbage3#{{farmer03}}\"/pause 500/speak Linus \"{{linus08}}\"/move Linus <<linusmove3>> 2 true/viewport move <<linusmove3>> 5000/fade/viewport -1000 -1000/fork 79400102_Reject/mail kdau.PublicAccessTV.garbage%&NL&%/end dialogue Linus \"{{linus09}}\"" },
+			{ "79400102/n kdau.never", "echos/<<viewport>>/farmer <<farmerstart>> Linus <<linusstart>>/move Linus <<linusmove1>> true/playSound dirtyHit/pause 1000/playSound dirtyHit/pause 1000/textAboveHead Linus \"{{linus01}}\"/pause 250/jump farmer/pause 750/faceDirection farmer <<farmerface>>/pause 250/emote farmer 16/move Linus <<linusmove2>>/pause 500/speak Linus \"{{linus02}}#$b#{{linus03}}$h\"/emote farmer 32/speak Linus \"{{linus04}}#$b#{{linus05}}\"/emote farmer 40/speak Linus \"$q -1 null#{{linus06}}#$r -1 50 kdau.PublicAccessTV.garbage1#{{farmer01}}#$r -1 0 kdau.PublicAccessTV.garbage2#{{farmer02}}#$r -1 -50 kdau.PublicAccessTV.garbage3#{{farmer03}}\"/pause 500/speak Linus \"{{linus08}}\"/move Linus <<linusmove3>> 2 true/viewport move <<linusmove3>> 6000/fade/viewport -1000 -1000/fork 79400102_Reject/mail kdau.PublicAccessTV.garbage%&NL&%/end dialogue Linus \"{{linus09}}\"" },
 			{ "79400102_Reject", "end invisible Linus" },
 		};
 		internal static readonly Dictionary<GarbageCan, string> EventPositions =
@@ -34,6 +34,14 @@ namespace PublicAccessTV
 			{ GarbageCan.JoshHouse, "52 58 3/-2 0 2/0 6 1/3/-6 0" },
 			{ GarbageCan.JojaMart, "103 61 0/0 -4 1/6 0 1/3/0 6" },
 			// for this class, MovieTheater collapses into JojaMart
+			// alternate event positions for SVE
+			{ GarbageCan.SVE_SamHouse, "14 87 3/-5 0 2/0 3 3/1/6 0" },
+			{ GarbageCan.SVE_HaleyHouse, "33 85 3/-3 0 3/-2 0 3/1/0 6" },
+			{ GarbageCan.SVE_AdventureGuild, "26 93 1/2 0 2/0 3 2/0/0 -6" },
+			{ GarbageCan.SVE_JoshHouse, "44 65 1/6 0 0/0 -1 1/3/0 6" },
+			{ GarbageCan.SVE_Saloon, "44 65 1/5 0 2/0 6 3/1/0 6" },
+			{ GarbageCan.SVE_JenkinsHouse, "65 59 0/0 -4 0/0 -2 1/3/0 6" },
+			{ GarbageCan.SVE_ManorHouse, "52 90 0/0 -4 1/0 0 1/3/0 4" },
 		};
 
 		internal static readonly string DialogueCharacter = "Linus";
@@ -59,11 +67,29 @@ namespace PublicAccessTV
 			(ModEntry.Config.BypassFriendships ||
 				Game1.player.mailReceived.Contains ("kdau.PublicAccessTV.garbage"));
 
-		internal override void Initialize ()
+		internal override void Update ()
 		{
-			GarbageChecked = new bool[8];
+			GarbageChecked = GetCurrentCansChecked ();
+			base.Update ();
+		}
 
-			base.Initialize ();
+		internal override void Reset ()
+		{
+			Game1.player.mailReceived.Remove ("kdau.PublicAccessTV.garbage");
+			Game1.player.mailForTomorrow.Remove ("kdau.PublicAccessTV.garbage%&NL&%");
+			Game1.player.eventsSeen.Remove (79400102);
+			GarbageChecked = GetCurrentCansChecked ();
+		}
+
+		private static bool[] GetCurrentCansChecked ()
+		{
+			GameLocation town = Game1.getLocationFromName ("Town");
+			var value = Helper.Reflection.GetField<NetArray<bool, NetBool>>
+				(town, "garbageChecked").GetValue ();
+			bool[] result = new bool[8];
+			for (int i = 0; i < 8; ++i)
+				result[i] = value[i];
+			return result;
 		}
 
 		public static void CheckEvent ()
@@ -79,15 +105,18 @@ namespace PublicAccessTV
 				return;
 
 			// Find whether any can has been checked since the last run.
-			var current = Helper.Reflection.GetField<NetArray<bool, NetBool>>
-				(Game1.currentLocation, "garbageChecked").GetValue ();
+			bool[] current = GetCurrentCansChecked ();
 			GarbageCan? can = null;
 			for (int i = 0; i < 8; ++i)
 			{
 				if (!GarbageChecked[i] && current[i])
 				{
 					GarbageChecked[i] = true;
-					can = (GarbageCan) i;
+					bool sve = Helper.ModRegistry.IsLoaded
+						("FlashShifter.StardewValleyExpandedALL");
+					can = (GarbageCan) i + (sve ? 100 : 0);
+					// Don't break, in the unlikely event that multiple cans
+					// were checked since last run and need to be updated.
 				}
 			}
 
@@ -105,12 +134,16 @@ namespace PublicAccessTV
 			GarbageChecked = null;
 
 			// Build event script based on the can that was checked.
-			Point viewport = Game1.viewportCenter;
+			int viewportX = Game1.viewportCenter.X / Game1.tileSize;
+			int viewportY = Game1.viewportCenter.Y / Game1.tileSize;
 			Location canLoc = Garbage.CanLocations[can.Value];
 			string[] canPos = EventPositions[can.Value].Split ('/');
+			bool canObstructed = can == GarbageCan.ManorHouse ||
+				can == GarbageCan.SVE_ManorHouse ||
+				can == GarbageCan.SVE_AdventureGuild;
 			string eventScript = Events["79400102/n kdau.never"]
-				.Replace ("<<viewport>>", $"{viewport.X} {viewport.Y}")
-				.Replace ("<<farmerstart>>", (can == GarbageCan.ManorHouse)
+				.Replace ("<<viewport>>", $"{viewportX} {viewportY}")
+				.Replace ("<<farmerstart>>", canObstructed
 					? $"{canLoc.X - 1} {canLoc.Y} 1" : $"{canLoc.X} {canLoc.Y + 1} 0")
 				.Replace ("<<linusstart>>", canPos[0])
 				.Replace ("<<linusmove1>>", canPos[1])
@@ -124,6 +157,28 @@ namespace PublicAccessTV
 				Game1.currentLocation.startEvent (new Event (eventScript, 79400102)),
 				500);
 		}
+
+		private static readonly Dictionary<GarbageCan, int> CanScenes =
+			new Dictionary<GarbageCan, int>
+		{
+			{ GarbageCan.SamHouse, 1 },
+			{ GarbageCan.HaleyHouse, 2 },
+			{ GarbageCan.ManorHouse, 3 },
+			{ GarbageCan.ArchaeologyHouse, 4 },
+			{ GarbageCan.Blacksmith, 5 },
+			{ GarbageCan.Saloon, 6 },
+			{ GarbageCan.JoshHouse, 7 },
+			{ GarbageCan.JojaMart, 8 },
+			{ GarbageCan.MovieTheater, 9 },
+			// alternate can scenes for SVE (reuse vanilla or just show tent)
+			{ GarbageCan.SVE_SamHouse, 1 },
+			{ GarbageCan.SVE_HaleyHouse, 2 },
+			{ GarbageCan.SVE_AdventureGuild, 0 },
+			{ GarbageCan.SVE_JoshHouse, 7 },
+			{ GarbageCan.SVE_Saloon, 6 },
+			{ GarbageCan.SVE_JenkinsHouse, 0 },
+			{ GarbageCan.SVE_ManorHouse, 3 },
+		};
 
 		internal override void Show (TV tv)
 		{
@@ -151,12 +206,19 @@ namespace PublicAccessTV
 			// Linus reports on the content of each non-empty can.
 			foreach (GarbagePrediction prediction in predictions)
 			{
+				string can = prediction.Can.ToString ().Replace ("SVE_", "");
+
 				string type;
 				TemporaryAnimatedSprite reactionPortrait;
 				if (prediction.Loot is Hat)
 				{
 					type = "garbageHat";
 					reactionPortrait = LoadPortrait (tv, "Linus", 1, 1);
+				}
+				else if (prediction.Loot.ParentSheetIndex == 217) // placeholder
+				{
+					type = "dishOfTheDay";
+					reactionPortrait = LoadPortrait (tv, "Linus", 1, 0);
 				}
 				else if (prediction.Loot is SObject o && o.Flipped)
 				{
@@ -170,14 +232,12 @@ namespace PublicAccessTV
 				}
 
 				QueueScene (new Scene
-					(Helper.Translation.Get ($"garbage.can.{prediction.Can}") + "^...^" +
+					(Helper.Translation.Get ($"garbage.can.{can}") + "^...^" +
 						Helper.Translation.Get ($"garbage.item.{type}", new
 						{
-							itemName = (prediction.Loot.ParentSheetIndex == 217)
-								? Helper.Translation.Get ("garbage.dishOfTheDay")
-								: prediction.Loot.DisplayName,
+							itemName = prediction.Loot.DisplayName,
 						}),
-					LoadBackground (tv, (int) prediction.Can + 1, seasonIndex),
+					LoadBackground (tv, CanScenes[prediction.Can], seasonIndex),
 					reactionPortrait)
 					{ MusicTrack = "echos" });
 			}

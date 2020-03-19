@@ -17,9 +17,15 @@ This mod is largely based on the [Stardew Predictor](https://mouseypounds.github
 
 ## Compatibility
 
-Public Access TV is compatible with Stardew Valley 1.4.4+. Since it relies heavily on how the game calculates certain events, future updates to the base game are likely to make it inaccurate. When game version 1.5 arrives, take this mod's information with a grain of salt until I have a new version ready.
+This version of Public Access TV is compatible with **Stardew Valley 1.4**. Since it relies heavily on how the game calculates certain events, future updates to the base game are likely to make it inaccurate. When game version 1.5 arrives, take this mod's information with a grain of salt until I have a new version ready.
 
-There are no known conflicts with other mods, problems with multiplayer or cross-platform issues. However, some other mods do change the way the game works in the areas that the TV channels cover. The TV will make incorrect announcements in these cases. If you would like me to consider accommodating such a mod, please open an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues) or on the Nexus page<!-- TODO: PublicAccessTV Nexus issues link -->.
+This mod should work on **Linux, Mac or Windows**. There are no known problems with multiplayer use.
+
+Some other mods change the way the game works in the areas that the TV channels cover. The following mods are supported:
+
+* [Stardew Valley Expanded](https://www.nexusmods.com/stardewvalley/mods/3753): different arrangement of garbage cans
+
+If any of your other mods affect the areas this mod covers, the TV will make incorrect announcements. If you would like me to consider accommodating such a mod, please open an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues) or on the Nexus page<!-- TODO: PublicAccessTV Nexus issues link -->.
 
 ## Installation
 

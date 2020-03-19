@@ -89,6 +89,12 @@ namespace PredictiveCore
 			Monitor = mod.Monitor;
 			Helper = helper;
 
+			if (new SemanticVersion (Game1.version).IsOlderThan ("1.4.0") ||
+				!new SemanticVersion (Game1.version).IsOlderThan ("1.5.0"))
+			{
+				Monitor.Log ($"This mod version was not designed for game version {Game1.version}. Predictions will be inaccurate until the mod is updated.", LogLevel.Alert);
+			}
+
 			// If multiple mods are consuming PredictiveCore, only add the
 			// console commands in one of them (arbitrarily, PublicAccessTV).
 			bool addConsoleCommands =
