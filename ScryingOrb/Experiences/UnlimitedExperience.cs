@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using PredictiveCore;
+using StardewModdingAPI;
 using StardewValley;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,19 +9,16 @@ namespace ScryingOrb
 {
 	public class UnlimitedExperience : Experience
 	{
-		private class SaveData
+		private class Persistent
 		{
 			public int ExpirationDay { get; set; } = -1;
 		}
-		private static SaveData saveData;
+		private static Persistent persistent;
 
 		public UnlimitedExperience ()
 		{
-			if (saveData == null)
-			{
-				saveData = Helper.Data.ReadSaveData<SaveData> ("Unlimited")
-					?? new SaveData ();
-			}
+			if (persistent == null)
+				persistent = LoadData<Persistent> ("Unlimited");
 		}
 
 		public static readonly List<string> AcceptedOfferings = new List<string>
@@ -37,11 +35,11 @@ namespace ScryingOrb
 			// If currently in an unlimited period, ignore the offering, react
 			// to the ongoing period, then proceed to run.
 			int totalDays = Utilities.Now ().TotalDays;
-			if (totalDays <= saveData.ExpirationDay)
+			if (totalDays <= persistent.ExpirationDay)
 			{
 				Illuminate ();
 				PlaySound ("yoba");
-				ShowMessage ((totalDays == saveData.ExpirationDay)
+				ShowMessage ((totalDays == persistent.ExpirationDay)
 					? "unlimited.lastDay" : "unlimited.following", 250);
 				Game1.afterDialogues = Run;
 				return true;
@@ -54,8 +52,9 @@ namespace ScryingOrb
 			ConsumeOffering ();
 
 			// Start an unlimited period and increase luck for the day.
-			saveData.ExpirationDay = Utilities.Now ().TotalDays + 7;
-			Helper.Data.WriteSaveData ("Unlimited", saveData);
+			persistent.ExpirationDay = Utilities.Now ().TotalDays +
+				(Context.IsMainPlayer ? 7 : 1);
+			SaveData ("Unlimited", persistent);
 			Game1.player.team.sharedDailyLuck.Value = 0.12;
 
 			// React to the offering dramatically, then proceed to run.
@@ -63,7 +62,8 @@ namespace ScryingOrb
 			PlaySound ("reward");
 			ShowAnimation ("TileSheets\\animations",
 				new Rectangle (0, 192, 64, 64), 125f, 8, 1);
-			ShowMessage ("unlimited.initial", 1000);
+			string role = Context.IsMainPlayer ? "main" : "farmhand";
+			ShowMessage ($"unlimited.initial.{role}", 1000);
 			Game1.afterDialogues = Run;
 
 			return true;
@@ -115,7 +115,8 @@ namespace ScryingOrb
 
 		internal static void Reset ()
 		{
-			Helper.Data.WriteSaveData ("Unlimited", saveData = new SaveData ());
+			persistent = new Persistent ();
+			SaveData ("Unlimited", persistent);
 		}
 	}
 }

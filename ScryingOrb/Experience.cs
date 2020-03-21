@@ -218,5 +218,19 @@ namespace ScryingOrb
 			Game1.currentLocation.removeLightSource (Orb.lightSource.Identifier);
 			Orb.lightSource = null;
 		}
+
+		protected static T LoadData<T> (string key) where T: class, new ()
+		{
+			T data = Context.IsMainPlayer
+				? Helper.Data.ReadSaveData<T> (key)
+				: null;
+			return data ?? new T ();
+		}
+
+		protected static void SaveData<T> (string key, T data) where T: class, new ()
+		{
+			if (Context.IsMainPlayer)
+				Helper.Data.WriteSaveData (key, data);
+		}
 	}
 }

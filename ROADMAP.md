@@ -4,10 +4,8 @@ Read this document to peer into the future of these very mods! Spooky.
 
 ## Version 1.0.0 release
 
-* Additional testing: Windows/Mac? other common mods? multiplayer?
 * Publish Nexus pages
 * Create ModDrop pages
-* Wait for CustomTV second page fix to release in PyTK
 * Announce in places
 
 ---
@@ -31,7 +29,7 @@ Read this document to peer into the future of these very mods! Spooky.
 * content:
 	* today's wallpaper and flooring at Pierre's General Store
 	* today's shirt at Sandy's Oasis (if bus repaired)
-	* today's items at the Traveling Cart
+	* today's items at the Traveling Cart (on Fridays and Sundays)
 
 ### ScryingOrb.ShoppingExperience
 
@@ -59,6 +57,9 @@ Read this document to peer into the future of these very mods! Spooky.
 	* fashion commentary from Haley (connect to mods like Seasonal Villager Outfits?)
 
 ## Version 1.1.0 release
+
+* Wait for next PyTK release and remove "known issue" paragraph in PATV README
+* Introduce messaging in multiplayer to make unlimited period work/last for everyone?
 
 ---
 

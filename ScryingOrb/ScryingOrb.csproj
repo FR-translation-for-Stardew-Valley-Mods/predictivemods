@@ -4,6 +4,7 @@
 		<AssemblyName>ScryingOrb</AssemblyName>
 		<RootNamespace>ScryingOrb</RootNamespace>
 		<ReleaseVersion>1.0.0-beta.0</ReleaseVersion>
+		<LangVersion>8.0</LangVersion>
 		<TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
 		<OutputType>Library</OutputType>
 		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>

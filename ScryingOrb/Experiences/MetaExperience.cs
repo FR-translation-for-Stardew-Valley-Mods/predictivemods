@@ -1,23 +1,21 @@
 ﻿using Microsoft.Xna.Framework;
+using StardewModdingAPI;
 using StardewValley;
 
 namespace ScryingOrb
 {
 	public class MetaExperience : Experience
 	{
-		private class SaveData
+		private class Persistent
 		{
 			public bool AlreadyTried { get; set; } = false;
 		}
-		private static SaveData saveData;
+		private static Persistent persistent;
 
 		public MetaExperience ()
 		{
-			if (saveData == null)
-			{
-				saveData = Helper.Data.ReadSaveData<SaveData> ("Meta")
-					?? new SaveData ();
-			}
+			if (persistent == null)
+				persistent = LoadData<Persistent> ("Meta");
 		}
 
 		protected override bool Try ()
@@ -27,7 +25,7 @@ namespace ScryingOrb
 				return false;
 
 			// If the player has tried this before, react nonchalantly.
-			if (saveData.AlreadyTried)
+			if (persistent.AlreadyTried)
 			{
 				PlaySound ("clank");
 				ShowMessage ("meta.following", 500);
@@ -35,8 +33,8 @@ namespace ScryingOrb
 			// Otherwise show the initial joke.
 			else
 			{
-				saveData.AlreadyTried = true;
-				Helper.Data.WriteSaveData ("Meta", saveData);
+				persistent.AlreadyTried = true;
+				SaveData ("Meta", persistent);
 
 				PlaySound ("clank");
 				ShowMessage ("meta.initial", 500);
@@ -47,7 +45,8 @@ namespace ScryingOrb
 
 		internal static void Reset ()
 		{
-			Helper.Data.WriteSaveData ("Meta", saveData = new SaveData ());
+			persistent = new Persistent ();
+			SaveData ("Meta", persistent);
 		}
 	}
 }

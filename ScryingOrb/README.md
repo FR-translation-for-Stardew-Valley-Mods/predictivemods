@@ -23,7 +23,12 @@ This mod should work on **Linux, Mac or Windows**. There are no known problems w
 
 Some other mods change the way the game works in the areas that the Scrying Orb predicts. The following mods are supported:
 
-* [Stardew Valley Expanded](https://www.nexusmods.com/stardewvalley/mods/3753): different arrangement of garbage cans
+* [Stardew Valley Expanded](https://www.nexusmods.com/stardewvalley/mods/3753) (different arrangement of garbage cans)
+
+When one of the following mods is detected, the related predictions are disabled:
+
+* [Better Garbage Cans](https://www.nexusmods.com/stardewvalley/mods/4171)
+* [Better Train Loot](https://www.nexusmods.com/stardewvalley/mods/4234)
 
 If any of your other mods affect the areas this mod covers, the orb will make incorrect predictions. If you would like me to consider accommodating such a mod, please open an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues) or [on the Nexus page](https://www.nexusmods.com/stardewvalley/mods/5603?tab=bugs).
 
@@ -105,6 +110,8 @@ Learn what items will be found in garbage cans on any day in the next year. <em>
 <!-- TODO: Seek a particular item -->
 
 ### Week of unlimited use
+
+(For farmhands in multiplayer, this will work for the current day only.)
 
 <details>
 <summary>Offerings</summary>

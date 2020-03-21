@@ -5,19 +5,16 @@ namespace ScryingOrb
 {
 	public class LuckyPurpleExperience : Experience
 	{
-		private class SaveData
+		private class Persistent
 		{
 			public bool AlreadyTried { get; set; } = false;
 		}
-		private static SaveData saveData;
+		private static Persistent persistent;
 
 		public LuckyPurpleExperience ()
 		{
-			if (saveData == null)
-			{
-				saveData = Helper.Data.ReadSaveData<SaveData> ("LuckyPurple")
-					?? new SaveData ();
-			}
+			if (persistent == null)
+				persistent = LoadData<Persistent> ("LuckyPurple");
 		}
 
 		protected override bool Try ()
@@ -27,10 +24,10 @@ namespace ScryingOrb
 				return false;
 
 			// If the player hasn't tried this before, show the initial warning.
-			if (!saveData.AlreadyTried)
+			if (!persistent.AlreadyTried)
 			{
-				saveData.AlreadyTried = true;
-				Helper.Data.WriteSaveData ("LuckyPurple", saveData);
+				persistent.AlreadyTried = true;
+				SaveData ("LuckyPurple", persistent);
 
 				PlaySound ("grunt");
 				ShowMessage ("luckyPurple.initial", 500);
@@ -57,7 +54,8 @@ namespace ScryingOrb
 
 		internal static void Reset ()
 		{
-			Helper.Data.WriteSaveData ("LuckyPurple", saveData = new SaveData ());
+			persistent = new Persistent ();
+			SaveData ("LuckyPurple", persistent);
 		}
 	}
 }
