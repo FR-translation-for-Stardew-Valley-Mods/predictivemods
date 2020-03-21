@@ -2,14 +2,6 @@
 
 Read this document to peer into the future of these very mods! Spooky.
 
-## Version 1.0.0 release
-
-* Publish Nexus pages
-* Create ModDrop pages
-* Announce in places
-
----
-
 ## Shopping channel/experience
 
 ### PredictiveCore.Shopping

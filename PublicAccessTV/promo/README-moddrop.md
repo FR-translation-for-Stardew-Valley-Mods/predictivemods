@@ -1,19 +1,9 @@
-# ![[icon]](assets/icon.png) Public Access TV
+# ![[icon]](https://kdau.gitlab.io/PublicAccessTV/icon.png) Public Access TV
 *a [Stardew Valley](http://stardewvalley.net/) mod by kdau*
 
-Your friends in the valley take to the airwaves to keep you apprised of today's mining conditions<!-- TODO: , shopping opportunities -->, garbage loot, train schedules, rare events and more.
+Your friends in the valley take to the airwaves to keep you apprised of today's mining conditions, garbage loot, train schedules, rare events and more.
 
-This mod is largely based on the [Stardew Predictor](https://mouseypounds.github.io/stardew-predictor/) web app by MouseyPounds, whose tools are all worth a look. Its companion mod, [Scrying Orb](https://www.nexusmods.com/stardewvalley/mods/5603) <small>([source](../ScryingOrb))</small>, offers a different route to some of the same information and more, but looks well beyond the current game day.
-
-## Contents
-
-* [Compatibility](#compatibility)
-* [Installation](#installation)
-* [Use](#use)
-* [Configuration](#configuration)
-* [Translation](#translation)
-* [Acknowledgments](#acknowledgments)
-* [See also](#see-also)
+This mod is largely based on the [Stardew Predictor](https://mouseypounds.github.io/stardew-predictor/) web app by MouseyPounds, whose tools are all worth a look. Its companion mod, [Scrying Orb](https://www.moddrop.com/stardew-valley/mods/756553-scrying-orb) ([source](https://gitlab.com/kdau/predictivemods/-/tree/master/ScryingOrb)), offers a different route to some of the same information and more, but looks well beyond the current game day.
 
 ## Compatibility
 
@@ -32,13 +22,13 @@ When one of the following mods is detected, the related channel is disabled:
 * [Better Garbage Cans](https://www.nexusmods.com/stardewvalley/mods/4171)
 * [Better Train Loot](https://www.nexusmods.com/stardewvalley/mods/4234)
 
-If any of your other mods affect the areas this mod covers, the TV will make incorrect announcements. If you would like me to consider accommodating such a mod, please open an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues) or [on the Nexus page](https://www.nexusmods.com/stardewvalley/mods/5605?tab=bugs).
+If any of your other mods affect the areas this mod covers, the TV will make incorrect announcements. If you would like me to consider accommodating such a mod, please open an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues) or in the Issues/Bugs tab above.
 
 ## Installation
 
 1. Install the latest version of [SMAPI](https://smapi.io/).
 1. Install the [PyTK](https://www.nexusmods.com/stardewvalley/mods/1726) mod.
-1. Download this mod from its [Nexus page](https://www.nexusmods.com/stardewvalley/mods/5605?tab=files) or [ModDrop page](https://www.moddrop.com/stardew-valley/mods/757967-public-access-tv).
+1. Download this mod from the link in the header above.
 1. Unzip the mod and place the `PublicAccessTV` folder inside your `Mods` folder.
 1. Run the game using SMAPI.
 
@@ -56,13 +46,9 @@ The Governor will go live to announce rare events to the entire region. This pro
 
 Tune in to Marlon and Gil at the Adventurer's Guild on any day you're considering a trek into the mines. They'll give you advance warning of major monster activity and point you to any particularly valuable caches. Complete the "Initiation" quest to access this members-only program; Marlon will write you a letter when it's available to you. *[SVE](https://www.nexusmods.com/stardewvalley/mods/3753) players will also need two hearts of friendship with Marlon.*
 
-<!-- TODO: Shop the Valley -->
-
 ### In the Cans
 
 Hosted by Linus, this daily program clues you in on loot you can find in garbage cans that day. This is a passion project he's sharing with you on a little-known channel. Reach four hearts of friendship with Linus, then look in a can yourself, to inspire him to go on the air.
-
-<!-- TODO: Fashion Showcase -->
 
 ### Train Timetable
 
@@ -70,13 +56,9 @@ Each day, Demetrius comes to you from his lab with a look at the trains schedule
 
 ### Other channels
 
-<details>
-<summary>(Spoiler for late-game 1.4 content)</summary>
+**(Spoiler for late-game 1.4 content)**
 
-### Movie Sneak Preview
-
-Once the movie theater opens, your friendly concessionaire will announce the featured and coming attraction daily. She'll also tip you off on whether there's a line for the ever-popular crane game.
-</details>
+Movie Sneak Preview: Once the movie theater opens, your friendly concessionaire will announce the featured and coming attraction daily. She'll also tip you off on whether there's a line for the ever-popular crane game.
 
 ## Configuration
 
@@ -88,7 +70,7 @@ The first time you run the mod, it will generate a `config.json` file in its mai
 
 This mod can be translated into any language supported by Stardew Valley. No translations are currently available, however.
 
-Your contribution would be welcome. Please see the [details on the wiki](https://stardewvalleywiki.com/Modding:Translations) for help. You can send me your work in an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues), [on Nexus](https://www.nexusmods.com/stardewvalley/mods/5605?tab=bugs) or by DM on Discord.
+Your contribution would be welcome. Please see the [details on the wiki](https://stardewvalleywiki.com/Modding:Translations) for help. You can send me your work in an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues), in the Issues/Bugs tab above or by DM on Discord.
 
 ## Acknowledgments
 
@@ -98,20 +80,14 @@ Your contribution would be welcome. Please see the [details on the wiki](https:/
 * Coding of this mod relied on [Climates of Ferngill](http://www.nexusmods.com/stardewvalley/mods/604) by Sakorona as a key example.
 * The #making-mods channel on the [Stardew Valley Discord](https://discordapp.com/invite/StardewValley) offered valuable guidance and feedback.
 * The "Governor's Message" channel's opening jingles are clipped from [News jingle](https://freesound.org/people/jobro/sounds/169214/) by [jobro](https://freesound.org/people/jobro/), used under [CC BY-NC 3.0](http://creativecommons.org/licenses/by-nc/3.0/), and [jingle news](https://freesound.org/people/Jay_You/sounds/460424/) by [Stonefree](http://www.stonefree.de/), used under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
-<details>
-<summary>(Spoiler for late-game 1.4 content)</summary>
-
-* The "Movie Sneak Preview" channel's concessions ambient is assembled from [Popcorn Machine.mp3](https://freesound.org/people/kentdavies959/sounds/466661/) by [kentdavies959](https://freesound.org/people/kentdavies959/), used under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), and [Pouring Carbonated Beverage Fizz.wav](https://freesound.org/people/baidonovan/sounds/187355/) by [baidonovan](https://freesound.org/people/baidonovan/), in the public domain.
-</details>
+* **(Spoiler for late-game 1.4 content)** The "Movie Sneak Preview" channel's concessions ambient is assembled from [Popcorn Machine.mp3](https://freesound.org/people/kentdavies959/sounds/466661/) by [kentdavies959](https://freesound.org/people/kentdavies959/), used under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), and [Pouring Carbonated Beverage Fizz.wav](https://freesound.org/people/baidonovan/sounds/187355/) by [baidonovan](https://freesound.org/people/baidonovan/), in the public domain.
 
 ## See also
 
-* [Release notes](RELEASE-NOTES.md)
-* [This mod on Nexus](https://www.nexusmods.com/stardewvalley/mods/5605)
-* [This mod on ModDrop](https://www.moddrop.com/stardew-valley/mods/757967-public-access-tv)
+* [Release notes](https://gitlab.com/kdau/predictivemods/-/blob/master/PublicAccessTV/RELEASE-NOTES.md)
 * [This mod on GitLab](https://gitlab.com/kdau/predictivemods/-/tree/master/PublicAccessTV)
 ---
-* [Scrying Orb](https://www.nexusmods.com/stardewvalley/mods/5603) mod <small>([source](../ScryingOrb))</small> for mystical, forward-looking predictions
+* [Scrying Orb](https://www.moddrop.com/stardew-valley/mods/756553-scrying-orb) mod ([source](https://gitlab.com/kdau/predictivemods/-/tree/master/ScryingOrb)) for mystical, forward-looking predictions
 * [Stardew Predictor](https://mouseypounds.github.io/stardew-predictor/) web app to see it all at once
 ---
 * [Gardening with Hisame](https://www.nexusmods.com/stardewvalley/mods/5485) mod for another TV program to enjoy
