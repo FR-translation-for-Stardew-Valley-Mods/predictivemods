@@ -22,13 +22,16 @@ namespace ScryingOrb
 		internal override bool IsAvailable =>
 			base.IsAvailable && Mining.IsAvailable;
 
-		protected override bool Try (Item offering)
+		protected override bool Try ()
 		{
 			// Consume an appropriate offering.
-			if (!base.Try (offering) ||
-					!AcceptedOfferings.ContainsKey (Offering.Name) ||
-					Offering.Stack < AcceptedOfferings[Offering.Name])
+			if (!base.Try () || !AcceptedOfferings.ContainsKey (Offering.Name))
 				return false;
+			if (Offering.Stack < AcceptedOfferings[Offering.Name])
+			{
+				ShowRejection ("rejection.insufficient");
+				return true;
+			}
 			ConsumeOffering (AcceptedOfferings[Offering.Name]);
 
 			// React to the offering, then proceed to run.

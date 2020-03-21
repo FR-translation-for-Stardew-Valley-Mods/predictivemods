@@ -92,7 +92,14 @@ Learn what items will be found in garbage cans on any day in the next year. <em>
 <details>
 <summary>Offerings</summary>
 
-* any Trash item
+* 3 Broken CD
+* 3 Broken Glasses
+* 3 Driftwood
+* 3 Joja Cola
+* 3 Rotten Plant
+* 3 Soggy Newspaper
+* 3 Trash
+* *or any combination of the above totaling 3*
 </details>
 
 <!-- TODO: Seek a particular item -->

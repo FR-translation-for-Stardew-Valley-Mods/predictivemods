@@ -5,6 +5,7 @@ using StardewValley.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SObject = StardewValley.Object;
 
 namespace ScryingOrb
 {
@@ -13,13 +14,40 @@ namespace ScryingOrb
 		internal override bool IsAvailable =>
 			base.IsAvailable && Garbage.IsAvailable;
 
-		protected override bool Try (Item offering)
+		protected override bool Try ()
 		{
-			// Consume an appropriate offering.
-			if (!base.Try (offering) ||
+			// Require an appropriate offering.
+			if (!base.Try () ||
 					Offering.Category != StardewValley.Object.junkCategory)
 				return false;
-			ConsumeOffering ();
+			
+			// Consume a total of 3 trash, combining across stacks in inventory.
+			Queue<SObject> offerings = new Queue<SObject> ();
+			offerings.Enqueue (Offering);
+			int stack = Math.Min (3, Offering.Stack);
+			foreach (Item item in Game1.player.items)
+			{
+				if (stack == 3)
+					break;
+				if (!(item is SObject obj) || object.ReferenceEquals (obj, Offering))
+					continue;
+				if (obj.Category != StardewValley.Object.junkCategory)
+					continue;
+				offerings.Enqueue (obj);
+				stack += Math.Min (3 - stack, obj.Stack);
+			}
+			if (stack < 3)
+			{
+				ShowRejection ("rejection.insufficient");
+				return true;
+			}
+			while (stack > 0 && offerings.Count > 0)
+			{
+				SObject offering = offerings.Dequeue ();
+				int count = Math.Min (stack, offering.Stack);
+				ConsumeOffering (count, offering);
+				stack -= count;
+			}
 
 			// React to the offering, then proceed to run.
 			Illuminate ();

@@ -4,11 +4,9 @@ namespace ScryingOrb
 {
 	public class FallbackExperience : Experience
 	{
-		protected override bool Try (Item offering)
+		protected override bool Try ()
 		{
-			// Offering property will not be set.
-			PlaySound ("fishEscape");
-			ShowMessage ("fallback.message", 250);
+			ShowRejection ("rejection.unrecognized");
 			return true;
 		}
 	}

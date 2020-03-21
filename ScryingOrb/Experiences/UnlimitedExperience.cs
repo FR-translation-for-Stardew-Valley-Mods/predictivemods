@@ -32,7 +32,7 @@ namespace ScryingOrb
 			"Treasure Chest"
 		};
 
-		protected override bool Try (Item offering)
+		protected override bool Try ()
 		{
 			// If currently in an unlimited period, ignore the offering, react
 			// to the ongoing period, then proceed to run.
@@ -48,7 +48,7 @@ namespace ScryingOrb
 			}
 
 			// Consume an appropriate offering.
-			if (!base.Try (offering) ||
+			if (!base.Try () ||
 					!AcceptedOfferings.Contains (Offering.Name))
 				return false;
 			ConsumeOffering ();

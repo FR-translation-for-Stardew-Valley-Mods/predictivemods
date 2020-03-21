@@ -18,13 +18,13 @@ namespace ScryingOrb
 		// Whether the experience should be available to players at present.
 		internal virtual bool IsAvailable => true;
 
-		public static bool Try<T> (SObject orb, Item offering)
+		public static bool Try<T> (SObject orb)
 			where T : Experience, new()
 		{
 			try
 			{
 				T experience = new T { Orb = orb };
-				return experience.Try (offering);
+				return experience.Try ();
 			}
 			catch (Exception e)
 			{
@@ -62,13 +62,13 @@ namespace ScryingOrb
 		public SObject Orb { get; internal set; }
 		public SObject Offering { get; internal set; }
 
-		protected virtual bool Try (Item offering)
+		protected virtual bool Try ()
 		{
 			if (!IsAvailable)
 			{
 				return false;
 			}
-			if (!(offering is SObject o))
+			if (!(Game1.player.CurrentItem is SObject o))
 			{
 				return false;
 			}
@@ -79,25 +79,25 @@ namespace ScryingOrb
 		protected virtual void DoRun ()
 		{}
 
-		protected void ConsumeOffering (int count = 1)
+		protected void ConsumeOffering (int count = 1, SObject offering = null)
 		{
-			if (Offering == null)
-			{
+			if (offering == null)
+				offering = Offering;
+			if (offering == null)
 				throw new NullReferenceException ("No offering is available to be consumed.");
-			}
 
-			if (Offering.Stack > count)
-			{
-				Offering.Stack -= count;
-			}
-			else if (Offering.Stack == count)
-			{
-				Game1.player.removeItemFromInventory (Offering);
-			}
+			if (offering.Stack > count)
+				offering.Stack -= count;
+			else if (offering.Stack == count)
+				Game1.player.removeItemFromInventory (offering);
 			else
-			{
-				throw new ArgumentOutOfRangeException ($"Offering stack of {Offering.Stack} insufficient for count of {count}.");
-			}
+				throw new ArgumentOutOfRangeException ($"Offering stack of {offering.Stack} {offering.Name} insufficient for count of {count}.");
+		}
+
+		protected void ShowRejection (string messageKey)
+		{
+			PlaySound ("fishEscape");
+			ShowMessage (messageKey, 250);
 		}
 
 		protected void ShowMessage (string messageKey, int delay = 0)

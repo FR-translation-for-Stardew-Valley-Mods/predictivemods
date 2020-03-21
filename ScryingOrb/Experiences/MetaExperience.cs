@@ -20,16 +20,11 @@ namespace ScryingOrb
 			}
 		}
 
-		protected override bool Try (Item offering)
+		protected override bool Try ()
 		{
-			if (!base.Try (offering))
-				return false;
-
 			// Only accept a Scrying Orb. Don't consume it.
-			if (Offering.Name != "Scrying Orb")
-			{
+			if (!base.Try () || Offering.Name != "Scrying Orb")
 				return false;
-			}
 
 			// If the player has tried this before, react nonchalantly.
 			if (saveData.AlreadyTried)

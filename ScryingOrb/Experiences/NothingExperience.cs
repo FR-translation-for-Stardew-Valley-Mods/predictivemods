@@ -4,13 +4,13 @@ namespace ScryingOrb
 {
 	public class NothingExperience : Experience
 	{
-		protected override bool Try (Item offering)
+		protected override bool Try ()
 		{
 			// Unlike all other experiences, look for the offering check to fail.
-			if (!IsAvailable || base.Try (offering))
+			if (!IsAvailable || base.Try ())
 				return false;
 
-			ShowMessage ("nothing.message");
+			ShowMessage ("rejection.nothing");
 
 			return true;
 		}

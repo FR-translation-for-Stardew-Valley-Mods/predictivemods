@@ -156,19 +156,17 @@ namespace ScryingOrb
 				return;
 			}
 
-			Item offering = Game1.player.CurrentItem;
-
-			if (Experience.Try<UnlimitedExperience> (orb, offering) ||
-				Experience.Try<NothingExperience> (orb, offering) ||
-				Experience.Try<LuckyPurpleExperience> (orb, offering) ||
-				Experience.Try<MetaExperience> (orb, offering) ||
-				Experience.Try<MiningExperience> (orb, offering) ||
-				Experience.Try<GeodesExperience> (orb, offering) ||
-				Experience.Try<NightEventsExperience> (orb, offering) ||
-				// TODO: Experience.Try<ShoppingExperience> (orb, offering) ||
-				Experience.Try<GarbageExperience> (orb, offering) ||
-				// TODO: Experience.Try<ItemFinderExperience> (orb, offering) ||
-				Experience.Try<FallbackExperience> (orb, offering))
+			if (Experience.Try<UnlimitedExperience> (orb) ||
+				Experience.Try<NothingExperience> (orb) ||
+				Experience.Try<LuckyPurpleExperience> (orb) ||
+				Experience.Try<MetaExperience> (orb) ||
+				Experience.Try<MiningExperience> (orb) ||
+				Experience.Try<GeodesExperience> (orb) ||
+				Experience.Try<NightEventsExperience> (orb) ||
+				// TODO: Experience.Try<ShoppingExperience> (orb) ||
+				Experience.Try<GarbageExperience> (orb) ||
+				// TODO: Experience.Try<ItemFinderExperience> (orb) ||
+				Experience.Try<FallbackExperience> (orb))
 			{} // (if-block used to allow boolean fallback)
 		}
 
@@ -202,7 +200,7 @@ namespace ScryingOrb
 					new SObject (74, 50), // Prismatic Shard for UnlimitedExperience
 					new SObject (789, 1), // Lucky Purple Shorts for LuckyPurpleExperience
 					// TODO: item for ItemFinderExperience
-					new SObject (168, 50), // Trash for GarbageExperience
+					new SObject (168, 150), // 3 Trash for GarbageExperience
 					// TODO: item for ShoppingExperience
 					new SObject (767, 150), // 3 Bat Wing for NightEventsExperience
 					new SObject (541, 50), // Aerinite for GeodesExperience

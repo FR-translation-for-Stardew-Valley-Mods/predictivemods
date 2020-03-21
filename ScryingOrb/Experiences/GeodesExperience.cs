@@ -30,10 +30,10 @@ namespace ScryingOrb
 		internal override bool IsAvailable =>
 			base.IsAvailable && Geodes.IsAvailable;
 
-		protected override bool Try (Item offering)
+		protected override bool Try ()
 		{
 			// Consume an appropriate offering.
-			if (!base.Try (offering) ||
+			if (!base.Try () ||
 					Offering.Category != StardewValley.Object.mineralsCategory ||
 					RejectedOfferings.Contains (Offering.Name))
 				return false;

@@ -4,7 +4,6 @@ Read this document to peer into the future of these very mods! Spooky.
 
 ## Version 1.0.0 release
 
-* Check on balancing
 * Additional testing: Windows/Mac? other common mods? multiplayer?
 * Publish Nexus pages
 * Create ModDrop pages

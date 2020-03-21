@@ -23,8 +23,6 @@
   "unlimited.experience.itemFinder": "Seek a particular item",
   "unlimited.experience.leave": "(Leave their counsel unheeded)",
 
-  "nothing.message": "The spirits wait patiently for an offering.",
-
   "luckyPurple.initial": "The orb seems to peer back at you reproachfully.^Do not try that again.",
   "luckyPurple.following": "The spirits are not amused.^The orb is not an underwear drawer!^Today will not be your lucky day.",
 
@@ -111,5 +109,7 @@
   "garbage.prediction.JenkinsHouse": "> A grandiose mansion will scrap {{itemName}}.",
   "garbage.closing.progress": "You have not yet probed through much waste,^young one. Should you gain more experience^by then, you may well find more in the cans.",
 
-  "fallback.message": "The spirits do not recognize your strange offering."
+  "rejection.nothing": "The spirits wait patiently for an offering.",
+  "rejection.unrecognized": "The spirits do not recognize your strange offering.",
+  "rejection.insufficient": "The spirits require a more generous offering."
 }
