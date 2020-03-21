@@ -2,6 +2,6 @@
 *Public Access TV*
 
 ## 1.0.0
-*Release pending*
+*March 21, 2020*
 
 * Initial version
