@@ -2,85 +2,92 @@
 
 Read this document to peer into the future of these very mods! Spooky.
 
+See the [issue tracker](https://gitlab.com/kdau/predictivemods/-/issues) for bug fixes and minor enhancements.
+
+---
+
 ## Shopping channel/experience
 
-### PredictiveCore.Shopping
+### `PredictiveCore.Shopping`
 
-* ListSalesForDate
-* ListKrobusForDate
-* ListPierreForDate
-* ListSandyForDate
-* ListTravelingCartForDate
+* `ListSalesForDate`
+* `ListKrobusForDate`
+* `ListPierreForDate`
+* `ListSandyForDate`
+* `ListTravelingCartForDate`
 
-### PublicAccessTV.ShoppingChannel
+### `PublicAccessTV.ShoppingChannel`
 
 * name: "Shop the Valley"
 * host: Lewis
 * condition: two hearts with Lewis
-* introductory event: TBD
+* introductory event: Lewis and Traveling Cart merchant discuss business climate in Cindersap Forest
 * content:
 	* today's wallpaper and flooring at Pierre's General Store
 	* today's shirt at Sandy's Oasis (if bus repaired)
 	* today's items at the Traveling Cart (on Fridays and Sundays)
 
-### ScryingOrb.ShoppingExperience
+### `ScryingOrb.ShoppingExperience`
 
-* offering categories: Fruit, Vegetable or Forage
-* offering exceptions: Sap, Salmonberry, Blackberry or Spring Onion
+* offering categories: Animal Product, Artisan Goods, Cooking or Flower (quantities?)
+* offering exceptions:
+	* Fried Egg, Salmonberry Wine, Tulip (too cheap; or else require higher quantities)
+	* Magic Rock Candy, Void Egg or Void Mayonnaise (used by other experiences)
 * input: date
 * content: as for "Shop the Valley", plus Krobus's Fish/Cooking item (if Krobus met)
 
+---
+
 ## Tailoring channel
 
-### PredictiveCore.Tailoring
+*(ideally to release together with shopping)*
 
-* ChooseRandomClothing
+### `PredictiveCore.Tailoring`
 
-### PublicAccessTV.TailoringChannel
+* `ChooseRandomRecipe` (for the sewing machine)
+* `ChooseRandomOutfit` (of a villager)
+
+### `PublicAccessTV.TailoringChannel`
 
 * name: "Fashion Showcase"
 * hosts: Emily and Haley
 * conditions:
 	* sewing machine access
 	* two hearts with Emily
-* introductory event: TBD
+	* two hearts with Haley
+* introductory event: Emily and Haley discuss their common interests at home by the sewing machine
 * content:
 	* random tailoring recipe
 	* fashion commentary from Haley (connect to mods like Seasonal Villager Outfits?)
-
-## Version 1.1.0 release
-
-* Wait for next PyTK release and remove "known issue" paragraph in PATV README
-* Introduce messaging in multiplayer to make unlimited period work/last for everyone?
 
 ---
 
 ## Item Finder experience
 
-### PredictiveCore.ItemFinder
+### `PredictiveCore.ItemFinder`
 
-* FindItem
-* FindItemByCombat
-* FindItemByCooking
-* FindItemByCrafting
-* FindItemByFarming
-* FindItemByFishing
-* FindItemByForaging
-* FindItemBySpecial
+* `FindItem`
+* `FindItemByCombat`
+* `FindItemByCooking`
+* `FindItemByCrafting`
+* `FindItemByFarming`
+* `FindItemByFishing`
+* `FindItemByForaging`
+* `FindItemBySpecial`
 
-### PredictiveCore supporting methods
+### `PredictiveCore` supporting methods
 
-* Garbage.FindItemInGarbage
-* Geodes.FindItemInGeodes
-* NightEvents.FindItemByNightEvents
-* Mining.FindItemByMining
-* Shopping.FindItemByShopping
-* Tailoring.FindItemByTailoring
+* `Garbage.FindItemInGarbage`
+* `Geodes.FindItemInGeodes`
+* `NightEvents.FindItemByNightEvents`
+* `Mining.FindItemByMining`
+* `Shopping.FindItemByShopping`
+* `Tailoring.FindItemByTailoring`
 
-### ScryingOrb.ItemFinderExperience
+### `ScryingOrb.ItemFinderExperience`
 
-* offering categories: Animal Product, Artisan Goods, Cooking or Flower
-* offering exceptions: Fried Egg, Magic Rock Candy, Salmonberry Wine, Tulip, Void Egg or Void Mayonnaise
+* offering categories: Fruit, Vegetable or Forage (quantities?)
+* offering exceptions: Sap, Salmonberry, Blackberry or Spring Onion
 * criterion: any item (needs UI; ref. CJB Item Spawner?)
 * content:
 	* days, stores and prices when item will be sold
@@ -90,8 +97,6 @@ Read this document to peer into the future of these very mods! Spooky.
 	* mining, combat, foraging and fishing drops of item
 	* farming of item from seeds/trees/animals
 	* special ways of getting item
-
-## Version 1.2.0 release
 
 ---
 
@@ -107,15 +112,17 @@ Read this document to peer into the future of these very mods! Spooky.
 * Ranching (hosts: Marnie, Shane)
 * Wellness (hosts: Alex, Caroline, Harvey)
 
+---
+
 ## Not planned
 
 ### Public Access TV channels
 
-* ~~GeodesChannel~~ (who would know this in advance?)
-* ~~ItemFinderChannel~~ (wouldn't fit with TV interface)
+* ~~Geodes~~ (who would know this in advance?)
+* ~~Item Finder~~ (wouldn't fit with TV interface)
 
 ### Scrying Orb experiences
 
-* ~~MoviesExperience~~ (why would the spirits care?)
-* ~~TailoringExperience~~ (no future component)
-* ~~TrainsExperience~~ (Demetrius already knows the future schedule)
+* ~~Movies~~ (why would the spirits care?)
+* ~~Tailoring~~ (no future component)
+* ~~Trains~~ (Demetrius already knows the future schedule)
