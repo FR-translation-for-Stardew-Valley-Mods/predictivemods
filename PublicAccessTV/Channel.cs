@@ -113,7 +113,7 @@ namespace PublicAccessTV
 			int xIndex, int yIndex)
 		{
 			return LoadSprite (tv, $"Portraits\\{npc}",
-				new Rectangle (new Point (xIndex * 64, yIndex * 64), new Point (64, 64)),
+				new Rectangle (xIndex * 64, yIndex * 64, 64, 64),
 				positionOffset: new Vector2 (17.5f, 3.5f), overlay: true,
 				scaleToFit: true, extraScale: 0.875f);
 		}
