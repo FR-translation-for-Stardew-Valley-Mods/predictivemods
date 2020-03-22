@@ -39,7 +39,7 @@ namespace PredictiveCore
 			{
 				Random rng = new Random (((int) Game1.uniqueIDForThisGame / 2) +
 					days + 1);
-				if (rng.NextDouble () >= 0.2)
+				if (!(rng.NextDouble () < 0.2))
 					continue;
 
 				int time = rng.Next (900, 1800);

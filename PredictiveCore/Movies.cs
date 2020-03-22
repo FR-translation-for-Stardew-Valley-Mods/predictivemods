@@ -42,8 +42,13 @@ namespace PredictiveCore
 
 			// Logic from StardewValley.Locations.MovieTheater.addRandomNPCs()
 			// as implemented in Stardew Predictor by MouseyPounds.
-			Random rng = new Random ((int) Game1.uniqueIDForThisGame + date.TotalDays);
-			prediction.CraneGameAvailable = rng.NextDouble () >= 0.25;
+			if (Game1.getLocationFromName ("MovieTheater") is MovieTheater theater)
+			{
+				Random rng = new Random ((int) Game1.uniqueIDForThisGame + date.TotalDays);
+				prediction.CraneGameAvailable = !(rng.NextDouble () < 0.25) &&
+					theater.dayFirstEntered != -1 &&
+					theater.dayFirstEntered != date.TotalDays;
+			}
 
 			return prediction;
 		}
