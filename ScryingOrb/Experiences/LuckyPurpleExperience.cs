@@ -20,7 +20,7 @@ namespace ScryingOrb
 		protected override bool Try ()
 		{
 			// Only accept the Lucky Purple Shorts. Don't consume them.
-			if (!base.Try () || Offering.Name != "Lucky Purple Shorts")
+			if (!base.Try () || offering.Name != "Lucky Purple Shorts")
 				return false;
 
 			// If the player hasn't tried this before, show the initial warning.

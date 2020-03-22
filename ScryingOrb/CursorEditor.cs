@@ -11,13 +11,13 @@ namespace ScryingOrb
 		protected static IModHelper Helper => ModEntry._Helper;
 		protected static IMonitor Monitor => ModEntry._Monitor;
 
-		protected Texture2D Cursor;
-		protected bool PendingInvalidate;
-		protected int LastInvalidate;
+		protected Texture2D cursor;
+		protected bool pendingInvalidate;
+		protected int lastInvalidate;
 
 		public CursorEditor()
 		{
-			Cursor = Helper.Content.Load<Texture2D>
+			cursor = Helper.Content.Load<Texture2D>
 				(Path.Combine ("assets", "cursor.png"));
 		}
 
@@ -32,26 +32,26 @@ namespace ScryingOrb
 		{
 			IAssetDataForImage editor = asset.AsImage ();
 			Rectangle bounds = new Rectangle (0, 0, 16, 16);
-			editor.PatchImage (Cursor, bounds, bounds);
+			editor.PatchImage (cursor, bounds, bounds);
 		}
 
 		internal void Invalidate ()
 		{
-			if (PendingInvalidate)
+			if (pendingInvalidate)
 			{
 				return;
 			}
-			PendingInvalidate = true;
+			pendingInvalidate = true;
 			DelayedAction.functionAfterDelay (() =>
 			{
-				if (PendingInvalidate)
+				if (pendingInvalidate)
 				{
 					Helper.Content.InvalidateCache ((asset) =>
 						asset.AssetNameEquals ("LooseSprites\\Cursors"));
-					PendingInvalidate = false;
+					pendingInvalidate = false;
 				}
-			}, (Game1.ticks < LastInvalidate + 30) ? 500 : 0);
-			LastInvalidate = Game1.ticks;
+			}, (Game1.ticks < lastInvalidate + 30) ? 500 : 0);
+			lastInvalidate = Game1.ticks;
 		}
 	}
 }

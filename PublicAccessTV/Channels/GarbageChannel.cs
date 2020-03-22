@@ -53,7 +53,7 @@ namespace PublicAccessTV
 			{ "kdau.PublicAccessTV.garbage3", "{{linus07c}}%fork$s" },
 		};
 
-		private static bool[] GarbageChecked;
+		private static bool[] garbageChecked;
 
 		public GarbageChannel ()
 			: base ("garbage")
@@ -69,7 +69,7 @@ namespace PublicAccessTV
 
 		internal override void Update ()
 		{
-			GarbageChecked = GetCurrentCansChecked ();
+			garbageChecked = GetCurrentCansChecked ();
 			base.Update ();
 		}
 
@@ -78,7 +78,7 @@ namespace PublicAccessTV
 			Game1.player.mailReceived.Remove ("kdau.PublicAccessTV.garbage");
 			Game1.player.mailForTomorrow.Remove ("kdau.PublicAccessTV.garbage%&NL&%");
 			Game1.player.eventsSeen.Remove (79400102);
-			GarbageChecked = GetCurrentCansChecked ();
+			garbageChecked = GetCurrentCansChecked ();
 		}
 
 		private static bool[] GetCurrentCansChecked ()
@@ -95,7 +95,7 @@ namespace PublicAccessTV
 		public static void CheckEvent ()
 		{
 			// Must be during a game day.
-			if (!Context.IsWorldReady || GarbageChecked == null ||
+			if (!Context.IsWorldReady || garbageChecked == null ||
 					// If bypassing friendships, no need for the event.
 					ModEntry.Config.BypassFriendships ||
 					// Must be on the Town map.
@@ -109,9 +109,9 @@ namespace PublicAccessTV
 			GarbageCan? can = null;
 			for (int i = 0; i < 8; ++i)
 			{
-				if (!GarbageChecked[i] && current[i])
+				if (!garbageChecked[i] && current[i])
 				{
-					GarbageChecked[i] = true;
+					garbageChecked[i] = true;
 					bool sve = Helper.ModRegistry.IsLoaded
 						("FlashShifter.StardewValleyExpandedALL");
 					can = (GarbageCan) i + (sve ? 100 : 0);
@@ -131,7 +131,7 @@ namespace PublicAccessTV
 				return;
 
 			// Stop further runs of this method immediately.
-			GarbageChecked = null;
+			garbageChecked = null;
 
 			// Build event script based on the can that was checked.
 			int viewportX = Game1.viewportCenter.X / Game1.tileSize;
@@ -193,34 +193,34 @@ namespace PublicAccessTV
 			QueueScene (new Scene (Helper.Translation.Get ("garbage.opening", new
 				{
 					playerName = Game1.player.Name,
-				}), background, portrait) { MusicTrack = "echos" });
+				}), background, portrait) { musicTrack = "echos" });
 
 			// Linus sadly notes that the cans are empty today.
 			if (predictions.Count < 1)
 			{
 				QueueScene (new Scene (Helper.Translation.Get ("garbage.none"),
 					background, LoadPortrait (tv, "Linus", 0, 1))
-					{ MusicTrack = "echos" });
+					{ musicTrack = "echos" });
 			}
 
 			// Linus reports on the content of each non-empty can.
 			foreach (GarbagePrediction prediction in predictions)
 			{
-				string can = prediction.Can.ToString ().Replace ("SVE_", "");
+				string can = prediction.can.ToString ().Replace ("SVE_", "");
 
 				string type;
 				TemporaryAnimatedSprite reactionPortrait;
-				if (prediction.Loot is Hat)
+				if (prediction.loot is Hat)
 				{
 					type = "garbageHat";
 					reactionPortrait = LoadPortrait (tv, "Linus", 1, 1);
 				}
-				else if (prediction.Loot.ParentSheetIndex == 217) // placeholder
+				else if (prediction.loot.ParentSheetIndex == 217) // placeholder
 				{
 					type = "dishOfTheDay";
 					reactionPortrait = LoadPortrait (tv, "Linus", 1, 0);
 				}
-				else if (prediction.Loot is SObject o && o.Flipped)
+				else if (prediction.special)
 				{
 					type = "special";
 					reactionPortrait = LoadPortrait (tv, "Linus", 1, 0);
@@ -235,18 +235,18 @@ namespace PublicAccessTV
 					(Helper.Translation.Get ($"garbage.can.{can}") + "^...^" +
 						Helper.Translation.Get ($"garbage.item.{type}", new
 						{
-							itemName = prediction.Loot.DisplayName,
+							itemName = prediction.loot.DisplayName,
 						}),
-					LoadBackground (tv, CanScenes[prediction.Can], seasonIndex),
+					LoadBackground (tv, CanScenes[prediction.can], seasonIndex),
 					reactionPortrait)
-					{ MusicTrack = "echos" });
+					{ musicTrack = "echos" });
 			}
 
 			// Closing scene: Linus signs off.
 			bool progress = Garbage.IsProgressDependent;
 			QueueScene (new Scene
 				(Helper.Translation.Get ($"garbage.closing.{(progress? "progress" : "standard")}"),
-				background, portrait) { MusicTrack = "echos" });
+				background, portrait) { musicTrack = "echos" });
 
 			RunProgram (tv);
 		}

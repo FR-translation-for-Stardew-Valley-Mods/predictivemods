@@ -39,19 +39,19 @@ namespace PublicAccessTV
 						: Helper.Translation.Get ("movies.host.generic");
 			QueueScene (new Scene (Helper.Translation.Get ("movies.opening",
 				new { host = hostName }), screenBackground, hostOverlay)
-				{ SoundCueName = "Cowboy_Secret" });
+				{ soundCueName = "Cowboy_Secret" });
 
 			// Current movie poster, title and description
 			QueueScene (new Scene (Helper.Translation.Get ("movies.current", new
 				{
-					title = prediction.CurrentMovie.Title,
-					description = prediction.CurrentMovie.Description,
-				}), LoadMoviePoster (tv, prediction.CurrentMovie))
-				{ MusicTrack = prediction.CurrentMovie.Scenes[0].Music });
+					title = prediction.currentMovie.Title,
+					description = prediction.currentMovie.Description,
+				}), LoadMoviePoster (tv, prediction.currentMovie))
+				{ musicTrack = prediction.currentMovie.Scenes[0].Music });
 
 			// Lobby advertisement. If the crane game is available, it is
 			// promoted; otherwise, the concession stand is promoted.
-			if (prediction.CraneGameAvailable)
+			if (prediction.craneGameAvailable)
 			{
 				string assetName = Helper.Content.GetActualAssetKey
 					(Path.Combine ("assets", "movies_craneGame.png"));
@@ -61,24 +61,24 @@ namespace PublicAccessTV
 					new Rectangle (94, 0, 94, 63), 250f, 2, new Vector2 (),
 					true, true);
 				QueueScene (new Scene (Helper.Translation.Get ("movies.lobby.craneGame"),
-					craneGame, craneFlash) { MusicTrack = "crane_game" });
+					craneGame, craneFlash) { musicTrack = "crane_game" });
 			}
 			else
 			{
 				QueueScene (new Scene (Helper.Translation.Get ("movies.lobby.concession"),
 					LoadSprite (tv, "MovieTheater_TileSheet", new Rectangle (2, 3, 84, 56)))
-					{ SoundAsset = "movies_concession" });
+					{ soundAsset = "movies_concession" });
 			}
 
 			// Upcoming movie poster, title and description.
 			QueueScene (new Scene (Helper.Translation.Get ("movies.next", new
 				{
 					season = Utility.getSeasonNameFromNumber
-						(prediction.FirstDateOfNextMovie.SeasonIndex),
-					title = prediction.NextMovie.Title,
-					description = prediction.NextMovie.Description,
-				}), LoadMoviePoster (tv, prediction.NextMovie))
-				{ MusicTrack = prediction.NextMovie.Scenes[0].Music });
+						(prediction.firstDateOfNextMovie.SeasonIndex),
+					title = prediction.nextMovie.Title,
+					description = prediction.nextMovie.Description,
+				}), LoadMoviePoster (tv, prediction.nextMovie))
+				{ musicTrack = prediction.nextMovie.Scenes[0].Music });
 
 			// Closing scene: the concessionaire signs off.
 			QueueScene (new Scene (Helper.Translation.Get ("movies.closing"),

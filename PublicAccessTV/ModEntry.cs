@@ -16,30 +16,29 @@ namespace PublicAccessTV
 		internal static IModHelper _Helper;
 		internal static IMonitor _Monitor;
 		internal static Type CustomTVMod;
-
 		internal static ModConfig Config;
 
-		internal Channel[] Channels;
+		internal Channel[] channels;
 
 		public override void Entry (IModHelper helper)
 		{
 			// Read the configuration.
-			Config = this.Helper.ReadConfig<ModConfig> ();
+			Config = Helper.ReadConfig<ModConfig> ();
 
 			// Set up PredictiveCore.
 			Utilities.Initialize (this, helper);
 
+			// Make resources available.
+			_Helper = Helper;
+			_Monitor = Monitor;
+
 			// Add console commands.
-			Utilities.Helper.ConsoleCommands.Add ("update_patv_channels",
+			Helper.ConsoleCommands.Add ("update_patv_channels",
 				"Updates the availability of the custom channels to reflect current conditions.",
 				(_command, args) => UpdateChannels (true));
-			Utilities.Helper.ConsoleCommands.Add ("reset_patv_channels",
+			Helper.ConsoleCommands.Add ("reset_patv_channels",
 				"Resets the custom channels to their unlaunched states (before letters, events, etc.).",
 				(_command, args) => ResetChannels (true));
-
-			// Make resources available.
-			_Helper = helper;
-			_Monitor = Monitor;
 
 			// Listen for game events.
 			helper.Events.GameLoop.GameLaunched += OnGameLaunched;
@@ -68,7 +67,7 @@ namespace PublicAccessTV
 			}
 
 			// Create the channels.
-			Channels = new Channel[]
+			channels = new Channel[]
 			{
 				new NightEventsChannel (),
 				new MiningChannel (),
@@ -85,7 +84,7 @@ namespace PublicAccessTV
 			try
 			{
 				Utilities.CheckWorldReady ();
-				foreach (Channel channel in Channels)
+				foreach (Channel channel in channels)
 					channel.Update ();
 			}
 			catch (Exception e)
@@ -104,7 +103,7 @@ namespace PublicAccessTV
 			try
 			{
 				Utilities.CheckWorldReady ();
-				foreach (Channel channel in Channels)
+				foreach (Channel channel in channels)
 					channel.Reset ();
 			}
 			catch (Exception e)

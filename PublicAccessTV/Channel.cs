@@ -16,18 +16,18 @@ namespace PublicAccessTV
 		protected static IMonitor Monitor => ModEntry._Monitor;
 		protected static Type CustomTVMod => ModEntry.CustomTVMod;
 
-		protected readonly string LocalID;
-		protected readonly string GlobalID;
-		protected readonly string Title;
-		private readonly Action<TV, TemporaryAnimatedSprite, Farmer, string> Callback;
+		protected readonly string localID;
+		protected readonly string globalID;
+		protected readonly string title;
+		private readonly Action<TV, TemporaryAnimatedSprite, Farmer, string> callback;
 
 		protected Channel (string localID)
 		{
-			LocalID = localID ?? throw new ArgumentNullException (nameof (localID));
-			GlobalID = $"kdau.PublicAccessTV.{localID}";
-			Title = Helper.Translation.Get ($"{localID}.title");
-			Callback = (tv, _sprite, _who, _response) => Show (tv);
-			CallCustomTVMod ("addChannel", GlobalID, Title, Callback);
+			this.localID = localID ?? throw new ArgumentNullException (nameof (localID));
+			globalID = $"kdau.PublicAccessTV.{localID}";
+			title = Helper.Translation.Get ($"{localID}.title");
+			callback = (tv, _sprite, _who, _response) => Show (tv);
+			CallCustomTVMod ("addChannel", globalID, title, callback);
 		}
 
 		// Whether the channel should be available to players at present.
@@ -38,11 +38,11 @@ namespace PublicAccessTV
 		{
 			if (IsAvailable)
 			{
-				CallCustomTVMod ("addChannel", GlobalID, Title, Callback);
+				CallCustomTVMod ("addChannel", globalID, title, callback);
 			}
 			else
 			{
-				CallCustomTVMod ("removeChannel", GlobalID);
+				CallCustomTVMod ("removeChannel", globalID);
 			}
 		}
 
@@ -53,7 +53,7 @@ namespace PublicAccessTV
 		// Called by CustomTVMod to start the program. Override to implement.
 		internal virtual void Show (TV tv)
 		{
-			CallCustomTVMod ("showProgram", GlobalID);
+			CallCustomTVMod ("showProgram", globalID);
 		}
 
 		private Queue<Scene> Scenes = new Queue<Scene> ();
@@ -104,7 +104,7 @@ namespace PublicAccessTV
 		{
 			return LoadSprite (tv,
 				Helper.Content.GetActualAssetKey
-					(Path.Combine ("assets", $"{LocalID}_backgrounds.png")),
+					(Path.Combine ("assets", $"{localID}_backgrounds.png")),
 				new Rectangle (condition * 120, scene * 80, 120, 80));
 		}
 

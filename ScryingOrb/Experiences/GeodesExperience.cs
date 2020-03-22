@@ -27,15 +27,15 @@ namespace ScryingOrb
 			{ "leave", null }
 		};
 
-		internal override bool IsAvailable =>
+		public override bool IsAvailable =>
 			base.IsAvailable && Geodes.IsAvailable;
 
 		protected override bool Try ()
 		{
 			// Consume an appropriate offering.
 			if (!base.Try () ||
-					Offering.Category != StardewValley.Object.mineralsCategory ||
-					RejectedOfferings.Contains (Offering.Name))
+					offering.Category != StardewValley.Object.mineralsCategory ||
+					RejectedOfferings.Contains (offering.Name))
 				return false;
 			ConsumeOffering ();
 
@@ -87,19 +87,19 @@ namespace ScryingOrb
 				{
 					foreach (GeodePrediction p in predictions)
 					{
-						uint num = p.Number - Game1.player.stats.GeodesCracked;
+						uint num = p.number - Game1.player.stats.GeodesCracked;
 						string header = Helper.Translation.Get ($"geodes.header.any{num}");
-						pages.Add (header + string.Join ("^", p.Treasures.Select ((tt) =>
+						pages.Add (header + string.Join ("^", p.treasures.Select ((tt) =>
 						{
 							Treasure t = tt.Value;
 							return string.Join (" ", new string[]
 							{
 								">",
-								t.GeodeObject.DisplayName + ":",
-								(t.Stack > 1) ? t.Stack.ToString () : null,
-								t.DisplayName,
-								t.Valuable ? "$" : null,
-								t.NeedDonation ? "=" : null
+								t.geodeObject.DisplayName + ":",
+								(t.stack > 1) ? t.stack.ToString () : null,
+								t.displayName,
+								t.valuable ? "$" : null,
+								t.needDonation ? "=" : null
 							}.Where ((s) => s != null));
 						})) + footer);
 					}
@@ -110,15 +110,15 @@ namespace ScryingOrb
 					string header = Helper.Translation.Get ($"geodes.header.{type}");
 					pages.Add (header + string.Join ("^", predictions.Select ((p) =>
 					{
-						Treasure t = p.Treasures[Types[type] ?? GeodeType.Regular];
-						uint num = p.Number - Game1.player.stats.GeodesCracked;
+						Treasure t = p.treasures[Types[type] ?? GeodeType.Regular];
+						uint num = p.number - Game1.player.stats.GeodesCracked;
 						return string.Join (" ", new string[]
 						{
 							string.Format ("{0,2:D}.", num),
-							(t.Stack > 1) ? t.Stack.ToString () : null,
-							t.DisplayName,
-							t.Valuable ? "$" : null,
-							t.NeedDonation ? "=" : null
+							(t.stack > 1) ? t.stack.ToString () : null,
+							t.displayName,
+							t.valuable ? "$" : null,
+							t.needDonation ? "=" : null
 						}.Where ((s) => s != null));
 					})) + footer);
 				}

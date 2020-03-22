@@ -66,16 +66,16 @@ namespace PublicAccessTV
 			// Opening scene: Marlon greets the viewer.
 			QueueScene (new Scene (Helper.Translation.Get ((predictions.Count == 0)
 				? "mining.opening.none" : "mining.opening"),
-				background, marlon) { MusicTrack = "MarlonsTheme" });
+				background, marlon) { musicTrack = "MarlonsTheme" });
 
 			// Marlon or Gil reports on each type of special floor.
 			string joiner = CultureInfo.CurrentCulture.TextInfo.ListSeparator + " ";
 			foreach (MineFloorType type in predictions
-				.Select ((p) => p.Type).Distinct ().ToList ())
+				.Select ((p) => p.type).Distinct ().ToList ())
 			{
 				List<int> floors = predictions
-					.Where ((p) => p.Type == type)
-					.Select ((p) => p.Floor)
+					.Where ((p) => p.type == type)
+					.Select ((p) => p.floor)
 					.ToList ();
 				string floorsText;
 				if (floors.Count == 1)
@@ -95,14 +95,14 @@ namespace PublicAccessTV
 						new { floors = floorsText, }),
 					LoadBackground (tv, (int) type + 1),
 					GilTypes.Contains (type) ? gil : marlon)
-					{ MusicTrack = "MarlonsTheme" });
+					{ musicTrack = "MarlonsTheme" });
 			}
 
 			// Closing scene: Marlon signs off.
 			bool progress = Mining.IsProgressDependent;
 			QueueScene (new Scene
 				(Helper.Translation.Get ($"mining.closing.{(progress? "progress" : "standard")}"),
-				background, marlon) { MusicTrack = "MarlonsTheme" });
+				background, marlon) { musicTrack = "MarlonsTheme" });
 
 			RunProgram (tv);
 		}

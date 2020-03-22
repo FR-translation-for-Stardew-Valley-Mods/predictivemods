@@ -65,7 +65,7 @@ namespace PublicAccessTV
 
 			// Opening scene: Demetrius greets the viewer.
 			QueueScene (new Scene (Helper.Translation.Get ("trains.opening"),
-				background, portrait) { MusicTrack = musicTrack });
+				background, portrait) { musicTrack = musicTrack });
 
 			// Next scheduled train. Demetrius's reaction depends on whether the
 			// train is today, later in the next 7 days, or later than that.
@@ -73,13 +73,13 @@ namespace PublicAccessTV
 			TemporaryAnimatedSprite nextPortrait;
 			string nextSound = null;
 			WorldDate now = Utilities.Now ();
-			if (predictions[0].Date == now)
+			if (predictions[0].date == now)
 			{
 				nextMessage = "today";
 				nextPortrait = LoadPortrait (tv, "Demetrius", 0, 3);
 				nextSound = "trainWhistle";
 			}
-			else if (predictions[0].Date.TotalDays < now.TotalDays + 7)
+			else if (predictions[0].date.TotalDays < now.TotalDays + 7)
 			{
 				nextMessage = "thisWeek";
 				nextPortrait = LoadPortrait (tv, "Demetrius", 1, 0);
@@ -92,27 +92,27 @@ namespace PublicAccessTV
 			}
 			QueueScene (new Scene (Helper.Translation.Get ($"trains.next.{nextMessage}", new
 				{
-					date = predictions[0].Date.Localize (),
-					dayOfWeek = predictions[0].Date.DayOfWeek,
-					time = Game1.getTimeOfDayString (predictions[0].Time),
+					date = predictions[0].date.Localize (),
+					dayOfWeek = predictions[0].date.DayOfWeek,
+					time = Game1.getTimeOfDayString (predictions[0].time),
 				}),
 				background, nextPortrait)
-				{ MusicTrack = musicTrack, SoundCueName = nextSound });
+				{ musicTrack = musicTrack, soundCueName = nextSound });
 
 			// Second and third scheduled trains.
 			if (predictions.Count >= 3)
 			{
 				QueueScene (new Scene (Helper.Translation.Get ("trains.later", new
 				{
-					date1 = predictions[1].Date.Localize (),
-					date2 = predictions[2].Date.Localize (),
+					date1 = predictions[1].date.Localize (),
+					date2 = predictions[2].date.Localize (),
 				}), background, LoadPortrait (tv, "Demetrius", 1, 1))
-				{ MusicTrack = musicTrack });
+				{ musicTrack = musicTrack });
 			}
 
 			// Closing scene: Demetrius signs off.
 			QueueScene (new Scene (Helper.Translation.Get ("trains.closing"),
-				background, portrait) { MusicTrack = musicTrack });
+				background, portrait) { musicTrack = musicTrack });
 
 			RunProgram (tv);
 		}

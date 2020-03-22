@@ -34,14 +34,14 @@ namespace ScryingOrb
 		protected override bool Try ()
 		{
 			// Consume an appropriate offering.
-			if (!base.Try () || !AcceptedOfferings.ContainsKey (Offering.Name))
+			if (!base.Try () || !AcceptedOfferings.ContainsKey (offering.Name))
 				return false;
-			if (Offering.Stack < AcceptedOfferings[Offering.Name])
+			if (offering.Stack < AcceptedOfferings[offering.Name])
 			{
 				ShowRejection ("rejection.insufficient");
 				return true;
 			}
-			ConsumeOffering (AcceptedOfferings[Offering.Name]);
+			ConsumeOffering (AcceptedOfferings[offering.Name]);
 
 			// React to the offering, then proceed to run.
 			Illuminate ();
@@ -84,9 +84,9 @@ namespace ScryingOrb
 
 				// Show a list of the predictions.
 				List<string> predictionStrings = predictions.Select ((p) =>
-					Helper.Translation.Get ($"nightEvents.prediction.{p.Type}", new
+					Helper.Translation.Get ($"nightEvents.prediction.{p.type}", new
 					{
-						date = p.Date.Localize (),
+						date = p.date.Localize (),
 					}).ToString ()).ToList ();
 				ShowDialogues (new List<string>
 				{

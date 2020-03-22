@@ -34,9 +34,10 @@ namespace PredictiveCore
 
 	public struct GarbagePrediction
 	{
-		public WorldDate Date;
-		public GarbageCan Can;
-		public Item Loot;
+		public WorldDate date;
+		public GarbageCan can;
+		public Item loot;
+		public bool special;
 	}
 
 	public static class Garbage
@@ -76,14 +77,16 @@ namespace PredictiveCore
 				can < (sve ? (int) GarbageCan.SVE_Max : (int) GarbageCan.Max);
 				++can)
 			{
-				Item loot = GetLootForDateAndCan (date, (GarbageCan) can, hatOnly);
+				Item loot = GetLootForDateAndCan (date, (GarbageCan) can,
+					hatOnly, out bool special);
 				if (loot != null)
 				{
 					predictions.Add (new GarbagePrediction
 					{
-						Date = date,
-						Can = (GarbageCan) can,
-						Loot = loot
+						date = date,
+						can = (GarbageCan) can,
+						loot = loot,
+						special = special
 					});
 				}
 			}
@@ -100,7 +103,7 @@ namespace PredictiveCore
 			{
 				List<GarbagePrediction> predictions =
 					ListLootForDate (Utilities.TotalDaysToWorldDate (days), true)
-					.Where ((p) => p.Loot is Hat).ToList ();
+					.Where ((p) => p.loot is Hat).ToList ();
 				if (predictions.Count > 0)
 					return predictions[0];
 			}
@@ -129,15 +132,15 @@ namespace PredictiveCore
 					LogLevel.Info);
 				foreach (GarbagePrediction prediction in predictions)
 				{
-					string name = (prediction.Loot.ParentSheetIndex == 217)
+					string name = (prediction.loot.ParentSheetIndex == 217)
 						? "(dish of the day)"
-						: prediction.Loot.Name;
-					string stars = (prediction.Loot is Hat)
+						: prediction.loot.Name;
+					string stars = (prediction.loot is Hat)
 						? " ***"
-							: (prediction.Loot is SObject o && o.Flipped)
+							: prediction.special
 								? " *"
 								: "";
-					Utilities.Monitor.Log ($"- {prediction.Can}: {name}{stars}",
+					Utilities.Monitor.Log ($"- {prediction.can}: {name}{stars}",
 						LogLevel.Info);
 				}
 				if (predictions.Count == 0)
@@ -174,10 +177,12 @@ namespace PredictiveCore
 		};
 
 		private static Item GetLootForDateAndCan (WorldDate date, GarbageCan can,
-			bool hatOnly)
+			bool hatOnly, out bool special)
 		{
 			// Logic from StardewValley.Locations.Town.checkAction()
 			// as implemented in Stardew Predictor by MouseyPounds.
+
+			special = false;
 			
 			// Handle the presence of SVE's altered town map.
 			GarbageCan standardCan = (GarbageCan) ((int) can % 100);
@@ -320,8 +325,8 @@ namespace PredictiveCore
 				break;
 			}
 
-			return new SObject (itemID, 1)
-				{ Flipped = seasonal || locationSpecific };
+			special = seasonal || locationSpecific;
+			return new SObject (itemID, 1);
 		}
 	}
 }

@@ -38,7 +38,7 @@ namespace PublicAccessTV
 			QueueScene (new Scene
 				(Helper.Translation.Get ($"nightEvents.{currentEvent}.opening"),
 				background, portrait)
-				{ SoundAsset = newYear
+				{ soundAsset = newYear
 					? "nightEvents_newYear" : "nightEvents_opening" });
 
 			// The governor reacts to the event.
@@ -53,7 +53,7 @@ namespace PublicAccessTV
 			}
 			QueueScene (new Scene (Helper.Translation.Get ($"nightEvents.{currentEvent}.reaction"),
 				reactionBackground, LoadPortrait (tv, "Governor", reactionIndex))
-				{ SoundCueName = reactionSound });
+				{ soundCueName = reactionSound });
 
 			// Closing scene: the governor signs off.
 			QueueScene (new Scene (Helper.Translation.Get ($"nightEvents.{currentEvent}.closing"),
@@ -68,13 +68,13 @@ namespace PublicAccessTV
 
 			List<NightEventPrediction> predictions =
 				NightEvents.ListNextEventsForDate (tonight, 1);
-			if (predictions.Count >= 1 && predictions[0].Date == tonight)
+			if (predictions.Count >= 1 && predictions[0].date == tonight)
 			{
-				switch (predictions[0].Type)
+				switch (predictions[0].type)
 				{
 				case NightEventType.Meteorite:
 				case NightEventType.StrangeCapsule:
-					return predictions[0].Type;
+					return predictions[0].type;
 				}
 			}
 

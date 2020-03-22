@@ -7,8 +7,8 @@ namespace PredictiveCore
 {
 	public struct TrainPrediction
 	{
-		public WorldDate Date;
-		public int Time;
+		public WorldDate date;
+		public int time;
 	}
 
 	public static class Trains
@@ -48,7 +48,7 @@ namespace PredictiveCore
 					continue;
 
 				WorldDate date = Utilities.TotalDaysToWorldDate (days);
-				predictions.Add (new TrainPrediction { Date = date, Time = time });
+				predictions.Add (new TrainPrediction { date = date, time = time });
 			}
 
 			return predictions;
@@ -81,7 +81,7 @@ namespace PredictiveCore
 					LogLevel.Info);
 				foreach (TrainPrediction prediction in predictions)
 				{
-					Utilities.Monitor.Log ($"- {prediction.Date} at {Game1.getTimeOfDayString (prediction.Time)}",
+					Utilities.Monitor.Log ($"- {prediction.date} at {Game1.getTimeOfDayString (prediction.time)}",
 						LogLevel.Info);
 				}
 			}

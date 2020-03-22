@@ -19,8 +19,8 @@ namespace PredictiveCore
 
 	public struct NightEventPrediction
 	{
-		public WorldDate Date;
-		public NightEventType Type;
+		public WorldDate date;
+		public NightEventType type;
 	}
 
 	public static class NightEvents
@@ -79,7 +79,7 @@ namespace PredictiveCore
 					continue;
 
 				predictions.Add (new NightEventPrediction
-					{ Date = tonight, Type = type });
+					{ date = tonight, type = type });
 			}
 
 			return predictions;
@@ -112,7 +112,7 @@ namespace PredictiveCore
 					LogLevel.Info);
 				foreach (NightEventPrediction prediction in predictions)
 				{
-					Utilities.Monitor.Log ($"- {prediction.Date}: {prediction.Type}",
+					Utilities.Monitor.Log ($"- {prediction.date}: {prediction.type}",
 						LogLevel.Info);
 				}
 			}

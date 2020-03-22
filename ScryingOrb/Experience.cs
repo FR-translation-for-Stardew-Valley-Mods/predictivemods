@@ -15,15 +15,18 @@ namespace ScryingOrb
 		protected static IModHelper Helper => ModEntry._Helper;
 		protected static IMonitor Monitor => ModEntry._Monitor;
 
+		public SObject orb { get; internal set; }
+		public SObject offering { get; internal set; }
+
 		// Whether the experience should be available to players at present.
-		internal virtual bool IsAvailable => true;
+		public virtual bool IsAvailable => true;
 
 		public static bool Try<T> (SObject orb)
 			where T : Experience, new()
 		{
 			try
 			{
-				T experience = new T { Orb = orb };
+				T experience = new T { orb = orb };
 				return experience.Try ();
 			}
 			catch (Exception e)
@@ -36,7 +39,7 @@ namespace ScryingOrb
 		public static void Run<T> (SObject orb)
 			where T : Experience, new()
 		{
-			T experience = new T { Orb = orb };
+			T experience = new T { orb = orb };
 			experience.Run ();
 		}
 
@@ -59,9 +62,6 @@ namespace ScryingOrb
 				(Path.Combine ("assets", "illumination.png"));
 		}
 
-		public SObject Orb { get; internal set; }
-		public SObject Offering { get; internal set; }
-
 		protected virtual bool Try ()
 		{
 			if (!IsAvailable)
@@ -72,7 +72,7 @@ namespace ScryingOrb
 			{
 				return false;
 			}
-			Offering = o;
+			offering = o;
 			return true;
 		}
 
@@ -82,7 +82,7 @@ namespace ScryingOrb
 		protected void ConsumeOffering (int count = 1, SObject offering = null)
 		{
 			if (offering == null)
-				offering = Offering;
+				offering = this.offering;
 			if (offering == null)
 				throw new NullReferenceException ("No offering is available to be consumed.");
 
@@ -153,10 +153,10 @@ namespace ScryingOrb
 			Rectangle sourceRect, float interval, int length, int loops,
 			int delay = 0)
 		{
-			Vector2 position = new Vector2 (Orb.TileLocation.X,
-				Orb.TileLocation.Y - (sourceRect.Height / (float) sourceRect.Width));
+			Vector2 position = new Vector2 (orb.TileLocation.X,
+				orb.TileLocation.Y - (sourceRect.Height / (float) sourceRect.Width));
 			position *= Game1.tileSize;
-			float layerDepth = (float) (((Orb.TileLocation.Y + 1.0) * 64.0 / 10000.0)
+			float layerDepth = (float) (((orb.TileLocation.Y + 1.0) * 64.0 / 10000.0)
 				+ 9.99999974737875E-05);
 			TemporaryAnimatedSprite sprite = new TemporaryAnimatedSprite
 				(textureName, sourceRect, interval, length, loops, position,
@@ -169,7 +169,7 @@ namespace ScryingOrb
 
 		protected LightSource Illuminate (int r = 153, int g = 217, int b = 234)
 		{
-			if (Orb == null)
+			if (orb == null)
 			{
 				return null;
 			}
@@ -181,11 +181,11 @@ namespace ScryingOrb
 			Extinguish ();
 
 			// Calculate the light source properties.
-			Vector2 position = new Vector2 ((Orb.TileLocation.X * 64f) + 32f,
-				(Orb.TileLocation.Y * 64f) - 32f);
+			Vector2 position = new Vector2 ((orb.TileLocation.X * 64f) + 32f,
+				(orb.TileLocation.Y * 64f) - 32f);
 			Color color = new Color (255 - r, 255 - g, 255 - b) * 2f;
-			int identifier = (int) ((Orb.TileLocation.X * 2000f) +
-				Orb.TileLocation.Y);
+			int identifier = (int) ((orb.TileLocation.X * 2000f) +
+				orb.TileLocation.Y);
 
 			// Switch the orb to its illuminated sprite, unless not lit blue.
 			if (b > r && b > g)
@@ -198,14 +198,14 @@ namespace ScryingOrb
 			}
 			
 			// Construct and apply the light source.
-			Orb.lightSource = new LightSource (LightSource.cauldronLight,
+			orb.lightSource = new LightSource (LightSource.cauldronLight,
 				position, 1f, color, identifier);
-			return Orb.lightSource;
+			return orb.lightSource;
 		}
 
 		protected void Extinguish ()
 		{
-			if (Orb == null || Orb.lightSource == null)
+			if (orb == null || orb.lightSource == null)
 			{
 				return;
 			}
@@ -214,9 +214,9 @@ namespace ScryingOrb
 			--ModEntry.OrbsIlluminated;
 
 			// Remove the illumination light source and animation.
-			Game1.currentLocation.removeTemporarySpritesWithID (Orb.lightSource.Identifier);
-			Game1.currentLocation.removeLightSource (Orb.lightSource.Identifier);
-			Orb.lightSource = null;
+			Game1.currentLocation.removeTemporarySpritesWithID (orb.lightSource.Identifier);
+			Game1.currentLocation.removeLightSource (orb.lightSource.Identifier);
+			orb.lightSource = null;
 		}
 
 		protected static T LoadData<T> (string key) where T: class, new ()

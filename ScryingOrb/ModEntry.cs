@@ -62,25 +62,25 @@ namespace ScryingOrb
 		public override void Entry (IModHelper helper)
 		{
 			// Read the configuration.
-			Config = this.Helper.ReadConfig<ModConfig> ();
+			Config = Helper.ReadConfig<ModConfig> ();
 
 			// Set up PredictiveCore.
 			Utilities.Initialize (this, helper);
 
+			// Make resources available.
+			_Helper = Helper;
+			_Monitor = Monitor;
+
 			// Add console commands.
-			Utilities.Helper.ConsoleCommands.Add ("reset_scrying_orbs",
+			Helper.ConsoleCommands.Add ("reset_scrying_orbs",
 				"Resets the state of Scrying Orbs to default values.",
 				(_command, _args) => ResetScryingOrbs ());
-			Utilities.Helper.ConsoleCommands.Add ("test_scrying_orb",
+			Helper.ConsoleCommands.Add ("test_scrying_orb",
 				"Puts a Scrying Orb and all types of offering into inventory.",
 				(_command, _args) => TestScryingOrb ());
-			Utilities.Helper.ConsoleCommands.Add ("test_date_picker",
+			Helper.ConsoleCommands.Add ("test_date_picker",
 				"Runs a DatePicker dialog for testing use.",
 				(_command, _args) => TestDatePicker ());
-
-			// Make resources available.
-			_Helper = helper;
-			_Monitor = Monitor;
 
 			// Listen for game events.
 			helper.Events.GameLoop.DayStarted += (_sender, _args) => CheckRecipe ();

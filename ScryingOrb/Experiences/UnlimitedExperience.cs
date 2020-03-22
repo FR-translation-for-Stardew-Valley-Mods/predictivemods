@@ -47,7 +47,7 @@ namespace ScryingOrb
 
 			// Consume an appropriate offering.
 			if (!base.Try () ||
-					!AcceptedOfferings.Contains (Offering.Name))
+					!AcceptedOfferings.Contains (offering.Name))
 				return false;
 			ConsumeOffering ();
 
@@ -78,11 +78,11 @@ namespace ScryingOrb
 			Dictionary<string, Experience> experiences =
 				new Dictionary<string, Experience>
 			{
-				{ "mining", new MiningExperience { Orb = Orb } },
-				{ "geodes", new GeodesExperience { Orb = Orb } },
-				{ "nightEvents", new NightEventsExperience { Orb = Orb } },
+				{ "mining", new MiningExperience { orb = orb } },
+				{ "geodes", new GeodesExperience { orb = orb } },
+				{ "nightEvents", new NightEventsExperience { orb = orb } },
 				// TODO: { "shopping", new ShoppingExperience { Orb = Orb } },
-				{ "garbage", new GarbageExperience { Orb = Orb } },
+				{ "garbage", new GarbageExperience { orb = orb } },
 				// TODO: { "itemFinder", new ItemFinderExperience { Orb = Orb } },
 				{ "leave", null }
 			};

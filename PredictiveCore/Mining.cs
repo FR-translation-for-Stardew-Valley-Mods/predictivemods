@@ -25,9 +25,9 @@ namespace PredictiveCore
 
 	public struct MiningPrediction
 	{
-		public MineType Mine;
-		public int Floor;
-		public MineFloorType Type;
+		public MineType mine;
+		public int floor;
+		public MineFloorType type;
 	}
 
 	public static class Mining
@@ -79,9 +79,9 @@ namespace PredictiveCore
 				{
 					predictions.Add (new MiningPrediction
 					{
-						Mine = MineType.TheMines,
-						Floor = floor,
-						Type = MineFloorType.Treasure,
+						mine = MineType.TheMines,
+						floor = floor,
+						type = MineFloorType.Treasure,
 					});
 					continue;
 				}
@@ -98,9 +98,9 @@ namespace PredictiveCore
 				{
 					predictions.Add (new MiningPrediction
 					{
-						Mine = MineType.TheMines,
-						Floor = floor,
-						Type = (rng.NextDouble() < 0.5)
+						mine = MineType.TheMines,
+						floor = floor,
+						type = (rng.NextDouble() < 0.5)
 							? MineFloorType.MonsterInfested
 							: MineFloorType.SlimeInfested,
 					});
@@ -112,9 +112,9 @@ namespace PredictiveCore
 				{
 					predictions.Add (new MiningPrediction
 					{
-						Mine = MineType.TheMines,
-						Floor = floor,
-						Type = (rng.NextDouble() < 0.25)
+						mine = MineType.TheMines,
+						floor = floor,
+						type = (rng.NextDouble() < 0.25)
 							? MineFloorType.QuarryInfested
 							: MineFloorType.Quarry,
 					});
@@ -131,9 +131,9 @@ namespace PredictiveCore
 				{
 					predictions.Add (new MiningPrediction
 					{
-						Mine = MineType.TheMines,
-						Floor = floor,
-						Type = MineFloorType.Mushroom,
+						mine = MineType.TheMines,
+						floor = floor,
+						type = MineFloorType.Mushroom,
 					});
 				}
 			}
@@ -155,9 +155,9 @@ namespace PredictiveCore
 						{
 							predictions.Add (new MiningPrediction
 							{
-								Mine = MineType.SkullCavern,
-								Floor = floor - 120,
-								Type = MineFloorType.PepperRex,
+								mine = MineType.SkullCavern,
+								floor = floor - 120,
+								type = MineFloorType.PepperRex,
 							});
 						}
 					}
@@ -189,7 +189,7 @@ namespace PredictiveCore
 					LogLevel.Info);
 				foreach (MiningPrediction prediction in predictions)
 				{
-					Utilities.Monitor.Log ($"- {prediction.Mine}, floor {prediction.Floor}: {prediction.Type}",
+					Utilities.Monitor.Log ($"- {prediction.mine}, floor {prediction.floor}: {prediction.type}",
 						LogLevel.Info);
 				}
 				if (predictions.Count == 0)

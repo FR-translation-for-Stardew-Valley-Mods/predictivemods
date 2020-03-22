@@ -9,12 +9,12 @@ namespace PredictiveCore
 {
 	public struct MoviePrediction
 	{
-		public WorldDate EffectiveDate;
-		public MovieData CurrentMovie;
-		public bool CraneGameAvailable;
+		public WorldDate effectiveDate;
+		public MovieData currentMovie;
+		public bool craneGameAvailable;
 
-		public WorldDate FirstDateOfNextMovie;
-		public MovieData NextMovie;
+		public WorldDate firstDateOfNextMovie;
+		public MovieData nextMovie;
 	}
 
 	public static class Movies
@@ -32,20 +32,20 @@ namespace PredictiveCore
 				throw new InvalidOperationException ("The Movie Theater is not available.");
 
 			MoviePrediction prediction =
-				new MoviePrediction { EffectiveDate = date };
-			prediction.CurrentMovie =
+				new MoviePrediction { effectiveDate = date };
+			prediction.currentMovie =
 				MovieTheater.GetMovieForDate (date);
-			prediction.FirstDateOfNextMovie =
+			prediction.firstDateOfNextMovie =
 				Utilities.GetNextSeasonStart (date);
-			prediction.NextMovie =
-				MovieTheater.GetMovieForDate (prediction.FirstDateOfNextMovie);
+			prediction.nextMovie =
+				MovieTheater.GetMovieForDate (prediction.firstDateOfNextMovie);
 
 			// Logic from StardewValley.Locations.MovieTheater.addRandomNPCs()
 			// as implemented in Stardew Predictor by MouseyPounds.
 			if (Game1.getLocationFromName ("MovieTheater") is MovieTheater theater)
 			{
 				Random rng = new Random ((int) Game1.uniqueIDForThisGame + date.TotalDays);
-				prediction.CraneGameAvailable = !(rng.NextDouble () < 0.25) &&
+				prediction.craneGameAvailable = !(rng.NextDouble () < 0.25) &&
 					theater.dayFirstEntered != -1 &&
 					theater.dayFirstEntered != date.TotalDays;
 			}
@@ -68,11 +68,11 @@ namespace PredictiveCore
 			{
 				WorldDate date = Utilities.ArgsToWorldDate (args);
 				MoviePrediction prediction = PredictForDate (date);
-				Utilities.Monitor.Log ($"On {prediction.EffectiveDate}, the movie showing will be \"{prediction.CurrentMovie.Title}\". \"{prediction.CurrentMovie.Description}\"",
+				Utilities.Monitor.Log ($"On {prediction.effectiveDate}, the movie showing will be \"{prediction.currentMovie.Title}\". \"{prediction.currentMovie.Description}\"",
 					LogLevel.Info);
-				Utilities.Monitor.Log ($"The Crane Game {(prediction.CraneGameAvailable ? "WILL" : "will NOT")} be available.",
+				Utilities.Monitor.Log ($"The Crane Game {(prediction.craneGameAvailable ? "WILL" : "will NOT")} be available.",
 					LogLevel.Info);
-				Utilities.Monitor.Log ($"The next movie, \"{prediction.NextMovie.Title}\", will begin showing on {prediction.FirstDateOfNextMovie}. \"{prediction.NextMovie.Description}\"",
+				Utilities.Monitor.Log ($"The next movie, \"{prediction.nextMovie.Title}\", will begin showing on {prediction.firstDateOfNextMovie}. \"{prediction.nextMovie.Description}\"",
 					LogLevel.Info);
 			}
 			catch (Exception e)

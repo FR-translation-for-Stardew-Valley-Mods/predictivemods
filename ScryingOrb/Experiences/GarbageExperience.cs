@@ -11,25 +11,25 @@ namespace ScryingOrb
 {
 	public class GarbageExperience : Experience
 	{
-		internal override bool IsAvailable =>
+		public override bool IsAvailable =>
 			base.IsAvailable && Garbage.IsAvailable;
 
 		protected override bool Try ()
 		{
 			// Require an appropriate offering.
 			if (!base.Try () ||
-					Offering.Category != StardewValley.Object.junkCategory)
+					offering.Category != StardewValley.Object.junkCategory)
 				return false;
 			
 			// Consume a total of 3 trash, combining across stacks in inventory.
 			Queue<SObject> offerings = new Queue<SObject> ();
-			offerings.Enqueue (Offering);
-			int stack = Math.Min (3, Offering.Stack);
+			offerings.Enqueue (offering);
+			int stack = Math.Min (3, offering.Stack);
 			foreach (Item item in Game1.player.items)
 			{
 				if (stack == 3)
 					break;
-				if (!(item is SObject obj) || object.ReferenceEquals (obj, Offering))
+				if (!(item is SObject obj) || object.ReferenceEquals (obj, offering))
 					continue;
 				if (obj.Category != StardewValley.Object.junkCategory)
 					continue;
@@ -92,7 +92,7 @@ namespace ScryingOrb
 						new List<GarbagePrediction> ();
 					if (hat.HasValue)
 						predictions.Add (hat.Value);
-					ShowPredictions (hat.HasValue ? hat.Value.Date : today,
+					ShowPredictions (hat.HasValue ? hat.Value.date : today,
 						predictions, mode);
 					break;
 				case "leave":
@@ -135,14 +135,14 @@ namespace ScryingOrb
 				foreach (GarbagePrediction prediction in
 					predictions.OrderBy ((GarbagePrediction a) => rng.Next ()))
 				{
-					string can = prediction.Can.ToString ().Replace ("SVE_", "");
+					string can = prediction.can.ToString ().Replace ("SVE_", "");
 					lines.Add (Helper.Translation.Get ($"garbage.prediction.{can}", new
 					{
-						itemName = (prediction.Loot is Hat)
+						itemName = (prediction.loot is Hat)
 							? Helper.Translation.Get ("garbage.item.hat")
-							: (prediction.Loot.ParentSheetIndex == 217)
+							: (prediction.loot.ParentSheetIndex == 217)
 								? Helper.Translation.Get ("garbage.item.dishOfTheDay")
-								: prediction.Loot.DisplayName,
+								: prediction.loot.DisplayName,
 					}));
 				}
 				lines.Add (""); // padding for occasional display issues

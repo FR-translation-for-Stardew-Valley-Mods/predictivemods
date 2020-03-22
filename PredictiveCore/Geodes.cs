@@ -45,15 +45,15 @@ namespace PredictiveCore
 
 		internal Treasure (uint geodeNumber, GeodeType geodeType)
 		{
-			GeodeNumber = geodeNumber;
-			GeodeType = geodeType;
-			GeodeObject = new SObject (GeodeObjects[geodeType], 1);
+			this.geodeNumber = geodeNumber;
+			this.geodeType = geodeType;
+			geodeObject = new SObject (GeodeObjects[geodeType], 1);
 
 			uint originalNumber = Game1.player.stats.GeodesCracked;
 			try
 			{
 				Game1.player.stats.GeodesCracked = geodeNumber;
-				Item = Utility.getTreasureFromGeode (GeodeObject);
+				item = Utility.getTreasureFromGeode (geodeObject);
 			}
 			finally
 			{
@@ -61,23 +61,23 @@ namespace PredictiveCore
 			}
 		}
 
-		public readonly uint GeodeNumber;
-		public readonly GeodeType GeodeType;
-		public readonly SObject GeodeObject;
+		public readonly uint geodeNumber;
+		public readonly GeodeType geodeType;
+		public readonly SObject geodeObject;
 
-		public readonly SObject Item;
-		public int Stack => Item.Stack;
-		public string DisplayName => Item.DisplayName;
+		public readonly SObject item;
+		public int stack => item.Stack;
+		public string displayName => item.DisplayName;
 
-		public bool Valuable => Item.Stack * Item.Price > 75;
-		public bool NeedDonation => !UndonatableTreasures.Contains (Item.Name) &&
-			!new LibraryMuseum ().museumAlreadyHasArtifact (Item.ParentSheetIndex);
+		public bool valuable => item.Stack * item.Price > 75;
+		public bool needDonation => !UndonatableTreasures.Contains (item.Name) &&
+			!new LibraryMuseum ().museumAlreadyHasArtifact (item.ParentSheetIndex);
 	}
 
 	public class GeodePrediction
 	{
-		public readonly uint Number;
-		public readonly SortedDictionary<GeodeType, Treasure> Treasures;
+		public readonly uint number;
+		public readonly SortedDictionary<GeodeType, Treasure> treasures;
 
 		private static readonly GeodeType[] Types = new GeodeType[]
 		{
@@ -87,10 +87,10 @@ namespace PredictiveCore
 
 		internal GeodePrediction (uint number)
 		{
-			Number = number;
-			Treasures = new SortedDictionary<GeodeType, Treasure> ();
+			this.number = number;
+			treasures = new SortedDictionary<GeodeType, Treasure> ();
 			foreach (GeodeType type in Types)
-				Treasures.Add (type, new Treasure (number, type));
+				treasures.Add (type, new Treasure (number, type));
 		}
 	}
 
@@ -171,14 +171,14 @@ namespace PredictiveCore
 				foreach (GeodePrediction prediction in predictions)
 				{
 					string treasures = string.Join (" | ",
-						prediction.Treasures.Values.Select ((t) =>
+						prediction.treasures.Values.Select ((t) =>
 							string.Format ("{0,2:D} {1,-20}{2}{3}",
-								t.Stack, t.DisplayName,
-								t.NeedDonation ? "*" : " ",
-								t.Valuable ? "$" : " "
+								t.stack, t.displayName,
+								t.needDonation ? "*" : " ",
+								t.valuable ? "$" : " "
 							)));
 					Utilities.Monitor.Log (string.Format ("{0,5:D}. | {1}",
-						prediction.Number, treasures), LogLevel.Info);
+						prediction.number, treasures), LogLevel.Info);
 				}
 			}
 			catch (Exception e)

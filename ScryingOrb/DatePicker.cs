@@ -17,35 +17,35 @@ namespace ScryingOrb
 		protected static IModHelper Helper => ModEntry._Helper;
 		protected static IMonitor Monitor => ModEntry._Monitor;
 		
-		private readonly WorldDate InitialDate;
-		private WorldDate Date;
+		private readonly WorldDate initialDate;
+		private WorldDate date;
 
-		private readonly string PromptMessage;
-		private readonly Action<WorldDate> OnConfirm;
+		private readonly string promptMessage;
+		private readonly Action<WorldDate> onConfirm;
 
-		private readonly Texture2D CalendarTile;
-		private readonly Texture2D DayButtonTiles;
+		private readonly Texture2D calendarTile;
+		private readonly Texture2D dayButtonTiles;
 		
-		private string HoverText;
-		private int HoverButton = -999;
-		private int SelectedDay = -1;
-		private List<TemporaryAnimatedSprite> DaySparkles =
+		private string hoverText;
+		private int hoverButton = -999;
+		private int selectedDay = -1;
+		private List<TemporaryAnimatedSprite> daySparkles =
 			new List<TemporaryAnimatedSprite> ();
-		private List<int> SeasonSpriteHits = new List<int> { 0, 0, 0, 0 };
-		private List<WeatherDebris> SeasonDebris = new List<WeatherDebris> ();
+		private List<int> seasonSpriteHits = new List<int> { 0, 0, 0, 0 };
+		private List<WeatherDebris> seasonDebris = new List<WeatherDebris> ();
 
-		private ClickableComponent PromptLabel;
-		private ClickableComponent DateLabel;
-		private List<ClickableComponent> WeekLabels;
-		private ClickableTextureComponent Calendar;
-		private List<ClickableTextureComponent> DayButtons;
-		private List<ClickableTextureComponent> SeasonSprites;
-		private ClickableTextureComponent PrevButton;
-		private ClickableTextureComponent NextButton;
-		private ClickableTextureComponent ScryButton;
-		private List<ClickableTextureComponent> OtherButtons;
+		private ClickableComponent promptLabel;
+		private ClickableComponent dateLabel;
+		private List<ClickableComponent> weekLabels;
+		private ClickableTextureComponent calendar;
+		private List<ClickableTextureComponent> dayButtons;
+		private List<ClickableTextureComponent> seasonSprites;
+		private ClickableTextureComponent prevButton;
+		private ClickableTextureComponent nextButton;
+		private ClickableTextureComponent scryButton;
+		private List<ClickableTextureComponent> otherButtons;
 
-		private static int CalendarSize = 500;
+		private static readonly int CalendarSize = 500;
 
 		private static int Width => CalendarSize +
 			borderWidth * 2 + spaceToClearSideBorder * 4;
@@ -58,20 +58,20 @@ namespace ScryingOrb
 
 		private struct SeasonDataT
 		{
-			public readonly Color MainColor;
-			public readonly Rectangle SpriteBounds;
-			public readonly string SpriteAsset;
-			public readonly Rectangle SpriteSource;
-			public readonly int SpriteTextColor;
+			public readonly Color mainColor;
+			public readonly Rectangle spriteBounds;
+			public readonly string spriteAsset;
+			public readonly Rectangle spriteSource;
+			public readonly int spriteTextColor;
 
 			public SeasonDataT (Color mainColor, Rectangle spriteBounds,
 				string spriteAsset, Rectangle spriteSource, int spriteTextColor)
 			{
-				MainColor = mainColor;
-				SpriteBounds = spriteBounds;
-				SpriteAsset = spriteAsset;
-				SpriteSource = spriteSource;
-				SpriteTextColor = spriteTextColor;
+				this.mainColor = mainColor;
+				this.spriteBounds = spriteBounds;
+				this.spriteAsset = spriteAsset;
+				this.spriteSource = spriteSource;
+				this.spriteTextColor = spriteTextColor;
 			}
 		}
 
@@ -87,18 +87,18 @@ namespace ScryingOrb
 			Action<WorldDate> onConfirm)
 			: base (X, Y, Width, Height)
 		{
-			InitialDate = initialDate;
-			Date = initialDate;
+			this.initialDate = initialDate;
+			date = initialDate;
 
-			int initialYearStart = (InitialDate.Year - 1) * 112;
-			SelectedDay = InitialDate.TotalDays - initialYearStart;
+			int initialYearStart = (this.initialDate.Year - 1) * 112;
+			selectedDay = this.initialDate.TotalDays - initialYearStart;
 
-			PromptMessage = promptMessage;
-			OnConfirm = onConfirm;
+			this.promptMessage = promptMessage;
+			this.onConfirm = onConfirm;
 
-			CalendarTile = Helper.Content.Load<Texture2D>
+			calendarTile = Helper.Content.Load<Texture2D>
 				(Path.Combine ("assets", "calendar.png"));
-			DayButtonTiles = Helper.Content.Load<Texture2D>
+			dayButtonTiles = Helper.Content.Load<Texture2D>
 				(Path.Combine ("assets", "dayButton.png"));
 
 			ArrangeInterface ();
@@ -117,24 +117,24 @@ namespace ScryingOrb
 			int xOff = xPositionOnScreen + borderWidth + spaceToClearSideBorder * 2;
 			int yOff = yPositionOnScreen + borderWidth + spaceToClearTopBorder;
 
-			PromptLabel = new ClickableComponent (
+			promptLabel = new ClickableComponent (
 				new Rectangle (xPositionOnScreen, yOff, width, Game1.smallFont.LineSpacing),
 				"PromptLabel");
 			yOff += Game1.smallFont.LineSpacing + spaceToClearSideBorder;
 
-			DateLabel = new ClickableComponent (
+			dateLabel = new ClickableComponent (
 				new Rectangle (xOff, yOff, CalendarSize, Game1.dialogueFont.LineSpacing),
 				"DateLabel");
 			yOff += Game1.dialogueFont.LineSpacing + spaceToClearSideBorder * 2;
 
-			Calendar = new ClickableTextureComponent ("Calendar",
+			calendar = new ClickableTextureComponent ("Calendar",
 				new Rectangle (xOff, yOff, CalendarSize, CalendarSize),
-				null, null, CalendarTile, new Rectangle (), 1f, true);
+				null, null, calendarTile, new Rectangle (), 1f, true);
 			int xCenter = xOff + CalendarSize / 2;
 			int yCenter = yOff + CalendarSize / 2;
 			yOff += CalendarSize + spaceToClearSideBorder * 2;
 
-			WeekLabels = new List<ClickableComponent> ();
+			weekLabels = new List<ClickableComponent> ();
 			double weekRadius = 164.5;
 			for (int i = 0; i < 16; ++i)
 			{
@@ -143,11 +143,11 @@ namespace ScryingOrb
 					((i % 4 == 0) ? 0 : 4);
 				int y = (int) (yCenter - weekRadius * Math.Cos (angle)) - 24;
 
-				WeekLabels.Add (new ClickableComponent (new Rectangle (x, y, 0, 0),
+				weekLabels.Add (new ClickableComponent (new Rectangle (x, y, 0, 0),
 					$"Week{i}"));
 			}
 
-			DayButtons = new List<ClickableTextureComponent> ();
+			dayButtons = new List<ClickableTextureComponent> ();
 			double dayRadius = 220.0;
 			for (int i = 0; i < 112; ++i)
 			{
@@ -157,48 +157,48 @@ namespace ScryingOrb
 				int x = (int) (xCenter + dayRadius * Math.Sin (angle)) - 6;
 				int y = (int) (yCenter - dayRadius * Math.Cos (angle)) - 26;
 
-				DayButtons.Add (new ClickableTextureComponent ($"Day{i}",
+				dayButtons.Add (new ClickableTextureComponent ($"Day{i}",
 					new Rectangle (x, y, 12, 52), null, date.Localize (),
-					DayButtonTiles, new Rectangle (36 * (i / 28), 0, 12, 52),
+					dayButtonTiles, new Rectangle (36 * (i / 28), 0, 12, 52),
 					1f));
 			}
 
-			SeasonSprites = new List<ClickableTextureComponent> ();
+			seasonSprites = new List<ClickableTextureComponent> ();
 			for (int i = 0; i < 4; ++i)
 			{
 				Texture2D texture = Helper.Content.Load<Texture2D>
-					(SeasonData[i].SpriteAsset, ContentSource.GameContent);
-				Rectangle sb = SeasonData[i].SpriteBounds;
+					(SeasonData[i].spriteAsset, ContentSource.GameContent);
+				Rectangle sb = SeasonData[i].spriteBounds;
 				Rectangle bounds = new Rectangle (sb.X + xCenter, sb.Y + yCenter,
 					sb.Width, sb.Height);
-				SeasonSprites.Add (new ClickableTextureComponent ($"SeasonSprite{i}",
-					bounds, null, null, texture, SeasonData[i].SpriteSource, 1f));
+				seasonSprites.Add (new ClickableTextureComponent ($"SeasonSprite{i}",
+					bounds, null, null, texture, SeasonData[i].spriteSource, 1f));
 			}
 
 			xOff -= spaceToClearSideBorder;
 
-			PrevButton = new ClickableTextureComponent ("PrevButton",
+			prevButton = new ClickableTextureComponent ("PrevButton",
 				new Rectangle (xOff, yOff, Game1.tileSize, Game1.tileSize), null,
 				Helper.Translation.Get ("datePicker.prevLabel"), Game1.mouseCursors,
 				Game1.getSourceRectForStandardTileSheet (Game1.mouseCursors, 44),
 				1f);
 
-			NextButton = new ClickableTextureComponent ("NextButton",
+			nextButton = new ClickableTextureComponent ("NextButton",
 				new Rectangle (xOff + Game1.tileSize + spaceToClearSideBorder, yOff,
 					Game1.tileSize, Game1.tileSize), null,
 				Helper.Translation.Get ("datePicker.nextLabel"), Game1.mouseCursors,
 				Game1.getSourceRectForStandardTileSheet (Game1.mouseCursors, 33),
 				1f);
 
-			ScryButton = new ClickableTextureComponent ("ScryButton",
+			scryButton = new ClickableTextureComponent ("ScryButton",
 				new Rectangle (xOff + CalendarSize + spaceToClearSideBorder * 2
 					- Game1.tileSize, yOff, Game1.tileSize, Game1.tileSize), null,
 				Helper.Translation.Get ("datePicker.scryLabel"), Game1.mouseCursors,
 				Game1.getSourceRectForStandardTileSheet (Game1.mouseCursors, 46),
 				1f);
 
-			OtherButtons = new List<ClickableTextureComponent>
-				{ PrevButton, NextButton, ScryButton };
+			otherButtons = new List<ClickableTextureComponent>
+				{ prevButton, nextButton, scryButton };
 		}
 
 		public override void receiveLeftClick (int x, int y, bool playSound = true)
@@ -213,9 +213,9 @@ namespace ScryingOrb
 				return;
 			}
 
-			for (int i = 0; i < SeasonSprites.Count; ++i)
+			for (int i = 0; i < seasonSprites.Count; ++i)
 			{
-				if (SeasonSprites[i].containsPoint (x, y))
+				if (seasonSprites[i].containsPoint (x, y))
 				{
 					if (playSound) Game1.playSound ("leafrustle");
 					HitSeasonSprite (i);
@@ -223,25 +223,25 @@ namespace ScryingOrb
 				}
 			}
 
-			if (PrevButton.containsPoint (x, y))
+			if (prevButton.containsPoint (x, y))
 			{
-				PrevButton.scale = 1f;
+				prevButton.scale = 1f;
 				if (playSound) Game1.playSound ("newArtifact");
 				SelectPrev ();
 				return;
 			}
 
-			if (NextButton.containsPoint (x, y))
+			if (nextButton.containsPoint (x, y))
 			{
-				NextButton.scale = 1f;
+				nextButton.scale = 1f;
 				if (playSound) Game1.playSound ("newArtifact");
 				SelectNext ();
 				return;
 			}
 
-			if (ScryButton.containsPoint (x, y))
+			if (scryButton.containsPoint (x, y))
 			{
-				ScryButton.scale = 1f;
+				scryButton.scale = 1f;
 				if (playSound) Game1.playSound ("select");
 				Confirm ();
 				return;
@@ -271,55 +271,55 @@ namespace ScryingOrb
 
 		private void SelectDay (int day)
 		{
-			SelectedDay = day;
-			Date = DayToWorldDate (day);
+			selectedDay = day;
+			date = DayToWorldDate (day);
 			Rectangle bounds = new Rectangle (
-				DayButtons[day].bounds.X - 30,
-				DayButtons[day].bounds.Y - 10, 20, 20);
-			DaySparkles = Utility.sparkleWithinArea (bounds, 2,
-				SeasonData[day / 28].MainColor, 50);
+				dayButtons[day].bounds.X - 30,
+				dayButtons[day].bounds.Y - 10, 20, 20);
+			daySparkles = Utility.sparkleWithinArea (bounds, 2,
+				SeasonData[day / 28].mainColor, 50);
 		}
 
 		private WorldDate DayToWorldDate (int day)
 		{
-			int initialYearStart = (InitialDate.Year - 1) * 112;
-			int initialDay = InitialDate.TotalDays - initialYearStart;
+			int initialYearStart = (initialDate.Year - 1) * 112;
+			int initialDay = initialDate.TotalDays - initialYearStart;
 			int offset = (day < initialDay) ? 112 : 0;
 			return Utilities.TotalDaysToWorldDate (initialYearStart + day + offset);
 		}
 
 		private void SelectPrev ()
 		{
-			SelectDay ((SelectedDay == 0) ? 111 : SelectedDay - 1);
+			SelectDay ((selectedDay == 0) ? 111 : selectedDay - 1);
 		}
 
 		private void SelectNext ()
 		{
-			SelectDay ((SelectedDay == 111) ? 0 : SelectedDay + 1);
+			SelectDay ((selectedDay == 111) ? 0 : selectedDay + 1);
 		}
 
 		private void Confirm ()
 		{
 			Game1.exitActiveMenu ();
-			OnConfirm (Date);
+			onConfirm (date);
 		}
 
 		private void HitSeasonSprite (int seasonIndex)
 		{
-			if (++SeasonSpriteHits[seasonIndex] < 4)
+			if (++seasonSpriteHits[seasonIndex] < 4)
 				return;
-			SeasonSpriteHits[seasonIndex] = 0;
+			seasonSpriteHits[seasonIndex] = 0;
 
 			Random rng = new Random ();
-			Rectangle spriteBounds = SeasonSprites[seasonIndex].bounds;
+			Rectangle spriteBounds = seasonSprites[seasonIndex].bounds;
 
-			SeasonDebris.Clear ();
+			seasonDebris.Clear ();
 			int debrisCount = ((seasonIndex == 3) ? 3 : 1) * (5 + rng.Next (0, 5));
 			for (int i = 0; i < debrisCount; ++i)
 			{
 				Vector2 position = new Vector2 (spriteBounds.X + rng.Next (0, 48),
 					spriteBounds.Y + rng.Next (0, 48));
-				SeasonDebris.Add (new WeatherDebris (position, seasonIndex,
+				seasonDebris.Add (new WeatherDebris (position, seasonIndex,
 					rng.Next (15) / 500f,
 					rng.Next (-10, 10) / 10f + ((seasonIndex > 1) ? 1f : -1f),
 					rng.Next (-10, 10) / 10f + ((seasonIndex % 3 == 0) ? 0.75f : -2f)));
@@ -329,33 +329,33 @@ namespace ScryingOrb
 		public override void performHoverAction (int x, int y)
 		{
 			base.performHoverAction (x, y);
-			HoverText = null;
-			int oldHoverButton = HoverButton;
+			hoverText = null;
+			int oldHoverButton = hoverButton;
 
 			int day = GetDayAtPoint (x, y);
 			if (day > -1)
 			{
-				if (HoverButton != day)
+				if (hoverButton != day)
 				{
-					HoverButton = day;
+					hoverButton = day;
 					Game1.playSound ("Cowboy_gunshot");
 				}
-				HoverText = DayButtons[day].hoverText;
+				hoverText = dayButtons[day].hoverText;
 			}
 			else
 			{
-				HoverButton = -999;
+				hoverButton = -999;
 			}
 
-			for (int i = 0; i < OtherButtons.Count; ++i)
+			for (int i = 0; i < otherButtons.Count; ++i)
 			{
-				ClickableTextureComponent button = OtherButtons[i];
+				ClickableTextureComponent button = otherButtons[i];
 				if (button.containsPoint (x, y))
 				{
-					HoverButton = -1 - i;
-					if (oldHoverButton != HoverButton)
+					hoverButton = -1 - i;
+					if (oldHoverButton != hoverButton)
 						Game1.playSound ("Cowboy_Footstep");
-					HoverText = button.hoverText;
+					hoverText = button.hoverText;
 				}
 				button.scale = button.containsPoint (x, y)
 					? Math.Min (button.scale + 0.02f, button.baseScale + 0.1f)
@@ -365,8 +365,8 @@ namespace ScryingOrb
 
 		private int GetDayAtPoint (int x, int y)
 		{
-			x -= Calendar.bounds.Center.X;
-			y -= Calendar.bounds.Center.Y;
+			x -= calendar.bounds.Center.X;
+			y -= calendar.bounds.Center.Y;
 			double radius = Math.Sqrt (Math.Pow (x, 2) + Math.Pow (y, 2));
 			if (radius < 192.0 || radius > 248.0) return -1;
 			double pct = Math.Atan2 (y, x) / (2 * Math.PI);
@@ -375,13 +375,13 @@ namespace ScryingOrb
 
 		public override void update (GameTime time)
 		{
-			for (int i = DaySparkles.Count - 1; i >= 0; --i)
+			for (int i = daySparkles.Count - 1; i >= 0; --i)
 			{
-				if (DaySparkles[i].update (time))
-					DaySparkles.RemoveAt (i);
+				if (daySparkles[i].update (time))
+					daySparkles.RemoveAt (i);
 			}
 
-			foreach (WeatherDebris debris in SeasonDebris)
+			foreach (WeatherDebris debris in seasonDebris)
 				debris.update ();
 		}
 
@@ -392,42 +392,42 @@ namespace ScryingOrb
 				height, false, true);
 
 			// PromptLabel
-			float promptWidth = Game1.smallFont.MeasureString (PromptMessage).X;
-			float promptOffset = (PromptLabel.bounds.Width - promptWidth) / 2;
-			Utility.drawTextWithShadow (b, PromptMessage, Game1.smallFont,
-				new Vector2 (PromptLabel.bounds.X + promptOffset, PromptLabel.bounds.Y),
+			float promptWidth = Game1.smallFont.MeasureString (promptMessage).X;
+			float promptOffset = (promptLabel.bounds.Width - promptWidth) / 2;
+			Utility.drawTextWithShadow (b, promptMessage, Game1.smallFont,
+				new Vector2 (promptLabel.bounds.X + promptOffset, promptLabel.bounds.Y),
 				Game1.textColor);
 
 			// DateLabel
-			string dateText = Date.Localize ();
+			string dateText = date.Localize ();
 			float dateWidth = Game1.dialogueFont.MeasureString (dateText).X;
-			float dateOffset = (DateLabel.bounds.Width - dateWidth) / 2;
+			float dateOffset = (dateLabel.bounds.Width - dateWidth) / 2;
 			Utility.drawTextWithShadow (b, dateText, Game1.dialogueFont,
-				new Vector2 (DateLabel.bounds.X + dateOffset, DateLabel.bounds.Y),
+				new Vector2 (dateLabel.bounds.X + dateOffset, dateLabel.bounds.Y),
 				Game1.textColor);
 
 			// Calendar
-			Calendar.draw (b);
+			calendar.draw (b);
 
 			// WeekLabels
-			for (int i = 0; i < WeekLabels.Count; ++i)
+			for (int i = 0; i < weekLabels.Count; ++i)
 			{
-				ClickableComponent label = WeekLabels[i];
+				ClickableComponent label = weekLabels[i];
 				string text = (i % 4 + 1).ToString ();
 				SpriteText.drawStringHorizontallyCenteredAt (b, text,
 					label.bounds.X, label.bounds.Y, junimoText: true);
 			}
 
 			// DayButtons
-			for (int i = 0; i < DayButtons.Count; ++i)
+			for (int i = 0; i < dayButtons.Count; ++i)
 			{
-				ClickableTextureComponent button = DayButtons[i];
+				ClickableTextureComponent button = dayButtons[i];
 				Vector2 position = new Vector2 ((float) button.bounds.X +
 					(float) (button.sourceRect.Width / 2) * button.baseScale,
 					(float) button.bounds.Y + (float) (button.sourceRect.Height / 2)
 					* button.baseScale);
 				Rectangle sourceRect = new Rectangle (button.sourceRect.X +
-					((i == SelectedDay) ? 24 : (i == HoverButton) ? 12 : 0),
+					((i == selectedDay) ? 24 : (i == hoverButton) ? 12 : 0),
 					button.sourceRect.Y, button.sourceRect.Width,
 					button.sourceRect.Height);
 				Vector2 origin = new Vector2 (button.sourceRect.Width / 2,
@@ -439,24 +439,24 @@ namespace ScryingOrb
 			}
 
 			// SeasonSprites
-			foreach (ClickableTextureComponent sprite in SeasonSprites)
+			foreach (ClickableTextureComponent sprite in seasonSprites)
 				sprite.draw (b);
 
 			// PrevButton, NextButton, ScryButton
-			foreach (ClickableTextureComponent button in OtherButtons)
+			foreach (ClickableTextureComponent button in otherButtons)
 				button.draw (b);
 
 			// SeasonDebris
-			foreach (WeatherDebris debris in SeasonDebris)
+			foreach (WeatherDebris debris in seasonDebris)
 				debris.draw (b);
 
 			// DaySparkles
-			foreach (TemporaryAnimatedSprite sparkle in DaySparkles)
+			foreach (TemporaryAnimatedSprite sparkle in daySparkles)
 				sparkle.draw (b, true);
 
 			// hover text
-			if (HoverText != null)
-				drawHoverText (b, HoverText, Game1.smallFont);
+			if (hoverText != null)
+				drawHoverText (b, hoverText, Game1.smallFont);
 
 			// mouse cursor
 			if (!Game1.options.hardwareCursor)

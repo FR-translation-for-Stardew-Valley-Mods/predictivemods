@@ -19,20 +19,20 @@ namespace ScryingOrb
 			{ "Coal", 2 },
 		};
 
-		internal override bool IsAvailable =>
+		public override bool IsAvailable =>
 			base.IsAvailable && Mining.IsAvailable;
 
 		protected override bool Try ()
 		{
 			// Consume an appropriate offering.
-			if (!base.Try () || !AcceptedOfferings.ContainsKey (Offering.Name))
+			if (!base.Try () || !AcceptedOfferings.ContainsKey (offering.Name))
 				return false;
-			if (Offering.Stack < AcceptedOfferings[Offering.Name])
+			if (offering.Stack < AcceptedOfferings[offering.Name])
 			{
 				ShowRejection ("rejection.insufficient");
 				return true;
 			}
-			ConsumeOffering (AcceptedOfferings[Offering.Name]);
+			ConsumeOffering (AcceptedOfferings[offering.Name]);
 
 			// React to the offering, then proceed to run.
 			Illuminate ();
@@ -72,11 +72,11 @@ namespace ScryingOrb
 
 			string joiner = CultureInfo.CurrentCulture.TextInfo.ListSeparator + " ";
 			foreach (MineFloorType type in predictions
-				.Select ((p) => p.Type).Distinct ().ToList ())
+				.Select ((p) => p.type).Distinct ().ToList ())
 			{
 				List<int> floors = predictions
-					.Where ((p) => p.Type == type)
-					.Select ((p) => p.Floor)
+					.Where ((p) => p.type == type)
+					.Select ((p) => p.floor)
 					.ToList ();
 				string floorsText;
 				if (floors.Count == 1)
