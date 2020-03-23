@@ -17,8 +17,6 @@ This mod is largely based on the [Stardew Predictor](https://mouseypounds.github
 
 ## Compatibility
 
-**KNOWN ISSUE:** If the TV channel list gets long enough, it will display a "(More)" option that may be broken or may show a second page of channels that are themselves broken. This is a known issue that will be fixed in the next version of PyTK. It will only occur for this mod if all of its channels are available on the same day (rare), or if it is installed alongside other custom TV channels. The standard TV channels are at the top of the list, so they won't be affected.
-
 This version of Public Access TV is compatible with **Stardew Valley 1.4**. Since it relies heavily on how the game calculates certain events, future updates to the base game are likely to make it inaccurate. When game version 1.5 arrives, take this mod's information with a grain of salt until I have a new version ready.
 
 This mod should work on **Linux, Mac or Windows**. There are no known problems with multiplayer use.
@@ -37,7 +35,7 @@ If any of your other mods affect the areas this mod covers, the TV will make inc
 ## Installation
 
 1. Install the latest version of [SMAPI](https://smapi.io/).
-1. Install the [PyTK](https://www.nexusmods.com/stardewvalley/mods/1726) mod.
+1. Install the latest version of the [PyTK](https://www.nexusmods.com/stardewvalley/mods/1726) mod.
 1. Download this mod from its [Nexus page](https://www.nexusmods.com/stardewvalley/mods/5605?tab=files) or [ModDrop page](https://www.moddrop.com/stardew-valley/mods/757967-public-access-tv).
 1. Unzip the mod and place the `PublicAccessTV` folder inside your `Mods` folder.
 1. Run the game using SMAPI.

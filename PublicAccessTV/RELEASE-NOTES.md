@@ -5,6 +5,7 @@
 *pending*
 
 * Fix TV scenes with special sounds sometimes not cleaning up after themselves
+* Bump PyTK dependency to version that fixes second page of channel list
 
 ## 1.0.1
 *March 21, 2020*

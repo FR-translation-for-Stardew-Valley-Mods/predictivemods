@@ -7,7 +7,7 @@
   "EntryDll": "PublicAccessTV.dll",
   "MinimumApiVersion": "3.3.2",
   "Dependencies": [
-    { "UniqueID": "Platonymous.Toolkit", "MinimumVersion": "1.9.0" }
+    { "UniqueID": "Platonymous.Toolkit", "MinimumVersion": "1.13.20" }
   ],
   "UpdateKeys": [
     "Nexus:5605"
