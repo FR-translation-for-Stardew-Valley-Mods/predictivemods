@@ -1,4 +1,5 @@
 # ![[icon]](assets/icon.png) Public Access TV
+
 *a [Stardew Valley](http://stardewvalley.net/) mod by kdau*
 
 Your friends in the valley take to the airwaves to keep you apprised of today's mining conditions<!-- TODO: , shopping opportunities -->, garbage loot, train schedules, rare events and more.
@@ -17,20 +18,20 @@ This mod is largely based on the [Stardew Predictor](https://mouseypounds.github
 
 ## Compatibility
 
-This version of Public Access TV is compatible with **Stardew Valley 1.4**. Since it relies heavily on how the game calculates certain events, future updates to the base game are likely to make it inaccurate. When game version 1.5 arrives, take this mod's information with a grain of salt until I have a new version ready.
+This version of Public Access TV is compatible with **Stardew Valley 1.4.x**. When SDV 1.5 is released, some of this mod's predictions will start being wrong. I'll put out a new version at that point.
 
 This mod should work on **Linux, Mac or Windows**. There are no known problems with multiplayer use.
 
-Some other mods change the way the game works in the areas that the TV channels cover. The following mods are supported:
+There are no known conflicts with other mods. Public Access TV fully supports the following:
 
 * [Stardew Valley Expanded](https://www.nexusmods.com/stardewvalley/mods/3753) (different arrangement of garbage cans)
 
-When one of the following mods is detected, the related channel is disabled:
+When one of the following mods is installed, the related channel is disabled because it would not be accurate:
 
 * [Better Garbage Cans](https://www.nexusmods.com/stardewvalley/mods/4171)
 * [Better Train Loot](https://www.nexusmods.com/stardewvalley/mods/4234)
 
-If any of your other mods affect the areas this mod covers, the TV will make incorrect announcements. If you would like me to consider accommodating such a mod, please open an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues) or [on the Nexus page](https://www.nexusmods.com/stardewvalley/mods/5605?tab=bugs).
+If any of your other mods affect the areas this mod covers, the TV may make incorrect predictions. If you would like me to add support for another mod, please open an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues) or [on the Nexus page](https://www.nexusmods.com/stardewvalley/mods/5605?tab=bugs).
 
 ## Installation
 
@@ -42,9 +43,9 @@ If any of your other mods affect the areas this mod covers, the TV will make inc
 
 ## Use
 
-In most cases, you will need to befriend the host of a program to a certain number of hearts for them to start broadcasting. Once that has happened, simply turn on any TV and choose the program you want to see.
+Generally, you will need to befriend the host of a program and see a special event with them to get them to start broadcasting. After that, simply turn on any TV and choose the program you want to see.
 
-The standard TV programs, plus any programs added by other mods, will continue to air as they normally do. The new programs and their requirements are detailed below.
+The standard TV programs, plus any programs added by other mods, will still air normally. The new programs and their requirements are detailed below.
 
 ### Governor's Message
 
@@ -105,13 +106,21 @@ Your contribution would be welcome. Please see the [details on the wiki](https:/
 
 ## See also
 
-* [Release notes](RELEASE-NOTES.md)
+* [Release notes](RELEASE-NOTES.md) for existing versions
+* [Issue tracker](https://gitlab.com/kdau/predictivemods/-/issues) for bug fixes and minor enhancements
+* [Roadmap](../ROADMAP.md) of major development plans
+* [MIT license](../LICENSE) (TLDR: do whatever, but credit me)
+
+Mirrors:
 * [This mod on Nexus](https://www.nexusmods.com/stardewvalley/mods/5605)
 * [This mod on ModDrop](https://www.moddrop.com/stardew-valley/mods/757967-public-access-tv)
 * [This mod on GitLab](https://gitlab.com/kdau/predictivemods/-/tree/master/PublicAccessTV)
----
-* [Scrying Orb](https://www.nexusmods.com/stardewvalley/mods/5603) mod <small>([source](../ScryingOrb))</small> for mystical, forward-looking predictions
-* [Stardew Predictor](https://mouseypounds.github.io/stardew-predictor/) web app to see it all at once
----
+
+My other mods:
+* ![[icon]](https://kdau.gitlab.io/ScryingOrb/icon.png) [Scrying Orb](https://www.nexusmods.com/stardewvalley/mods/5603) mod <small>([source](../ScryingOrb))</small> for mystical, forward-looking predictions:
+  *Craft a Scrying Orb with a recipe from Welwick and you too can peer into the future. Make an offering to the spirits to scry mining conditions, geode contents, rare events or garbage loot.*
+
+Other things you may enjoy:
+* ![[icon]](https://mouseypounds.github.io/stardew-predictor/favicon_p.png) [Stardew Predictor](https://mouseypounds.github.io/stardew-predictor/) web app to see all the predictions at once
 * [Gardening with Hisame](https://www.nexusmods.com/stardewvalley/mods/5485) mod for another TV program to enjoy
 * [Monthly Mail](https://www.nexusmods.com/stardewvalley/mods/4523) mod for more periodic content themed around your game activity
