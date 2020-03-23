@@ -1,12 +1,8 @@
-### ![[icon]](https://kdau.gitlab.io/PublicAccessTV/icon.png) Public Access TV
-
-*a [Stardew Valley](http://stardewvalley.net/) mod by kdau*
-
-Your friends in the valley take to the airwaves to keep you apprised of today's mining conditions, garbage loot, train schedules, rare events and more.
+![[icon]](https://kdau.gitlab.io/PublicAccessTV/icon.png) Your friends in the valley take to the airwaves to keep you apprised of today's mining conditions, garbage loot, train schedules, rare events and more.
 
 This mod is largely based on the [Stardew Predictor](https://mouseypounds.github.io/stardew-predictor/) web app by MouseyPounds, whose tools are all worth a look. Its companion mod, [Scrying Orb](https://www.moddrop.com/stardew-valley/mods/756553-scrying-orb) ([source](https://gitlab.com/kdau/predictivemods/-/tree/master/ScryingOrb)), offers a different route to some of the same information and more, but looks well beyond the current game day.
 
-## Compatibility
+## ![[Compatibility]](https://kdau.gitlab.io/headers/compatibility.png)
 
 This version of Public Access TV is compatible with **Stardew Valley 1.4.x**. When SDV 1.5 is released, some of this mod's predictions will start being wrong. I'll put out a new version at that point.
 
@@ -23,7 +19,7 @@ When one of the following mods is installed, the related channel is disabled bec
 
 If any of your other mods affect the areas this mod covers, the TV may make incorrect predictions. If you would like me to add support for another mod,please open an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues) or in the Bugs tab above.
 
-## Installation
+## ![[Installation]](https://kdau.gitlab.io/headers/installation.png)
 
 1. Install the latest version of [SMAPI](https://smapi.io/).
 1. Install the latest version of the [PyTK](https://www.nexusmods.com/stardewvalley/mods/1726) mod.
@@ -31,7 +27,7 @@ If any of your other mods affect the areas this mod covers, the TV may make inco
 1. Unzip the mod and place the `PublicAccessTV` folder inside your `Mods` folder.
 1. Run the game using SMAPI.
 
-## Use
+## ![[Use]](https://kdau.gitlab.io/headers/use.png)
 
 Generally, you will need to befriend the host of a program and see a special event with them to get them to start broadcasting. After that, simply turn on any TV and choose the program you want to see.
 
@@ -59,20 +55,20 @@ Each day, Demetrius comes to you from his lab with a look at the trains schedule
 
 Movie Sneak Preview: Once the movie theater opens, your friendly concessionaire will announce the featured and coming attraction daily. She'll also tip you off on whether there's a line for the ever-popular crane game.
 
-## Configuration
+## ![[Configuration]](https://kdau.gitlab.io/headers/configuration.png)
 
 The first time you run the mod, it will generate a `config.json` file in its main folder (`Mods/PublicAccessTV`). Two options are available:
 
 * `BypassFriendships`: Set this to `true` to put all TV hosts on the job as soon as applicable, regardless of their friendship level with the player.
 * `InaccuratePredictions`: Set this to `true` to enable channels whose information is inaccurate due to the presence of conflicting mods. For entertainment purposes only.
 
-## Translation
+## ![[Translation]](https://kdau.gitlab.io/headers/translation.png)
 
 This mod can be translated into any language supported by Stardew Valley. No translations are currently available, however.
 
 Your contribution would be welcome. Please see the [details on the wiki](https://stardewvalleywiki.com/Modding:Translations) for help. You can send me your work in an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues), in the Bugs tab above or by DM on Discord.
 
-## Acknowledgments
+## ![[Acknowledgments]](https://kdau.gitlab.io/headers/acknowledgments.png)
 
 * Like all mods, this one is indebted to ConcernedApe, particularly for the vanilla assets it adapts.
 * The prediction logic behind this mod is largely ported from the [Stardew Predictor](https://mouseypounds.github.io/stardew-predictor/) web app by MouseyPounds.
@@ -82,7 +78,7 @@ Your contribution would be welcome. Please see the [details on the wiki](https:/
 * The "Governor's Message" channel's opening jingles are clipped from [News jingle](https://freesound.org/people/jobro/sounds/169214/) by [jobro](https://freesound.org/people/jobro/), used under [CC BY-NC 3.0](http://creativecommons.org/licenses/by-nc/3.0/), and [jingle news](https://freesound.org/people/Jay_You/sounds/460424/) by [Stonefree](http://www.stonefree.de/), used under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
 * **(Spoiler for late-game 1.4 content)** The "Movie Sneak Preview" channel's concessions ambient is assembled from [Popcorn Machine.mp3](https://freesound.org/people/kentdavies959/sounds/466661/) by [kentdavies959](https://freesound.org/people/kentdavies959/), used under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), and [Pouring Carbonated Beverage Fizz.wav](https://freesound.org/people/baidonovan/sounds/187355/) by [baidonovan](https://freesound.org/people/baidonovan/), in the public domain.
 
-## See also
+## ![[See also]](https://kdau.gitlab.io/headers/see-also.png)
 
 * [Release notes](https://gitlab.com/kdau/predictivemods/-/blob/master/PublicAccessTV/RELEASE-NOTES.md) for existing versions
 * [Issue tracker](https://gitlab.com/kdau/predictivemods/-/issues) for bug fixes and minor enhancements
