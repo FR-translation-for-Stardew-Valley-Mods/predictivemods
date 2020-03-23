@@ -44,8 +44,9 @@ namespace PredictiveCore
 	{
 		// Whether this module should be available for player use.
 		public static bool IsAvailable =>
-			!Utilities.Helper.ModRegistry.IsLoaded ("AairTheGreat.BetterGarbageCans") &&
-			Game1.stats.getStat ("trashCansChecked") > 0;
+			Game1.stats.getStat ("trashCansChecked") > 0 &&
+			(Utilities.Config.InaccuratePredictions ||
+				!Utilities.Helper.ModRegistry.IsLoaded ("AairTheGreat.BetterGarbageCans"));
 
 		// Whether future progress by the player could alter the loot found in
 		// cans. This intentionally disregards the crafting recipes, cooking

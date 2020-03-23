@@ -129,10 +129,11 @@ There is a particular item which will get a special reaction from the spirits. <
 
 ## Configuration
 
-The first time you run the mod, it will generate a `config.json` file in its main folder (`Mods/ScryingOrb`). Two cheat options are available:
+The first time you run the mod, it will generate a `config.json` file in its main folder (`Mods/ScryingOrb`). Three options are available:
 
 * `InstantRecipe`: Set this to `true` to give the Scrying Orb crafting recipe immediately instead of needing two hearts with the Wizard.
 * `UnlimitedUse`: Set this to `true` to have the Scrying Orb work without taking offerings permanently.
+* `InaccuratePredictions`: Set this to `true` to let the spirits make predictions that are inaccurate due to the presence of conflicting mods. For entertainment purposes only.
 
 ## Translation
 

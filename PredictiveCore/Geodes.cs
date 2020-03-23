@@ -97,7 +97,8 @@ namespace PredictiveCore
 	public static class Geodes
 	{
 		// Whether this module should be available for player use.
-		public static bool IsAvailable => Game1.player.stats.GeodesCracked > 0;
+		public static bool IsAvailable =>
+			Game1.player.stats.GeodesCracked > 0;
 
 		// Whether future progress by the player could alter the treasures found
 		// when cracking geodes.

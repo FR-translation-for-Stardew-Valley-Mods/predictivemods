@@ -1,14 +1,14 @@
 ﻿using PredictiveCore;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
-using StardewValley;
 using System;
 
 namespace PublicAccessTV
 {
-	internal class ModConfig
+	internal class ModConfig : IConfig
 	{
 		public bool BypassFriendships { get; set; } = false;
+		public bool InaccuratePredictions { get; set; } = false;
 	}
 
 	public class ModEntry : Mod
@@ -26,7 +26,7 @@ namespace PublicAccessTV
 			Config = Helper.ReadConfig<ModConfig> ();
 
 			// Set up PredictiveCore.
-			Utilities.Initialize (this, helper);
+			Utilities.Initialize (this, Config);
 
 			// Make resources available.
 			_Helper = Helper;

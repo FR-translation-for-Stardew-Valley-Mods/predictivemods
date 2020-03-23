@@ -16,7 +16,8 @@ namespace PredictiveCore
 		// Whether this module should be available for player use.
 		public static bool IsAvailable =>
 			Utilities.Now ().TotalDays >= 30 &&
-			!Utilities.Helper.ModRegistry.IsLoaded ("AairTheGreat.BetterTrainLoot");
+			(Utilities.Config.InaccuratePredictions ||
+				!Utilities.Helper.ModRegistry.IsLoaded ("AairTheGreat.BetterTrainLoot"));
 
 		// Lists the next several trains to arrive on or after the given date,
 		// up to the given limit.

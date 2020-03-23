@@ -78,9 +78,10 @@ Once the movie theater opens, your friendly concessionaire will announce the fea
 
 ## Configuration
 
-The first time you run the mod, it will generate a `config.json` file in its main folder (`Mods/PublicAccessTV`). One cheat option is available:
+The first time you run the mod, it will generate a `config.json` file in its main folder (`Mods/PublicAccessTV`). Two options are available:
 
 * `BypassFriendships`: Set this to `true` to put all TV hosts on the job as soon as applicable, regardless of their friendship level with the player.
+* `InaccuratePredictions`: Set this to `true` to enable channels whose information is inaccurate due to the presence of conflicting mods. For entertainment purposes only.
 
 ## Translation
 

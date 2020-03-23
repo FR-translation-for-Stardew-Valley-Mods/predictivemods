@@ -13,6 +13,11 @@ namespace PredictiveCore
 		{}
 	}
 
+	public interface IConfig
+	{
+		public bool InaccuratePredictions { get; }
+	}
+
 	public static class Utilities
 	{
 		// Parses a list of three console arguments (year, season, day) as a
@@ -81,13 +86,15 @@ namespace PredictiveCore
 
 		internal static IMonitor Monitor;
 		internal static IModHelper Helper;
+		internal static IConfig Config;
 
-		public static void Initialize (IMod mod, IModHelper helper)
+		public static void Initialize (IMod mod, IConfig config)
 		{
 			if (Monitor != null)
 				return;
 			Monitor = mod.Monitor;
-			Helper = helper;
+			Helper = mod.Helper;
+			Config = config;
 
 			if (new SemanticVersion (Game1.version).IsOlderThan ("1.4.0") ||
 				!new SemanticVersion (Game1.version).IsOlderThan ("1.5.0"))
@@ -99,7 +106,7 @@ namespace PredictiveCore
 			// console commands in one of them (arbitrarily, PublicAccessTV).
 			bool addConsoleCommands =
 				mod.ModManifest.UniqueID == "kdau.PublicAccessTV" ||
-				!helper.ModRegistry.IsLoaded ("kdau.PublicAccessTV");
+				!Helper.ModRegistry.IsLoaded ("kdau.PublicAccessTV");
 
 			Garbage.Initialize (addConsoleCommands);
 			Geodes.Initialize (addConsoleCommands);

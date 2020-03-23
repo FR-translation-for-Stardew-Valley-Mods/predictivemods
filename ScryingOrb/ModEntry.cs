@@ -10,10 +10,11 @@ using SObject = StardewValley.Object;
 
 namespace ScryingOrb
 {
-	internal class ModConfig
+	internal class ModConfig : IConfig
 	{
 		public bool InstantRecipe { get; set; } = false;
 		public bool UnlimitedUse { get; set; } = false;
+		public bool InaccuratePredictions { get; set; } = false;
 	}
 
 	public class ModEntry : Mod
@@ -65,7 +66,7 @@ namespace ScryingOrb
 			Config = Helper.ReadConfig<ModConfig> ();
 
 			// Set up PredictiveCore.
-			Utilities.Initialize (this, helper);
+			Utilities.Initialize (this, Config);
 
 			// Make resources available.
 			_Helper = Helper;
