@@ -35,9 +35,7 @@ namespace ScryingOrb
 
 				// Let the cursor editor know to do its thing.
 				if (oldValue != value)
-				{
-					cursorEditor.Invalidate ();
-				}
+					cursorEditor.Apply ();
 			}
 		}
 
@@ -52,9 +50,7 @@ namespace ScryingOrb
 
 				// Let the cursor editor know to do its thing.
 				if ((oldValue == 0 && value > 0) || (oldValue > 0 && value == 0))
-				{
-					cursorEditor.Invalidate ();
-				}
+					cursorEditor.Apply ();
 			}
 		}
 
@@ -62,15 +58,18 @@ namespace ScryingOrb
 
 		public override void Entry (IModHelper helper)
 		{
-			// Read the configuration.
+			// Make resources available.
+			_Helper = Helper;
+			_Monitor = Monitor;
 			Config = Helper.ReadConfig<ModConfig> ();
 
 			// Set up PredictiveCore.
 			Utilities.Initialize (this, Config);
 
-			// Make resources available.
-			_Helper = Helper;
-			_Monitor = Monitor;
+			// Set up asset editors.
+			cursorEditor = new CursorEditor ();
+			Helper.Content.AssetEditors.Add (cursorEditor);
+			Helper.Content.AssetEditors.Add (new MailEditor ());
 
 			// Add console commands.
 			Helper.ConsoleCommands.Add ("reset_scrying_orbs",
@@ -84,14 +83,16 @@ namespace ScryingOrb
 				(_command, _args) => TestDatePicker ());
 
 			// Listen for game events.
-			helper.Events.GameLoop.DayStarted += (_sender, _args) => CheckRecipe ();
+			helper.Events.GameLoop.DayStarted +=
+				(_sender, _e) => CheckRecipe ();
 			Helper.Events.Input.CursorMoved += OnCursorMoved;
 			Helper.Events.Input.ButtonPressed += OnButtonPressed;
-
-			// Set up asset editors.
-			cursorEditor = new CursorEditor ();
-			Helper.Content.AssetEditors.Add (cursorEditor);
-			Helper.Content.AssetEditors.Add (new MailEditor ());
+			helper.Events.Display.RenderedHud +=
+				(_sender, _e) => cursorEditor.Apply ();
+			helper.Events.Display.RenderingActiveMenu +=
+				(_sender, _e) => cursorEditor.BeforeRenderMenu ();
+			helper.Events.Display.RenderedActiveMenu +=
+				(_sender, e) => cursorEditor.AfterRenderMenu (e.SpriteBatch);
 		}
 
 		private void CheckRecipe ()
@@ -124,9 +125,9 @@ namespace ScryingOrb
 			}
 
 			// Only hovering when a Scrying Orb is pointed at.
-			StardewValley.Object orb = Game1.currentLocation.getObjectAtTile
+			StardewValley.Object obj = Game1.currentLocation.getObjectAtTile
 				((int) args.NewPosition.Tile.X, (int) args.NewPosition.Tile.Y);
-			OrbHovered = orb != null && orb.Name == "Scrying Orb";
+			OrbHovered = obj != null && obj.Name == "Scrying Orb";
 		}
 
 		private void OnButtonPressed (object sender, ButtonPressedEventArgs args)

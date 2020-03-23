@@ -65,13 +65,11 @@ namespace ScryingOrb
 		protected virtual bool Try ()
 		{
 			if (!IsAvailable)
-			{
 				return false;
-			}
+
 			if (!(Game1.player.CurrentItem is SObject o))
-			{
 				return false;
-			}
+
 			offering = o;
 			return true;
 		}
@@ -84,14 +82,14 @@ namespace ScryingOrb
 			if (offering == null)
 				offering = this.offering;
 			if (offering == null)
-				throw new NullReferenceException ("No offering is available to be consumed.");
+				throw new Exception ("No offering is available to be consumed.");
 
 			if (offering.Stack > count)
 				offering.Stack -= count;
 			else if (offering.Stack == count)
 				Game1.player.removeItemFromInventory (offering);
 			else
-				throw new ArgumentOutOfRangeException ($"Offering stack of {offering.Stack} {offering.Name} insufficient for count of {count}.");
+				throw new Exception ($"Offering stack of {offering.Stack} {offering.Name} insufficient for count of {count}.");
 		}
 
 		protected void ShowRejection (string messageKey)
@@ -117,9 +115,7 @@ namespace ScryingOrb
 			// Pad each line of each page with a space to work around a width
 			// estimation bug in the List-based DialogueBox. *sigh*
 			for (int i = 0; i < dialogues.Count; ++i)
-			{
 				dialogues[i] = dialogues[i].Replace ("^", " ^") + " ";
-			}
 
 			// Prepare the UI and player before the delay.
 			if (Game1.activeClickableMenu != null)
@@ -132,14 +128,11 @@ namespace ScryingOrb
 			DelayedAction.functionAfterDelay (() =>
 			{
 				// Display the dialogues.
-				Game1.activeClickableMenu = new DialogueBox (dialogues);
+				DialogueBox box = new DialogueBox (dialogues);
+				Game1.activeClickableMenu = box;
 
 				// Suppress typing of dialogue, at least on first page.
-				if (Game1.activeClickableMenu != null &&
-					Game1.activeClickableMenu is DialogueBox dialogueBox)
-				{
-					dialogueBox.finishTyping ();
-				}
+				box.finishTyping ();
 			}, delay);
 		}
 
@@ -170,9 +163,7 @@ namespace ScryingOrb
 		protected LightSource Illuminate (int r = 153, int g = 217, int b = 234)
 		{
 			if (orb == null)
-			{
 				return null;
-			}
 
 			// Switch to the special mouse cursor.
 			++ModEntry.OrbsIlluminated;
@@ -206,20 +197,20 @@ namespace ScryingOrb
 		protected void Extinguish ()
 		{
 			if (orb == null || orb.lightSource == null)
-			{
 				return;
-			}
 
 			// Restore the regular mouse cursor.
 			--ModEntry.OrbsIlluminated;
 
 			// Remove the illumination light source and animation.
-			Game1.currentLocation.removeTemporarySpritesWithID (orb.lightSource.Identifier);
+			Game1.currentLocation.removeTemporarySpritesWithID
+				(orb.lightSource.Identifier);
 			Game1.currentLocation.removeLightSource (orb.lightSource.Identifier);
 			orb.lightSource = null;
 		}
 
-		protected static T LoadData<T> (string key) where T: class, new ()
+		protected static T LoadData<T> (string key)
+			where T: class, new ()
 		{
 			T data = Context.IsMainPlayer
 				? Helper.Data.ReadSaveData<T> (key)
@@ -227,7 +218,8 @@ namespace ScryingOrb
 			return data ?? new T ();
 		}
 
-		protected static void SaveData<T> (string key, T data) where T: class, new ()
+		protected static void SaveData<T> (string key, T data)
+			where T: class, new ()
 		{
 			if (Context.IsMainPlayer)
 				Helper.Data.WriteSaveData (key, data);

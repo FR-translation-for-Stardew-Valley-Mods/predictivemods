@@ -12,10 +12,8 @@ namespace ScryingOrb
 		protected static IMonitor Monitor => ModEntry._Monitor;
 
 		protected Texture2D cursor;
-		protected bool pendingInvalidate;
-		protected int lastInvalidate;
 
-		public CursorEditor()
+		public CursorEditor ()
 		{
 			cursor = Helper.Content.Load<Texture2D>
 				(Path.Combine ("assets", "cursor.png"));
@@ -24,34 +22,47 @@ namespace ScryingOrb
 		public bool CanEdit<_T> (IAssetInfo asset)
 		{
 			return asset.DataType == typeof (Texture2D) &&
-				asset.AssetNameEquals ("LooseSprites\\Cursors") &&
-				(ModEntry.OrbHovered || ModEntry.OrbsIlluminated > 0);
+				asset.AssetNameEquals ("LooseSprites\\Cursors");
 		}
 
 		public void Edit<_T> (IAssetData asset)
 		{
 			IAssetDataForImage editor = asset.AsImage ();
-			Rectangle bounds = new Rectangle (0, 0, 16, 16);
-			editor.PatchImage (cursor, bounds, bounds);
+			editor.PatchImage (cursor, targetArea: new Rectangle (112, 0, 16, 16));
 		}
 
-		internal void Invalidate ()
+		public bool Active =>
+			ModEntry.OrbHovered || ModEntry.OrbsIlluminated > 0;
+
+		public void Apply ()
 		{
-			if (pendingInvalidate)
+			if (Active)
+				Game1.mouseCursor = 7;
+			else if (Game1.mouseCursor == 7)
+				Game1.mouseCursor = 0;
+		}
+
+		internal void BeforeRenderMenu ()
+		{
+			// When active, prevent the normal software cursor from being drawn
+			// by the menu.
+			if (Active && !Game1.options.hardwareCursor)
+				Game1.mouseCursorTransparency = 0f;
+		}
+
+		internal void AfterRenderMenu (SpriteBatch b)
+		{
+			// When active, draw the special cursor instead. Restoring the
+			// regular mouseCursorTransparency is apparently not helpful.
+			if (Active && !Game1.options.hardwareCursor)
 			{
-				return;
+				b.Draw (Game1.mouseCursors,
+					new Vector2 (Game1.getMouseX (), Game1.getMouseY ()),
+					Game1.getSourceRectForStandardTileSheet
+						(Game1.mouseCursors, 7, 16, 16),
+					Color.White, 0f, Vector2.Zero,
+					4f + Game1.dialogueButtonScale / 150f, SpriteEffects.None, 1f);
 			}
-			pendingInvalidate = true;
-			DelayedAction.functionAfterDelay (() =>
-			{
-				if (pendingInvalidate)
-				{
-					Helper.Content.InvalidateCache ((asset) =>
-						asset.AssetNameEquals ("LooseSprites\\Cursors"));
-					pendingInvalidate = false;
-				}
-			}, (Game1.ticks < lastInvalidate + 30) ? 500 : 0);
-			lastInvalidate = Game1.ticks;
 		}
 	}
 }

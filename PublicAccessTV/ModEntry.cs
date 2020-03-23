@@ -22,35 +22,33 @@ namespace PublicAccessTV
 
 		public override void Entry (IModHelper helper)
 		{
-			// Read the configuration.
+			// Make resources available.
+			_Helper = Helper;
+			_Monitor = Monitor;
 			Config = Helper.ReadConfig<ModConfig> ();
 
 			// Set up PredictiveCore.
 			Utilities.Initialize (this, Config);
 
-			// Make resources available.
-			_Helper = Helper;
-			_Monitor = Monitor;
-
-			// Add console commands.
-			Helper.ConsoleCommands.Add ("update_patv_channels",
-				"Updates the availability of the custom channels to reflect current conditions.",
-				(_command, args) => UpdateChannels (true));
-			Helper.ConsoleCommands.Add ("reset_patv_channels",
-				"Resets the custom channels to their unlaunched states (before letters, events, etc.).",
-				(_command, args) => ResetChannels (true));
-
-			// Listen for game events.
-			helper.Events.GameLoop.GameLaunched += OnGameLaunched;
-			helper.Events.GameLoop.DayStarted +=
-				(_sender, _args) => UpdateChannels ();
-			helper.Events.GameLoop.OneSecondUpdateTicked +=
-				(_sender, _args) => GarbageChannel.CheckEvent ();
-
 			// Set up asset editors.
 			Helper.Content.AssetEditors.Add (new DialogueEditor ());
 			Helper.Content.AssetEditors.Add (new EventsEditor ());
 			Helper.Content.AssetEditors.Add (new MailEditor ());
+
+			// Add console commands.
+			Helper.ConsoleCommands.Add ("update_patv_channels",
+				"Updates the availability of the custom channels to reflect current conditions.",
+				(_command, _args) => UpdateChannels (true));
+			Helper.ConsoleCommands.Add ("reset_patv_channels",
+				"Resets the custom channels to their unlaunched states (before letters, events, etc.).",
+				(_command, _args) => ResetChannels (true));
+
+			// Listen for game events.
+			helper.Events.GameLoop.GameLaunched += OnGameLaunched;
+			helper.Events.GameLoop.DayStarted +=
+				(_sender, _e) => UpdateChannels ();
+			helper.Events.GameLoop.OneSecondUpdateTicked +=
+				(_sender, _e) => GarbageChannel.CheckEvent ();
 		}
 
 		private void OnGameLaunched (object sender, GameLaunchedEventArgs e)
