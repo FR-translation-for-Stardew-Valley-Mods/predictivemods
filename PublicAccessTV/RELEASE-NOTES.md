@@ -1,6 +1,11 @@
 # Release notes
 *Public Access TV*
 
+## 1.0.2
+*pending*
+
+* Fix TV scenes with special sounds sometimes not cleaning up after themselves
+
 ## 1.0.1
 *March 21, 2020*
 

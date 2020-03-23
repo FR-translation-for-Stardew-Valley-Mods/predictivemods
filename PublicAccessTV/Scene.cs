@@ -78,7 +78,17 @@ namespace PublicAccessTV
 		private void End ()
 		{
 			if (soundCue != null)
-				soundCue.Stop (AudioStopOptions.AsAuthored);
+			{
+				try
+				{
+					soundCue.Stop (AudioStopOptions.AsAuthored);
+				}
+				catch (Exception)
+				{
+					// Best effort, since none of the sound cues used here loop
+					// and the Stop method is apparently cursed sometimes.
+				}
+			}
 
 			if (soundPlayer != null)
 				soundPlayer.Stop ();
