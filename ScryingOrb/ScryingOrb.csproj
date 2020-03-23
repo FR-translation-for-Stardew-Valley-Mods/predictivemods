@@ -60,6 +60,7 @@
 		<None Include="assets\dayButton.png" />
 		<None Include="assets\illumination.png" />
 		<None Include="i18n\default.json" />
+		<None Include="i18n\ru.json" />
 		<None Include="i18n\zh.json" />
 		<None Include="[JA]ScryingOrb\manifest.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
