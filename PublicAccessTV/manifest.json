@@ -1,7 +1,7 @@
 ﻿{
   "Name": "Public Access TV",
   "Author": "kdau",
-  "Version": "1.0.2-rc.0",
+  "Version": "1.1.0",
   "Description": "TV channels about mining, shopping, foraging and more",
   "UniqueID": "kdau.PublicAccessTV",
   "EntryDll": "PublicAccessTV.dll",

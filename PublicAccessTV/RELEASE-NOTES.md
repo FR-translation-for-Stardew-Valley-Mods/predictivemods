@@ -2,11 +2,11 @@
 *Public Access TV*
 
 ## 1.1.0
-*pending release*
+*March 23, 2020*
 
 * Fix TV scenes with special sounds sometimes not cleaning up after themselves
 * Bump PyTK dependency to version that fixes second page of channel list
-* Add `IncorrectPredictions` option for entertainment purposes only
+* Add `IncorrectPredictions` option (for entertainment purposes only)
 
 ## 1.0.1
 *March 21, 2020*
