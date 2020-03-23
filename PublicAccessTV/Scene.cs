@@ -77,6 +77,10 @@ namespace PublicAccessTV
 
 		private void End ()
 		{
+			// Calls to the Stop methods are best effort here, since none of the
+			// sound cues or custom sounds used here are looping and at least
+			// the first of the two is apparently cursed sometimes.
+				
 			if (soundCue != null)
 			{
 				try
@@ -84,14 +88,18 @@ namespace PublicAccessTV
 					soundCue.Stop (AudioStopOptions.AsAuthored);
 				}
 				catch (Exception)
-				{
-					// Best effort, since none of the sound cues used here loop
-					// and the Stop method is apparently cursed sometimes.
-				}
+				{}
 			}
 
 			if (soundPlayer != null)
-				soundPlayer.Stop ();
+			{
+				try
+				{
+					soundPlayer.Stop ();
+				}
+				catch (Exception)
+				{}
+			}
 
 			if (afterAction != null)
 				afterAction.Invoke ();
