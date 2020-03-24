@@ -3,6 +3,7 @@ using StardewModdingAPI.Utilities;
 using StardewValley;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace PredictiveCore
 {
@@ -78,6 +79,30 @@ namespace PredictiveCore
 				return new WorldDate (date.Year, "winter", 1);
 			default:
 				return new WorldDate (date.Year + 1, "spring", 1);
+			}
+		}
+
+		// Returns the CultureInfo for the current game language.
+		public static CultureInfo GetCurrentCulture ()
+		{
+			string langCode = Game1.content.LanguageCodeString
+				(Game1.content.GetCurrentLanguage ());
+			return new CultureInfo (langCode);
+		}
+
+		// Returns the localized name of the day of the week for a given date.
+		public static string GetLocalizedDayOfWeek (WorldDate date,
+			bool shortName = false)
+		{
+			if (shortName)
+			{
+				return Game1.shortDayDisplayNameFromDayOfSeason (date.DayOfMonth);
+			}
+			else
+			{
+				// February 1999 was a Stardew month: 28 days starting on Monday
+				return new DateTime (1999, 2, date.DayOfMonth).ToString ("dddd",
+					GetCurrentCulture ());
 			}
 		}
 

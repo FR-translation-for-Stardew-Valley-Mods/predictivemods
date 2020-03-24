@@ -1,6 +1,11 @@
 # Release notes
 *Public Access TV*
 
+## 1.2.0
+*release pending*
+
+* Fix issues with translated channel titles and days of the week
+
 ## 1.1.1
 *March 23, 2020*
 

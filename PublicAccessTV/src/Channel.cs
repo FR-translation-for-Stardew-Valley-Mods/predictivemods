@@ -16,16 +16,17 @@ namespace PublicAccessTV
 		protected static IMonitor Monitor => ModEntry._Monitor;
 		protected static Type CustomTVMod => ModEntry.CustomTVMod;
 
-		protected readonly string localID;
-		protected readonly string globalID;
-		protected readonly string title;
+		public readonly string localID;
+		public readonly string globalID;
+
+		public string title => Helper.Translation.Get ($"{localID}.title");
+
 		private readonly Action<TV, TemporaryAnimatedSprite, Farmer, string> callback;
 
 		protected Channel (string localID)
 		{
 			this.localID = localID ?? throw new ArgumentNullException (nameof (localID));
 			globalID = $"kdau.PublicAccessTV.{localID}";
-			title = Helper.Translation.Get ($"{localID}.title");
 			callback = (tv, _sprite, _who, _response) => Show (tv);
 			CallCustomTVMod ("addChannel", globalID, title, callback);
 		}

@@ -93,7 +93,7 @@ namespace PublicAccessTV
 			QueueScene (new Scene (Helper.Translation.Get ($"trains.next.{nextMessage}", new
 				{
 					date = predictions[0].date.Localize (),
-					dayOfWeek = predictions[0].date.DayOfWeek,
+					dayOfWeek = Utilities.GetLocalizedDayOfWeek (predictions[0].date),
 					time = Game1.getTimeOfDayString (predictions[0].time),
 				}),
 				background, nextPortrait)
