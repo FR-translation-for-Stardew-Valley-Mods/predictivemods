@@ -37,22 +37,21 @@
 		<PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="3.1.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<Compile Include="ModEntry.cs" />
 		<Compile Include="Properties\AssemblyInfo.cs" />
-		<Compile Include="Channel.cs" />
-		<Compile Include="DialogueEditor.cs" />
-		<Compile Include="EventsEditor.cs" />
-		<Compile Include="MailEditor.cs" />
-		<Compile Include="Scene.cs" />
-		<Compile Include="Channels\GarbageChannel.cs" />
-		<Compile Include="Channels\MiningChannel.cs" />
-		<Compile Include="Channels\MoviesChannel.cs" />
-		<Compile Include="Channels\NightEventsChannel.cs" />
-		<Compile Include="Channels\TrainsChannel.cs" />
+		<Compile Include="src\Channel.cs" />
+		<Compile Include="src\DialogueEditor.cs" />
+		<Compile Include="src\EventsEditor.cs" />
+		<Compile Include="src\MailEditor.cs" />
+		<Compile Include="src\ModEntry.cs" />
+		<Compile Include="src\Scene.cs" />
+		<Compile Include="src\Channels\GarbageChannel.cs" />
+		<Compile Include="src\Channels\MiningChannel.cs" />
+		<Compile Include="src\Channels\MoviesChannel.cs" />
+		<Compile Include="src\Channels\NightEventsChannel.cs" />
+		<Compile Include="src\Channels\TrainsChannel.cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="manifest.json" />
-		<None Include="i18n\default.json" />
 		<None Include="assets\garbage_backgrounds.png" />
 		<None Include="assets\mining_backgrounds.png" />
 		<None Include="assets\movies_concession.wav" />
@@ -61,10 +60,13 @@
 		<None Include="assets\nightEvents_newYear.wav" />
 		<None Include="assets\nightEvents_opening.wav" />
 		<None Include="assets\trains_backgrounds.png" />
+		<None Include="i18n\default.json" />
 	</ItemGroup>
 	<ItemGroup>
+		<Folder Include="assets\" />
 		<Folder Include="i18n\" />
-		<Folder Include="Channels\" />
+		<Folder Include="src\" />
+		<Folder Include="src\Channels\" />
 	</ItemGroup>
 	<Import Project="..\PredictiveCore\PredictiveCore.projitems" Label="Shared" Condition="Exists('..\PredictiveCore\PredictiveCore.projitems')" />
 	<Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

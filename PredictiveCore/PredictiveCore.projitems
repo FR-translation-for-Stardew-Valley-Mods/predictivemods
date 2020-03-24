@@ -9,13 +9,16 @@
 		<Import_RootNamespace>PredictiveCore</Import_RootNamespace>
 	</PropertyGroup>
 	<ItemGroup>
-		<Compile Include="$(MSBuildThisFileDirectory)Garbage.cs" />
-		<Compile Include="$(MSBuildThisFileDirectory)Geodes.cs" />
-		<Compile Include="$(MSBuildThisFileDirectory)Mining.cs" />
-		<Compile Include="$(MSBuildThisFileDirectory)Movies.cs" />
-		<Compile Include="$(MSBuildThisFileDirectory)NightEvents.cs" />
-		<Compile Include="$(MSBuildThisFileDirectory)Trains.cs" />
-		<Compile Include="$(MSBuildThisFileDirectory)Utilities.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)src\Garbage.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)src\Geodes.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)src\Mining.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)src\Movies.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)src\NightEvents.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)src\Trains.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)src\Utilities.cs" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="$(MSBuildThisFileDirectory)src\" />
 	</ItemGroup>
 	<UsingTask TaskName="FixZipAndDeploySafely" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
 		<ParameterGroup>

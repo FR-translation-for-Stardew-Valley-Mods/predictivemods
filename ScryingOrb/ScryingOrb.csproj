@@ -37,21 +37,21 @@
 		<PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="3.1.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<Compile Include="ModEntry.cs" />
 		<Compile Include="Properties\AssemblyInfo.cs" />
-		<Compile Include="CursorEditor.cs" />
-		<Compile Include="DatePicker.cs" />
-		<Compile Include="Experience.cs" />
-		<Compile Include="MailEditor.cs" />
-		<Compile Include="Experiences\FallbackExperience.cs" />
-		<Compile Include="Experiences\GarbageExperience.cs" />
-		<Compile Include="Experiences\GeodesExperience.cs" />
-		<Compile Include="Experiences\LuckyPurpleExperience.cs" />
-		<Compile Include="Experiences\MetaExperience.cs" />
-		<Compile Include="Experiences\MiningExperience.cs" />
-		<Compile Include="Experiences\NightEventsExperience.cs" />
-		<Compile Include="Experiences\NothingExperience.cs" />
-		<Compile Include="Experiences\UnlimitedExperience.cs" />
+		<Compile Include="src\CursorEditor.cs" />
+		<Compile Include="src\DatePicker.cs" />
+		<Compile Include="src\Experience.cs" />
+		<Compile Include="src\MailEditor.cs" />
+		<Compile Include="src\ModEntry.cs" />
+		<Compile Include="src\Experiences\FallbackExperience.cs" />
+		<Compile Include="src\Experiences\GarbageExperience.cs" />
+		<Compile Include="src\Experiences\GeodesExperience.cs" />
+		<Compile Include="src\Experiences\LuckyPurpleExperience.cs" />
+		<Compile Include="src\Experiences\MetaExperience.cs" />
+		<Compile Include="src\Experiences\MiningExperience.cs" />
+		<Compile Include="src\Experiences\NightEventsExperience.cs" />
+		<Compile Include="src\Experiences\NothingExperience.cs" />
+		<Compile Include="src\Experiences\UnlimitedExperience.cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="manifest.json" />
@@ -73,8 +73,10 @@
 		</None>
 	</ItemGroup>
 	<ItemGroup>
+		<Folder Include="assets\" />
 		<Folder Include="i18n\" />
-		<Folder Include="Experiences\" />
+		<Folder Include="src\" />
+		<Folder Include="src\Experiences\" />
 		<Folder Include="[JA]ScryingOrb\BigCraftables\" />
 		<Folder Include="[JA]ScryingOrb\BigCraftables\ScryingOrb\" />
 	</ItemGroup>
