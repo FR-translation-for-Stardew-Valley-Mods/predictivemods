@@ -61,6 +61,7 @@
 		<None Include="assets\nightEvents_opening.wav" />
 		<None Include="assets\trains_backgrounds.png" />
 		<None Include="i18n\default.json" />
+		<None Include="i18n\ru.json" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="assets\" />

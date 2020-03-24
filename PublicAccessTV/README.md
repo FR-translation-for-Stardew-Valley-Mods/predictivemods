@@ -86,7 +86,7 @@ The first time you run the mod, it will generate a `config.json` file in its mai
 
 ## Translation
 
-This mod can be translated into any language supported by Stardew Valley. No translations are currently available, however.
+This mod can be translated into any language supported by Stardew Valley. It is currently available in English and Russian.
 
 Your contribution would be welcome. Please see the [details on the wiki](https://stardewvalleywiki.com/Modding:Translations) for help. You can send me your work in an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues), [on Nexus](https://www.nexusmods.com/stardewvalley/mods/5605?tab=bugs) or by DM on Discord.
 
@@ -103,6 +103,7 @@ Your contribution would be welcome. Please see the [details on the wiki](https:/
 
 * The "Movie Sneak Preview" channel's concessions ambient is assembled from [Popcorn Machine.mp3](https://freesound.org/people/kentdavies959/sounds/466661/) by [kentdavies959](https://freesound.org/people/kentdavies959/), used under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), and [Pouring Carbonated Beverage Fizz.wav](https://freesound.org/people/baidonovan/sounds/187355/) by [baidonovan](https://freesound.org/people/baidonovan/), in the public domain.
 </details>
+* The Russian translation was prepared by Ghost3lboom.
 
 ## See also
 

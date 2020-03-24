@@ -5,6 +5,7 @@
 *release pending*
 
 * Fix issues with translated channel titles and days of the week
+* Add Russian translation by Ghost3lboom
 
 ## 1.1.1
 *March 23, 2020*
