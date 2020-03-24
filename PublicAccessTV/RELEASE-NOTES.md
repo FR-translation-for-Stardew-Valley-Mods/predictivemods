@@ -1,6 +1,11 @@
 # Release notes
 *Public Access TV*
 
+## 1.1.1
+*March 23, 2020*
+
+* Really fix TV scenes not cleaning up this time
+
 ## 1.1.0
 *March 23, 2020*
 
