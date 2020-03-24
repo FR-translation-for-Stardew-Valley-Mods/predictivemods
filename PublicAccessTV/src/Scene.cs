@@ -47,6 +47,8 @@ namespace PublicAccessTV
 			if (beforeAction != null)
 				beforeAction.Invoke ();
 
+			// Don't use looping sound cues for this, as they can't be stopped
+			// safely (see End method below).
 			if (soundCueName != null)
 			{
 				soundCue = Game1.soundBank.GetCue (soundCueName);
@@ -77,29 +79,12 @@ namespace PublicAccessTV
 
 		private void End ()
 		{
-			// Calls to the Stop methods are best effort here, since none of the
-			// sound cues or custom sounds used here are looping and at least
-			// the first of the two is apparently cursed sometimes.
+			// For some reason, certain Windows users do not have the method
+			// StardewValley.ICue.Stop defined. As such, do not attempt to
+			// stop any running vanilla sound cue here.
 				
-			if (soundCue != null)
-			{
-				try
-				{
-					soundCue.Stop (AudioStopOptions.AsAuthored);
-				}
-				catch (Exception)
-				{}
-			}
-
 			if (soundPlayer != null)
-			{
-				try
-				{
-					soundPlayer.Stop ();
-				}
-				catch (Exception)
-				{}
-			}
+				soundPlayer.Stop ();
 
 			if (afterAction != null)
 				afterAction.Invoke ();
