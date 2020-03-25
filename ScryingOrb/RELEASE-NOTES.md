@@ -1,8 +1,10 @@
 # Release notes
-*Scrying Orb*
+
+[Scrying Orb](./)
 
 ## 1.1.0
-*March 23, 2020*
+
+*Released March 23, 2020.*
 
 * Fix lagging/low FPS when moving cursor over the orb
 * Add Simplified Chinese translation by liayyMK
@@ -10,6 +12,7 @@
 * Add `IncorrectPredictions` option (for entertainment purposes only)
 
 ## 1.0.0
-*March 20, 2020*
+
+*Released March 20, 2020.*
 
 * Initial version

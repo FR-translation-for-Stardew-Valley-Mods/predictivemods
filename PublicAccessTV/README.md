@@ -97,13 +97,15 @@ Your contribution would be welcome. Please see the [details on the wiki](https:/
 * This mod would not function without [SMAPI](https://smapi.io/) by Pathoschild and [PyTK](https://www.nexusmods.com/stardewvalley/mods/1726) by Platonymous.
 * Coding of this mod relied on [Climates of Ferngill](http://www.nexusmods.com/stardewvalley/mods/604) by Sakorona as a key example.
 * The #making-mods channel on the [Stardew Valley Discord](https://discordapp.com/invite/StardewValley) offered valuable guidance and feedback.
+* The Russian translation was prepared by Ghost3lboom.
 * The "Governor's Message" channel's opening jingles are clipped from [News jingle](https://freesound.org/people/jobro/sounds/169214/) by [jobro](https://freesound.org/people/jobro/), used under [CC BY-NC 3.0](http://creativecommons.org/licenses/by-nc/3.0/), and [jingle news](https://freesound.org/people/Jay_You/sounds/460424/) by [Stonefree](http://www.stonefree.de/), used under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
+
 <details>
 <summary>(Spoiler for late-game 1.4 content)</summary>
 
 * The "Movie Sneak Preview" channel's concessions ambient is assembled from [Popcorn Machine.mp3](https://freesound.org/people/kentdavies959/sounds/466661/) by [kentdavies959](https://freesound.org/people/kentdavies959/), used under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), and [Pouring Carbonated Beverage Fizz.wav](https://freesound.org/people/baidonovan/sounds/187355/) by [baidonovan](https://freesound.org/people/baidonovan/), in the public domain.
+
 </details>
-* The Russian translation was prepared by Ghost3lboom.
 
 ## See also
 
@@ -113,15 +115,18 @@ Your contribution would be welcome. Please see the [details on the wiki](https:/
 * [MIT license](../LICENSE) (TLDR: do whatever, but credit me)
 
 Mirrors:
+
 * [This mod on Nexus](https://www.nexusmods.com/stardewvalley/mods/5605)
 * [This mod on ModDrop](https://www.moddrop.com/stardew-valley/mods/757967-public-access-tv)
 * [This mod on GitLab](https://gitlab.com/kdau/predictivemods/-/tree/master/PublicAccessTV)
 
 My other mods:
+
 * ![[icon]](https://kdau.gitlab.io/ScryingOrb/icon.png) [Scrying Orb](https://www.nexusmods.com/stardewvalley/mods/5603) mod <small>([source](../ScryingOrb))</small> for mystical, forward-looking predictions:
   *Craft a Scrying Orb with a recipe from Welwick and you too can peer into the future. Make an offering to the spirits to scry mining conditions, geode contents, rare events or garbage loot.*
 
 Other things you may enjoy:
+
 * ![[icon]](https://mouseypounds.github.io/stardew-predictor/favicon_p.png) [Stardew Predictor](https://mouseypounds.github.io/stardew-predictor/) web app to see all the predictions at once
 * [Gardening with Hisame](https://www.nexusmods.com/stardewvalley/mods/5485) mod for another TV program to enjoy
 * [Monthly Mail](https://www.nexusmods.com/stardewvalley/mods/4523) mod for more periodic content themed around your game activity

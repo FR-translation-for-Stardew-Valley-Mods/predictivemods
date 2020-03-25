@@ -53,7 +53,7 @@ You can figure out the appropriate items as you go, like giving gifts. If you're
 
 ### Mines and caverns
 
-Learn what floors of the mines and caverns will have monster infestations or valuable caches on any day in the next year. <em>Must have entered the mines.</em>
+Learn what floors of the mines and caverns will have monster infestations or valuable caches on any day in the next year. *Must have entered the mines.*
 
 <details>
 <summary>Offerings</summary>
@@ -63,16 +63,18 @@ Learn what floors of the mines and caverns will have monster infestations or val
 * Gold Ore
 * Iridium Ore
 * 2 Coal
+
 </details>
 
 ### Geode treasures
 
-Learn what will be found inside the next three geodes of any type, or the next 10 geodes of a particular type. <em>Must have cracked at least one geode.</em>
+Learn what will be found inside the next three geodes of any type, or the next 10 geodes of a particular type. *Must have cracked at least one geode.*
 
 <details>
 <summary>Offerings</summary>
 
 * any Mineral item other than Limestone or Prismatic Shard
+
 </details>
 
 ### Nocturnal occurrences
@@ -87,13 +89,14 @@ Learn what strange events may occur over upcoming nights, or when a particular s
 * Void Essence
 * Void Mayonnaise
 * Void Salmon
+
 </details>
 
 <!-- TODO: Market offerings -->
 
 ### Garbage finds
 
-Learn what items will be found in garbage cans on any day in the next year. <em>Must have looked in at least one can.</em>
+Learn what items will be found in garbage cans on any day in the next year. *Must have looked in at least one can.*
 
 <details>
 <summary>Offerings</summary>
@@ -106,6 +109,7 @@ Learn what items will be found in garbage cans on any day in the next year. <em>
 * 3 Soggy Newspaper
 * 3 Trash
 * *or any combination of the above totaling 3*
+
 </details>
 
 <!-- TODO: Seek a particular item -->
@@ -122,6 +126,7 @@ Learn what items will be found in garbage cans on any day in the next year. <em>
 * Pearl
 * Prismatic Shard
 * Treasure Chest
+
 </details>
 
 ### Other
@@ -161,13 +166,16 @@ Your contribution would be welcome. Please see the [details on the wiki](https:/
 * [MIT license](../LICENSE) (TLDR: do whatever, but credit me)
 
 Mirrors:
+
 * [This mod on Nexus](https://www.nexusmods.com/stardewvalley/mods/5603)
 * [This mod on ModDrop](https://www.moddrop.com/stardew-valley/mods/756553-scrying-orb)
 * [This mod on GitLab](https://gitlab.com/kdau/predictivemods/-/tree/master/ScryingOrb)
 
 My other mods:
+
 * ![[icon]](https://kdau.gitlab.io/PublicAccessTV/icon.png) [Public Access TV](https://www.nexusmods.com/stardewvalley/mods/5605) <small>([source](../PublicAccessTV))</small> for friendship-based, same-day predictions:
   *Your friends in the valley take to the airwaves to keep you apprised of today's mining conditions, garbage loot, train schedules, rare events and more.*
 
 Other things you may enjoy:
+
 * ![[icon]](https://mouseypounds.github.io/stardew-predictor/favicon_p.png) [Stardew Predictor](https://mouseypounds.github.io/stardew-predictor/) web app to see all the predictions at once

@@ -1,3 +1,5 @@
+# Predictive Mods
+
 "Public Access TV" and "Scrying Orb" are [Stardew Valley](http://stardewvalley.net/) mods that make the information from the [Stardew Predictor](https://mouseypounds.github.io/stardew-predictor/) tool by MouseyPounds available in-game in a lore-friendly, balanced way.
 
 Both mods are made by kdau and offered under an [MIT license](LICENSE). Their source can be found on [GitLab](https://gitlab.com/kdau/predictivemods). The [roadmap](ROADMAP.md) foretells future expansions to them, while the [issue tracker](https://gitlab.com/kdau/predictivemods/-/issues) announces imminent fixes.

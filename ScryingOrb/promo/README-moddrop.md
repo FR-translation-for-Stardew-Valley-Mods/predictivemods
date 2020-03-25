@@ -41,7 +41,7 @@ You can figure out the appropriate items as you go, like giving gifts. If you're
 
 Learn what floors of the mines and caverns will have monster infestations or valuable caches on any day in the next year. *Must have entered the mines.*
 
-**Offerings**
+#### Offerings
 
 * 5 Copper Ore
 * 3 Iron Ore
@@ -53,7 +53,7 @@ Learn what floors of the mines and caverns will have monster infestations or val
 
 Learn what will be found inside the next three geodes of any type, or the next 10 geodes of a particular type. *Must have cracked at least one geode.*
 
-**Offerings**
+#### Offerings
 
 * any Mineral item other than Limestone or Prismatic Shard
 
@@ -61,7 +61,7 @@ Learn what will be found inside the next three geodes of any type, or the next 1
 
 Learn what strange events may occur over upcoming nights, or when a particular strange event may next occur.
 
-**Offerings**
+#### Offerings
 
 * 3 Bat Wing
 * Void Egg
@@ -73,7 +73,7 @@ Learn what strange events may occur over upcoming nights, or when a particular s
 
 Learn what items will be found in garbage cans on any day in the next year. *Must have looked in at least one can.*
 
-**Offerings**
+#### Offerings
 
 * 3 Broken CD
 * 3 Broken Glasses
@@ -88,7 +88,7 @@ Learn what items will be found in garbage cans on any day in the next year. *Mus
 
 (For farmhands in multiplayer, this will work for the current day only.)
 
-**Offerings**
+#### Offerings
 
 * Golden Pumpkin
 * Magic Rock Candy
@@ -133,13 +133,16 @@ Your contribution would be welcome. Please see the [details on the wiki](https:/
 * [MIT license](https://gitlab.com/kdau/predictivemods/-/blob/master/LICENSE) (TLDR: do whatever, but credit me)
 
 Mirrors:
+
 * [This mod on Nexus](https://www.nexusmods.com/stardewvalley/mods/5603)
 * **This mod on ModDrop**
 * [This mod on GitLab](https://gitlab.com/kdau/predictivemods/-/tree/master/ScryingOrb)
 
 My other mods:
+
 * ![[icon]](https://kdau.gitlab.io/PublicAccessTV/icon.png) [Public Access TV](https://www.moddrop.com/stardew-valley/mods/757967-public-access-tv) ([source](../PublicAccessTV)) for friendship-based, same-day predictions:
   *Your friends in the valley take to the airwaves to keep you apprised of today's mining conditions, garbage loot, train schedules, rare events and more.*
 
 Other things you may enjoy:
+
 * ![[icon]](https://mouseypounds.github.io/stardew-predictor/favicon_p.png) [Stardew Predictor](https://mouseypounds.github.io/stardew-predictor/) web app to see all the predictions at once

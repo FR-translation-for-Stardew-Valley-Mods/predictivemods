@@ -40,7 +40,7 @@ See the [issue tracker](https://gitlab.com/kdau/predictivemods/-/issues) for bug
 
 ## Tailoring channel
 
-*(ideally to release together with shopping)*
+*Ideally to release together with shopping.*
 
 ### `PredictiveCore.Tailoring`
 
