@@ -56,7 +56,7 @@ namespace ScryingOrb
 		private static int X => (Game1.viewport.Width - Width) / 2;
 		private static int Y => (Game1.viewport.Height - Height) / 2;
 
-		private struct SeasonDataT
+		private struct SeasonDatum
 		{
 			public readonly Color mainColor;
 			public readonly Rectangle spriteBounds;
@@ -64,7 +64,7 @@ namespace ScryingOrb
 			public readonly Rectangle spriteSource;
 			public readonly int spriteTextColor;
 
-			public SeasonDataT (Color mainColor, Rectangle spriteBounds,
+			public SeasonDatum (Color mainColor, Rectangle spriteBounds,
 				string spriteAsset, Rectangle spriteSource, int spriteTextColor)
 			{
 				this.mainColor = mainColor;
@@ -75,12 +75,12 @@ namespace ScryingOrb
 			}
 		}
 
-		private static readonly List<SeasonDataT> SeasonData = new List<SeasonDataT>
+		private static readonly List<SeasonDatum> SeasonData = new List<SeasonDatum>
 		{
-			new SeasonDataT (new Color ( 54, 179,  67), new Rectangle ( 191, -242, 48, 54), "TileSheets\\crops", new Rectangle (112, 522, 48, 54), SpriteText.color_Green),
-			new SeasonDataT (new Color (143,  63, 204), new Rectangle ( 191,  194, 48, 54), "TileSheets\\crops", new Rectangle (160, 518, 48, 54), SpriteText.color_Purple),
-			new SeasonDataT (new Color (212,  50,   0), new Rectangle (-239,  194, 48, 54), "TileSheets\\crops", new Rectangle (208, 518, 48, 54), SpriteText.color_Red),
-			new SeasonDataT (new Color ( 12, 130, 181), new Rectangle (-239, -239, 48, 48), "Maps\\winter_town", new Rectangle (288, 384, 48, 48), SpriteText.color_Blue),
+			new SeasonDatum (new Color ( 54, 179,  67), new Rectangle ( 191, -242, 48, 54), "TileSheets\\crops", new Rectangle (112, 522, 48, 54), SpriteText.color_Green),
+			new SeasonDatum (new Color (143,  63, 204), new Rectangle ( 191,  194, 48, 54), "TileSheets\\crops", new Rectangle (160, 518, 48, 54), SpriteText.color_Purple),
+			new SeasonDatum (new Color (212,  50,   0), new Rectangle (-239,  194, 48, 54), "TileSheets\\crops", new Rectangle (208, 518, 48, 54), SpriteText.color_Red),
+			new SeasonDatum (new Color ( 12, 130, 181), new Rectangle (-239, -239, 48, 48), "Maps\\winter_town", new Rectangle (288, 384, 48, 48), SpriteText.color_Blue),
 		};
 
 		public DatePicker (WorldDate initialDate, string promptMessage,
@@ -101,7 +101,7 @@ namespace ScryingOrb
 			dayButtonTiles = Helper.Content.Load<Texture2D>
 				(Path.Combine ("assets", "dayButton.png"));
 
-			ArrangeInterface ();
+			arrangeInterface ();
 		}
 		
 		public override void gameWindowSizeChanged (Rectangle oldBounds, Rectangle newBounds)
@@ -109,10 +109,10 @@ namespace ScryingOrb
 			base.gameWindowSizeChanged (oldBounds, newBounds);
 			xPositionOnScreen = X;
 			yPositionOnScreen = Y;
-			ArrangeInterface ();
+			arrangeInterface ();
 		}
 
-		private void ArrangeInterface ()
+		private void arrangeInterface ()
 		{
 			int xOff = xPositionOnScreen + borderWidth + spaceToClearSideBorder * 2;
 			int yOff = yPositionOnScreen + borderWidth + spaceToClearTopBorder;
@@ -151,7 +151,7 @@ namespace ScryingOrb
 			double dayRadius = 220.0;
 			for (int i = 0; i < 112; ++i)
 			{
-				WorldDate date = DayToWorldDate (i);
+				WorldDate date = dayToWorldDate (i);
 
 				double angle = 2 * Math.PI * (i + 0.5) / 112.0;
 				int x = (int) (xCenter + dayRadius * Math.Sin (angle)) - 6;
@@ -205,11 +205,11 @@ namespace ScryingOrb
 		{
 			base.receiveLeftClick (x, y, playSound);
 
-			int day = GetDayAtPoint (x, y);
+			int day = getDayAtPoint (x, y);
 			if (day > -1)
 			{
 				if (playSound) Game1.playSound ("newArtifact");
-				SelectDay (day);
+				selectDay (day);
 				return;
 			}
 
@@ -218,7 +218,7 @@ namespace ScryingOrb
 				if (seasonSprites[i].containsPoint (x, y))
 				{
 					if (playSound) Game1.playSound ("leafrustle");
-					HitSeasonSprite (i);
+					hitSeasonSprite (i);
 					return;
 				}
 			}
@@ -227,7 +227,7 @@ namespace ScryingOrb
 			{
 				prevButton.scale = 1f;
 				if (playSound) Game1.playSound ("newArtifact");
-				SelectPrev ();
+				selectPrev ();
 				return;
 			}
 
@@ -235,7 +235,7 @@ namespace ScryingOrb
 			{
 				nextButton.scale = 1f;
 				if (playSound) Game1.playSound ("newArtifact");
-				SelectNext ();
+				selectNext ();
 				return;
 			}
 
@@ -243,7 +243,7 @@ namespace ScryingOrb
 			{
 				scryButton.scale = 1f;
 				if (playSound) Game1.playSound ("select");
-				Confirm ();
+				confirm ();
 				return;
 			}
 		}
@@ -256,23 +256,23 @@ namespace ScryingOrb
 			{
 			case Keys.Left:
 				Game1.playSound ("newArtifact");
-				SelectPrev ();
+				selectPrev ();
 				break;
 			case Keys.Right:
 				Game1.playSound ("newArtifact");
-				SelectNext ();
+				selectNext ();
 				break;
 			case Keys.Enter:
 				Game1.playSound ("select");
-				Confirm ();
+				confirm ();
 				break;
 			}
 		}
 
-		private void SelectDay (int day)
+		private void selectDay (int day)
 		{
 			selectedDay = day;
-			date = DayToWorldDate (day);
+			date = dayToWorldDate (day);
 			Rectangle bounds = new Rectangle (
 				dayButtons[day].bounds.X - 30,
 				dayButtons[day].bounds.Y - 10, 20, 20);
@@ -280,7 +280,7 @@ namespace ScryingOrb
 				SeasonData[day / 28].mainColor, 50);
 		}
 
-		private WorldDate DayToWorldDate (int day)
+		private WorldDate dayToWorldDate (int day)
 		{
 			int initialYearStart = (initialDate.Year - 1) * 112;
 			int initialDay = initialDate.TotalDays - initialYearStart;
@@ -288,23 +288,23 @@ namespace ScryingOrb
 			return Utilities.TotalDaysToWorldDate (initialYearStart + day + offset);
 		}
 
-		private void SelectPrev ()
+		private void selectPrev ()
 		{
-			SelectDay ((selectedDay == 0) ? 111 : selectedDay - 1);
+			selectDay ((selectedDay == 0) ? 111 : selectedDay - 1);
 		}
 
-		private void SelectNext ()
+		private void selectNext ()
 		{
-			SelectDay ((selectedDay == 111) ? 0 : selectedDay + 1);
+			selectDay ((selectedDay == 111) ? 0 : selectedDay + 1);
 		}
 
-		private void Confirm ()
+		private void confirm ()
 		{
 			Game1.exitActiveMenu ();
 			onConfirm (date);
 		}
 
-		private void HitSeasonSprite (int seasonIndex)
+		private void hitSeasonSprite (int seasonIndex)
 		{
 			if (++seasonSpriteHits[seasonIndex] < 4)
 				return;
@@ -332,7 +332,7 @@ namespace ScryingOrb
 			hoverText = null;
 			int oldHoverButton = hoverButton;
 
-			int day = GetDayAtPoint (x, y);
+			int day = getDayAtPoint (x, y);
 			if (day > -1)
 			{
 				if (hoverButton != day)
@@ -363,7 +363,7 @@ namespace ScryingOrb
 			}
 		}
 
-		private int GetDayAtPoint (int x, int y)
+		private int getDayAtPoint (int x, int y)
 		{
 			x -= calendar.bounds.Center.X;
 			y -= calendar.bounds.Center.Y;

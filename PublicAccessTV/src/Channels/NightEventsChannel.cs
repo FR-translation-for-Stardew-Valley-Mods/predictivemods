@@ -18,24 +18,24 @@ namespace PublicAccessTV
 				(Path.Combine ("assets", "nightEvents_backgrounds.png"));
 		}
 
-		internal override bool IsAvailable =>
-			base.IsAvailable && NightEvents.IsAvailable &&
-			GetCurrentEvent () != NightEventType.None;
+		internal override bool isAvailable =>
+			base.isAvailable && NightEvents.IsAvailable &&
+			getCurrentEvent () != NightEventType.None;
 
-		internal override void Show (TV tv)
+		internal override void show (TV tv)
 		{
-			NightEventType currentEvent = GetCurrentEvent ();
+			NightEventType currentEvent = getCurrentEvent ();
 			if (currentEvent == NightEventType.None)
 			{
 				throw new Exception ("No night event found.");
 			}
 
-			TemporaryAnimatedSprite background = LoadBackground (tv, 0);
-			TemporaryAnimatedSprite portrait = LoadPortrait (tv, "Governor", 1, 0);
+			TemporaryAnimatedSprite background = loadBackground (tv, 0);
+			TemporaryAnimatedSprite portrait = loadPortrait (tv, "Governor", 1, 0);
 			bool newYear = currentEvent == NightEventType.NewYear;
 
 			// Opening scene: the governor greets the viewer.
-			QueueScene (new Scene
+			queueScene (new Scene
 				(Helper.Translation.Get ($"nightEvents.{currentEvent}.opening"),
 				background, portrait)
 				{ soundAsset = newYear
@@ -47,22 +47,22 @@ namespace PublicAccessTV
 			Point reactionIndex = new Point (0, newYear ? 0 : 1);
 			if (currentEvent == NightEventType.StrangeCapsule)
 			{
-				reactionBackground = LoadBackground (tv, 0, 1);
+				reactionBackground = loadBackground (tv, 0, 1);
 				reactionSound = "UFO";
 				reactionIndex = new Point (1, 1);
 			}
-			QueueScene (new Scene (Helper.Translation.Get ($"nightEvents.{currentEvent}.reaction"),
-				reactionBackground, LoadPortrait (tv, "Governor", reactionIndex))
+			queueScene (new Scene (Helper.Translation.Get ($"nightEvents.{currentEvent}.reaction"),
+				reactionBackground, loadPortrait (tv, "Governor", reactionIndex))
 				{ soundCueName = reactionSound });
 
 			// Closing scene: the governor signs off.
-			QueueScene (new Scene (Helper.Translation.Get ($"nightEvents.{currentEvent}.closing"),
+			queueScene (new Scene (Helper.Translation.Get ($"nightEvents.{currentEvent}.closing"),
 				background, portrait));
 
-			RunProgram (tv);
+			runProgram (tv);
 		}
 
-		private NightEventType GetCurrentEvent ()
+		private NightEventType getCurrentEvent ()
 		{
 			WorldDate tonight = Utilities.Now ();
 

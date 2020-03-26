@@ -19,15 +19,15 @@ namespace ScryingOrb
 		public SObject offering { get; internal set; }
 
 		// Whether the experience should be available to players at present.
-		public virtual bool IsAvailable => true;
+		public virtual bool isAvailable => true;
 
-		public static bool Try<T> (SObject orb)
+		public static bool Check<T> (SObject orb)
 			where T : Experience, new()
 		{
 			try
 			{
 				T experience = new T { orb = orb };
-				return experience.Try ();
+				return experience.check ();
 			}
 			catch (Exception e)
 			{
@@ -40,19 +40,19 @@ namespace ScryingOrb
 			where T : Experience, new()
 		{
 			T experience = new T { orb = orb };
-			experience.Run ();
+			experience.run ();
 		}
 
-		public void Run ()
+		public void run ()
 		{
 			try
 			{
-				DoRun ();
+				doRun ();
 			}
 			catch (Exception e)
 			{
 				Monitor.Log ($"{GetType ().Name} failed: {e.Message}", LogLevel.Error);
-				Extinguish ();
+				extinguish ();
 			}
 		}
 
@@ -62,9 +62,9 @@ namespace ScryingOrb
 				(Path.Combine ("assets", "illumination.png"));
 		}
 
-		protected virtual bool Try ()
+		protected virtual bool check ()
 		{
-			if (!IsAvailable)
+			if (!isAvailable)
 				return false;
 
 			if (!(Game1.player.CurrentItem is SObject o))
@@ -74,10 +74,10 @@ namespace ScryingOrb
 			return true;
 		}
 
-		protected virtual void DoRun ()
+		protected virtual void doRun ()
 		{}
 
-		protected void ConsumeOffering (int count = 1, SObject offering = null)
+		protected void consumeOffering (int count = 1, SObject offering = null)
 		{
 			if (offering == null)
 				offering = this.offering;
@@ -92,19 +92,19 @@ namespace ScryingOrb
 				throw new Exception ($"Offering stack of {offering.Stack} {offering.Name} insufficient for count of {count}.");
 		}
 
-		protected void ShowRejection (string messageKey)
+		protected void showRejection (string messageKey)
 		{
-			PlaySound ("fishEscape");
-			ShowMessage (messageKey, 250);
+			playSound ("fishEscape");
+			showMessage (messageKey, 250);
 		}
 
-		protected void ShowMessage (string messageKey, int delay = 0)
+		protected void showMessage (string messageKey, int delay = 0)
 		{
-			ShowDialogues (new List<string> { Helper.Translation.Get (messageKey) },
+			showDialogues (new List<string> { Helper.Translation.Get (messageKey) },
 				delay);
 		}
 
-		protected void ShowDialogues (List<string> dialogues, int delay = 0)
+		protected void showDialogues (List<string> dialogues, int delay = 0)
 		{
 			// Equivalent to DelayedAction.showDialogueAfterDelay combined with
 			// Game1.drawDialogueNoTyping, except that the player is locked
@@ -136,13 +136,13 @@ namespace ScryingOrb
 			}, delay);
 		}
 
-		protected void PlaySound (string soundName, int delay = 0)
+		protected void playSound (string soundName, int delay = 0)
 		{
 			DelayedAction.playSoundAfterDelay (soundName, delay,
 				Game1.currentLocation);
 		}
 
-		protected TemporaryAnimatedSprite ShowAnimation (string textureName,
+		protected TemporaryAnimatedSprite showAnimation (string textureName,
 			Rectangle sourceRect, float interval, int length, int loops,
 			int delay = 0)
 		{
@@ -160,7 +160,7 @@ namespace ScryingOrb
 			return sprite;
 		}
 
-		protected LightSource Illuminate (int r = 153, int g = 217, int b = 234)
+		protected LightSource illuminate (int r = 153, int g = 217, int b = 234)
 		{
 			if (orb == null)
 				return null;
@@ -169,7 +169,7 @@ namespace ScryingOrb
 			++ModEntry.OrbsIlluminated;
 
 			// Replace any existing light source.
-			Extinguish ();
+			extinguish ();
 
 			// Calculate the light source properties.
 			Vector2 position = new Vector2 ((orb.TileLocation.X * 64f) + 32f,
@@ -181,7 +181,7 @@ namespace ScryingOrb
 			// Switch the orb to its illuminated sprite, unless not lit blue.
 			if (b > r && b > g)
 			{
-				TemporaryAnimatedSprite sprite = ShowAnimation
+				TemporaryAnimatedSprite sprite = showAnimation
 					(Helper.Content.GetActualAssetKey
 						(Path.Combine ("assets", "illumination.png")),
 					new Rectangle (0, 0, 16, 16), 200f, 5, 9999);
@@ -194,7 +194,7 @@ namespace ScryingOrb
 			return orb.lightSource;
 		}
 
-		protected void Extinguish ()
+		protected void extinguish ()
 		{
 			if (orb == null || orb.lightSource == null)
 				return;

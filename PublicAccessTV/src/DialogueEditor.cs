@@ -26,7 +26,7 @@ namespace PublicAccessTV
 			var data = asset.AsDictionary<string, string> ().Data;
 
 			if (asset.AssetNameEquals ($"Characters\\Dialogue\\{GarbageChannel.DialogueCharacter}"))
-				ApplyDialogue ("garbage", data, GarbageChannel.Dialogue);
+				applyDialogue ("garbage", data, GarbageChannel.Dialogue);
 
 			/* TODO:
 			if (asset.AssetNameEquals ($"Characters\\Dialogue\\{ShoppingChannel.DialogueCharacter}"))
@@ -39,10 +39,10 @@ namespace PublicAccessTV
 			*/
 
 			if (asset.AssetNameEquals ($"Characters\\Dialogue\\{TrainsChannel.DialogueCharacter}"))
-				ApplyDialogue ("trains", data, TrainsChannel.Dialogue);
+				applyDialogue ("trains", data, TrainsChannel.Dialogue);
 		}
 
-		private void ApplyDialogue (string module, IDictionary<string, string> to,
+		private void applyDialogue (string module, IDictionary<string, string> to,
 			IDictionary<string, string> from)
 		{
 			foreach (string key in from.Keys.ToList ())

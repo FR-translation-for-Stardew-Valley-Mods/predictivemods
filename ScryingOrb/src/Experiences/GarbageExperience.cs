@@ -11,13 +11,13 @@ namespace ScryingOrb
 {
 	public class GarbageExperience : Experience
 	{
-		public override bool IsAvailable =>
-			base.IsAvailable && Garbage.IsAvailable;
+		public override bool isAvailable =>
+			base.isAvailable && Garbage.IsAvailable;
 
-		protected override bool Try ()
+		protected override bool check ()
 		{
 			// Require an appropriate offering.
-			if (!base.Try () ||
+			if (!base.check () ||
 					offering.Category != StardewValley.Object.junkCategory)
 				return false;
 			
@@ -38,24 +38,24 @@ namespace ScryingOrb
 			}
 			if (stack < 3)
 			{
-				ShowRejection ("rejection.insufficient");
+				showRejection ("rejection.insufficient");
 				return true;
 			}
 			while (stack > 0 && offerings.Count > 0)
 			{
 				SObject offering = offerings.Dequeue ();
 				int count = Math.Min (stack, offering.Stack);
-				ConsumeOffering (count, offering);
+				consumeOffering (count, offering);
 				stack -= count;
 			}
 
 			// React to the offering, then proceed to run.
-			Illuminate ();
-			PlaySound ("trashcan");
-			ShowAnimation ("TileSheets\\animations",
+			illuminate ();
+			playSound ("trashcan");
+			showAnimation ("TileSheets\\animations",
 				new Rectangle (256, 1856, 64, 128), 150f, 6, 1);
-			ShowMessage ("garbage.opening", 500);
-			Game1.afterDialogues = Run;
+			showMessage ("garbage.opening", 500);
+			Game1.afterDialogues = run;
 
 			return true;
 		}
@@ -63,7 +63,7 @@ namespace ScryingOrb
 		private static readonly string[] Modes =
 			new string[] { "today", "later", "hat", "leave" };
 
-		protected override void DoRun ()
+		protected override void doRun ()
 		{
 			// Show the menu of modes.
 			List<Response> modes = Modes.Select ((mode) => new Response (mode,
@@ -79,12 +79,12 @@ namespace ScryingOrb
 				switch (mode)
 				{
 				case "today":
-					ShowPredictions (today, Garbage.ListLootForDate (today), mode);
+					showPredictions (today, Garbage.ListLootForDate (today), mode);
 					break;
 				case "later":
 					Game1.activeClickableMenu = new DatePicker (today,
 						Helper.Translation.Get ("garbage.date.question"), (date) =>
-							ShowPredictions (date, Garbage.ListLootForDate (date), mode));
+							showPredictions (date, Garbage.ListLootForDate (date), mode));
 					break;
 				case "hat":
 					GarbagePrediction? hat = Garbage.FindGarbageHat (today);
@@ -92,18 +92,18 @@ namespace ScryingOrb
 						new List<GarbagePrediction> ();
 					if (hat.HasValue)
 						predictions.Add (hat.Value);
-					ShowPredictions (hat.HasValue ? hat.Value.date : today,
+					showPredictions (hat.HasValue ? hat.Value.date : today,
 						predictions, mode);
 					break;
 				case "leave":
 				default:
-					Extinguish ();
+					extinguish ();
 					break;
 				}
 			};
 		}
 
-		private void ShowPredictions (WorldDate date,
+		private void showPredictions (WorldDate date,
 			List<GarbagePrediction> predictions, string mode)
 		{
 			bool today = date == Utilities.Now ();
@@ -157,8 +157,8 @@ namespace ScryingOrb
 			}
 
 			// Show the predictions.
-			ShowDialogues (pages);
-			Game1.afterDialogues = Extinguish;
+			showDialogues (pages);
+			Game1.afterDialogues = extinguish;
 		}
 	}
 }

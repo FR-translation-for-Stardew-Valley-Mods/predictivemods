@@ -17,16 +17,16 @@ namespace PublicAccessTV
 				(Path.Combine ("assets", "movies_craneGame.png"));
 		}
 
-		internal override bool IsAvailable =>
-			base.IsAvailable && Movies.IsAvailable;
+		internal override bool isAvailable =>
+			base.isAvailable && Movies.IsAvailable;
 
-		internal override void Show (TV tv)
+		internal override void show (TV tv)
 		{
 			MoviePrediction prediction = Movies.PredictForDate (Utilities.Now ());
 
-			TemporaryAnimatedSprite screenBackground = LoadSprite (tv,
+			TemporaryAnimatedSprite screenBackground = loadSprite (tv,
 				"MovieTheaterScreen_TileSheet", new Rectangle (31, 0, 162, 108));
-			TemporaryAnimatedSprite hostOverlay = LoadSprite (tv,
+			TemporaryAnimatedSprite hostOverlay = loadSprite (tv,
 				"MovieTheater_TileSheet", new Rectangle (240, 160, 16, 26),
 				positionOffset: new Vector2 (18f, 2f), overlay: true);
 
@@ -37,16 +37,16 @@ namespace PublicAccessTV
 					: Helper.ModRegistry.IsLoaded ("FlashShifter.StardewValleyExpandedCP")
 						? "Claire"
 						: Helper.Translation.Get ("movies.host.generic");
-			QueueScene (new Scene (Helper.Translation.Get ("movies.opening",
+			queueScene (new Scene (Helper.Translation.Get ("movies.opening",
 				new { host = hostName }), screenBackground, hostOverlay)
 				{ soundCueName = "Cowboy_Secret" });
 
 			// Current movie poster, title and description
-			QueueScene (new Scene (Helper.Translation.Get ("movies.current", new
+			queueScene (new Scene (Helper.Translation.Get ("movies.current", new
 				{
 					title = prediction.currentMovie.Title,
 					description = prediction.currentMovie.Description,
-				}), LoadMoviePoster (tv, prediction.currentMovie))
+				}), loadMoviePoster (tv, prediction.currentMovie))
 				{ musicTrack = prediction.currentMovie.Scenes[0].Music });
 
 			// Lobby advertisement. If the crane game is available, it is
@@ -55,41 +55,41 @@ namespace PublicAccessTV
 			{
 				string assetName = Helper.Content.GetActualAssetKey
 					(Path.Combine ("assets", "movies_craneGame.png"));
-				TemporaryAnimatedSprite craneGame = LoadSprite (tv, assetName,
+				TemporaryAnimatedSprite craneGame = loadSprite (tv, assetName,
 					new Rectangle (0, 0, 94, 63));
-				TemporaryAnimatedSprite craneFlash = LoadSprite (tv, assetName,
+				TemporaryAnimatedSprite craneFlash = loadSprite (tv, assetName,
 					new Rectangle (94, 0, 94, 63), 250f, 2, new Vector2 (),
 					true, true);
-				QueueScene (new Scene (Helper.Translation.Get ("movies.lobby.craneGame"),
+				queueScene (new Scene (Helper.Translation.Get ("movies.lobby.craneGame"),
 					craneGame, craneFlash) { musicTrack = "crane_game" });
 			}
 			else
 			{
-				QueueScene (new Scene (Helper.Translation.Get ("movies.lobby.concession"),
-					LoadSprite (tv, "MovieTheater_TileSheet", new Rectangle (2, 3, 84, 56)))
+				queueScene (new Scene (Helper.Translation.Get ("movies.lobby.concession"),
+					loadSprite (tv, "MovieTheater_TileSheet", new Rectangle (2, 3, 84, 56)))
 					{ soundAsset = "movies_concession" });
 			}
 
 			// Upcoming movie poster, title and description.
-			QueueScene (new Scene (Helper.Translation.Get ("movies.next", new
+			queueScene (new Scene (Helper.Translation.Get ("movies.next", new
 				{
 					season = Utility.getSeasonNameFromNumber
 						(prediction.firstDateOfNextMovie.SeasonIndex),
 					title = prediction.nextMovie.Title,
 					description = prediction.nextMovie.Description,
-				}), LoadMoviePoster (tv, prediction.nextMovie))
+				}), loadMoviePoster (tv, prediction.nextMovie))
 				{ musicTrack = prediction.nextMovie.Scenes[0].Music });
 
 			// Closing scene: the concessionaire signs off.
-			QueueScene (new Scene (Helper.Translation.Get ("movies.closing"),
+			queueScene (new Scene (Helper.Translation.Get ("movies.closing"),
 				screenBackground, hostOverlay));
 
-			RunProgram (tv);
+			runProgram (tv);
 		}
 
-		private TemporaryAnimatedSprite LoadMoviePoster (TV tv, MovieData movie)
+		private TemporaryAnimatedSprite loadMoviePoster (TV tv, MovieData movie)
 		{
-			return LoadSprite (tv, "LooseSprites\\Movies",
+			return loadSprite (tv, "LooseSprites\\Movies",
 				new Rectangle (15, 128 * movie.SheetIndex, 92, 61));
 		}
 	}

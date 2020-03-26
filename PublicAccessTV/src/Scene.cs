@@ -39,7 +39,7 @@ namespace PublicAccessTV
 			this.overlay = overlay;
 		}
 
-		public void Run (TV tv, Channel channel)
+		public void run (TV tv, Channel channel)
 		{
 			currentTV = tv;
 			currentChannel = channel;
@@ -74,10 +74,10 @@ namespace PublicAccessTV
 				.SetValue (overlay);
 			Game1.drawObjectDialogue (Game1.parseText (message));
 
-			Game1.afterDialogues = End;
+			Game1.afterDialogues = end;
 		}
 
-		private void End ()
+		private void end ()
 		{
 			// For some reason, certain Windows users do not have the method
 			// StardewValley.ICue.Stop defined. As such, do not attempt to
@@ -89,7 +89,7 @@ namespace PublicAccessTV
 			if (afterAction != null)
 				afterAction.Invoke ();
 			
-			currentChannel.RunProgram (currentTV);
+			currentChannel.runProgram (currentTV);
 		}
 	}
 }

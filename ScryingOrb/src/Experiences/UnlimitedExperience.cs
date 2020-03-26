@@ -30,26 +30,26 @@ namespace ScryingOrb
 			"Treasure Chest"
 		};
 
-		protected override bool Try ()
+		protected override bool check ()
 		{
 			// If currently in an unlimited period, ignore the offering, react
 			// to the ongoing period, then proceed to run.
 			int totalDays = Utilities.Now ().TotalDays;
 			if (totalDays <= persistent.ExpirationDay)
 			{
-				Illuminate ();
-				PlaySound ("yoba");
-				ShowMessage ((totalDays == persistent.ExpirationDay)
+				illuminate ();
+				playSound ("yoba");
+				showMessage ((totalDays == persistent.ExpirationDay)
 					? "unlimited.lastDay" : "unlimited.following", 250);
-				Game1.afterDialogues = Run;
+				Game1.afterDialogues = run;
 				return true;
 			}
 
 			// Consume an appropriate offering.
-			if (!base.Try () ||
+			if (!base.check () ||
 					!AcceptedOfferings.Contains (offering.Name))
 				return false;
-			ConsumeOffering ();
+			consumeOffering ();
 
 			// Start an unlimited period and increase luck for the day.
 			persistent.ExpirationDay = Utilities.Now ().TotalDays +
@@ -58,21 +58,21 @@ namespace ScryingOrb
 			Game1.player.team.sharedDailyLuck.Value = 0.12;
 
 			// React to the offering dramatically, then proceed to run.
-			Illuminate ();
-			PlaySound ("reward");
-			ShowAnimation ("TileSheets\\animations",
+			illuminate ();
+			playSound ("reward");
+			showAnimation ("TileSheets\\animations",
 				new Rectangle (0, 192, 64, 64), 125f, 8, 1);
 			string role = Context.IsMainPlayer ? "main" : "farmhand";
-			ShowMessage ($"unlimited.initial.{role}", 1000);
-			Game1.afterDialogues = Run;
+			showMessage ($"unlimited.initial.{role}", 1000);
+			Game1.afterDialogues = run;
 
 			return true;
 		}
 
-		protected override void DoRun ()
+		protected override void doRun ()
 		{
 			// In case we were called directly by ModEntry.
-			Illuminate ();
+			illuminate ();
 
 			// Show the menu of experiences.
 			Dictionary<string, Experience> experiences =
@@ -87,7 +87,7 @@ namespace ScryingOrb
 				{ "leave", null }
 			};
 			List<Response> choices = experiences
-				.Where ((e) => e.Value == null || e.Value.IsAvailable)
+				.Where ((e) => e.Value == null || e.Value.isAvailable)
 				.Select ((e) => new Response (e.Key,
 					Helper.Translation.Get ($"unlimited.experience.{e.Key}")))
 				.ToList ();
@@ -104,16 +104,16 @@ namespace ScryingOrb
 				Experience experience = experiences[response];
 				if (experience != null)
 				{
-					experience.Run ();
+					experience.run ();
 				}
 				else
 				{
-					Extinguish ();
+					extinguish ();
 				}
 			}, 1);
 		}
 
-		internal static void Reset ()
+		internal static void reset ()
 		{
 			persistent = new Persistent ();
 			SaveData ("Unlimited", persistent);

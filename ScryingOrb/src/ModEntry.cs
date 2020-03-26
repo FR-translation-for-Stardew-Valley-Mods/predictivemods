@@ -35,7 +35,7 @@ namespace ScryingOrb
 
 				// Let the cursor editor know to do its thing.
 				if (oldValue != value)
-					cursorEditor.Apply ();
+					cursorEditor.apply ();
 			}
 		}
 
@@ -50,7 +50,7 @@ namespace ScryingOrb
 
 				// Let the cursor editor know to do its thing.
 				if ((oldValue == 0 && value > 0) || (oldValue > 0 && value == 0))
-					cursorEditor.Apply ();
+					cursorEditor.apply ();
 			}
 		}
 
@@ -74,28 +74,28 @@ namespace ScryingOrb
 			// Add console commands.
 			Helper.ConsoleCommands.Add ("reset_scrying_orbs",
 				"Resets the state of Scrying Orbs to default values.",
-				(_command, _args) => ResetScryingOrbs ());
+				(_command, _args) => resetScryingOrbs ());
 			Helper.ConsoleCommands.Add ("test_scrying_orb",
 				"Puts a Scrying Orb and all types of offering into inventory.",
-				(_command, _args) => TestScryingOrb ());
+				(_command, _args) => testScryingOrb ());
 			Helper.ConsoleCommands.Add ("test_date_picker",
 				"Runs a DatePicker dialog for testing use.",
-				(_command, _args) => TestDatePicker ());
+				(_command, _args) => testDatePicker ());
 
 			// Listen for game events.
 			helper.Events.GameLoop.DayStarted +=
-				(_sender, _e) => CheckRecipe ();
-			Helper.Events.Input.CursorMoved += OnCursorMoved;
-			Helper.Events.Input.ButtonPressed += OnButtonPressed;
+				(_sender, _e) => checkRecipe ();
+			Helper.Events.Input.CursorMoved += onCursorMoved;
+			Helper.Events.Input.ButtonPressed += onButtonPressed;
 			helper.Events.Display.RenderedHud +=
-				(_sender, _e) => cursorEditor.Apply ();
+				(_sender, _e) => cursorEditor.apply ();
 			helper.Events.Display.RenderingActiveMenu +=
-				(_sender, _e) => cursorEditor.BeforeRenderMenu ();
+				(_sender, _e) => cursorEditor.beforeRenderMenu ();
 			helper.Events.Display.RenderedActiveMenu +=
-				(_sender, e) => cursorEditor.AfterRenderMenu (e.SpriteBatch);
+				(_sender, e) => cursorEditor.afterRenderMenu (e.SpriteBatch);
 		}
 
-		private void CheckRecipe ()
+		private void checkRecipe ()
 		{
 			// If the recipe is already given, nothing else to do.
 			if (Game1.player.craftingRecipes.ContainsKey ("Scrying Orb"))
@@ -114,7 +114,7 @@ namespace ScryingOrb
 				Game1.player.mailbox.Add ("kdau.ScryingOrb.welwickInstructions");
 		}
 
-		private void OnCursorMoved (object sender, CursorMovedEventArgs args)
+		private void onCursorMoved (object sender, CursorMovedEventArgs args)
 		{
 			// Only hovering if the world is ready and the player is free to
 			// interact with an orb.
@@ -130,7 +130,7 @@ namespace ScryingOrb
 			OrbHovered = obj != null && obj.Name == "Scrying Orb";
 		}
 
-		private void OnButtonPressed (object sender, ButtonPressedEventArgs args)
+		private void onButtonPressed (object sender, ButtonPressedEventArgs args)
 		{
 			// Only respond to the action button, and only if the world is ready
 			// and the player is free to interact with an orb.
@@ -158,28 +158,28 @@ namespace ScryingOrb
 				return;
 			}
 
-			if (Experience.Try<UnlimitedExperience> (orb) ||
-				Experience.Try<NothingExperience> (orb) ||
-				Experience.Try<LuckyPurpleExperience> (orb) ||
-				Experience.Try<MetaExperience> (orb) ||
-				Experience.Try<MiningExperience> (orb) ||
-				Experience.Try<GeodesExperience> (orb) ||
-				Experience.Try<NightEventsExperience> (orb) ||
+			if (Experience.Check<UnlimitedExperience> (orb) ||
+				Experience.Check<NothingExperience> (orb) ||
+				Experience.Check<LuckyPurpleExperience> (orb) ||
+				Experience.Check<MetaExperience> (orb) ||
+				Experience.Check<MiningExperience> (orb) ||
+				Experience.Check<GeodesExperience> (orb) ||
+				Experience.Check<NightEventsExperience> (orb) ||
 				// TODO: Experience.Try<ShoppingExperience> (orb) ||
-				Experience.Try<GarbageExperience> (orb) ||
+				Experience.Check<GarbageExperience> (orb) ||
 				// TODO: Experience.Try<ItemFinderExperience> (orb) ||
-				Experience.Try<FallbackExperience> (orb))
+				Experience.Check<FallbackExperience> (orb))
 			{} // (if-block used to allow boolean fallback)
 		}
 
-		private void ResetScryingOrbs ()
+		private void resetScryingOrbs ()
 		{
 			try
 			{
 				Utilities.CheckWorldReady ();
-				UnlimitedExperience.Reset ();
-				LuckyPurpleExperience.Reset ();
-				MetaExperience.Reset ();
+				UnlimitedExperience.reset ();
+				LuckyPurpleExperience.reset ();
+				MetaExperience.reset ();
 				Monitor.Log ("Scrying Orb state reset to defaults.",
 					LogLevel.Info);
 			}
@@ -189,7 +189,7 @@ namespace ScryingOrb
 			}
 		}
 
-		private void TestScryingOrb ()
+		private void testScryingOrb ()
 		{
 			try
 			{
@@ -221,7 +221,7 @@ namespace ScryingOrb
 			}
 		}
 
-		private void TestDatePicker ()
+		private void testDatePicker ()
 		{
 			try
 			{

@@ -31,30 +31,30 @@ namespace ScryingOrb
 			{ "leave", NightEventType.None }
 		};
 
-		protected override bool Try ()
+		protected override bool check ()
 		{
 			// Consume an appropriate offering.
-			if (!base.Try () || !AcceptedOfferings.ContainsKey (offering.Name))
+			if (!base.check () || !AcceptedOfferings.ContainsKey (offering.Name))
 				return false;
 			if (offering.Stack < AcceptedOfferings[offering.Name])
 			{
-				ShowRejection ("rejection.insufficient");
+				showRejection ("rejection.insufficient");
 				return true;
 			}
-			ConsumeOffering (AcceptedOfferings[offering.Name]);
+			consumeOffering (AcceptedOfferings[offering.Name]);
 
 			// React to the offering, then proceed to run.
-			Illuminate ();
-			PlaySound ("shadowpeep");
-			ShowAnimation ("TileSheets\\animations",
+			illuminate ();
+			playSound ("shadowpeep");
+			showAnimation ("TileSheets\\animations",
 				new Rectangle (0, 2880, 64, 64), 125f, 10, 1);
-			ShowMessage ("nightEvents.opening", 500);
-			Game1.afterDialogues = Run;
+			showMessage ("nightEvents.opening", 500);
+			Game1.afterDialogues = run;
 
 			return true;
 		}
 
-		protected override void DoRun ()
+		protected override void doRun ()
 		{
 			// Show the menu of types.
 			List<Response> types = Types.Select ((t) => new Response (t.Key,
@@ -69,7 +69,7 @@ namespace ScryingOrb
 				// If "leave", we're done.
 				if (type == "leave")
 				{
-					Extinguish ();
+					extinguish ();
 					return;
 				}
 
@@ -88,12 +88,12 @@ namespace ScryingOrb
 					{
 						date = p.date.Localize (),
 					}).ToString ()).ToList ();
-				ShowDialogues (new List<string>
+				showDialogues (new List<string>
 				{
 					string.Join ("^", predictionStrings),
 					Helper.Translation.Get ("nightEvents.closing")
 				});
-				Game1.afterDialogues = Extinguish;
+				Game1.afterDialogues = extinguish;
 			};
 		}
 	}

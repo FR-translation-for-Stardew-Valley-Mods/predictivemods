@@ -62,18 +62,18 @@ namespace PublicAccessTV
 				(Path.Combine ("assets", "garbage_backgrounds.png"));
 		}
 
-		internal override bool IsAvailable =>
-			base.IsAvailable && Garbage.IsAvailable &&
+		internal override bool isAvailable =>
+			base.isAvailable && Garbage.IsAvailable &&
 			(ModEntry.Config.BypassFriendships ||
 				Game1.player.mailReceived.Contains ("kdau.PublicAccessTV.garbage"));
 
-		internal override void Update ()
+		internal override void update ()
 		{
 			garbageChecked = GetCurrentCansChecked ();
-			base.Update ();
+			base.update ();
 		}
 
-		internal override void Reset ()
+		internal override void reset ()
 		{
 			Game1.player.mailReceived.Remove ("kdau.PublicAccessTV.garbage");
 			Game1.player.mailForTomorrow.Remove ("kdau.PublicAccessTV.garbage%&NL&%");
@@ -180,17 +180,17 @@ namespace PublicAccessTV
 			{ GarbageCan.SVE_ManorHouse, 3 },
 		};
 
-		internal override void Show (TV tv)
+		internal override void show (TV tv)
 		{
 			WorldDate today = Utilities.Now ();
 			List<GarbagePrediction> predictions = Garbage.ListLootForDate (today);
 
 			int seasonIndex = today.SeasonIndex;
-			TemporaryAnimatedSprite background = LoadBackground (tv, 0, seasonIndex);
-			TemporaryAnimatedSprite portrait = LoadPortrait (tv, "Linus");
+			TemporaryAnimatedSprite background = loadBackground (tv, 0, seasonIndex);
+			TemporaryAnimatedSprite portrait = loadPortrait (tv, "Linus");
 
 			// Opening scene: Linus greets the viewer.
-			QueueScene (new Scene (Helper.Translation.Get ("garbage.opening", new
+			queueScene (new Scene (Helper.Translation.Get ("garbage.opening", new
 				{
 					playerName = Game1.player.Name,
 				}), background, portrait) { musicTrack = "echos" });
@@ -198,8 +198,8 @@ namespace PublicAccessTV
 			// Linus sadly notes that the cans are empty today.
 			if (predictions.Count < 1)
 			{
-				QueueScene (new Scene (Helper.Translation.Get ("garbage.none"),
-					background, LoadPortrait (tv, "Linus", 0, 1))
+				queueScene (new Scene (Helper.Translation.Get ("garbage.none"),
+					background, loadPortrait (tv, "Linus", 0, 1))
 					{ musicTrack = "echos" });
 			}
 
@@ -213,17 +213,17 @@ namespace PublicAccessTV
 				if (prediction.loot is Hat)
 				{
 					type = "garbageHat";
-					reactionPortrait = LoadPortrait (tv, "Linus", 1, 1);
+					reactionPortrait = loadPortrait (tv, "Linus", 1, 1);
 				}
 				else if (prediction.loot.ParentSheetIndex == 217) // placeholder
 				{
 					type = "dishOfTheDay";
-					reactionPortrait = LoadPortrait (tv, "Linus", 1, 0);
+					reactionPortrait = loadPortrait (tv, "Linus", 1, 0);
 				}
 				else if (prediction.special)
 				{
 					type = "special";
-					reactionPortrait = LoadPortrait (tv, "Linus", 1, 0);
+					reactionPortrait = loadPortrait (tv, "Linus", 1, 0);
 				}
 				else
 				{
@@ -231,24 +231,24 @@ namespace PublicAccessTV
 					reactionPortrait = portrait;
 				}
 
-				QueueScene (new Scene
+				queueScene (new Scene
 					(Helper.Translation.Get ($"garbage.can.{can}") + "^...^" +
 						Helper.Translation.Get ($"garbage.item.{type}", new
 						{
 							itemName = prediction.loot.DisplayName,
 						}),
-					LoadBackground (tv, CanScenes[prediction.can], seasonIndex),
+					loadBackground (tv, CanScenes[prediction.can], seasonIndex),
 					reactionPortrait)
 					{ musicTrack = "echos" });
 			}
 
 			// Closing scene: Linus signs off.
 			bool progress = Garbage.IsProgressDependent;
-			QueueScene (new Scene
+			queueScene (new Scene
 				(Helper.Translation.Get ($"garbage.closing.{(progress? "progress" : "standard")}"),
 				background, portrait) { musicTrack = "echos" });
 
-			RunProgram (tv);
+			runProgram (tv);
 		}
 	}
 }

@@ -18,17 +18,17 @@ namespace ScryingOrb
 				persistent = LoadData<Persistent> ("Meta");
 		}
 
-		protected override bool Try ()
+		protected override bool check ()
 		{
 			// Only accept a Scrying Orb. Don't consume it.
-			if (!base.Try () || offering.Name != "Scrying Orb")
+			if (!base.check () || offering.Name != "Scrying Orb")
 				return false;
 
 			// If the player has tried this before, react nonchalantly.
 			if (persistent.AlreadyTried)
 			{
-				PlaySound ("clank");
-				ShowMessage ("meta.following", 500);
+				playSound ("clank");
+				showMessage ("meta.following", 500);
 			}
 			// Otherwise show the initial joke.
 			else
@@ -36,14 +36,14 @@ namespace ScryingOrb
 				persistent.AlreadyTried = true;
 				SaveData ("Meta", persistent);
 
-				PlaySound ("clank");
-				ShowMessage ("meta.initial", 500);
+				playSound ("clank");
+				showMessage ("meta.initial", 500);
 			}
 
 			return true;
 		}
 
-		internal static void Reset ()
+		internal static void reset ()
 		{
 			persistent = new Persistent ();
 			SaveData ("Meta", persistent);

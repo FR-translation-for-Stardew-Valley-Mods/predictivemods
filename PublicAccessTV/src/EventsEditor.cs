@@ -26,7 +26,7 @@ namespace PublicAccessTV
 			var data = asset.AsDictionary<string, string> ().Data;
 
 			if (asset.AssetNameEquals ($"Data\\Events\\{GarbageChannel.EventMap}"))
-				ApplyEvents ("garbage", data, GarbageChannel.Events);
+				applyEvents ("garbage", data, GarbageChannel.Events);
 
 			/* TODO:
 			if (asset.AssetNameEquals ($"Data\\Events\\{ShoppingChannel.EventMap}"))
@@ -39,10 +39,10 @@ namespace PublicAccessTV
 			*/
 
 			if (asset.AssetNameEquals ($"Data\\Events\\{TrainsChannel.EventMap}"))
-				ApplyEvents ("trains", data, TrainsChannel.Events);
+				applyEvents ("trains", data, TrainsChannel.Events);
 		}
 
-		private void ApplyEvents (string module, IDictionary<string, string> to,
+		private void applyEvents (string module, IDictionary<string, string> to,
 			IDictionary<string, string> from)
 		{
 			foreach (string key in from.Keys.ToList ())

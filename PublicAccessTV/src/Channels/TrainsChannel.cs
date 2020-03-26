@@ -35,19 +35,19 @@ namespace PublicAccessTV
 				(Path.Combine ("assets", "trains_backgrounds.png"));
 		}
 
-		internal override bool IsAvailable =>
-			base.IsAvailable && Trains.IsAvailable &&
+		internal override bool isAvailable =>
+			base.isAvailable && Trains.IsAvailable &&
 			(ModEntry.Config.BypassFriendships ||
 				Game1.player.mailReceived.Contains ("kdau.PublicAccessTV.trains"));
 
-		internal override void Reset ()
+		internal override void reset ()
 		{
 			Game1.player.mailReceived.Remove ("kdau.PublicAccessTV.trains");
 			Game1.player.mailForTomorrow.Remove ("kdau.PublicAccessTV.trains%&NL&%");
 			Game1.player.eventsSeen.Remove (79400101);
 		}
 
-		internal override void Show (TV tv)
+		internal override void show (TV tv)
 		{
 			List<TrainPrediction> predictions =
 				Trains.ListNextTrainsForDate (Utilities.Now (), 3);
@@ -56,15 +56,15 @@ namespace PublicAccessTV
 				throw new Exception ("No trains found.");
 			}
 
-			TemporaryAnimatedSprite background = LoadBackground (tv, 0,
+			TemporaryAnimatedSprite background = loadBackground (tv, 0,
 				(Game1.isRaining || Game1.isDarkOut ()) ? 1 : 0);
-			TemporaryAnimatedSprite portrait = LoadPortrait (tv, "Demetrius");
+			TemporaryAnimatedSprite portrait = loadPortrait (tv, "Demetrius");
 
 			bool sve = Helper.ModRegistry.IsLoaded ("FlashShifter.SVEMusic");
 			string musicTrack = sve ? "distantBanjo" : "archaeo";
 
 			// Opening scene: Demetrius greets the viewer.
-			QueueScene (new Scene (Helper.Translation.Get ("trains.opening"),
+			queueScene (new Scene (Helper.Translation.Get ("trains.opening"),
 				background, portrait) { musicTrack = musicTrack });
 
 			// Next scheduled train. Demetrius's reaction depends on whether the
@@ -76,21 +76,21 @@ namespace PublicAccessTV
 			if (predictions[0].date == now)
 			{
 				nextMessage = "today";
-				nextPortrait = LoadPortrait (tv, "Demetrius", 0, 3);
+				nextPortrait = loadPortrait (tv, "Demetrius", 0, 3);
 				nextSound = "trainWhistle";
 			}
 			else if (predictions[0].date.TotalDays < now.TotalDays + 7)
 			{
 				nextMessage = "thisWeek";
-				nextPortrait = LoadPortrait (tv, "Demetrius", 1, 0);
+				nextPortrait = loadPortrait (tv, "Demetrius", 1, 0);
 				nextSound = "distantTrain";
 			}
 			else
 			{
 				nextMessage = "later";
-				nextPortrait = LoadPortrait (tv, "Demetrius", 0, 1);
+				nextPortrait = loadPortrait (tv, "Demetrius", 0, 1);
 			}
-			QueueScene (new Scene (Helper.Translation.Get ($"trains.next.{nextMessage}", new
+			queueScene (new Scene (Helper.Translation.Get ($"trains.next.{nextMessage}", new
 				{
 					date = predictions[0].date.Localize (),
 					dayOfWeek = Utilities.GetLocalizedDayOfWeek (predictions[0].date),
@@ -102,19 +102,19 @@ namespace PublicAccessTV
 			// Second and third scheduled trains.
 			if (predictions.Count >= 3)
 			{
-				QueueScene (new Scene (Helper.Translation.Get ("trains.later", new
+				queueScene (new Scene (Helper.Translation.Get ("trains.later", new
 				{
 					date1 = predictions[1].date.Localize (),
 					date2 = predictions[2].date.Localize (),
-				}), background, LoadPortrait (tv, "Demetrius", 1, 1))
+				}), background, loadPortrait (tv, "Demetrius", 1, 1))
 				{ musicTrack = musicTrack });
 			}
 
 			// Closing scene: Demetrius signs off.
-			QueueScene (new Scene (Helper.Translation.Get ("trains.closing"),
+			queueScene (new Scene (Helper.Translation.Get ("trains.closing"),
 				background, portrait) { musicTrack = musicTrack });
 
-			RunProgram (tv);
+			runProgram (tv);
 		}
 	}
 }

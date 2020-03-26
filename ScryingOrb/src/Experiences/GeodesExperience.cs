@@ -27,30 +27,30 @@ namespace ScryingOrb
 			{ "leave", null }
 		};
 
-		public override bool IsAvailable =>
-			base.IsAvailable && Geodes.IsAvailable;
+		public override bool isAvailable =>
+			base.isAvailable && Geodes.IsAvailable;
 
-		protected override bool Try ()
+		protected override bool check ()
 		{
 			// Consume an appropriate offering.
-			if (!base.Try () ||
+			if (!base.check () ||
 					offering.Category != StardewValley.Object.mineralsCategory ||
 					RejectedOfferings.Contains (offering.Name))
 				return false;
-			ConsumeOffering ();
+			consumeOffering ();
 
 			// React to the offering, then proceed to run.
-			Illuminate ();
-			PlaySound ("discoverMineral");
-			ShowAnimation ("TileSheets\\animations",
+			illuminate ();
+			playSound ("discoverMineral");
+			showAnimation ("TileSheets\\animations",
 				new Rectangle (0, 512, 64, 64), 125f, 8, 1);
-			ShowMessage ("geodes.opening", 500);
-			Game1.afterDialogues = Run;
+			showMessage ("geodes.opening", 500);
+			Game1.afterDialogues = run;
 
 			return true;
 		}
 
-		protected override void DoRun ()
+		protected override void doRun ()
 		{
 			// Show the menu of types.
 			List<Response> types = Types.Select ((t) => new Response (t.Key,
@@ -65,7 +65,7 @@ namespace ScryingOrb
 				// If "leave", we're done.
 				if (type == "leave")
 				{
-					Extinguish ();
+					extinguish ();
 					return;
 				}
 
@@ -131,8 +131,8 @@ namespace ScryingOrb
 				}
 
 				// Show the predictions.
-				ShowDialogues (pages);
-				Game1.afterDialogues = Extinguish;
+				showDialogues (pages);
+				Game1.afterDialogues = extinguish;
 			};
 		}
 	}

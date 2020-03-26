@@ -17,10 +17,10 @@ namespace ScryingOrb
 				persistent = LoadData<Persistent> ("LuckyPurple");
 		}
 
-		protected override bool Try ()
+		protected override bool check ()
 		{
 			// Only accept the Lucky Purple Shorts. Don't consume them.
-			if (!base.Try () || offering.Name != "Lucky Purple Shorts")
+			if (!base.check () || offering.Name != "Lucky Purple Shorts")
 				return false;
 
 			// If the player hasn't tried this before, show the initial warning.
@@ -29,19 +29,19 @@ namespace ScryingOrb
 				persistent.AlreadyTried = true;
 				SaveData ("LuckyPurple", persistent);
 
-				PlaySound ("grunt");
-				ShowMessage ("luckyPurple.initial", 500);
+				playSound ("grunt");
+				showMessage ("luckyPurple.initial", 500);
 			}
 			// The next time, react dramatically and sour their luck for the day.
 			else if (Game1.player.team.sharedDailyLuck.Value > -0.12)
 			{
-				Illuminate (255, 0, 0);
-				PlaySound ("death");
-				ShowAnimation ("TileSheets\\animations",
+				illuminate (255, 0, 0);
+				playSound ("death");
+				showAnimation ("TileSheets\\animations",
 					new Rectangle (0, 1920, 64, 64), 250f, 4, 2);
-				ShowMessage ("luckyPurple.following", 1000);
+				showMessage ("luckyPurple.following", 1000);
 				Game1.player.team.sharedDailyLuck.Value = -0.12;
-				Game1.afterDialogues = Extinguish;
+				Game1.afterDialogues = extinguish;
 			}
 			// But only once a day.
 			else
@@ -52,7 +52,7 @@ namespace ScryingOrb
 			return true;
 		}
 
-		internal static void Reset ()
+		internal static void reset ()
 		{
 			persistent = new Persistent ();
 			SaveData ("LuckyPurple", persistent);

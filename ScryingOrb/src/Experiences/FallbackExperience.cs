@@ -4,9 +4,9 @@ namespace ScryingOrb
 {
 	public class FallbackExperience : Experience
 	{
-		protected override bool Try ()
+		protected override bool check ()
 		{
-			ShowRejection ("rejection.unrecognized");
+			showRejection ("rejection.unrecognized");
 			return true;
 		}
 	}

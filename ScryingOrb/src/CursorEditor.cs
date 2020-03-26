@@ -31,30 +31,30 @@ namespace ScryingOrb
 			editor.PatchImage (cursor, targetArea: new Rectangle (112, 0, 16, 16));
 		}
 
-		public bool Active =>
+		public bool active =>
 			ModEntry.OrbHovered || ModEntry.OrbsIlluminated > 0;
 
-		public void Apply ()
+		public void apply ()
 		{
-			if (Active)
+			if (active)
 				Game1.mouseCursor = 7;
 			else if (Game1.mouseCursor == 7)
 				Game1.mouseCursor = 0;
 		}
 
-		internal void BeforeRenderMenu ()
+		internal void beforeRenderMenu ()
 		{
 			// When active, prevent the normal software cursor from being drawn
 			// by the menu.
-			if (Active && !Game1.options.hardwareCursor)
+			if (active && !Game1.options.hardwareCursor)
 				Game1.mouseCursorTransparency = 0f;
 		}
 
-		internal void AfterRenderMenu (SpriteBatch b)
+		internal void afterRenderMenu (SpriteBatch b)
 		{
 			// When active, draw the special cursor instead. Restoring the
 			// regular mouseCursorTransparency is apparently not helpful.
-			if (Active && !Game1.options.hardwareCursor)
+			if (active && !Game1.options.hardwareCursor)
 			{
 				b.Draw (Game1.mouseCursors,
 					new Vector2 (Game1.getMouseX (), Game1.getMouseY ()),

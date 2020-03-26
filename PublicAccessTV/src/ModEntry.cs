@@ -38,20 +38,20 @@ namespace PublicAccessTV
 			// Add console commands.
 			Helper.ConsoleCommands.Add ("update_patv_channels",
 				"Updates the availability of the custom channels to reflect current conditions.",
-				(_command, _args) => UpdateChannels (true));
+				(_command, _args) => updateChannels (true));
 			Helper.ConsoleCommands.Add ("reset_patv_channels",
 				"Resets the custom channels to their unlaunched states (before letters, events, etc.).",
-				(_command, _args) => ResetChannels (true));
+				(_command, _args) => resetChannels (true));
 
 			// Listen for game events.
-			helper.Events.GameLoop.GameLaunched += OnGameLaunched;
+			helper.Events.GameLoop.GameLaunched += onGameLaunched;
 			helper.Events.GameLoop.DayStarted +=
-				(_sender, _e) => UpdateChannels ();
+				(_sender, _e) => updateChannels ();
 			helper.Events.GameLoop.OneSecondUpdateTicked +=
 				(_sender, _e) => GarbageChannel.CheckEvent ();
 		}
 
-		private void OnGameLaunched (object sender, GameLaunchedEventArgs e)
+		private void onGameLaunched (object sender, GameLaunchedEventArgs e)
 		{
 			// Access CustomTVMod in PyTK. Using reflection to work around the
 			// base game's cross-platform assembly name inconsistency.
@@ -77,13 +77,13 @@ namespace PublicAccessTV
 			};
 		}
 
-		private void UpdateChannels (bool isCommand = false)
+		private void updateChannels (bool isCommand = false)
 		{
 			try
 			{
 				Utilities.CheckWorldReady ();
 				foreach (Channel channel in channels)
-					channel.Update ();
+					channel.update ();
 			}
 			catch (Exception e)
 			{
@@ -96,13 +96,13 @@ namespace PublicAccessTV
 			}
 		}
 
-		private void ResetChannels (bool isCommand = false)
+		private void resetChannels (bool isCommand = false)
 		{
 			try
 			{
 				Utilities.CheckWorldReady ();
 				foreach (Channel channel in channels)
-					channel.Reset ();
+					channel.reset ();
 			}
 			catch (Exception e)
 			{

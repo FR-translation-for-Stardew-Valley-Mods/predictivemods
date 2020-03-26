@@ -19,40 +19,40 @@ namespace ScryingOrb
 			{ "Coal", 2 },
 		};
 
-		public override bool IsAvailable =>
-			base.IsAvailable && Mining.IsAvailable;
+		public override bool isAvailable =>
+			base.isAvailable && Mining.IsAvailable;
 
-		protected override bool Try ()
+		protected override bool check ()
 		{
 			// Consume an appropriate offering.
-			if (!base.Try () || !AcceptedOfferings.ContainsKey (offering.Name))
+			if (!base.check () || !AcceptedOfferings.ContainsKey (offering.Name))
 				return false;
 			if (offering.Stack < AcceptedOfferings[offering.Name])
 			{
-				ShowRejection ("rejection.insufficient");
+				showRejection ("rejection.insufficient");
 				return true;
 			}
-			ConsumeOffering (AcceptedOfferings[offering.Name]);
+			consumeOffering (AcceptedOfferings[offering.Name]);
 
 			// React to the offering, then proceed to run.
-			Illuminate ();
-			PlaySound ("hammer");
-			PlaySound ("stoneCrack");
-			ShowAnimation ("TileSheets\\animations",
+			illuminate ();
+			playSound ("hammer");
+			playSound ("stoneCrack");
+			showAnimation ("TileSheets\\animations",
 				new Rectangle (0, 3072, 128, 128), 150f, 5, 1);
-			ShowMessage ("mining.opening", 500);
-			Game1.afterDialogues = Run;
+			showMessage ("mining.opening", 500);
+			Game1.afterDialogues = run;
 
 			return true;
 		}
 
-		protected override void DoRun ()
+		protected override void doRun ()
 		{
 			Game1.activeClickableMenu = new DatePicker (Utilities.Now (),
-				Helper.Translation.Get ("mining.date.question"), OnDateChosen);
+				Helper.Translation.Get ("mining.date.question"), onDateChosen);
 		}
 		
-		private void OnDateChosen (WorldDate date)
+		private void onDateChosen (WorldDate date)
 		{
 			// Gather the appropriate predictions.
 			List<MiningPrediction> predictions =
@@ -107,8 +107,8 @@ namespace ScryingOrb
 			}
 
 			// Show the predictions.
-			ShowDialogues (pages);
-			Game1.afterDialogues = Extinguish;
+			showDialogues (pages);
+			Game1.afterDialogues = extinguish;
 		}
 	}
 }
