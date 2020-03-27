@@ -6,10 +6,15 @@ Both mods are made by kdau and offered under an [MIT license](LICENSE). Their so
 
 For all other information, see under a particular mod below.
 
-## Mods
+## Mods in this repository
 
 * ![[icon]](PublicAccessTV/assets/icon.png) **[Public Access TV](https://www.nexusmods.com/stardewvalley/mods/5605)** <small>([source](PublicAccessTV))</small>
   *Your friends in the valley take to the airwaves to keep you apprised of today's mining conditions<!-- TODO: , shopping opportunities -->, garbage loot, train schedules, rare events and more.*
 
 * ![[icon]](ScryingOrb/assets/icon.png) **[Scrying Orb](https://www.nexusmods.com/stardewvalley/mods/5603)** <small>([source](ScryingOrb))</small>
   *Craft a Scrying Orb with a recipe from Welwick and you too can peer into the future. Make an offering to the spirits to scry mining conditions, geode contents, rare events<!-- TODO: , shopping opportunities --> or garbage loot.*
+
+## My other mods
+
+* ![[icon]](https://kdau.gitlab.io/PortableTV/icon.png) [Portable TV](https://www.nexusmods.com/stardewvalley/mods/5674) <small>([source](https://gitlab.com/kdau/portabletv))</small>
+  *It's little! It's lovely! It shows Livin' Off The Land! The Portable TV is a craftable item carried in your inventory that lets you watch TV channels (standard and custom) from anywhere in Stardew Valley.*

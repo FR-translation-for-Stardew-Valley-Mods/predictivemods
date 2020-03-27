@@ -173,6 +173,8 @@ Mirrors:
 
 My other mods:
 
+* ![[icon]](https://kdau.gitlab.io/PortableTV/icon.png) [Portable TV](https://www.nexusmods.com/stardewvalley/mods/5674) <small>([source](https://gitlab.com/kdau/portabletv))</small>
+  *It's little! It's lovely! It shows Livin' Off The Land! The Portable TV is a craftable item carried in your inventory that lets you watch TV channels (standard and custom) from anywhere in Stardew Valley.*
 * ![[icon]](https://kdau.gitlab.io/PublicAccessTV/icon.png) [Public Access TV](https://www.nexusmods.com/stardewvalley/mods/5605) <small>([source](../PublicAccessTV))</small> for friendship-based, same-day predictions:
   *Your friends in the valley take to the airwaves to keep you apprised of today's mining conditions, garbage loot, train schedules, rare events and more.*
 

@@ -122,6 +122,8 @@ Mirrors:
 
 My other mods:
 
+* ![[icon]](https://kdau.gitlab.io/PortableTV/icon.png) [Portable TV](https://www.nexusmods.com/stardewvalley/mods/5674) <small>([source](https://gitlab.com/kdau/portabletv))</small> to watch these channels on the go:
+  *It's little! It's lovely! It shows Livin' Off The Land! The Portable TV is a craftable item carried in your inventory that lets you watch TV channels (standard and custom) from anywhere in Stardew Valley.*
 * ![[icon]](https://kdau.gitlab.io/ScryingOrb/icon.png) [Scrying Orb](https://www.nexusmods.com/stardewvalley/mods/5603) mod <small>([source](../ScryingOrb))</small> for mystical, forward-looking predictions:
   *Craft a Scrying Orb with a recipe from Welwick and you too can peer into the future. Make an offering to the spirits to scry mining conditions, geode contents, rare events or garbage loot.*
 
