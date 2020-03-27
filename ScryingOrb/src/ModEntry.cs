@@ -19,13 +19,11 @@ namespace ScryingOrb
 
 	public class ModEntry : Mod
 	{
-		internal static IModHelper _Helper;
-		internal static IMonitor _Monitor;
+		internal static ModEntry Instance { get; private set; }
+		internal static ModConfig Config { get; private set; }
 
-		internal static ModConfig Config;
-
-		private static bool orbHovered;
-		internal static bool OrbHovered
+		private bool orbHovered;
+		internal bool OrbHovered
 		{
 			get => orbHovered;
 			set
@@ -39,8 +37,8 @@ namespace ScryingOrb
 			}
 		}
 
-		private static uint orbsIlluminated;
-		internal static uint OrbsIlluminated
+		private uint orbsIlluminated;
+		internal uint OrbsIlluminated
 		{
 			get => orbsIlluminated;
 			set
@@ -54,13 +52,12 @@ namespace ScryingOrb
 			}
 		}
 
-		private static CursorEditor cursorEditor;
+		private CursorEditor cursorEditor;
 
 		public override void Entry (IModHelper helper)
 		{
 			// Make resources available.
-			_Helper = Helper;
-			_Monitor = Monitor;
+			Instance = this;
 			Config = Helper.ReadConfig<ModConfig> ();
 
 			// Set up PredictiveCore.
@@ -74,28 +71,27 @@ namespace ScryingOrb
 			// Add console commands.
 			Helper.ConsoleCommands.Add ("reset_scrying_orbs",
 				"Resets the state of Scrying Orbs to default values.",
-				(_command, _args) => resetScryingOrbs ());
+				cmdResetScryingOrbs);
 			Helper.ConsoleCommands.Add ("test_scrying_orb",
 				"Puts a Scrying Orb and all types of offering into inventory.",
-				(_command, _args) => testScryingOrb ());
+				cmdTestScryingOrb);
 			Helper.ConsoleCommands.Add ("test_date_picker",
 				"Runs a DatePicker dialog for testing use.",
-				(_command, _args) => testDatePicker ());
+				cmdTestDatePicker);
 
 			// Listen for game events.
-			helper.Events.GameLoop.DayStarted +=
-				(_sender, _e) => checkRecipe ();
+			Helper.Events.GameLoop.DayStarted += onDayStarted;
 			Helper.Events.Input.CursorMoved += onCursorMoved;
 			Helper.Events.Input.ButtonPressed += onButtonPressed;
-			helper.Events.Display.RenderedHud +=
+			Helper.Events.Display.RenderedHud +=
 				(_sender, _e) => cursorEditor.apply ();
-			helper.Events.Display.RenderingActiveMenu +=
+			Helper.Events.Display.RenderingActiveMenu +=
 				(_sender, _e) => cursorEditor.beforeRenderMenu ();
-			helper.Events.Display.RenderedActiveMenu +=
+			Helper.Events.Display.RenderedActiveMenu +=
 				(_sender, e) => cursorEditor.afterRenderMenu (e.SpriteBatch);
 		}
 
-		private void checkRecipe ()
+		private void onDayStarted (object _sender, DayStartedEventArgs _e)
 		{
 			// If the recipe is already given, nothing else to do.
 			if (Game1.player.craftingRecipes.ContainsKey ("Scrying Orb"))
@@ -114,7 +110,7 @@ namespace ScryingOrb
 				Game1.player.mailbox.Add ("kdau.ScryingOrb.welwickInstructions");
 		}
 
-		private void onCursorMoved (object sender, CursorMovedEventArgs args)
+		private void onCursorMoved (object _sender, CursorMovedEventArgs e)
 		{
 			// Only hovering if the world is ready and the player is free to
 			// interact with an orb.
@@ -126,30 +122,30 @@ namespace ScryingOrb
 
 			// Only hovering when a Scrying Orb is pointed at.
 			StardewValley.Object obj = Game1.currentLocation.getObjectAtTile
-				((int) args.NewPosition.Tile.X, (int) args.NewPosition.Tile.Y);
+				((int) e.NewPosition.Tile.X, (int) e.NewPosition.Tile.Y);
 			OrbHovered = obj != null && obj.Name == "Scrying Orb";
 		}
 
-		private void onButtonPressed (object sender, ButtonPressedEventArgs args)
+		private void onButtonPressed (object _sender, ButtonPressedEventArgs e)
 		{
 			// Only respond to the action button, and only if the world is ready
 			// and the player is free to interact with an orb.
 			if (!Context.IsWorldReady || !Context.IsPlayerFree ||
-				!args.Button.IsActionButton ())
+				!e.Button.IsActionButton ())
 			{
 				return;
 			}
 
 			// Only respond when a Scrying Orb is interacted with.
 			StardewValley.Object orb = Game1.currentLocation.getObjectAtTile
-				((int) args.Cursor.GrabTile.X, (int) args.Cursor.GrabTile.Y);
+				((int) e.Cursor.GrabTile.X, (int) e.Cursor.GrabTile.Y);
 			if (orb == null || orb.Name != "Scrying Orb")
 			{
 				return;
 			}
 
 			// Suppress the button so it won't cause any other effects.
-			Helper.Input.Suppress (args.Button);
+			Helper.Input.Suppress (e.Button);
 
 			// If the unlimited use cheat is enabled, skip to the menu.
 			if (Config.UnlimitedUse)
@@ -172,7 +168,7 @@ namespace ScryingOrb
 			{} // (if-block used to allow boolean fallback)
 		}
 
-		private void resetScryingOrbs ()
+		private void cmdResetScryingOrbs (string _command, string[] _args)
 		{
 			try
 			{
@@ -189,7 +185,7 @@ namespace ScryingOrb
 			}
 		}
 
-		private void testScryingOrb ()
+		private void cmdTestScryingOrb (string _command, string[] _args)
 		{
 			try
 			{
@@ -221,7 +217,7 @@ namespace ScryingOrb
 			}
 		}
 
-		private void testDatePicker ()
+		private void cmdTestDatePicker (string _command, string[] _args)
 		{
 			try
 			{

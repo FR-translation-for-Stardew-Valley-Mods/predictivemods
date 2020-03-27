@@ -12,8 +12,8 @@ namespace PublicAccessTV
 {
 	public class Channel
 	{
-		protected static IModHelper Helper => ModEntry._Helper;
-		protected static IMonitor Monitor => ModEntry._Monitor;
+		protected static IModHelper Helper => ModEntry.Instance.Helper;
+		protected static IMonitor Monitor => ModEntry.Instance.Monitor;
 		protected static Type CustomTVMod => ModEntry.CustomTVMod;
 
 		public readonly string localID;

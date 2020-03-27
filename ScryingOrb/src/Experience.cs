@@ -12,8 +12,8 @@ namespace ScryingOrb
 {
 	public class Experience
 	{
-		protected static IModHelper Helper => ModEntry._Helper;
-		protected static IMonitor Monitor => ModEntry._Monitor;
+		protected static IModHelper Helper => ModEntry.Instance.Helper;
+		protected static IMonitor Monitor => ModEntry.Instance.Monitor;
 
 		public SObject orb { get; internal set; }
 		public SObject offering { get; internal set; }
@@ -166,7 +166,7 @@ namespace ScryingOrb
 				return null;
 
 			// Switch to the special mouse cursor.
-			++ModEntry.OrbsIlluminated;
+			++ModEntry.Instance.OrbsIlluminated;
 
 			// Replace any existing light source.
 			extinguish ();
@@ -200,7 +200,7 @@ namespace ScryingOrb
 				return;
 
 			// Restore the regular mouse cursor.
-			--ModEntry.OrbsIlluminated;
+			--ModEntry.Instance.OrbsIlluminated;
 
 			// Remove the illumination light source and animation.
 			Game1.currentLocation.removeTemporarySpritesWithID

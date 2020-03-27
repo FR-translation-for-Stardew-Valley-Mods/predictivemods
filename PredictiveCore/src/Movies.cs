@@ -46,8 +46,8 @@ namespace PredictiveCore
 			{
 				Random rng = new Random ((int) Game1.uniqueIDForThisGame + date.TotalDays);
 				prediction.craneGameAvailable = !(rng.NextDouble () < 0.25) &&
-					theater.dayFirstEntered != -1 &&
-					theater.dayFirstEntered != date.TotalDays;
+					theater.dayFirstEntered.Value != -1 &&
+					theater.dayFirstEntered.Value != date.TotalDays;
 			}
 
 			return prediction;

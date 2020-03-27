@@ -13,18 +13,16 @@ namespace PublicAccessTV
 
 	public class ModEntry : Mod
 	{
-		internal static IModHelper _Helper;
-		internal static IMonitor _Monitor;
-		internal static Type CustomTVMod;
-		internal static ModConfig Config;
+		internal static ModEntry Instance { get; private set; }
+		internal static Type CustomTVMod { get; private set; }
+		internal static ModConfig Config { get; private set; }
 
-		internal Channel[] channels;
+		internal Channel[] channels { get; private set; }
 
 		public override void Entry (IModHelper helper)
 		{
 			// Make resources available.
-			_Helper = Helper;
-			_Monitor = Monitor;
+			Instance = this;
 			Config = Helper.ReadConfig<ModConfig> ();
 
 			// Set up PredictiveCore.
@@ -41,17 +39,17 @@ namespace PublicAccessTV
 				(_command, _args) => updateChannels (true));
 			Helper.ConsoleCommands.Add ("reset_patv_channels",
 				"Resets the custom channels to their unlaunched states (before letters, events, etc.).",
-				(_command, _args) => resetChannels (true));
+				cmdResetChannels);
 
 			// Listen for game events.
-			helper.Events.GameLoop.GameLaunched += onGameLaunched;
-			helper.Events.GameLoop.DayStarted +=
+			Helper.Events.GameLoop.GameLaunched += onGameLaunched;
+			Helper.Events.GameLoop.DayStarted +=
 				(_sender, _e) => updateChannels ();
-			helper.Events.GameLoop.OneSecondUpdateTicked +=
+			Helper.Events.GameLoop.OneSecondUpdateTicked +=
 				(_sender, _e) => GarbageChannel.CheckEvent ();
 		}
 
-		private void onGameLaunched (object sender, GameLaunchedEventArgs e)
+		private void onGameLaunched (object _sender, GameLaunchedEventArgs _e)
 		{
 			// Access CustomTVMod in PyTK. Using reflection to work around the
 			// base game's cross-platform assembly name inconsistency.
@@ -96,7 +94,7 @@ namespace PublicAccessTV
 			}
 		}
 
-		private void resetChannels (bool isCommand = false)
+		private void cmdResetChannels (string _command, string[] _args)
 		{
 			try
 			{
@@ -108,11 +106,8 @@ namespace PublicAccessTV
 			{
 				Monitor.Log (e.Message, LogLevel.Error);
 			}
-			if (isCommand)
-			{
-				Monitor.Log ("Channels reset to initial states.",
-					LogLevel.Info);
-			}
+			Monitor.Log ("Channels reset to initial states.",
+				LogLevel.Info);
 		}
 	}
 }

@@ -7,8 +7,8 @@ namespace PublicAccessTV
 {
 	internal class DialogueEditor : IAssetEditor
 	{
-		protected static IModHelper Helper => ModEntry._Helper;
-		protected static IMonitor Monitor => ModEntry._Monitor;
+		protected static IModHelper Helper => ModEntry.Instance.Helper;
+		protected static IMonitor Monitor => ModEntry.Instance.Monitor;
 
 		public bool CanEdit<_T> (IAssetInfo asset)
 		{

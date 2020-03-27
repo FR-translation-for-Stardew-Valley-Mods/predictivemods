@@ -25,7 +25,7 @@ namespace ScryingOrb
 			Queue<SObject> offerings = new Queue<SObject> ();
 			offerings.Enqueue (offering);
 			int stack = Math.Min (3, offering.Stack);
-			foreach (Item item in Game1.player.items)
+			foreach (Item item in Game1.player.Items)
 			{
 				if (stack == 3)
 					break;

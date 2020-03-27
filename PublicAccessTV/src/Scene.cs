@@ -10,8 +10,8 @@ namespace PublicAccessTV
 {
 	public class Scene
 	{
-		protected static IModHelper Helper => ModEntry._Helper;
-		protected static IMonitor Monitor => ModEntry._Monitor;
+		protected static IModHelper Helper => ModEntry.Instance.Helper;
+		protected static IMonitor Monitor => ModEntry.Instance.Monitor;
 		protected static Type CustomTVMod => ModEntry.CustomTVMod;
 
 		public string message;

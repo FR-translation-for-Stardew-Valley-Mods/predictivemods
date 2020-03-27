@@ -8,8 +8,8 @@ namespace ScryingOrb
 {
 	internal class CursorEditor : IAssetEditor
 	{
-		protected static IModHelper Helper => ModEntry._Helper;
-		protected static IMonitor Monitor => ModEntry._Monitor;
+		protected static IModHelper Helper => ModEntry.Instance.Helper;
+		protected static IMonitor Monitor => ModEntry.Instance.Monitor;
 
 		protected Texture2D cursor;
 
@@ -32,7 +32,7 @@ namespace ScryingOrb
 		}
 
 		public bool active =>
-			ModEntry.OrbHovered || ModEntry.OrbsIlluminated > 0;
+			ModEntry.Instance.OrbHovered || ModEntry.Instance.OrbsIlluminated > 0;
 
 		public void apply ()
 		{

@@ -14,8 +14,8 @@ namespace ScryingOrb
 {
 	internal class DatePicker : IClickableMenu
 	{
-		protected static IModHelper Helper => ModEntry._Helper;
-		protected static IMonitor Monitor => ModEntry._Monitor;
+		protected static IModHelper Helper => ModEntry.Instance.Helper;
+		protected static IMonitor Monitor => ModEntry.Instance.Monitor;
 		
 		private readonly WorldDate initialDate;
 		private WorldDate date;
