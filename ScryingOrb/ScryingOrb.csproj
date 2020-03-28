@@ -37,7 +37,6 @@
 		<PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="3.1.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<Compile Include="Properties\AssemblyInfo.cs" />
 		<Compile Include="src\CursorEditor.cs" />
 		<Compile Include="src\DatePicker.cs" />
 		<Compile Include="src\Experience.cs" />
