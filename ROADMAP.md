@@ -102,6 +102,7 @@ See the [issue tracker](https://gitlab.com/kdau/predictivemods/-/issues) for bug
 
 ## Future ideas
 
+* MoviesChannel: pick up custom NPC sprites for host
 * add support for Android
 
 ### Public Access TV channels (non-predictive)
