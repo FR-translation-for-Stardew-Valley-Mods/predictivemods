@@ -5,17 +5,12 @@ using System;
 
 namespace PublicAccessTV
 {
-	internal class ModConfig : IConfig
-	{
-		public bool BypassFriendships { get; set; } = false;
-		public bool InaccuratePredictions { get; set; } = false;
-	}
-
 	public class ModEntry : Mod
 	{
 		internal static ModEntry Instance { get; private set; }
 		internal static Type CustomTVMod { get; private set; }
-		internal static ModConfig Config { get; private set; }
+
+		protected ModConfig Config => ModConfig.Instance;
 
 		internal Channel[] channels { get; private set; }
 
@@ -23,10 +18,10 @@ namespace PublicAccessTV
 		{
 			// Make resources available.
 			Instance = this;
-			Config = Helper.ReadConfig<ModConfig> ();
+			ModConfig.Load ();
 
 			// Set up PredictiveCore.
-			Utilities.Initialize (this, Config);
+			Utilities.Initialize (this, () => ModConfig.Instance);
 
 			// Set up asset editors.
 			Helper.Content.AssetEditors.Add (new DialogueEditor ());

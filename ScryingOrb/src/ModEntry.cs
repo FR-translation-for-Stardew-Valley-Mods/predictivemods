@@ -10,17 +10,11 @@ using SObject = StardewValley.Object;
 
 namespace ScryingOrb
 {
-	internal class ModConfig : IConfig
-	{
-		public bool InstantRecipe { get; set; } = false;
-		public bool UnlimitedUse { get; set; } = false;
-		public bool InaccuratePredictions { get; set; } = false;
-	}
-
 	public class ModEntry : Mod
 	{
 		internal static ModEntry Instance { get; private set; }
-		internal static ModConfig Config { get; private set; }
+
+		protected ModConfig Config => ModConfig.Instance;
 
 		private int parentSheetIndex = -1;
 		public bool IsScryingOrb (Item item)
@@ -66,10 +60,10 @@ namespace ScryingOrb
 		{
 			// Make resources available.
 			Instance = this;
-			Config = Helper.ReadConfig<ModConfig> ();
+			ModConfig.Load ();
 
 			// Set up PredictiveCore.
-			Utilities.Initialize (this, Config);
+			Utilities.Initialize (this, () => ModConfig.Instance);
 
 			// Set up asset editors.
 			cursorEditor = new CursorEditor ();
@@ -92,12 +86,6 @@ namespace ScryingOrb
 			Helper.Events.GameLoop.DayStarted += onDayStarted;
 			Helper.Events.Input.CursorMoved += onCursorMoved;
 			Helper.Events.Input.ButtonPressed += onButtonPressed;
-			Helper.Events.Display.RenderedHud +=
-				(_sender, _e) => cursorEditor.apply ();
-			Helper.Events.Display.RenderingActiveMenu +=
-				(_sender, _e) => cursorEditor.beforeRenderMenu ();
-			Helper.Events.Display.RenderedActiveMenu +=
-				(_sender, e) => cursorEditor.afterRenderMenu (e.SpriteBatch);
 		}
 
 		private void onSaveLoaded (object _sender, SaveLoadedEventArgs _e)

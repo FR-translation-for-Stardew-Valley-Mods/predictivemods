@@ -20,7 +20,7 @@ namespace PublicAccessTV
 		};
 
 		internal static readonly string DialogueCharacter = "Demetrius";
-		internal static readonly Dictionary<string,string> Dialogue =
+		internal static readonly Dictionary<string, string> Dialogue =
 			new Dictionary<string, string>
 		{
 			{ "kdau.PublicAccessTV.trains1", "{{demetrius07a}}$h" },
@@ -37,7 +37,7 @@ namespace PublicAccessTV
 
 		internal override bool isAvailable =>
 			base.isAvailable && Trains.IsAvailable &&
-			(ModEntry.Config.BypassFriendships ||
+			(Config.BypassFriendships ||
 				Game1.player.mailReceived.Contains ("kdau.PublicAccessTV.trains"));
 
 		internal override void reset ()

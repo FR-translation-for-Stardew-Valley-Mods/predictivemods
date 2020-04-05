@@ -9,10 +9,11 @@ namespace PublicAccessTV
 	{
 		protected static IModHelper Helper => ModEntry.Instance.Helper;
 		protected static IMonitor Monitor => ModEntry.Instance.Monitor;
+		protected static ModConfig Config => ModConfig.Instance;
 
 		public bool CanEdit<_T> (IAssetInfo asset)
 		{
-			if (ModEntry.Config.BypassFriendships)
+			if (Config.BypassFriendships)
 				return false;
 
 			return asset.AssetNameEquals ($"Data\\Events\\{GarbageChannel.EventMap}") ||

@@ -41,6 +41,7 @@
 		<Compile Include="src\DialogueEditor.cs" />
 		<Compile Include="src\EventsEditor.cs" />
 		<Compile Include="src\MailEditor.cs" />
+		<Compile Include="src\ModConfig.cs" />
 		<Compile Include="src\ModEntry.cs" />
 		<Compile Include="src\Scene.cs" />
 		<Compile Include="src\Channels\GarbageChannel.cs" />

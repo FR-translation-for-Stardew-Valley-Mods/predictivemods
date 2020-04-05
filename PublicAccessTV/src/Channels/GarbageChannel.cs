@@ -64,7 +64,7 @@ namespace PublicAccessTV
 
 		internal override bool isAvailable =>
 			base.isAvailable && Garbage.IsAvailable &&
-			(ModEntry.Config.BypassFriendships ||
+			(Config.BypassFriendships ||
 				Game1.player.mailReceived.Contains ("kdau.PublicAccessTV.garbage"));
 
 		internal override void update ()
@@ -97,7 +97,7 @@ namespace PublicAccessTV
 			// Must be during a game day.
 			if (!Context.IsWorldReady || garbageChecked == null ||
 					// If bypassing friendships, no need for the event.
-					ModEntry.Config.BypassFriendships ||
+					Config.BypassFriendships ||
 					// Must be on the Town map.
 					Game1.currentLocation.Name != "Town" ||
 					// Must not have seen this event yet.

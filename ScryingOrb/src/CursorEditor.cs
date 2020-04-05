@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
+using StardewModdingAPI.Events;
 using StardewValley;
 using System.IO;
 
@@ -17,6 +18,11 @@ namespace ScryingOrb
 		{
 			cursor = Helper.Content.Load<Texture2D>
 				(Path.Combine ("assets", "cursor.png"));
+
+			Helper.Events.Display.RenderedHud +=
+				(_sender, _e) => apply ();
+			Helper.Events.Display.RenderingActiveMenu += onRenderingActiveMenu;
+			Helper.Events.Display.RenderedActiveMenu += onRenderedActiveMenu;
 		}
 
 		public bool CanEdit<_T> (IAssetInfo asset)
@@ -42,7 +48,8 @@ namespace ScryingOrb
 				Game1.mouseCursor = 0;
 		}
 
-		internal void beforeRenderMenu ()
+		private void onRenderingActiveMenu (object _sender,
+			RenderingActiveMenuEventArgs _e)
 		{
 			// When active, prevent the normal software cursor from being drawn
 			// by the menu.
@@ -50,13 +57,14 @@ namespace ScryingOrb
 				Game1.mouseCursorTransparency = 0f;
 		}
 
-		internal void afterRenderMenu (SpriteBatch b)
+		private void onRenderedActiveMenu (object _sender,
+			RenderedActiveMenuEventArgs e)
 		{
 			// When active, draw the special cursor instead. Restoring the
 			// regular mouseCursorTransparency is apparently not helpful.
 			if (active && !Game1.options.hardwareCursor)
 			{
-				b.Draw (Game1.mouseCursors,
+				e.SpriteBatch.Draw (Game1.mouseCursors,
 					new Vector2 (Game1.getMouseX (), Game1.getMouseY ()),
 					Game1.getSourceRectForStandardTileSheet
 						(Game1.mouseCursors, 7, 16, 16),

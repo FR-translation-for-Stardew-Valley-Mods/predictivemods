@@ -38,7 +38,7 @@ namespace PublicAccessTV
 				!Game1.player.mailReceived.Contains ("kdau.PublicAccessTV.mining") &&
 				!Game1.player.mailbox.Contains ("kdau.PublicAccessTV.mining") &&
 				Game1.player.mailReceived.Contains ("guildMember") &&
-				(ModEntry.Config.BypassFriendships ||
+				(Config.BypassFriendships ||
 					!Helper.ModRegistry.IsLoaded ("FlashShifter.MarlonSVE") ||
 					Game1.player.getFriendshipHeartLevelForNPC ("MarlonFay") >= 2))
 			{

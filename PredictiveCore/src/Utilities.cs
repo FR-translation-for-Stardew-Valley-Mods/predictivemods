@@ -16,8 +16,9 @@ namespace PredictiveCore
 
 	public interface IConfig
 	{
-		public bool InaccuratePredictions { get; }
+		bool InaccuratePredictions { get; }
 	}
+	public delegate IConfig ConfigProvider ();
 
 	public static class Utilities
 	{
@@ -111,15 +112,17 @@ namespace PredictiveCore
 
 		internal static IMonitor Monitor;
 		internal static IModHelper Helper;
-		internal static IConfig Config;
 
-		public static void Initialize (IMod mod, IConfig config)
+		private static ConfigProvider ConfigProvider;
+		internal static IConfig Config => ConfigProvider ();
+
+		public static void Initialize (IMod mod, ConfigProvider config)
 		{
 			if (Monitor != null)
 				return;
 			Monitor = mod.Monitor;
 			Helper = mod.Helper;
-			Config = config;
+			ConfigProvider = config;
 
 			if (new SemanticVersion (Game1.version).IsOlderThan ("1.4.0") ||
 				!new SemanticVersion (Game1.version).IsOlderThan ("1.5.0"))

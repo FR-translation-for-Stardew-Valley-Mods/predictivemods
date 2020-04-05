@@ -42,6 +42,7 @@
 		<Compile Include="src\Experience.cs" />
 		<Compile Include="src\JA.cs" />
 		<Compile Include="src\MailEditor.cs" />
+		<Compile Include="src\ModConfig.cs" />
 		<Compile Include="src\ModEntry.cs" />
 		<Compile Include="src\Experiences\FallbackExperience.cs" />
 		<Compile Include="src\Experiences\GarbageExperience.cs" />
