@@ -19,8 +19,10 @@ namespace ScryingOrb
 		private int parentSheetIndex = -1;
 		public bool IsScryingOrb (Item item)
 		{
-			return item is SObject obj &&
-				obj.bigCraftable.Value &&
+			if (item?.GetType () != typeof (SObject))
+				return false;
+			SObject obj = item as SObject;
+			return obj.bigCraftable.Value &&
 				obj.ParentSheetIndex == parentSheetIndex;
 		}
 

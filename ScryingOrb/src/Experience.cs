@@ -64,13 +64,20 @@ namespace ScryingOrb
 
 		protected virtual bool check ()
 		{
+			bool result = checkItem (Game1.player.CurrentItem);
+			if (result)
+				offering = Game1.player.CurrentItem as SObject;
+			return result;
+		}
+
+		protected bool checkItem (Item item)
+		{
 			if (!isAvailable)
 				return false;
 
-			if (!(Game1.player.CurrentItem is SObject o))
+			if (item?.GetType () != typeof (SObject))
 				return false;
 
-			offering = o;
 			return true;
 		}
 

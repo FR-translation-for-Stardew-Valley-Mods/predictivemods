@@ -28,12 +28,12 @@ namespace ScryingOrb
 			{
 				if (stack == 3)
 					break;
-				if (!(item is SObject obj) || object.ReferenceEquals (obj, offering))
+				if (!checkItem (item) || object.ReferenceEquals (item, offering))
 					continue;
-				if (obj.Category != SObject.junkCategory)
+				if (item.Category != SObject.junkCategory)
 					continue;
-				offerings.Enqueue (obj);
-				stack += Math.Min (3 - stack, obj.Stack);
+				offerings.Enqueue (item as SObject);
+				stack += Math.Min (3 - stack, item.Stack);
 			}
 			if (stack < 3)
 			{
