@@ -22,6 +22,14 @@ namespace ScryingOrb
 		internal static ModEntry Instance { get; private set; }
 		internal static ModConfig Config { get; private set; }
 
+		private int parentSheetIndex = -1;
+		public bool IsScryingOrb (Item item)
+		{
+			return item is SObject obj &&
+				obj.bigCraftable.Value &&
+				obj.ParentSheetIndex == parentSheetIndex;
+		}
+
 		private bool orbHovered;
 		internal bool OrbHovered
 		{
@@ -80,6 +88,7 @@ namespace ScryingOrb
 				cmdTestDatePicker);
 
 			// Listen for game events.
+			Helper.Events.GameLoop.SaveLoaded += onSaveLoaded;
 			Helper.Events.GameLoop.DayStarted += onDayStarted;
 			Helper.Events.Input.CursorMoved += onCursorMoved;
 			Helper.Events.Input.ButtonPressed += onButtonPressed;
@@ -89,6 +98,27 @@ namespace ScryingOrb
 				(_sender, _e) => cursorEditor.beforeRenderMenu ();
 			Helper.Events.Display.RenderedActiveMenu +=
 				(_sender, e) => cursorEditor.afterRenderMenu (e.SpriteBatch);
+		}
+
+		private void onSaveLoaded (object _sender, SaveLoadedEventArgs _e)
+		{
+			// Discover the object ID of the "Scrying Orb" inventory object.
+			var JsonAssets = Helper.ModRegistry.GetApi<JsonAssets.IApi>
+				("spacechase0.JsonAssets");
+			if (JsonAssets != null)
+			{
+				parentSheetIndex = JsonAssets.GetBigCraftableId ("Scrying Orb");
+				if (parentSheetIndex == -1)
+				{
+					Monitor.Log ("Could not find the ID of the Scrying Orb big craftable. The Scrying Orb content pack for Json Assets may not be installed.",
+						LogLevel.Error);
+				}
+			}
+			else
+			{
+				Monitor.LogOnce ("Could not connect to Json Assets. It may not be installed or working properly.",
+					LogLevel.Error);
+			}
 		}
 
 		private void onDayStarted (object _sender, DayStartedEventArgs _e)
@@ -121,9 +151,9 @@ namespace ScryingOrb
 			}
 
 			// Only hovering when a Scrying Orb is pointed at.
-			StardewValley.Object obj = Game1.currentLocation.getObjectAtTile
+			SObject obj = Game1.currentLocation.getObjectAtTile
 				((int) e.NewPosition.Tile.X, (int) e.NewPosition.Tile.Y);
-			OrbHovered = obj != null && obj.Name == "Scrying Orb";
+			OrbHovered = IsScryingOrb (obj);
 		}
 
 		private void onButtonPressed (object _sender, ButtonPressedEventArgs e)
@@ -137,12 +167,10 @@ namespace ScryingOrb
 			}
 
 			// Only respond when a Scrying Orb is interacted with.
-			StardewValley.Object orb = Game1.currentLocation.getObjectAtTile
+			SObject orb = Game1.currentLocation.getObjectAtTile
 				((int) e.Cursor.GrabTile.X, (int) e.Cursor.GrabTile.Y);
-			if (orb == null || orb.Name != "Scrying Orb")
-			{
+			if (!IsScryingOrb (orb))
 				return;
-			}
 
 			// Suppress the button so it won't cause any other effects.
 			Helper.Input.Suppress (e.Button);

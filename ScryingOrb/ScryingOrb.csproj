@@ -40,6 +40,7 @@
 		<Compile Include="src\CursorEditor.cs" />
 		<Compile Include="src\DatePicker.cs" />
 		<Compile Include="src\Experience.cs" />
+		<Compile Include="src\JA.cs" />
 		<Compile Include="src\MailEditor.cs" />
 		<Compile Include="src\ModEntry.cs" />
 		<Compile Include="src\Experiences\FallbackExperience.cs" />

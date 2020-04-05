@@ -17,8 +17,7 @@ namespace ScryingOrb
 		protected override bool check ()
 		{
 			// Require an appropriate offering.
-			if (!base.check () ||
-					offering.Category != StardewValley.Object.junkCategory)
+			if (!base.check () || offering.Category != SObject.junkCategory)
 				return false;
 			
 			// Consume a total of 3 trash, combining across stacks in inventory.
@@ -31,7 +30,7 @@ namespace ScryingOrb
 					break;
 				if (!(item is SObject obj) || object.ReferenceEquals (obj, offering))
 					continue;
-				if (obj.Category != StardewValley.Object.junkCategory)
+				if (obj.Category != SObject.junkCategory)
 					continue;
 				offerings.Enqueue (obj);
 				stack += Math.Min (3 - stack, obj.Stack);

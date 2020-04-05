@@ -21,7 +21,7 @@ namespace ScryingOrb
 		protected override bool check ()
 		{
 			// Only accept a Scrying Orb. Don't consume it.
-			if (!base.check () || offering.Name != "Scrying Orb")
+			if (!base.check () || !ModEntry.Instance.IsScryingOrb (offering))
 				return false;
 
 			// If the player has tried this before, react nonchalantly.

@@ -4,6 +4,7 @@ using StardewValley;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SObject = StardewValley.Object;
 
 namespace ScryingOrb
 {
@@ -34,7 +35,7 @@ namespace ScryingOrb
 		{
 			// Consume an appropriate offering.
 			if (!base.check () ||
-					offering.Category != StardewValley.Object.mineralsCategory ||
+					offering.Category != SObject.mineralsCategory ||
 					RejectedOfferings.Contains (offering.Name))
 				return false;
 			consumeOffering ();
