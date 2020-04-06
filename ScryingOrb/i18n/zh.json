@@ -35,7 +35,7 @@
   "mining.header.today": "这一天 矿山与洞穴:",
   "mining.header.later": "将会什么时候出现在这个世界 {{date}}:",
   "mining.floor": "地层 {{num}}",
-  "mining.floors": "地层 {{nums}} 和 {{lastNum}}",
+  "mining.floors": "^  地层 {{nums}} 和 {{lastNum}}",
   "mining.prediction.Mushroom": "> 遍布新生蘑菇 {{floors}}.",
   "mining.prediction.MonsterInfested": "> 成群的怪物将出现 {{floors}}.",
   "mining.prediction.SlimeInfested": "> 成群的史莱姆出没 {{floors}}.",

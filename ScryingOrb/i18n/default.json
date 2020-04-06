@@ -36,7 +36,7 @@
   "mining.header.today": "On this day in the mines and caverns:",
   "mining.header.later": "When in the overworld it shall be {{date}}:",
   "mining.floor": "floor {{num}}",
-  "mining.floors": "floors {{nums}} and {{lastNum}}",
+  "mining.floors": "^  floors {{nums}} and {{lastNum}}",
   "mining.prediction.Mushroom": "> Mushrooms will sprout forth throughout {{floors}}.",
   "mining.prediction.MonsterInfested": "> Hordes of beasts will reign over {{floors}}.",
   "mining.prediction.SlimeInfested": "> Oozing masses of slime will infest {{floors}}.",

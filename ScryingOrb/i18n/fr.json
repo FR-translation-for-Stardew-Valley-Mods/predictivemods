@@ -36,7 +36,7 @@
   "mining.header.today": "En ce jour, dans les mines et les cavernes :",
   "mining.header.later": "Quand dans le monde, la date sera {{date}}:",
   "mining.floor": "étage {{num}}",
-  "mining.floors": "étages {{nums}} et {{lastNum}}",
+  "mining.floors": "^  étages {{nums}} et {{lastNum}}",
   "mining.prediction.Mushroom": "> Les champignons vont pousser au {{floors}}.",
   "mining.prediction.MonsterInfested": "> Des hordes de bêtes vont régner sur {{floors}}.",
   "mining.prediction.SlimeInfested": "> Des masses de slime suintantes vont infester {{floors}}.",

@@ -35,7 +35,7 @@
   "mining.header.today": "В этот день в шахтах и пещерах:",
   "mining.header.later": "Когда в мире настанет {{date}}:",
   "mining.floor": "этаже {{num}}",
-  "mining.floors": "этажах {{nums}} и {{lastNum}}",
+  "mining.floors": "^  этажах {{nums}} и {{lastNum}}",
   "mining.prediction.Mushroom": "> Грибы прорастут повсюду на {{floors}}.",
   "mining.prediction.MonsterInfested": "> Орды зверей будут править на {{floors}}.",
   "mining.prediction.SlimeInfested": "> Слизни захватят {{floors}}.",
