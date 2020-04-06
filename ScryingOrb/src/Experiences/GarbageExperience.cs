@@ -17,22 +17,22 @@ namespace ScryingOrb
 		protected override bool check ()
 		{
 			// Require an appropriate offering.
-			if (!base.check () || offering.Category != SObject.junkCategory)
+			if (!checkOffering (category: SObject.junkCategory))
 				return false;
 			
 			// Consume a total of 3 trash, combining across stacks in inventory.
-			Queue<SObject> offerings = new Queue<SObject> ();
+			Queue<Item> offerings = new Queue<Item> ();
 			offerings.Enqueue (offering);
 			int stack = Math.Min (3, offering.Stack);
 			foreach (Item item in Game1.player.Items)
 			{
 				if (stack == 3)
 					break;
-				if (!checkItem (item) || object.ReferenceEquals (item, offering))
+				if (object.ReferenceEquals (item, offering))
 					continue;
-				if (item.Category != SObject.junkCategory)
+				if (!checkItem (item, category: SObject.junkCategory))
 					continue;
-				offerings.Enqueue (item as SObject);
+				offerings.Enqueue (item);
 				stack += Math.Min (3 - stack, item.Stack);
 			}
 			if (stack < 3)
@@ -42,9 +42,9 @@ namespace ScryingOrb
 			}
 			while (stack > 0 && offerings.Count > 0)
 			{
-				SObject offering = offerings.Dequeue ();
+				Item offering = offerings.Dequeue ();
 				int count = Math.Min (stack, offering.Stack);
-				consumeOffering (count, offering);
+				consumeItem (offering, count);
 				stack -= count;
 			}
 

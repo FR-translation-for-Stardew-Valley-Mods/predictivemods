@@ -28,13 +28,13 @@ namespace ScryingOrb
 			}
 		}
 
-		public static readonly List<string> AcceptedOfferings = new List<string>
+		public static readonly List<int> AcceptedOfferings = new List<int>
 		{
-			"Golden Pumpkin",
-			"Magic Rock Candy",
-			"Pearl",
-			"Prismatic Shard",
-			"Treasure Chest"
+			373, // Golden Pumpkin
+			279, // Magic Rock Candy
+			797, // Pearl
+			 74, // Prismatic Shard
+			166, // Treasure Chest
 		};
 
 		protected override bool check ()
@@ -52,8 +52,7 @@ namespace ScryingOrb
 			}
 
 			// Consume an appropriate offering.
-			if (!base.check () ||
-					!AcceptedOfferings.Contains (offering.Name))
+			if (!checkOffering (accepted: AcceptedOfferings))
 				return false;
 			consumeOffering ();
 

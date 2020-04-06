@@ -16,7 +16,7 @@ namespace ScryingOrb
 
 		protected ModConfig Config => ModConfig.Instance;
 
-		private int parentSheetIndex = -1;
+		internal int parentSheetIndex = -1;
 		public bool IsScryingOrb (Item item)
 		{
 			if (item?.GetType () != typeof (SObject))

@@ -6,13 +6,18 @@ namespace ScryingOrb
 	{
 		protected override bool check ()
 		{
-			// Unlike all other experiences, look for the offering check to fail.
-			if (!isAvailable || base.check ())
+			if (!isAvailable)
+				return false;
+			
+			if (Game1.player.CurrentItem != null &&
+					!(Game1.player.CurrentItem is Tool))
 				return false;
 
 			showMessage ("rejection.nothing");
-
 			return true;
 		}
+
+		protected override void doRun ()
+		{}
 	}
 }

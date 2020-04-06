@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewValley;
 
@@ -12,7 +13,9 @@ namespace ScryingOrb
 		protected override bool check ()
 		{
 			// Only accept a Scrying Orb. Don't consume it.
-			if (!base.check () || !ModEntry.Instance.IsScryingOrb (offering))
+			List<int> accepted = new List<int>
+				{ ModEntry.Instance.parentSheetIndex };
+			if (!checkOffering (accepted: accepted, bigCraftable: true))
 				return false;
 
 			// If the player has tried this before, react nonchalantly.
@@ -31,6 +34,9 @@ namespace ScryingOrb
 
 			return true;
 		}
+
+		protected override void doRun ()
+		{}
 
 		internal static void Reset ()
 		{

@@ -10,13 +10,13 @@ using SObject = StardewValley.Object;
 
 namespace ScryingOrb
 {
-	public class Experience
+	public abstract class Experience
 	{
 		protected static IModHelper Helper => ModEntry.Instance.Helper;
 		protected static IMonitor Monitor => ModEntry.Instance.Monitor;
 
 		public SObject orb { get; internal set; }
-		public SObject offering { get; internal set; }
+		public Item offering { get; internal set; }
 
 		// Whether the experience should be available to players at present.
 		public virtual bool isAvailable => true;
@@ -35,6 +35,8 @@ namespace ScryingOrb
 				return false;
 			}
 		}
+
+		protected abstract bool check ();
 
 		public static void Run<T> (SObject orb)
 			where T : Experience, new()
@@ -56,47 +58,69 @@ namespace ScryingOrb
 			}
 		}
 
+		protected abstract void doRun ();
+
 		protected Experience ()
 		{
 			Helper.Content.Load<Texture2D>
 				(Path.Combine ("assets", "illumination.png"));
 		}
 
-		protected virtual bool check ()
+		protected bool checkOffering (Type type = null, int category = 0,
+			IList<int> accepted = null, IList<int> rejected = null,
+			bool bigCraftable = false)
 		{
-			bool result = checkItem (Game1.player.CurrentItem);
+			bool result = checkItem (Game1.player.CurrentItem, type: type,
+				category: category, accepted: accepted, rejected: rejected,
+				bigCraftable: bigCraftable);
 			if (result)
-				offering = Game1.player.CurrentItem as SObject;
+				this.offering = Game1.player.CurrentItem;
 			return result;
 		}
 
-		protected bool checkItem (Item item)
+		protected bool checkItem (Item item, Type type = null, int category = 0,
+			IList<int> accepted = null, IList<int> rejected = null,
+			bool bigCraftable = false)
 		{
 			if (!isAvailable)
 				return false;
 
-			if (item?.GetType () != typeof (SObject))
+			type ??= typeof (SObject);
+			if (item?.GetType () != type)
+				return false;
+			
+			if (type == typeof (SObject) &&
+					(item as SObject).bigCraftable.Value != bigCraftable)
+				return false;
+			
+			if (rejected != null && rejected.Contains (item.ParentSheetIndex))
+				return false;
+			
+			if (accepted != null && accepted.Contains (item.ParentSheetIndex))
+				return true;
+			
+			if (category < 0 && item.Category != category)
 				return false;
 
-			return true;
+			return accepted == null;
 		}
 
-		protected virtual void doRun ()
-		{}
-
-		protected void consumeOffering (int count = 1, SObject offering = null)
+		protected void consumeOffering (int count = 1)
 		{
-			if (offering == null)
-				offering = this.offering;
-			if (offering == null)
-				throw new Exception ("No offering is available to be consumed.");
+			consumeItem (offering, count);
+		}
 
-			if (offering.Stack > count)
-				offering.Stack -= count;
-			else if (offering.Stack == count)
-				Game1.player.removeItemFromInventory (offering);
+		protected void consumeItem (Item item, int count = 1)
+		{
+			if (item == null)
+				throw new ArgumentNullException (nameof (item));
+
+			if (item.Stack > count)
+				item.Stack -= count;
+			else if (item.Stack == count)
+				Game1.player.removeItemFromInventory (item);
 			else
-				throw new Exception ($"Offering stack of {offering.Stack} {offering.Name} insufficient for count of {count}.");
+				throw new Exception ($"Item stack of {item.Stack} {item.Name} insufficient for count of {count}.");
 		}
 
 		protected void showRejection (string messageKey)

@@ -9,14 +9,14 @@ namespace ScryingOrb
 {
 	public class MiningExperience : Experience
 	{
-		public static readonly Dictionary<string, int> AcceptedOfferings =
-			new Dictionary<string, int>
+		public static readonly Dictionary<int, int> AcceptedOfferings =
+			new Dictionary<int, int>
 		{
-			{ "Copper Ore", 5 },
-			{ "Iron Ore", 3 },
-			{ "Gold Ore", 1 },
-			{ "Iridium Ore", 1 },
-			{ "Coal", 2 },
+			{ 378, 5 }, // Copper Ore
+			{ 380, 3 }, // Iron Ore
+			{ 384, 1 }, // Gold Ore
+			{ 386, 1 }, // Iridium Ore
+			{ 382, 2 }, // Coal
 		};
 
 		public override bool isAvailable =>
@@ -25,14 +25,14 @@ namespace ScryingOrb
 		protected override bool check ()
 		{
 			// Consume an appropriate offering.
-			if (!base.check () || !AcceptedOfferings.ContainsKey (offering.Name))
+			if (!checkOffering (accepted: AcceptedOfferings.Keys.ToList ()))
 				return false;
-			if (offering.Stack < AcceptedOfferings[offering.Name])
+			if (offering.Stack < AcceptedOfferings[offering.ParentSheetIndex])
 			{
 				showRejection ("rejection.insufficient");
 				return true;
 			}
-			consumeOffering (AcceptedOfferings[offering.Name]);
+			consumeOffering (AcceptedOfferings[offering.ParentSheetIndex]);
 
 			// React to the offering, then proceed to run.
 			illuminate ();

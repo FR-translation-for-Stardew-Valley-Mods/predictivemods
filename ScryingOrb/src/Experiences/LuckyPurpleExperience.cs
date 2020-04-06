@@ -1,17 +1,26 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using StardewValley;
+using StardewValley.Objects;
 
 namespace ScryingOrb
 {
 	public class LuckyPurpleExperience : Experience
 	{
+		public static readonly List<int> AcceptedOfferings = new List<int>
+		{
+			789, // Lucky Purple Shorts
+			 71, // Trimmed Lucky Purple Shorts (object version)
+		};
+
 		private const string TriedFlag =
 			"kdau.ScryingOrb.triedLuckyPurpleShorts";
 
 		protected override bool check ()
 		{
-			// Only accept the Lucky Purple Shorts. Don't consume them.
-			if (!base.check () || offering.Name != "Lucky Purple Shorts")
+			// Only accept the Lucky Purple Shorts or their trimmed version,
+			// (only object, as clothing can't be offered). Don't consume them.
+			if (!checkOffering (accepted: AcceptedOfferings))
 				return false;
 
 			// If the player hasn't tried this before, show the initial warning.
@@ -40,6 +49,9 @@ namespace ScryingOrb
 
 			return true;
 		}
+
+		protected override void doRun ()
+		{}
 
 		internal static void Reset ()
 		{

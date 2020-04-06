@@ -9,5 +9,8 @@ namespace ScryingOrb
 			showRejection ("rejection.unrecognized");
 			return true;
 		}
+
+		protected override void doRun ()
+		{}
 	}
 }
