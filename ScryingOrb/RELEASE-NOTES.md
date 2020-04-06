@@ -2,6 +2,13 @@
 
 [Scrying Orb](./)
 
+## 1.2.0
+
+*Release pending.*
+
+* Allow full week of unlimited use for farmhands as well as farmers
+* Add French translation by Inu'tile
+
 ## 1.1.0
 
 *Released March 23, 2020.*

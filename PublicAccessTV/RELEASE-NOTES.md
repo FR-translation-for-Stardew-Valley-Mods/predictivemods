@@ -7,6 +7,7 @@
 *Release pending.*
 
 * Fix issues with translated channel titles and days of the week
+* Add French translation by Inu'tile
 * Add Russian translation by Ghost3lboom
 
 ## 1.1.1
