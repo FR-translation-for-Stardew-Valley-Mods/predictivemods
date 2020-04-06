@@ -6,17 +6,8 @@ namespace ScryingOrb
 {
 	public class MetaExperience : Experience
 	{
-		private class Persistent
-		{
-			public bool AlreadyTried { get; set; } = false;
-		}
-		private static Persistent persistent;
-
-		public MetaExperience ()
-		{
-			if (persistent == null)
-				persistent = LoadData<Persistent> ("Meta");
-		}
+		private const string TriedFlag =
+			"kdau.ScryingOrb.triedMetaOffering";
 
 		protected override bool check ()
 		{
@@ -25,7 +16,7 @@ namespace ScryingOrb
 				return false;
 
 			// If the player has tried this before, react nonchalantly.
-			if (persistent.AlreadyTried)
+			if (Game1.player.mailReceived.Contains (TriedFlag))
 			{
 				playSound ("clank");
 				showMessage ("meta.following", 500);
@@ -33,9 +24,7 @@ namespace ScryingOrb
 			// Otherwise show the initial joke.
 			else
 			{
-				persistent.AlreadyTried = true;
-				SaveData ("Meta", persistent);
-
+				Game1.player.mailReceived.Add (TriedFlag);
 				playSound ("clank");
 				showMessage ("meta.initial", 500);
 			}
@@ -43,10 +32,9 @@ namespace ScryingOrb
 			return true;
 		}
 
-		internal static void reset ()
+		internal static void Reset ()
 		{
-			persistent = new Persistent ();
-			SaveData ("Meta", persistent);
+			Game1.player.mailReceived.Remove (TriedFlag);
 		}
 	}
 }

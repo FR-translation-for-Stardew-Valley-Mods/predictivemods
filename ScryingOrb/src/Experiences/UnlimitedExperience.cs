@@ -9,16 +9,23 @@ namespace ScryingOrb
 {
 	public class UnlimitedExperience : Experience
 	{
-		private class Persistent
+		private const string Topic = "kdau.ScryingOrb.unlimited";
+		public static int DaysRemaining
 		{
-			public int ExpirationDay { get; set; } = -1;
-		}
-		private static Persistent persistent;
+			get
+			{
+				return Game1.player.activeDialogueEvents.TryGetValue
+					(Topic, out int days)
+						? days
+						: -1;
+			}
 
-		public UnlimitedExperience ()
-		{
-			if (persistent == null)
-				persistent = LoadData<Persistent> ("Unlimited");
+			private set
+			{
+				Game1.player.activeDialogueEvents.Remove (Topic);
+				if (value >= 0)
+					Game1.player.activeDialogueEvents.Add (Topic, value);
+			}
 		}
 
 		public static readonly List<string> AcceptedOfferings = new List<string>
@@ -34,12 +41,11 @@ namespace ScryingOrb
 		{
 			// If currently in an unlimited period, ignore the offering, react
 			// to the ongoing period, then proceed to run.
-			int totalDays = Utilities.Now ().TotalDays;
-			if (totalDays <= persistent.ExpirationDay)
+			if (DaysRemaining >= 0)
 			{
 				illuminate ();
 				playSound ("yoba");
-				showMessage ((totalDays == persistent.ExpirationDay)
+				showMessage ((DaysRemaining == 0)
 					? "unlimited.lastDay" : "unlimited.following", 250);
 				Game1.afterDialogues = run;
 				return true;
@@ -52,9 +58,7 @@ namespace ScryingOrb
 			consumeOffering ();
 
 			// Start an unlimited period and increase luck for the day.
-			persistent.ExpirationDay = Utilities.Now ().TotalDays +
-				(Context.IsMainPlayer ? 7 : 1);
-			SaveData ("Unlimited", persistent);
+			DaysRemaining = 7;
 			Game1.player.team.sharedDailyLuck.Value = 0.12;
 
 			// React to the offering dramatically, then proceed to run.
@@ -62,8 +66,7 @@ namespace ScryingOrb
 			playSound ("reward");
 			showAnimation ("TileSheets\\animations",
 				new Rectangle (0, 192, 64, 64), 125f, 8, 1);
-			string role = Context.IsMainPlayer ? "main" : "farmhand";
-			showMessage ($"unlimited.initial.{role}", 1000);
+			showMessage ($"unlimited.initial.main", 1000);
 			Game1.afterDialogues = run;
 
 			return true;
@@ -113,10 +116,30 @@ namespace ScryingOrb
 			}, 1);
 		}
 
-		internal static void reset ()
+		internal static void Reset ()
 		{
-			persistent = new Persistent ();
-			SaveData ("Unlimited", persistent);
+			DaysRemaining = -1;
+		}
+
+		internal static void MigrateData ()
+		{
+			// Carry over any unlimited period from the old persistence format.
+			if (Context.IsMainPlayer && DaysRemaining == -1)
+			{
+				var old = Helper.Data.ReadSaveData<OldData> ("Unlimited");
+				if (old != null)
+				{
+					int days = old.ExpirationDay - Utilities.Now ().TotalDays;
+					if (days >= 0)
+						DaysRemaining = days;
+					Helper.Data.WriteSaveData<OldData> ("Unlimited", null);
+				}
+			}
+		}
+
+		private class OldData
+		{
+			public int ExpirationDay { get; set; } = -1;
 		}
 	}
 }

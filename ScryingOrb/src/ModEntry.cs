@@ -109,6 +109,9 @@ namespace ScryingOrb
 				Monitor.LogOnce ("Could not connect to Json Assets. It may not be installed or working properly.",
 					LogLevel.Error);
 			}
+
+			// Migrate data from older formats.
+			UnlimitedExperience.MigrateData ();
 		}
 
 		private void onDayStarted (object _sender, DayStartedEventArgs _e)
@@ -191,9 +194,9 @@ namespace ScryingOrb
 			try
 			{
 				Utilities.CheckWorldReady ();
-				UnlimitedExperience.reset ();
-				LuckyPurpleExperience.reset ();
-				MetaExperience.reset ();
+				UnlimitedExperience.Reset ();
+				LuckyPurpleExperience.Reset ();
+				MetaExperience.Reset ();
 				Monitor.Log ("Scrying Orb state reset to defaults.",
 					LogLevel.Info);
 			}

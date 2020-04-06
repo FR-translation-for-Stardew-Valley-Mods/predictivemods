@@ -5,17 +5,8 @@ namespace ScryingOrb
 {
 	public class LuckyPurpleExperience : Experience
 	{
-		private class Persistent
-		{
-			public bool AlreadyTried { get; set; } = false;
-		}
-		private static Persistent persistent;
-
-		public LuckyPurpleExperience ()
-		{
-			if (persistent == null)
-				persistent = LoadData<Persistent> ("LuckyPurple");
-		}
+		private const string TriedFlag =
+			"kdau.ScryingOrb.triedLuckyPurpleShorts";
 
 		protected override bool check ()
 		{
@@ -24,11 +15,9 @@ namespace ScryingOrb
 				return false;
 
 			// If the player hasn't tried this before, show the initial warning.
-			if (!persistent.AlreadyTried)
+			if (!Game1.player.mailReceived.Contains (TriedFlag))
 			{
-				persistent.AlreadyTried = true;
-				SaveData ("LuckyPurple", persistent);
-
+				Game1.player.mailReceived.Add (TriedFlag);
 				playSound ("grunt");
 				showMessage ("luckyPurple.initial", 500);
 			}
@@ -52,10 +41,9 @@ namespace ScryingOrb
 			return true;
 		}
 
-		internal static void reset ()
+		internal static void Reset ()
 		{
-			persistent = new Persistent ();
-			SaveData ("LuckyPurple", persistent);
+			Game1.player.mailReceived.Remove (TriedFlag);
 		}
 	}
 }
