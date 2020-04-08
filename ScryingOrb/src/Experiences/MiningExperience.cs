@@ -88,8 +88,8 @@ namespace ScryingOrb
 				{
 					int lastNum = floors[floors.Count - 1];
 					floors.RemoveAt (floors.Count - 1);
-					floorsText = Helper.Translation.Get ("mining.floors",
-						new { nums = string.Join (joiner, floors), lastNum = lastNum });
+					floorsText = unbreak (Helper.Translation.Get ("mining.floors",
+						new { nums = string.Join (joiner, floors), lastNum = lastNum }));
 				}
 
 				lines.Add (Helper.Translation.Get ($"mining.prediction.{type}",

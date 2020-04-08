@@ -20,7 +20,9 @@ This mod is based on the [Stardew Predictor](https://mouseypounds.github.io/star
 
 This version of Scrying Orb is compatible with **Stardew Valley 1.4.x**. When SDV 1.5 is released, some of this mod's predictions will start being wrong. I'll put out a new version at that point.
 
-This mod should work on **Linux, Mac or Windows**. There are no known problems with multiplayer use.
+This mod should work on **Linux, Mac, Windows and Android**.
+
+There are no known problems with multiplayer use. Every player should install the mod, even if they are not using the Scrying Orb.
 
 There are no known conflicts with other mods. Scrying Orb fully supports the following:
 

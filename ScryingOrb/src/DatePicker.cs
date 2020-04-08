@@ -45,16 +45,34 @@ namespace ScryingOrb
 		private ClickableTextureComponent scryButton;
 		private List<ClickableTextureComponent> otherButtons;
 
-		private static readonly int CalendarSize = 500;
+		private static readonly bool Mobile =
+			Constants.TargetPlatform == GamePlatform.Android;
 
-		private static int Width => CalendarSize +
-			borderWidth * 2 + spaceToClearSideBorder * 4;
-		private static int Height => Game1.smallFont.LineSpacing +
-			Game1.dialogueFont.LineSpacing + CalendarSize + Game1.tileSize +
-			borderWidth * 2 + spaceToClearTopBorder + spaceToClearSideBorder * 6;
+		private static readonly SpriteFont DateFont =
+			Mobile ? Game1.smallFont : Game1.dialogueFont;
+
+		private static readonly int CalendarSize = 500;
+		private static readonly float CalendarScale =
+			Mobile ? 0.8f : 1f;
+
+		private static int Width =>
+			CalendarSize +
+			borderWidth * 2 +
+			spaceToClearSideBorder * 4;
+
+		private static int Height =>
+			Game1.smallFont.LineSpacing +
+			DateFont.LineSpacing +
+			(int) (CalendarSize * CalendarScale) +
+			Game1.tileSize +
+			borderWidth * 2 +
+			spaceToClearTopBorder - (Mobile ? 40 : 0) +
+			spaceToClearSideBorder * (Mobile ? 3 : 6);
 
 		private static int X => (Game1.viewport.Width - Width) / 2;
-		private static int Y => (Game1.viewport.Height - Height) / 2;
+
+		private static int Y => (Game1.viewport.Height - Height -
+			(Mobile ? 60 : 0)) / 2;
 
 		private struct SeasonDatum
 		{
@@ -115,7 +133,8 @@ namespace ScryingOrb
 		private void arrangeInterface ()
 		{
 			int xOff = xPositionOnScreen + borderWidth + spaceToClearSideBorder * 2;
-			int yOff = yPositionOnScreen + borderWidth + spaceToClearTopBorder;
+			int yOff = yPositionOnScreen + borderWidth + spaceToClearTopBorder -
+				(Mobile ? 40 : 0);
 
 			promptLabel = new ClickableComponent (
 				new Rectangle (xPositionOnScreen, yOff, width, Game1.smallFont.LineSpacing),
@@ -123,44 +142,50 @@ namespace ScryingOrb
 			yOff += Game1.smallFont.LineSpacing + spaceToClearSideBorder;
 
 			dateLabel = new ClickableComponent (
-				new Rectangle (xOff, yOff, CalendarSize, Game1.dialogueFont.LineSpacing),
+				new Rectangle (xOff, yOff, CalendarSize, DateFont.LineSpacing),
 				"DateLabel");
-			yOff += Game1.dialogueFont.LineSpacing + spaceToClearSideBorder * 2;
+			yOff += DateFont.LineSpacing +
+				spaceToClearSideBorder * (Mobile ? 1 : 2);
 
+			int calendarScaled = (int) (CalendarSize * CalendarScale);
 			calendar = new ClickableTextureComponent ("Calendar",
-				new Rectangle (xOff, yOff, CalendarSize, CalendarSize),
-				null, null, calendarTile, new Rectangle (), 1f, true);
+				new Rectangle (xOff + (CalendarSize - calendarScaled) / 2, yOff,
+					calendarScaled, calendarScaled),
+				null, null, calendarTile, new Rectangle (), CalendarScale, true);
 			int xCenter = xOff + CalendarSize / 2;
-			int yCenter = yOff + CalendarSize / 2;
-			yOff += CalendarSize + spaceToClearSideBorder * 2;
+			int yCenter = yOff + calendarScaled / 2;
+			yOff += calendarScaled +
+				spaceToClearSideBorder * (Mobile ? 1 : 2);
 
 			weekLabels = new List<ClickableComponent> ();
-			double weekRadius = 164.5;
+			double weekRadius = 164.5 * CalendarScale;
 			for (int i = 0; i < 16; ++i)
 			{
 				double angle = 2 * Math.PI * (i + 0.5) / 16.0;
-				int x = (int) (xCenter + weekRadius * Math.Sin (angle)) +
-					((i % 4 == 0) ? 0 : 4);
-				int y = (int) (yCenter - weekRadius * Math.Cos (angle)) - 24;
+				int x = (int) (xCenter + weekRadius * Math.Sin (angle) +
+					((i % 4 == 0) ? 0.0 : 4.0) +
+					(Mobile ? -4.0 : 0.0));
+				int y = (int) (yCenter - weekRadius * Math.Cos (angle) +
+					(Mobile ? -28.0 : -24.0));
 
 				weekLabels.Add (new ClickableComponent (new Rectangle (x, y, 0, 0),
 					$"Week{i}"));
 			}
 
 			dayButtons = new List<ClickableTextureComponent> ();
-			double dayRadius = 220.0;
+			double dayRadius = 220.0 * CalendarScale;
 			for (int i = 0; i < 112; ++i)
 			{
 				WorldDate date = dayToWorldDate (i);
 
 				double angle = 2 * Math.PI * (i + 0.5) / 112.0;
-				int x = (int) (xCenter + dayRadius * Math.Sin (angle)) - 6;
-				int y = (int) (yCenter - dayRadius * Math.Cos (angle)) - 26;
+				int x = (int) (xCenter + dayRadius * Math.Sin (angle));
+				int y = (int) (yCenter - dayRadius * Math.Cos (angle));
 
 				dayButtons.Add (new ClickableTextureComponent ($"Day{i}",
 					new Rectangle (x, y, 12, 52), null, date.Localize (),
 					dayButtonTiles, new Rectangle (36 * (i / 28), 0, 12, 52),
-					1f));
+					CalendarScale));
 			}
 
 			seasonSprites = new List<ClickableTextureComponent> ();
@@ -169,10 +194,14 @@ namespace ScryingOrb
 				Texture2D texture = Helper.Content.Load<Texture2D>
 					(SeasonData[i].spriteAsset, ContentSource.GameContent);
 				Rectangle sb = SeasonData[i].spriteBounds;
-				Rectangle bounds = new Rectangle (sb.X + xCenter, sb.Y + yCenter,
-					sb.Width, sb.Height);
+				Rectangle bounds = new Rectangle
+					((int) (sb.X + xCenter), // not scaling
+					(int) (sb.Y * CalendarScale + yCenter),
+					(int) (sb.Width * CalendarScale),
+					(int) (sb.Height * CalendarScale));
 				seasonSprites.Add (new ClickableTextureComponent ($"SeasonSprite{i}",
-					bounds, null, null, texture, SeasonData[i].spriteSource, 1f));
+					bounds, null, null, texture, SeasonData[i].spriteSource,
+					1f)); // not scaling despite reduced bounds
 			}
 
 			xOff -= spaceToClearSideBorder;
@@ -213,13 +242,16 @@ namespace ScryingOrb
 				return;
 			}
 
-			for (int i = 0; i < seasonSprites.Count; ++i)
+			if (!Mobile)
 			{
-				if (seasonSprites[i].containsPoint (x, y))
+				for (int i = 0; i < seasonSprites.Count; ++i)
 				{
-					if (playSound) Game1.playSound ("leafrustle");
-					hitSeasonSprite (i);
-					return;
+					if (seasonSprites[i].containsPoint (x, y))
+					{
+						if (playSound) Game1.playSound ("leafrustle");
+						hitSeasonSprite (i);
+						return;
+					}
 				}
 			}
 
@@ -329,22 +361,20 @@ namespace ScryingOrb
 		public override void performHoverAction (int x, int y)
 		{
 			base.performHoverAction (x, y);
+			if (Mobile)
+				return;
+
 			hoverText = null;
 			int oldHoverButton = hoverButton;
+			hoverButton = -999;
 
 			int day = getDayAtPoint (x, y);
 			if (day > -1)
 			{
-				if (hoverButton != day)
-				{
-					hoverButton = day;
+				hoverButton = day;
+				if (oldHoverButton != hoverButton)
 					Game1.playSound ("Cowboy_gunshot");
-				}
 				hoverText = dayButtons[day].hoverText;
-			}
-			else
-			{
-				hoverButton = -999;
 			}
 
 			for (int i = 0; i < otherButtons.Count; ++i)
@@ -368,7 +398,8 @@ namespace ScryingOrb
 			x -= calendar.bounds.Center.X;
 			y -= calendar.bounds.Center.Y;
 			double radius = Math.Sqrt (Math.Pow (x, 2) + Math.Pow (y, 2));
-			if (radius < 192.0 || radius > 248.0) return -1;
+			if (radius < 192.0 * CalendarScale || radius > 248.0 * CalendarScale)
+				return -1;
 			double pct = Math.Atan2 (y, x) / (2 * Math.PI);
 			return (int) Math.Floor (140.0 + 112.0 * pct) % 112;
 		}
@@ -400,9 +431,9 @@ namespace ScryingOrb
 
 			// DateLabel
 			string dateText = date.Localize ();
-			float dateWidth = Game1.dialogueFont.MeasureString (dateText).X;
+			float dateWidth = DateFont.MeasureString (dateText).X;
 			float dateOffset = (dateLabel.bounds.Width - dateWidth) / 2;
-			Utility.drawTextWithShadow (b, dateText, Game1.dialogueFont,
+			Utility.drawTextWithShadow (b, dateText, DateFont,
 				new Vector2 (dateLabel.bounds.X + dateOffset, dateLabel.bounds.Y),
 				Game1.textColor);
 
@@ -422,10 +453,7 @@ namespace ScryingOrb
 			for (int i = 0; i < dayButtons.Count; ++i)
 			{
 				ClickableTextureComponent button = dayButtons[i];
-				Vector2 position = new Vector2 ((float) button.bounds.X +
-					(float) (button.sourceRect.Width / 2) * button.baseScale,
-					(float) button.bounds.Y + (float) (button.sourceRect.Height / 2)
-					* button.baseScale);
+				Vector2 position = new Vector2 (button.bounds.X, button.bounds.Y);
 				Rectangle sourceRect = new Rectangle (button.sourceRect.X +
 					((i == selectedDay) ? 24 : (i == hoverButton) ? 12 : 0),
 					button.sourceRect.Y, button.sourceRect.Width,
@@ -434,7 +462,7 @@ namespace ScryingOrb
 					button.sourceRect.Height / 2);
 				double angle = 2 * Math.PI * (i + 0.5) / 112.0;
 				b.Draw (button.texture, position, sourceRect, Color.White,
-					(float) angle, origin, 1f, SpriteEffects.None,
+					(float) angle, origin, CalendarScale, SpriteEffects.None,
 					0.86f + (float) button.bounds.Y / 20000f);
 			}
 

@@ -97,7 +97,7 @@ namespace PublicAccessTV
 					time = Game1.getTimeOfDayString (predictions[0].time),
 				}),
 				background, nextPortrait)
-				{ musicTrack = musicTrack, soundCueName = nextSound });
+				{ musicTrack = musicTrack, soundCue = nextSound });
 
 			// Second and third scheduled trains.
 			if (predictions.Count >= 3)

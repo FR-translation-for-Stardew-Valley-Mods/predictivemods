@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using PredictiveCore;
+using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Objects;
 using System;
@@ -144,7 +145,8 @@ namespace ScryingOrb
 								: prediction.loot.DisplayName,
 					}));
 				}
-				lines.Add (""); // padding for occasional display issues
+				if (Constants.TargetPlatform != GamePlatform.Android)
+					lines.Add (""); // padding for occasional display issues
 				pages.Add (string.Join ("^", lines));
 			}
 

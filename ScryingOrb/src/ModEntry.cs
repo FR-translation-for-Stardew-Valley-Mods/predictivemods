@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Harmony;
+using Microsoft.Xna.Framework;
 using PredictiveCore;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -13,6 +14,8 @@ namespace ScryingOrb
 	public class ModEntry : Mod
 	{
 		internal static ModEntry Instance { get; private set; }
+
+		internal HarmonyInstance harmony { get; private set; }
 
 		protected ModConfig Config => ModConfig.Instance;
 
@@ -36,7 +39,7 @@ namespace ScryingOrb
 				orbHovered = value;
 
 				// Let the cursor editor know to do its thing.
-				if (oldValue != value)
+				if (cursorEditor != null && oldValue != value)
 					cursorEditor.apply ();
 			}
 		}
@@ -51,7 +54,9 @@ namespace ScryingOrb
 				orbsIlluminated = value;
 
 				// Let the cursor editor know to do its thing.
-				if ((oldValue == 0 && value > 0) || (oldValue > 0 && value == 0))
+				if (cursorEditor != null &&
+						((oldValue == 0 && value > 0) ||
+							(oldValue > 0 && value == 0)))
 					cursorEditor.apply ();
 			}
 		}
@@ -67,9 +72,19 @@ namespace ScryingOrb
 			// Set up PredictiveCore.
 			Utilities.Initialize (this, () => ModConfig.Instance);
 
+			// Apply Harmony patches.
+			if (Constants.TargetPlatform == GamePlatform.Android)
+			{
+				harmony = HarmonyInstance.Create (ModManifest.UniqueID);
+				SpriteTextPatches.Apply ();
+			}
+
 			// Set up asset editors.
-			cursorEditor = new CursorEditor ();
-			Helper.Content.AssetEditors.Add (cursorEditor);
+			if (Constants.TargetPlatform != GamePlatform.Android)
+			{
+				cursorEditor = new CursorEditor ();
+				Helper.Content.AssetEditors.Add (cursorEditor);
+			}
 			Helper.Content.AssetEditors.Add (new MailEditor ());
 
 			// Add console commands.
@@ -151,19 +166,29 @@ namespace ScryingOrb
 
 		private void onButtonPressed (object _sender, ButtonPressedEventArgs e)
 		{
-			// Only respond to the action button, and only if the world is ready
-			// and the player is free to interact with an orb.
-			if (!Context.IsWorldReady || !Context.IsPlayerFree ||
-				!e.Button.IsActionButton ())
-			{
+			// Only respond if the world is ready and the player is free to
+			// interact with an orb.
+			if (!Context.IsWorldReady || !Context.IsPlayerFree)
 				return;
-			}
 
 			// Only respond when a Scrying Orb is interacted with.
 			SObject orb = Game1.currentLocation.getObjectAtTile
 				((int) e.Cursor.GrabTile.X, (int) e.Cursor.GrabTile.Y);
 			if (!IsScryingOrb (orb))
 				return;
+
+			if (Constants.TargetPlatform == GamePlatform.Android)
+			{
+				// On Android, respond to any tap on the grab tile itself.
+				if (e.Cursor.GrabTile != e.Cursor.Tile)
+					return;
+			}
+			else
+			{
+				// On other platforms, only respond to the action button.
+				if (!e.Button.IsActionButton ())
+					return;
+			}
 
 			// Suppress the button so it won't cause any other effects.
 			Helper.Input.Suppress (e.Button);
@@ -202,7 +227,7 @@ namespace ScryingOrb
 			}
 			catch (Exception e)
 			{
-				Monitor.Log (e.Message, LogLevel.Error);
+				Monitor.Log ($"Could not reset Scrying Orbs: {e.Message}", LogLevel.Error);
 			}
 		}
 
@@ -234,7 +259,7 @@ namespace ScryingOrb
 			}
 			catch (Exception e)
 			{
-				Monitor.Log (e.Message, LogLevel.Error);
+				Monitor.Log ($"Could not create test kit: {e.Message}", LogLevel.Error);
 			}
 		}
 
@@ -256,7 +281,7 @@ namespace ScryingOrb
 			}
 			catch (Exception e)
 			{
-				Monitor.Log (e.Message, LogLevel.Error);
+				Monitor.Log ($"Could not test date picker: {e.Message}", LogLevel.Error);
 			}
 		}
 	}

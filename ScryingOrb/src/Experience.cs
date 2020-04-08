@@ -2,10 +2,12 @@
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
 using StardewValley;
+using StardewValley.BellsAndWhistles;
 using StardewValley.Menus;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using SObject = StardewValley.Object;
 
 namespace ScryingOrb
@@ -135,6 +137,14 @@ namespace ScryingOrb
 				delay);
 		}
 
+		protected string unbreak (string dialogue)
+		{
+			if (Constants.TargetPlatform == GamePlatform.Android)
+				return Regex.Replace (dialogue, @" *\^ *", " ").Trim ();
+			else
+				return dialogue;
+		}
+
 		protected void showDialogues (List<string> dialogues, int delay = 0)
 		{
 			// Equivalent to DelayedAction.showDialogueAfterDelay combined with
@@ -144,7 +154,7 @@ namespace ScryingOrb
 			// with multi-page dialogues.
 
 			// Pad each line of each page with a space to work around a width
-			// estimation bug in the List-based DialogueBox. *sigh*
+			// estimation bug in the List-based DialogueBox.
 			for (int i = 0; i < dialogues.Count; ++i)
 				dialogues[i] = dialogues[i].Replace ("^", " ^") + " ";
 
@@ -161,6 +171,13 @@ namespace ScryingOrb
 				// Display the dialogues.
 				DialogueBox box = new DialogueBox (dialogues);
 				Game1.activeClickableMenu = box;
+
+				// Fix the first page height being too *short* on Android.
+				if (Constants.TargetPlatform == GamePlatform.Android)
+				{
+					box.height = SpriteText.getHeightOfString (dialogues[0],
+						box.width - 8 - 16) + 12 + 12;
+				}
 
 				// Suppress typing of dialogue, at least on first page.
 				box.finishTyping ();

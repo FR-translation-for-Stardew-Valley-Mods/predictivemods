@@ -2,6 +2,7 @@
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using System;
+using System.Collections.Generic;
 
 namespace PublicAccessTV
 {
@@ -12,7 +13,7 @@ namespace PublicAccessTV
 
 		protected ModConfig Config => ModConfig.Instance;
 
-		internal Channel[] channels { get; private set; }
+		internal List<Channel> channels { get; private set; }
 
 		public override void Entry (IModHelper helper)
 		{
@@ -58,7 +59,7 @@ namespace PublicAccessTV
 			}
 
 			// Create the channels.
-			channels = new Channel[]
+			channels = new List<Channel>
 			{
 				new NightEventsChannel (),
 				new MiningChannel (),
@@ -77,15 +78,16 @@ namespace PublicAccessTV
 				Utilities.CheckWorldReady ();
 				foreach (Channel channel in channels)
 					channel.update ();
+				if (isCommand)
+				{
+					Monitor.Log ("Channel availability updated to reflect current conditions.",
+						LogLevel.Info);
+				}
 			}
 			catch (Exception e)
 			{
-				Monitor.Log (e.Message, LogLevel.Error);
-			}
-			if (isCommand)
-			{
-				Monitor.Log ("Channel availability updated to reflect current conditions.",
-					LogLevel.Info);
+				Monitor.Log ($"Could not update channels: {e.Message}",
+					LogLevel.Error);
 			}
 		}
 
@@ -96,13 +98,14 @@ namespace PublicAccessTV
 				Utilities.CheckWorldReady ();
 				foreach (Channel channel in channels)
 					channel.reset ();
+				Monitor.Log ("Channels reset to initial states.",
+					LogLevel.Info);
 			}
 			catch (Exception e)
 			{
-				Monitor.Log (e.Message, LogLevel.Error);
+				Monitor.Log ($"Could not reset channels: {e.Message}",
+					LogLevel.Error);
 			}
-			Monitor.Log ("Channels reset to initial states.",
-				LogLevel.Info);
 		}
 	}
 }

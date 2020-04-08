@@ -102,8 +102,6 @@ See the [issue tracker](https://gitlab.com/kdau/predictivemods/-/issues) for bug
 
 ## Future ideas
 
-* add support for Android (guard System.Media, ...)
-
 ### Public Access TV channels (non-predictive)
 
 * Arts (hosts: Elliott, Evelyn, Leah)

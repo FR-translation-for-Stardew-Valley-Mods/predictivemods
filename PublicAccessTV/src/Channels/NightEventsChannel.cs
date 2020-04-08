@@ -38,7 +38,7 @@ namespace PublicAccessTV
 			queueScene (new Scene
 				(Helper.Translation.Get ($"nightEvents.{currentEvent}.opening"),
 				background, portrait)
-				{ soundAsset = newYear
+				{ soundCue = "Cowboy_Secret", soundAsset = newYear
 					? "nightEvents_newYear" : "nightEvents_opening" });
 
 			// The governor reacts to the event.
@@ -53,7 +53,7 @@ namespace PublicAccessTV
 			}
 			queueScene (new Scene (Helper.Translation.Get ($"nightEvents.{currentEvent}.reaction"),
 				reactionBackground, loadPortrait (tv, "Governor", reactionIndex))
-				{ soundCueName = reactionSound });
+				{ soundCue = reactionSound });
 
 			// Closing scene: the governor signs off.
 			queueScene (new Scene (Helper.Translation.Get ($"nightEvents.{currentEvent}.closing"),

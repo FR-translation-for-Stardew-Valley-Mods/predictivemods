@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PredictiveCore;
+using StardewModdingAPI;
 using StardewValley;
 using StardewValley.GameData.Movies;
 using StardewValley.Objects;
@@ -39,7 +40,7 @@ namespace PublicAccessTV
 						: Helper.Translation.Get ("movies.host.generic");
 			queueScene (new Scene (Helper.Translation.Get ("movies.opening",
 				new { host = hostName }), screenBackground, hostOverlay)
-				{ soundCueName = "Cowboy_Secret" });
+				{ soundCue = "Cowboy_Secret" });
 
 			// Current movie poster, title and description
 			queueScene (new Scene (Helper.Translation.Get ("movies.current", new
@@ -67,7 +68,9 @@ namespace PublicAccessTV
 			{
 				queueScene (new Scene (Helper.Translation.Get ("movies.lobby.concession"),
 					loadSprite (tv, "MovieTheater_TileSheet", new Rectangle (2, 3, 84, 56)))
-					{ soundAsset = "movies_concession" });
+					{ soundAsset = "movies_concession", musicTrack =
+						(Constants.TargetPlatform == GamePlatform.Android)
+							? "movieTheater" : null });
 			}
 
 			// Upcoming movie poster, title and description.

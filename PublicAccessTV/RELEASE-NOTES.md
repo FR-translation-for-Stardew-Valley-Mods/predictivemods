@@ -6,6 +6,7 @@
 
 *Release pending.*
 
+* Support Android platform
 * Fix issues with translated channel titles and days of the week
 * Add French translation by Inu'tile
 * Add Russian translation by Ghost3lboom

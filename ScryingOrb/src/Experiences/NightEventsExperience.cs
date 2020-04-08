@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using PredictiveCore;
+using StardewModdingAPI;
 using StardewValley;
 using System;
 using System.Collections.Generic;
@@ -59,6 +60,8 @@ namespace ScryingOrb
 			// Show the menu of types.
 			List<Response> types = Types.Select ((t) => new Response (t.Key,
 				Helper.Translation.Get ($"nightEvents.type.{t.Key}"))).ToList ();
+			if (Constants.TargetPlatform == GamePlatform.Android)
+				types.RemoveAll ((r) => r.responseKey == "leave");
 			Game1.drawObjectQuestionDialogue
 				(Helper.Translation.Get ("nightEvents.type.question"), types);
 
@@ -84,14 +87,12 @@ namespace ScryingOrb
 
 				// Show a list of the predictions.
 				List<string> predictionStrings = predictions.Select ((p) =>
-					Helper.Translation.Get ($"nightEvents.prediction.{p.type}", new
-					{
-						date = p.date.Localize (),
-					}).ToString ()).ToList ();
+					unbreak (Helper.Translation.Get ($"nightEvents.prediction.{p.type}",
+						new { date = p.date.Localize () }).ToString ())).ToList ();
 				showDialogues (new List<string>
 				{
 					string.Join ("^", predictionStrings),
-					Helper.Translation.Get ("nightEvents.closing")
+					unbreak (Helper.Translation.Get ("nightEvents.closing")),
 				});
 				Game1.afterDialogues = extinguish;
 			};

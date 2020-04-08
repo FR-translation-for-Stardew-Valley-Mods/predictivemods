@@ -6,6 +6,7 @@
 
 *Release pending.*
 
+* Support Android platform
 * Allow full week of unlimited use for farmhands as well as farmers
 * Add French translation by Inu'tile
 

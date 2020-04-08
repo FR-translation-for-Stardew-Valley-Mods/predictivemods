@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using PredictiveCore;
+using StardewModdingAPI;
 using StardewValley;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,9 @@ namespace ScryingOrb
 			{ "leave", null }
 		};
 
+		public static readonly uint TypedCount =
+			(Constants.TargetPlatform == GamePlatform.Android) ? 8u : 10u;
+
 		public override bool isAvailable =>
 			base.isAvailable && Geodes.IsAvailable;
 
@@ -54,7 +58,10 @@ namespace ScryingOrb
 		{
 			// Show the menu of types.
 			List<Response> types = Types.Select ((t) => new Response (t.Key,
-				Helper.Translation.Get ($"geodes.type.{t.Key}"))).ToList ();
+				Helper.Translation.Get ($"geodes.type.{t.Key}",
+					new { count = TypedCount }))).ToList ();
+			if (Constants.TargetPlatform == GamePlatform.Android)
+				types.RemoveAll ((r) => r.responseKey == "leave");
 			Game1.drawObjectQuestionDialogue
 				(Helper.Translation.Get ("geodes.type.question"), types);
 
@@ -72,14 +79,14 @@ namespace ScryingOrb
 				// Gather the appropriate predictions.
 				List<GeodePrediction> predictions =
 				Geodes.ListTreasures (Game1.player.stats.GeodesCracked + 1,
-					(type == "any") ? 3u : 10u);
+					(type == "any") ? 3u : TypedCount);
 				if (predictions.Count == 0)
 				{
 					throw new Exception ("Could not predict geode treasures.");
 				}
 
 				List<string> pages = new List<string> ();
-				string footer = Helper.Translation.Get ("geodes.footer");
+				string footer = unbreak (Helper.Translation.Get ("geodes.footer"));
 
 				// For the next geode of any type, build a page for each geode
 				// with a list of types.
@@ -88,8 +95,9 @@ namespace ScryingOrb
 					foreach (GeodePrediction p in predictions)
 					{
 						uint num = p.number - Game1.player.stats.GeodesCracked;
-						string header = Helper.Translation.Get ($"geodes.header.any{num}");
-						pages.Add (header + string.Join ("^", p.treasures.Select ((tt) =>
+						string header = unbreak (Helper.Translation.Get ($"geodes.header.any{num}"));
+
+						List<string> lines = p.treasures.Select ((tt) =>
 						{
 							Treasure t = tt.Value;
 							return string.Join (" ", new string[]
@@ -101,14 +109,21 @@ namespace ScryingOrb
 								t.valuable ? "$" : null,
 								t.needDonation ? "=" : null
 							}.Where ((s) => s != null));
-						})) + footer);
+						}).ToList ();
+
+						lines.Insert (0, header);
+						lines.Add ("");
+						lines.Add (footer);
+						pages.Add (string.Join ("^", lines));
 					}
 				}
 				// For specific types, build a list of geodes.
 				else
 				{
-					string header = Helper.Translation.Get ($"geodes.header.{type}");
-					pages.Add (header + string.Join ("^", predictions.Select ((p) =>
+					string header = unbreak (Helper.Translation.Get ($"geodes.header.{type}",
+						new { count = TypedCount }));
+
+					List<string> lines = predictions.Select ((p) =>
 					{
 						Treasure t = p.treasures[Types[type] ?? GeodeType.Regular];
 						uint num = p.number - Game1.player.stats.GeodesCracked;
@@ -120,14 +135,20 @@ namespace ScryingOrb
 							t.valuable ? "$" : null,
 							t.needDonation ? "=" : null
 						}.Where ((s) => s != null));
-					})) + footer);
+					}).ToList ();
+
+					lines.Insert (0, header);
+					if (Constants.TargetPlatform != GamePlatform.Android)
+						lines.Add ("");
+					lines.Add (footer);
+					pages.Add (string.Join ("^", lines));
 				}
 
 				// If deeper mine level could alter the results, add an
 				// appropriate closing.
 				if (Geodes.IsProgressDependent)
 				{
-					pages.Add (Helper.Translation.Get ("geodes.closing.progress"));
+					pages.Add (unbreak (Helper.Translation.Get ("geodes.closing.progress")));
 				}
 
 				// Show the predictions.
