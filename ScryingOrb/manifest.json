@@ -1,7 +1,7 @@
 ﻿{
   "Name": "Scrying Orb",
   "Author": "kdau",
-  "Version": "1.1.0",
+  "Version": "1.2.0",
   "Description": "Craftable that takes offerings to predict future events",
   "UniqueID": "kdau.ScryingOrb",
   "EntryDll": "ScryingOrb.dll",

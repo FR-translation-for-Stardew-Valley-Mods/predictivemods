@@ -4,7 +4,7 @@
 
 ## 1.2.0
 
-*Release pending.*
+*Released April 8, 2020.*
 
 * Support Android platform
 * Fix issues with translated channel titles and days of the week

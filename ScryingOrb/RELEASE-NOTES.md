@@ -4,7 +4,7 @@
 
 ## 1.2.0
 
-*Release pending.*
+*Released April 8, 2020.*
 
 * Support Android platform
 * Allow full week of unlimited use for farmhands as well as farmers
