@@ -1,10 +1,10 @@
 # ![[icon]](assets/icon.png) Public Access TV
 
-*a [Stardew Valley](http://stardewvalley.net/) mod by kdau*
+*a [Stardew Valley](http://stardewvalley.net/) mod by [kdau](https://kdau.gitlab.io)*
 
 Your friends in the valley take to the airwaves to keep you apprised of today's mining conditions<!-- TODO: , shopping opportunities -->, garbage loot, train schedules, rare events and more.
 
-This mod is largely based on the [Stardew Predictor](https://mouseypounds.github.io/stardew-predictor/) web app by MouseyPounds, whose tools are all worth a look. Its companion mod, [Scrying Orb](https://www.nexusmods.com/stardewvalley/mods/5603) <small>([source](../ScryingOrb))</small>, offers a different route to some of the same information and more, but looks well beyond the current game day.
+This mod is largely based on the [Stardew Predictor](https://mouseypounds.github.io/stardew-predictor/) web app by MouseyPounds, whose tools are all worth a look. Its companion mod, [Scrying Orb](https://www.nexusmods.com/stardewvalley/mods/5603), offers a different route to some of the same information and more, but looks well beyond the current game day.
 
 ## Contents
 
@@ -116,6 +116,7 @@ Your contribution would be welcome. Please see the [details on the wiki](https:/
 * [Issue tracker](https://gitlab.com/kdau/predictivemods/-/issues) for bug fixes and minor enhancements
 * [Roadmap](../ROADMAP.md) of major development plans
 * [MIT license](../LICENSE) (TLDR: do whatever, but credit me)
+* [My other mods](https://kdau.gitlab.io)
 
 Mirrors:
 
@@ -123,15 +124,10 @@ Mirrors:
 * [This mod on ModDrop](https://www.moddrop.com/stardew-valley/mods/757967-public-access-tv)
 * [This mod on GitLab](https://gitlab.com/kdau/predictivemods/-/tree/master/PublicAccessTV)
 
-My other mods:
-
-* ![[icon]](https://kdau.gitlab.io/PortableTV/icon.png) [Portable TV](https://www.nexusmods.com/stardewvalley/mods/5674) <small>([source](https://gitlab.com/kdau/portabletv))</small> to watch these channels on the go:
-  *It's little! It's lovely! It shows Livin' Off The Land! The Portable TV is a craftable item carried in your inventory that lets you watch TV channels (standard and custom) from anywhere in Stardew Valley.*
-* ![[icon]](https://kdau.gitlab.io/ScryingOrb/icon.png) [Scrying Orb](https://www.nexusmods.com/stardewvalley/mods/5603) mod <small>([source](../ScryingOrb))</small> for mystical, forward-looking predictions:
-  *Craft a Scrying Orb with a recipe from Welwick and you too can peer into the future. Make an offering to the spirits to scry mining conditions, geode contents, rare events or garbage loot.*
-
 Other things you may enjoy:
 
+* ![[icon]](https://kdau.gitlab.io/PortableTV/icon.png) [Portable TV](https://www.nexusmods.com/stardewvalley/mods/5674) mod to watch these channels on the go
+* ![[icon]](https://kdau.gitlab.io/ScryingOrb/icon.png) [Scrying Orb](https://www.nexusmods.com/stardewvalley/mods/5603) mod for mystical, forward-looking predictions
 * ![[icon]](https://mouseypounds.github.io/stardew-predictor/favicon_p.png) [Stardew Predictor](https://mouseypounds.github.io/stardew-predictor/) web app to see all the predictions at once
-* [Gardening with Hisame](https://www.nexusmods.com/stardewvalley/mods/5485) mod for another TV program to enjoy
+* [Gardening with Hisame](https://www.nexusmods.com/stardewvalley/mods/5485) mod for farm beautification tips via TV
 * [Monthly Mail](https://www.nexusmods.com/stardewvalley/mods/4523) mod for more periodic content themed around your game activity
