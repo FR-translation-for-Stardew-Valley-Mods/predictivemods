@@ -11,10 +11,11 @@ namespace ScryingOrb
 {
 	public class GeodesExperience : Experience
 	{
-		public static readonly List<int> RejectedOfferings = new List<int>
+		public static readonly Dictionary<int, int> StackedOfferings =
+			new Dictionary<int, int>
 		{
-			571, // Limestone (too cheap)
-			 74, // Prismatic Shard (accepted by UnlimitedExperience)
+			{ 571, 3 }, // Limestone
+			{ 574, 2 }, // Mudstone
 		};
 
 		public static readonly Dictionary<string, GeodeType?> Types =
@@ -38,10 +39,17 @@ namespace ScryingOrb
 		protected override bool check ()
 		{
 			// Consume an appropriate offering.
-			if (!checkOffering (category: SObject.mineralsCategory,
-					rejected: RejectedOfferings))
+			if (!checkOffering (category: SObject.mineralsCategory))
 				return false;
-			consumeOffering ();
+			if (!StackedOfferings.TryGetValue (offering.ParentSheetIndex,
+					out int count))
+				count = 1;
+			if (offering.Stack < count)
+			{
+				showRejection ("rejection.insufficient");
+				return true;
+			}
+			consumeOffering (count);
 
 			// React to the offering, then proceed to run.
 			illuminate ();

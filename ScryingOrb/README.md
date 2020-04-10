@@ -75,7 +75,9 @@ Learn what will be found inside the next three geodes of any type, or the next 1
 <details>
 <summary>Offerings</summary>
 
-* any Mineral item other than Limestone or Prismatic Shard
+* 3 Limestone
+* 2 Mudstone
+* any other [Mineral item found in geodes](https://stardewvalleywiki.com/Minerals#Geode_Minerals)
 
 </details>
 
