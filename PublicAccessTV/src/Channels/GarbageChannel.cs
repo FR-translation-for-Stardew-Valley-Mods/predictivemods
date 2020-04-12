@@ -99,7 +99,7 @@ namespace PublicAccessTV
 					// If bypassing friendships, no need for the event.
 					Config.BypassFriendships ||
 					// Must be on the Town map.
-					Game1.currentLocation.Name != "Town" ||
+					Game1.currentLocation?.Name != "Town" ||
 					// Must not have seen this event yet.
 					Game1.player.eventsSeen.Contains (79400102))
 				return;
