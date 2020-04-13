@@ -1,4 +1,5 @@
 ﻿using StardewModdingAPI;
+using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.Locations;
 using System;
@@ -158,7 +159,6 @@ namespace PredictiveCore
 						throw new ArgumentException ($"Invalid geode number '{args[0]}', must be a number 1 or higher.");
 					args.RemoveAt (0);
 				}
-				WorldDate date = Utilities.ArgsToWorldDate (args);
 
 				List<GeodePrediction> predictions = ListTreasures (number, limit);
 				Utilities.Monitor.Log ($"Next {limit} treasure(s) starting with geode {number}:",

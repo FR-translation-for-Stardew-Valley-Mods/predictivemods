@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using PredictiveCore;
 using StardewModdingAPI;
+using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.GameData.Movies;
 using StardewValley.Objects;
@@ -23,7 +24,7 @@ namespace PublicAccessTV
 
 		internal override void show (TV tv)
 		{
-			MoviePrediction prediction = Movies.PredictForDate (Utilities.Now ());
+			MoviePrediction prediction = Movies.PredictForDate (SDate.Now ());
 
 			TemporaryAnimatedSprite screenBackground = loadSprite (tv,
 				"MovieTheaterScreen_TileSheet", new Rectangle (31, 0, 162, 108));

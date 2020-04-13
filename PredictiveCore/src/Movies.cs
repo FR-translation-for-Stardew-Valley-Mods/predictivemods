@@ -1,4 +1,5 @@
 ﻿using StardewModdingAPI;
+using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.GameData.Movies;
 using StardewValley.Locations;
@@ -9,11 +10,11 @@ namespace PredictiveCore
 {
 	public struct MoviePrediction
 	{
-		public WorldDate effectiveDate;
+		public SDate effectiveDate;
 		public MovieData currentMovie;
 		public bool craneGameAvailable;
 
-		public WorldDate firstDateOfNextMovie;
+		public SDate firstDateOfNextMovie;
 		public MovieData nextMovie;
 	}
 
@@ -25,7 +26,7 @@ namespace PredictiveCore
 
 		// Lists the current and next movie and crane game status as of the
 		// given date.
-		public static MoviePrediction PredictForDate (WorldDate date)
+		public static MoviePrediction PredictForDate (SDate date)
 		{
 			Utilities.CheckWorldReady ();
 			if (!IsAvailable)
@@ -33,21 +34,22 @@ namespace PredictiveCore
 
 			MoviePrediction prediction =
 				new MoviePrediction { effectiveDate = date };
-			prediction.currentMovie =
-				MovieTheater.GetMovieForDate (date);
-			prediction.firstDateOfNextMovie =
-				Utilities.GetNextSeasonStart (date);
-			prediction.nextMovie =
-				MovieTheater.GetMovieForDate (prediction.firstDateOfNextMovie);
+			prediction.currentMovie = MovieTheater.GetMovieForDate
+				(date.ToWorldDate ());
+			prediction.firstDateOfNextMovie = Utilities.GetNextSeasonStart
+				(date);
+			prediction.nextMovie = MovieTheater.GetMovieForDate
+				(prediction.firstDateOfNextMovie.ToWorldDate ());
 
 			// Logic from StardewValley.Locations.MovieTheater.addRandomNPCs()
 			// as implemented in Stardew Predictor by MouseyPounds.
 			if (Game1.getLocationFromName ("MovieTheater") is MovieTheater theater)
 			{
-				Random rng = new Random ((int) Game1.uniqueIDForThisGame + date.TotalDays);
+				Random rng = new Random ((int) Game1.uniqueIDForThisGame +
+					date.DaysSinceStart - 1);
 				prediction.craneGameAvailable = !(rng.NextDouble () < 0.25) &&
 					theater.dayFirstEntered.Value != -1 &&
-					theater.dayFirstEntered.Value != date.TotalDays;
+					theater.dayFirstEntered.Value != date.DaysSinceStart - 1;
 			}
 
 			return prediction;
@@ -66,7 +68,7 @@ namespace PredictiveCore
 		{
 			try
 			{
-				WorldDate date = Utilities.ArgsToWorldDate (args);
+				SDate date = Utilities.ArgsToSDate (args);
 				MoviePrediction prediction = PredictForDate (date);
 				Utilities.Monitor.Log ($"On {prediction.effectiveDate}, the movie showing will be \"{prediction.currentMovie.Title}\". \"{prediction.currentMovie.Description}\"",
 					LogLevel.Info);

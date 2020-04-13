@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using PredictiveCore;
 using StardewModdingAPI;
+using StardewModdingAPI.Utilities;
 using StardewValley;
 using System;
 using System.Collections.Generic;
@@ -78,7 +79,7 @@ namespace ScryingOrb
 
 				// Gather the appropriate predictions.
 				List<NightEventPrediction> predictions =
-					NightEvents.ListNextEventsForDate (Utilities.Now (), 3,
+					NightEvents.ListNextEventsForDate (SDate.Now (), 3,
 						Types[type]);
 				if (predictions.Count == 0)
 				{
@@ -88,7 +89,7 @@ namespace ScryingOrb
 				// Show a list of the predictions.
 				List<string> predictionStrings = predictions.Select ((p) =>
 					unbreak (Helper.Translation.Get ($"nightEvents.prediction.{p.type}",
-						new { date = p.date.Localize () }).ToString ())).ToList ();
+						new { date = p.date.ToLocaleString () }).ToString ())).ToList ();
 				showDialogues (new List<string>
 				{
 					string.Join ("^", predictionStrings),

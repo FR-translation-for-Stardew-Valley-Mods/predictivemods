@@ -1,4 +1,5 @@
 ﻿using StardewModdingAPI;
+using StardewModdingAPI.Utilities;
 using StardewValley;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace PredictiveCore
 
 	public struct NightEventPrediction
 	{
-		public WorldDate date;
+		public SDate date;
 		public NightEventType type;
 	}
 
@@ -31,7 +32,7 @@ namespace PredictiveCore
 		// Lists the next several night events to occur on or after the given
 		// date, up to the given limit, optionally of a given type.
 		public static List<NightEventPrediction> ListNextEventsForDate
-			(WorldDate fromDate, uint limit, NightEventType? onlyType = null)
+			(SDate fromDate, uint limit, NightEventType? onlyType = null)
 		{
 			Utilities.CheckWorldReady ();
 
@@ -41,25 +42,26 @@ namespace PredictiveCore
 			List<NightEventPrediction> predictions =
 				new List<NightEventPrediction> ();
 
-			for (int days = fromDate.TotalDays;
+			for (int days = fromDate.DaysSinceStart;
 				predictions.Count < limit &&
-					days < fromDate.TotalDays + Utilities.MaxHorizon;
+					days < fromDate.DaysSinceStart + Utilities.MaxHorizon;
 				++days)
 			{
-				WorldDate tonight = Utilities.TotalDaysToWorldDate (days);
-				WorldDate tomorrow = Utilities.TotalDaysToWorldDate (days + 1);
+				SDate tonight = SDate.FromDaysSinceStart (days);
+				SDate tomorrow = SDate.FromDaysSinceStart (days + 1);
 
 				// No event if there is a wedding tomorrow.
 				foreach (Farmer farmer in Game1.getAllFarmers ())
 				{
 					Friendship spouse = farmer.GetSpouseFriendship ();
-					if (spouse != null && spouse.WeddingDate == tomorrow)
+					if (spouse != null &&
+							spouse.WeddingDate == tomorrow.ToWorldDate ())
 						continue;
 				}
 
 				NightEventType type = NightEventType.None;
 				Random rng = new Random (((int) Game1.uniqueIDForThisGame / 2) +
-					days + 2);
+					days + 1);
 				if (days == 29)
 					type = NightEventType.Earthquake;
 				// Ignoring the possibility of bundle completion here.
@@ -105,7 +107,7 @@ namespace PredictiveCore
 						throw new ArgumentException ($"Invalid limit '{args[0]}', must be a number 1 or higher.");
 					args.RemoveAt (0);
 				}
-				WorldDate date = Utilities.ArgsToWorldDate (args);
+				SDate date = Utilities.ArgsToSDate (args);
 
 				List<NightEventPrediction> predictions = ListNextEventsForDate (date, limit);
 				Utilities.Monitor.Log ($"Next {limit} night event(s) occurring on or after {date}:",

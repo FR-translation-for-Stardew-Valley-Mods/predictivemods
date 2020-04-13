@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using PredictiveCore;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
+using StardewModdingAPI.Utilities;
 using StardewValley;
 using System;
 using System.Collections.Generic;
@@ -267,7 +268,7 @@ namespace ScryingOrb
 		{
 			try
 			{
-				WorldDate initialDate = new WorldDate (2, "spring", 15);
+				SDate initialDate = new SDate (2, "spring", 15);
 				string prompt = "Where on the wheel of the year do you seek?";
 				if (Context.IsWorldReady)
 					++OrbsIlluminated; // use the special cursor in the dialog

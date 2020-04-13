@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using PredictiveCore;
+using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.Objects;
 using System;
@@ -50,7 +50,7 @@ namespace PublicAccessTV
 		internal override void show (TV tv)
 		{
 			List<TrainPrediction> predictions =
-				Trains.ListNextTrainsForDate (Utilities.Now (), 3);
+				Trains.ListNextTrainsForDate (SDate.Now (), 3);
 			if (predictions.Count < 1)
 			{
 				throw new Exception ("No trains found.");
@@ -72,14 +72,14 @@ namespace PublicAccessTV
 			string nextMessage;
 			TemporaryAnimatedSprite nextPortrait;
 			string nextSound = null;
-			WorldDate now = Utilities.Now ();
+			SDate now = SDate.Now ();
 			if (predictions[0].date == now)
 			{
 				nextMessage = "today";
 				nextPortrait = loadPortrait (tv, "Demetrius", 0, 3);
 				nextSound = "trainWhistle";
 			}
-			else if (predictions[0].date.TotalDays < now.TotalDays + 7)
+			else if (predictions[0].date.DaysSinceStart < now.DaysSinceStart + 7)
 			{
 				nextMessage = "thisWeek";
 				nextPortrait = loadPortrait (tv, "Demetrius", 1, 0);
@@ -92,7 +92,7 @@ namespace PublicAccessTV
 			}
 			queueScene (new Scene (Helper.Translation.Get ($"trains.next.{nextMessage}", new
 				{
-					date = predictions[0].date.Localize (),
+					date = predictions[0].date.ToLocaleString (),
 					dayOfWeek = Utilities.GetLocalizedDayOfWeek (predictions[0].date),
 					time = Game1.getTimeOfDayString (predictions[0].time),
 				}),
@@ -104,8 +104,8 @@ namespace PublicAccessTV
 			{
 				queueScene (new Scene (Helper.Translation.Get ("trains.later", new
 				{
-					date1 = predictions[1].date.Localize (),
-					date2 = predictions[2].date.Localize (),
+					date1 = predictions[1].date.ToLocaleString (),
+					date2 = predictions[2].date.ToLocaleString (),
 				}), background, loadPortrait (tv, "Demetrius", 1, 1))
 				{ musicTrack = musicTrack });
 			}

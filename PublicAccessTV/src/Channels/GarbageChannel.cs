@@ -1,14 +1,13 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Netcode;
 using PredictiveCore;
 using StardewModdingAPI;
+using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.Objects;
 using System.Collections.Generic;
 using System.IO;
 using xTile.Dimensions;
-using SObject = StardewValley.Object;
 
 namespace PublicAccessTV
 {
@@ -182,7 +181,7 @@ namespace PublicAccessTV
 
 		internal override void show (TV tv)
 		{
-			WorldDate today = Utilities.Now ();
+			SDate today = SDate.Now ();
 			List<GarbagePrediction> predictions = Garbage.ListLootForDate (today);
 
 			int seasonIndex = today.SeasonIndex;

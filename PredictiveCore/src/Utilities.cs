@@ -22,14 +22,14 @@ namespace PredictiveCore
 
 	public static class Utilities
 	{
-		// Parses a list of three console arguments (year, season, day) as a
-		// WorldDate. If the list is empty, returns the current date.
-		public static WorldDate ArgsToWorldDate (List<string> args)
+		// Parses a list of three console arguments (year, season, day) as an
+		// SDate. If the list is empty, returns the current date.
+		public static SDate ArgsToSDate (List<string> args)
 		{
 			switch (args.Count)
 			{
 			case 0:
-				return Now ();
+				return SDate.Now ();
 			case 3:
 				break;
 			default:
@@ -52,34 +52,22 @@ namespace PredictiveCore
 				throw new ArgumentException ($"Invalid day '{args[2]}', must be a number from 1 to 28.");
 			}
 
-			return new WorldDate (year, season, day);
-		}
-
-		// Converts a TotalDays count to a WorldDate.
-		public static WorldDate TotalDaysToWorldDate (int totalDays)
-		{
-			return new WorldDate () { TotalDays = totalDays };
-		}
-
-		// Returns the current WorldDate, since Game1.Date seems to have bugs.
-		public static WorldDate Now ()
-		{
-			return new WorldDate (Game1.year, Game1.currentSeason, Game1.dayOfMonth);
+			return new SDate (year, season, day);
 		}
 
 		// Returns the first day of the next season after a given date.
-		public static WorldDate GetNextSeasonStart (WorldDate date)
+		public static SDate GetNextSeasonStart (SDate date)
 		{
 			switch (date.Season)
 			{
 			case "spring":
-				return new WorldDate (date.Year, "summer", 1);
+				return new SDate (1, "summer", date.Year);
 			case "summer":
-				return new WorldDate (date.Year, "fall", 1);
+				return new SDate (1, "fall", date.Year);
 			case "fall":
-				return new WorldDate (date.Year, "winter", 1);
+				return new SDate (1, "winter", date.Year);
 			default:
-				return new WorldDate (date.Year + 1, "spring", 1);
+				return new SDate (1, "spring", date.Year + 1);
 			}
 		}
 
@@ -92,17 +80,17 @@ namespace PredictiveCore
 		}
 
 		// Returns the localized name of the day of the week for a given date.
-		public static string GetLocalizedDayOfWeek (WorldDate date,
+		public static string GetLocalizedDayOfWeek (SDate date,
 			bool shortName = false)
 		{
 			if (shortName)
 			{
-				return Game1.shortDayDisplayNameFromDayOfSeason (date.DayOfMonth);
+				return Game1.shortDayDisplayNameFromDayOfSeason (date.Day);
 			}
 			else
 			{
 				// February 1999 was a Stardew month: 28 days starting on Monday
-				return new DateTime (1999, 2, date.DayOfMonth).ToString ("dddd",
+				return new DateTime (1999, 2, date.Day).ToString ("dddd",
 					GetCurrentCulture ());
 			}
 		}

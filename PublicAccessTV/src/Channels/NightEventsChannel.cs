@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PredictiveCore;
+using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.Objects;
 using System;
@@ -64,7 +65,7 @@ namespace PublicAccessTV
 
 		private NightEventType getCurrentEvent ()
 		{
-			WorldDate tonight = Utilities.Now ();
+			SDate tonight = SDate.Now ();
 
 			List<NightEventPrediction> predictions =
 				NightEvents.ListNextEventsForDate (tonight, 1);
@@ -78,10 +79,8 @@ namespace PublicAccessTV
 				}
 			}
 
-			if (tonight.Season == "winter" && tonight.DayOfMonth == 28)
-			{
+			if (tonight.Season == "winter" && tonight.Day == 28)
 				return NightEventType.NewYear;
-			}
 
 			return NightEventType.None;
 		}

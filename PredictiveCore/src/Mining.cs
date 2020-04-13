@@ -1,4 +1,5 @@
 ﻿using StardewModdingAPI;
+using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.Locations;
 using System;
@@ -51,7 +52,7 @@ namespace PredictiveCore
 		}
 
 		// Lists the special floors to be found in mines on the given date.
-		public static List<MiningPrediction> ListFloorsForDate (WorldDate date)
+		public static List<MiningPrediction> ListFloorsForDate (SDate date)
 		{
 			Utilities.CheckWorldReady ();
 			if (!IsAvailable)
@@ -63,7 +64,6 @@ namespace PredictiveCore
 			// and StardewValley.Locations.MineShaft.loadLevel()
 			// as implemented in Stardew Predictor by MouseyPounds.
 
-			int days = date.TotalDays + 1;
 			bool hasQuarry = Utility.doesMasterPlayerHaveMailReceivedButNotMailForTomorrow
 				("ccCraftsRoom");
 
@@ -91,7 +91,7 @@ namespace PredictiveCore
 					continue;
 
 				// Check for monster or slime infestation.
-				Random rng = new Random (days + floor * 100 +
+				Random rng = new Random (date.DaysSinceStart + floor * 100 +
 					(int) Game1.uniqueIDForThisGame / 2);
 				if (rng.NextDouble () < 0.044 && floor % 40 > 5 &&
 					floor % 40 < 30 && floor % 40 != 19)
@@ -122,7 +122,7 @@ namespace PredictiveCore
 				}
 
 				// Check for a mushroom floor.
-				rng = new Random((days * floor) + (4 * floor) +
+				rng = new Random ((date.DaysSinceStart * floor) + (4 * floor) +
 					(int) Game1.uniqueIDForThisGame / 2);
 				if (rng.NextDouble () < 0.3 && floor > 2)
 					rng.NextDouble ();
@@ -146,7 +146,7 @@ namespace PredictiveCore
 					// Check for Pepper Rex floors. Since these are precluded
 					// by an earlier unpredictable roll for treasure rooms,
 					// these are only potential floors.
-					Random rng = new Random (days + floor * 100 +
+					Random rng = new Random (date.DaysSinceStart + floor * 100 +
 						(int) Game1.uniqueIDForThisGame / 2);
 					if (rng.NextDouble () < 0.044)
 					{
@@ -182,7 +182,7 @@ namespace PredictiveCore
 		{
 			try
 			{
-				WorldDate date = Utilities.ArgsToWorldDate (args);
+				SDate date = Utilities.ArgsToSDate (args);
 
 				List<MiningPrediction> predictions = ListFloorsForDate (date);
 				Utilities.Monitor.Log ($"Special floors in the Mines and Skull Cavern on {date}:",

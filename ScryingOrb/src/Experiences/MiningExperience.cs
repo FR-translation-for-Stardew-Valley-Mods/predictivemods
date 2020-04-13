@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using PredictiveCore;
+using StardewModdingAPI.Utilities;
 using StardewValley;
 using System.Collections.Generic;
 using System.Globalization;
@@ -48,17 +49,17 @@ namespace ScryingOrb
 
 		protected override void doRun ()
 		{
-			Game1.activeClickableMenu = new DatePicker (Utilities.Now (),
+			Game1.activeClickableMenu = new DatePicker (SDate.Now (),
 				Helper.Translation.Get ("mining.date.question"), onDateChosen);
 		}
 		
-		private void onDateChosen (WorldDate date)
+		private void onDateChosen (SDate date)
 		{
 			// Gather the appropriate predictions.
 			List<MiningPrediction> predictions =
 				Mining.ListFloorsForDate (date);
 
-			bool today = date == Utilities.Now ();
+			bool today = date == SDate.Now ();
 			List<string> pages = new List<string> ();
 
 			// Build the list of predictions.
@@ -66,7 +67,7 @@ namespace ScryingOrb
 			{
 				Helper.Translation.Get ($"mining.header.{(today ? "today" : "later")}", new
 				{
-					date = date.Localize (),
+					date = date.ToLocaleString (),
 				})
 			};
 

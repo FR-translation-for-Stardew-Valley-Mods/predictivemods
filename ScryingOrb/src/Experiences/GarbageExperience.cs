@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using PredictiveCore;
 using StardewModdingAPI;
+using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.Objects;
 using System;
@@ -74,7 +75,7 @@ namespace ScryingOrb
 			Game1.currentLocation.afterQuestion = (Farmer _who, string mode) =>
 			{
 				Game1.currentLocation.afterQuestion = null;
-				WorldDate today = Utilities.Now ();
+				SDate today = SDate.Now ();
 
 				switch (mode)
 				{
@@ -103,10 +104,10 @@ namespace ScryingOrb
 			};
 		}
 
-		private void showPredictions (WorldDate date,
+		private void showPredictions (SDate date,
 			List<GarbagePrediction> predictions, string mode)
 		{
-			bool today = date == Utilities.Now ();
+			bool today = date == SDate.Now ();
 			List<string> pages = new List<string> ();
 
 			// Show a special message for all cans being empty.
@@ -114,7 +115,7 @@ namespace ScryingOrb
 			{
 				pages.Add (Helper.Translation.Get ($"garbage.none.{mode}", new
 				{
-					date = date.Localize (),
+					date = date.ToLocaleString (),
 				}));
 			}
 			else
@@ -124,13 +125,13 @@ namespace ScryingOrb
 				{
 					Helper.Translation.Get ($"garbage.header.{(today ? "today" : "later")}", new
 					{
-						date = date.Localize (),
+						date = date.ToLocaleString (),
 					})
 				};
 
 				// Randomize the order of predictions for variety.
 				Random rng = new Random ((int) Game1.uniqueIDForThisGame +
-					date.TotalDays);
+					date.DaysSinceStart);
 
 				foreach (GarbagePrediction prediction in
 					predictions.OrderBy ((GarbagePrediction a) => rng.Next ()))

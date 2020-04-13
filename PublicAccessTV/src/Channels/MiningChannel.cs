@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using PredictiveCore;
+using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.Objects;
 using System.Collections.Generic;
@@ -56,7 +56,7 @@ namespace PublicAccessTV
 
 		internal override void show (TV tv)
 		{
-			WorldDate today = Utilities.Now ();
+			SDate today = SDate.Now ();
 			List<MiningPrediction> predictions = Mining.ListFloorsForDate (today);
 
 			TemporaryAnimatedSprite background = loadBackground (tv, 0);

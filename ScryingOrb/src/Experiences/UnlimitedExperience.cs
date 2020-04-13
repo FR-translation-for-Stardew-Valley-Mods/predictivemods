@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using PredictiveCore;
 using StardewModdingAPI;
+using StardewModdingAPI.Utilities;
 using StardewValley;
 using System.Collections.Generic;
 using System.Linq;
@@ -128,7 +128,7 @@ namespace ScryingOrb
 				var old = Helper.Data.ReadSaveData<OldData> ("Unlimited");
 				if (old != null)
 				{
-					int days = old.ExpirationDay - Utilities.Now ().TotalDays;
+					int days = old.ExpirationDay - (SDate.Now ().DaysSinceStart - 1);
 					if (days >= 0)
 						DaysRemaining = days;
 					Helper.Data.WriteSaveData<OldData> ("Unlimited", null);

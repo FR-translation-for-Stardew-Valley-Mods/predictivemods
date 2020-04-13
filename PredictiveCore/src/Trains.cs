@@ -1,4 +1,5 @@
 ﻿using StardewModdingAPI;
+using StardewModdingAPI.Utilities;
 using StardewValley;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ namespace PredictiveCore
 {
 	public struct TrainPrediction
 	{
-		public WorldDate date;
+		public SDate date;
 		public int time;
 	}
 
@@ -15,14 +16,14 @@ namespace PredictiveCore
 	{
 		// Whether this module should be available for player use.
 		public static bool IsAvailable =>
-			Utilities.Now ().TotalDays >= 30 &&
+			SDate.Now ().DaysSinceStart >= 31 &&
 			(Utilities.Config.InaccuratePredictions ||
 				!Utilities.Helper.ModRegistry.IsLoaded ("AairTheGreat.BetterTrainLoot"));
 
 		// Lists the next several trains to arrive on or after the given date,
 		// up to the given limit.
 		public static List<TrainPrediction> ListNextTrainsForDate
-			(WorldDate fromDate, uint limit)
+			(SDate fromDate, uint limit)
 		{
 			Utilities.CheckWorldReady ();
 			if (!IsAvailable)
@@ -33,13 +34,13 @@ namespace PredictiveCore
 
 			List<TrainPrediction> predictions = new List<TrainPrediction> ();
 
-			for (int days = Math.Max (fromDate.TotalDays, 30);
+			for (int days = Math.Max (fromDate.DaysSinceStart, 31);
 				predictions.Count < limit &&
-					days < fromDate.TotalDays + Utilities.MaxHorizon;
+					days < fromDate.DaysSinceStart + Utilities.MaxHorizon;
 				++days)
 			{
 				Random rng = new Random (((int) Game1.uniqueIDForThisGame / 2) +
-					days + 1);
+					days);
 				if (!(rng.NextDouble () < 0.2))
 					continue;
 
@@ -48,7 +49,7 @@ namespace PredictiveCore
 				if (time % 100 >= 60)
 					continue;
 
-				WorldDate date = Utilities.TotalDaysToWorldDate (days);
+				SDate date = SDate.FromDaysSinceStart (days);
 				predictions.Add (new TrainPrediction { date = date, time = time });
 			}
 
@@ -75,7 +76,7 @@ namespace PredictiveCore
 						throw new ArgumentException ($"Invalid limit '{args[0]}', must be a number 1 or higher.");
 					args.RemoveAt (0);
 				}
-				WorldDate date = Utilities.ArgsToWorldDate (args);
+				SDate date = Utilities.ArgsToSDate (args);
 
 				List<TrainPrediction> predictions = ListNextTrainsForDate (date, limit);
 				Utilities.Monitor.Log ($"Next {limit} train(s) arriving on or after {date}:",

@@ -1,4 +1,5 @@
 ﻿using StardewModdingAPI;
+using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.Objects;
 using System;
@@ -34,7 +35,7 @@ namespace PredictiveCore
 
 	public struct GarbagePrediction
 	{
-		public WorldDate date;
+		public SDate date;
 		public GarbageCan can;
 		public Item loot;
 		public bool special;
@@ -63,7 +64,7 @@ namespace PredictiveCore
 		}
 
 		// Lists the loot to be found in Garbage Cans on the given date.
-		public static List<GarbagePrediction> ListLootForDate (WorldDate date,
+		public static List<GarbagePrediction> ListLootForDate (SDate date,
 			bool hatOnly = false)
 		{
 			Utilities.CheckWorldReady ();
@@ -96,14 +97,14 @@ namespace PredictiveCore
 		}
 
 		// Finds the next Garbage Hat to be available on or after the given date.
-		public static GarbagePrediction? FindGarbageHat (WorldDate fromDate)
+		public static GarbagePrediction? FindGarbageHat (SDate fromDate)
 		{
-			for (int days = fromDate.TotalDays;
-				days < fromDate.TotalDays + Utilities.MaxHorizon;
+			for (int days = fromDate.DaysSinceStart;
+				days < fromDate.DaysSinceStart + Utilities.MaxHorizon;
 				++days)
 			{
 				List<GarbagePrediction> predictions =
-					ListLootForDate (Utilities.TotalDaysToWorldDate (days), true)
+					ListLootForDate (SDate.FromDaysSinceStart (days), true)
 					.Where ((p) => p.loot is Hat).ToList ();
 				if (predictions.Count > 0)
 					return predictions[0];
@@ -126,7 +127,7 @@ namespace PredictiveCore
 		{
 			try
 			{
-				WorldDate date = Utilities.ArgsToWorldDate (args);
+				SDate date = Utilities.ArgsToSDate (args);
 
 				List<GarbagePrediction> predictions = ListLootForDate (date);
 				Utilities.Monitor.Log ($"Loot in Garbage Cans on {date}:",
@@ -177,7 +178,7 @@ namespace PredictiveCore
 			{ GarbageCan.SVE_ManorHouse, new Location (56, 85) },
 		};
 
-		private static Item GetLootForDateAndCan (WorldDate date, GarbageCan can,
+		private static Item GetLootForDateAndCan (SDate date, GarbageCan can,
 			bool hatOnly, out bool special)
 		{
 			// Logic from StardewValley.Locations.Town.checkAction()
@@ -199,9 +200,8 @@ namespace PredictiveCore
 				canValue = (int) GarbageCan.JojaMart;
 
 			// Create and prewarm the random generator.
-			int daysPlayed = date.TotalDays + 1;
 			Random rng = new Random ((int) Game1.uniqueIDForThisGame / 2 +
-				daysPlayed + 777 + canValue * 77);
+				date.DaysSinceStart + 777 + canValue * 77);
 			int prewarm = rng.Next (0, 100);
 			for (int i = 0; i < prewarm; i++)
 				rng.NextDouble ();
@@ -221,7 +221,7 @@ namespace PredictiveCore
 
 			// If the regular roll failed, roll for luck and then give up.
 			// Use today's luck for today, else a liquidated value.
-			bool today = date == Utilities.Now ();
+			bool today = date == SDate.Now ();
 			double dailyLuck = today ? Game1.player.DailyLuck
 				: Game1.player.hasSpecialCharm ? 0.125 : 0.1;
 			if (!regular && !(rng.NextDouble () < 0.2 + dailyLuck))
@@ -251,7 +251,7 @@ namespace PredictiveCore
 				seasonal = true;
 				Location location = CanLocations[can];
 				itemID = Utility.getRandomItemFromSeason (date.Season,
-					(location.X * 653) + (location.Y * 777) + daysPlayed,
+					(location.X * 653) + (location.Y * 777) + date.DaysSinceStart,
 					false, false);
 				break;
 			case 7:
