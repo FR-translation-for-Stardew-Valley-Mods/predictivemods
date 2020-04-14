@@ -114,7 +114,7 @@ The first time you run the mod, it will generate a `config.json` file in its mai
 
 ## ![[Translation]](https://kdau.gitlab.io/headers/translation.png)
 
-This mod can be translated into any language supported by Stardew Valley. It is currently available in English, French, Russian and Simplified Chinese.
+This mod can be translated into any language supported by Stardew Valley. It is currently available in English, French, Portuguese, Russian and Simplified Chinese.
 
 Your contribution would be welcome. Please see the [details on the wiki](https://stardewvalleywiki.com/Modding:Translations) for help. You can send me your work in an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues), in the Bugs tab above or by DM on Discord.
 
@@ -127,6 +127,7 @@ Your contribution would be welcome. Please see the [details on the wiki](https:/
 * The #making-mods channel on the [Stardew Valley Discord](https://discordapp.com/invite/StardewValley) offered valuable guidance and feedback.
 * The date picker is based on a concept from @blueberry on Discord and the aesthetic of [Goethe's color wheel](https://commons.wikimedia.org/wiki/File:Goethe,_Farbenkreis_zur_Symbolisierung_des_menschlichen_Geistes-_und_Seelenlebens,_1809.jpg), with notes from #creative-discussion.
 * The French translation was prepared by Inu'tile.
+* The Portuguese translation was prepared by Ertila007.
 * The Russian translation was prepared by DanyaKirichenko1.
 * The Simplified Chinese translation was prepared by liayyMK.
 

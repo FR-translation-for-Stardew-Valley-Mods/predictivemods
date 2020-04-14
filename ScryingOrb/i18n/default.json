@@ -64,7 +64,7 @@
 	"geodes.header.Magma": "If they be Magma Geodes, the next {{count}} geodes^rived promise to reveal:",
 	"geodes.header.Omni": "If they be Omni Geodes, the next {{count}} geodes^split are sure to offer:",
 	"geodes.header.Trove": "If they be Artifact Troves, the next {{count}} geodes^shattered shall manifest:",
-	"// Note on geodes.footer": "The $ and = symbols in the next line are turned into coin and star icons by the game. Treat them as adjectives modifying the word 'treasures'.",
+	"// Note on geodes.footer": "The $ and = symbols in the next line are turned into coin and star icons by the game. Treat them as adjectives modifying the word 'treasures'. The 'another' being referred to is Gunther in the museum.",
 	"geodes.footer": "$ treasures are deemed more valuable by mortals.^= treasures are sought by another in your village.",
 	"geodes.closing.progress": "Your journey to the depths of the mines is^incomplete, child. Should you explore further,^these rocks may reveal different, greater treasures.",
 

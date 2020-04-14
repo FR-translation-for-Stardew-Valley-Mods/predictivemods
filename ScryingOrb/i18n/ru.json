@@ -27,6 +27,7 @@
 	"luckyPurple.initial": "Шар, кажется, смотрит на тебя с упрёком.^Больше не делай этого",
 	"luckyPurple.following": "Духи не в восторге.^Шар - это не ящик для белья!^Сегодня у тебя будет плохой день.",
 
+	"//Note on meta.initial": "Sorry about this next line. It's a joke referencing an English meme about putting something on itself. It is shown when you try to give one Scrying Orb to another Scrying Orb. A simpler form to translate would be: You're giving the Scrying Orb another Scrying Orb? The spirits think you must really like scrying!",
 	"meta.initial": "Ты хочешь предложить шар для предсказаний,шару для предсказаний?^Духи думают, что ты действительно любишь предсказывать",
 	"meta.following": "Ничего не происходит, но вы чувствуете странное чувство, думая как глупо вы выглядите со стороны.",
 
@@ -63,6 +64,7 @@
 	"geodes.header.Magma": "Следующие {{count}} магма-жеод^должны содержать:",
 	"geodes.header.Omni": "Следующие {{count}} омнижеод^должны содержать:",
 	"geodes.header.Trove": "Следующие {{count}} древних кладов^должны содержать:",
+	"// Note on geodes.footer": "The $ and = symbols in the next line are turned into coin and star icons by the game. Treat them as adjectives modifying the word 'treasures'. The 'another' being referred to is Gunther in the museum.",
 	"geodes.footer": "$ Сокровища считаются ценными у смертных.^= Другие смертные тоже ищут такие сокровища в вашей деревне.",
 	"geodes.closing.progress": "Ваше путешествие в глубины шахт^не завершено, юноша. Если вы продолжите исследовать,^эти камни могут раскрыть другие, более ценные сокровища.",
 

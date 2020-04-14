@@ -2,11 +2,12 @@
 
 [Scrying Orb](./)
 
-## 1.2.1
+## 1.3.0
 
 *Release pending.*
 
-* Fix handling of offerings for geodes topic, especially Limestone and Mudstone.
+* Fix handling of offerings for geodes topic, especially Limestone and Mudstone
+* Add Portuguese translation by Ertila007
 
 ## 1.2.0
 
