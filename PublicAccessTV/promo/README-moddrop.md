@@ -83,8 +83,7 @@ Your contribution would be welcome. Please see the [details on the wiki](https:/
 ## ![[See also]](https://kdau.gitlab.io/headers/see-also.png)
 
 * [Release notes](https://gitlab.com/kdau/predictivemods/-/blob/master/PublicAccessTV/RELEASE-NOTES.md) for existing versions
-* [Issue tracker](https://gitlab.com/kdau/predictivemods/-/issues) for bug fixes and minor enhancements
-* [Roadmap](https://gitlab.com/kdau/predictivemods/-/blob/master/ROADMAP.md) of major development plans
+* [Issue tracker](https://gitlab.com/kdau/predictivemods/-/issues) for bug reports and feature plans
 * [MIT license](https://gitlab.com/kdau/predictivemods/-/blob/master/LICENSE) (TLDR: do whatever, but credit me)
 * [My other mods](https://kdau.gitlab.io)
 

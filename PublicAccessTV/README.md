@@ -113,8 +113,7 @@ Your contribution would be welcome. Please see the [details on the wiki](https:/
 ## See also
 
 * [Release notes](RELEASE-NOTES.md) for existing versions
-* [Issue tracker](https://gitlab.com/kdau/predictivemods/-/issues) for bug fixes and minor enhancements
-* [Roadmap](../ROADMAP.md) of major development plans
+* [Issue tracker](https://gitlab.com/kdau/predictivemods/-/issues) for bug reports and feature plans
 * [MIT license](../LICENSE) (TLDR: do whatever, but credit me)
 * [My other mods](https://kdau.gitlab.io)
 
