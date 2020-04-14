@@ -9,39 +9,39 @@ using SObject = StardewValley.Object;
 
 namespace PredictiveCore
 {
-	public enum GarbageCan
-	{
-		SamHouse, // Jodi, Kent*, Sam, Vincent
-		HaleyHouse, // Emily, Haley
-		ManorHouse, // Lewis
-		ArchaeologyHouse, // Gunther
-		Blacksmith, // Clint
-		Saloon, // Gus
-		JoshHouse, // Alex, Evelyn, George
-		JojaMart, // Morris
-		MovieTheater, // (only when replaing JojaMart)
-		Max,
-		// alternate can sequence for SVE
-		SVE_SamHouse = 100, // Jodi, Kent*, Sam, Vincent
-		SVE_HaleyHouse, // Emily, Haley
-		SVE_AdventureGuild, // Marlon
-		SVE_JoshHouse, // Alex, Evelyn, George
-		SVE_Saloon, // Gus
-		SVE_JenkinsHouse, // Olivia, Victor
-		SVE_ManorHouse, // Lewis
-		SVE_Max,
-	}
-
-	public struct GarbagePrediction
-	{
-		public WorldDate date;
-		public GarbageCan can;
-		public Item loot;
-		public bool special;
-	}
-
 	public static class Garbage
 	{
+		public enum Can
+		{
+			SamHouse, // Jodi, Kent*, Sam, Vincent
+			HaleyHouse, // Emily, Haley
+			ManorHouse, // Lewis
+			ArchaeologyHouse, // Gunther
+			Blacksmith, // Clint
+			Saloon, // Gus
+			JoshHouse, // Alex, Evelyn, George
+			JojaMart, // Morris
+			MovieTheater, // (only when replaing JojaMart)
+			Max,
+			// alternate can sequence for SVE
+			SVE_SamHouse = 100, // Jodi, Kent*, Sam, Vincent
+			SVE_HaleyHouse, // Emily, Haley
+			SVE_AdventureGuild, // Marlon
+			SVE_JoshHouse, // Alex, Evelyn, George
+			SVE_Saloon, // Gus
+			SVE_JenkinsHouse, // Olivia, Victor
+			SVE_ManorHouse, // Lewis
+			SVE_Max,
+		}
+
+		public struct Prediction
+		{
+			public WorldDate date;
+			public Can can;
+			public Item loot;
+			public bool special;
+		}
+
 		// Whether this module should be available for player use.
 		public static bool IsAvailable =>
 			Game1.stats.getStat ("trashCansChecked") > 0 &&
@@ -63,29 +63,29 @@ namespace PredictiveCore
 		}
 
 		// Lists the loot to be found in Garbage Cans on the given date.
-		public static List<GarbagePrediction> ListLootForDate (WorldDate date,
+		public static List<Prediction> ListLootForDate (WorldDate date,
 			bool hatOnly = false)
 		{
 			Utilities.CheckWorldReady ();
 			if (!IsAvailable)
 				throw new InvalidOperationException ("No garbage cans have been checked.");
 
-			List<GarbagePrediction> predictions = new List<GarbagePrediction> ();
+			List<Prediction> predictions = new List<Prediction> ();
 
 			bool sve = Utilities.Helper.ModRegistry.IsLoaded
 				("FlashShifter.StardewValleyExpandedALL");
 			for (int can = sve ? 100 : 0;
-				can < (sve ? (int) GarbageCan.SVE_Max : (int) GarbageCan.Max);
+				can < (sve ? (int) Can.SVE_Max : (int) Can.Max);
 				++can)
 			{
-				Item loot = GetLootForDateAndCan (date, (GarbageCan) can,
+				Item loot = GetLootForDateAndCan (date, (Can) can,
 					hatOnly, out bool special);
 				if (loot != null)
 				{
-					predictions.Add (new GarbagePrediction
+					predictions.Add (new Prediction
 					{
 						date = date,
-						can = (GarbageCan) can,
+						can = (Can) can,
 						loot = loot,
 						special = special
 					});
@@ -96,13 +96,13 @@ namespace PredictiveCore
 		}
 
 		// Finds the next Garbage Hat to be available on or after the given date.
-		public static GarbagePrediction? FindGarbageHat (WorldDate fromDate)
+		public static Prediction? FindGarbageHat (WorldDate fromDate)
 		{
 			for (int days = fromDate.TotalDays;
 				days < fromDate.TotalDays + Utilities.MaxHorizon;
 				++days)
 			{
-				List<GarbagePrediction> predictions =
+				List<Prediction> predictions =
 					ListLootForDate (Utilities.TotalDaysToWorldDate (days), true)
 					.Where ((p) => p.loot is Hat).ToList ();
 				if (predictions.Count > 0)
@@ -119,7 +119,7 @@ namespace PredictiveCore
 			}
 			Utilities.Helper.ConsoleCommands.Add ("predict_garbage",
 				"Predicts the loot to be found in Garbage Cans on a given date, or today by default.\n\nUsage: predict_garbage [<year> <season> <day>]\n- year: the target year (a number starting from 1).\n- season: the target season (one of 'spring', 'summer', 'fall', 'winter').\n- day: the target day (a number from 1 to 28).",
-				(_command, args) => ConsoleCommand (new List<string> (args)));
+				(_command, args) => ConsoleCommand (args.ToList ()));
 		}
 
 		private static void ConsoleCommand (List<string> args)
@@ -128,10 +128,10 @@ namespace PredictiveCore
 			{
 				WorldDate date = Utilities.ArgsToWorldDate (args);
 
-				List<GarbagePrediction> predictions = ListLootForDate (date);
+				List<Prediction> predictions = ListLootForDate (date);
 				Utilities.Monitor.Log ($"Loot in Garbage Cans on {date}:",
 					LogLevel.Info);
-				foreach (GarbagePrediction prediction in predictions)
+				foreach (Prediction prediction in predictions)
 				{
 					string name = (prediction.loot.ParentSheetIndex == 217)
 						? "(dish of the day)"
@@ -155,29 +155,29 @@ namespace PredictiveCore
 			}
 		}
 
-		public static readonly Dictionary<GarbageCan, Location> CanLocations =
-			new Dictionary<GarbageCan, Location>
+		public static readonly Dictionary<Can, Location> CanLocations =
+			new Dictionary<Can, Location>
 		{
-			{ GarbageCan.SamHouse, new Location (13, 86) },
-			{ GarbageCan.HaleyHouse, new Location (19, 89) },
-			{ GarbageCan.ManorHouse, new Location (56, 85) },
-			{ GarbageCan.ArchaeologyHouse, new Location (108, 91) },
-			{ GarbageCan.Blacksmith, new Location (97, 80) },
-			{ GarbageCan.Saloon, new Location (47, 70) },
-			{ GarbageCan.JoshHouse, new Location (52, 63) },
-			{ GarbageCan.JojaMart, new Location (110, 56) },
-			{ GarbageCan.MovieTheater, new Location (110, 56) },
+			{ Can.SamHouse, new Location (13, 86) },
+			{ Can.HaleyHouse, new Location (19, 89) },
+			{ Can.ManorHouse, new Location (56, 85) },
+			{ Can.ArchaeologyHouse, new Location (108, 91) },
+			{ Can.Blacksmith, new Location (97, 80) },
+			{ Can.Saloon, new Location (47, 70) },
+			{ Can.JoshHouse, new Location (52, 63) },
+			{ Can.JojaMart, new Location (110, 56) },
+			{ Can.MovieTheater, new Location (110, 56) },
 			// alternate can locations for SVE
-			{ GarbageCan.SVE_SamHouse, new Location (5, 89) },
-			{ GarbageCan.SVE_HaleyHouse, new Location (27, 84) },
-			{ GarbageCan.SVE_AdventureGuild, new Location (28, 98) },
-			{ GarbageCan.SVE_JoshHouse, new Location (52, 63) },
-			{ GarbageCan.SVE_Saloon, new Location (47, 70) },
-			{ GarbageCan.SVE_JenkinsHouse, new Location (66, 52) },
-			{ GarbageCan.SVE_ManorHouse, new Location (56, 85) },
+			{ Can.SVE_SamHouse, new Location (5, 89) },
+			{ Can.SVE_HaleyHouse, new Location (27, 84) },
+			{ Can.SVE_AdventureGuild, new Location (28, 98) },
+			{ Can.SVE_JoshHouse, new Location (52, 63) },
+			{ Can.SVE_Saloon, new Location (47, 70) },
+			{ Can.SVE_JenkinsHouse, new Location (66, 52) },
+			{ Can.SVE_ManorHouse, new Location (56, 85) },
 		};
 
-		private static Item GetLootForDateAndCan (WorldDate date, GarbageCan can,
+		private static Item GetLootForDateAndCan (WorldDate date, Can can,
 			bool hatOnly, out bool special)
 		{
 			// Logic from StardewValley.Locations.Town.checkAction()
@@ -186,17 +186,17 @@ namespace PredictiveCore
 			special = false;
 			
 			// Handle the presence of SVE's altered town map.
-			GarbageCan standardCan = (GarbageCan) ((int) can % 100);
+			Can standardCan = (Can) ((int) can % 100);
 			int canValue = (int) standardCan;
 
 			// Handle the special case of JojaMart/MovieTheater.
 			bool hasTheater = Utility.doesMasterPlayerHaveMailReceivedButNotMailForTomorrow ("ccMovieTheater") &&
 				!Utility.doesMasterPlayerHaveMailReceivedButNotMailForTomorrow ("ccMovieTheaterJoja");
-			if ((hasTheater && can == GarbageCan.JojaMart) ||
-				(!hasTheater && can == GarbageCan.MovieTheater))
+			if ((hasTheater && can == Can.JojaMart) ||
+				(!hasTheater && can == Can.MovieTheater))
 				return null;
-			if (can == GarbageCan.MovieTheater)
-				canValue = (int) GarbageCan.JojaMart;
+			if (can == Can.MovieTheater)
+				canValue = (int) Can.JojaMart;
 
 			// Create and prewarm the random generator.
 			int daysPlayed = date.TotalDays + 1;
@@ -273,7 +273,7 @@ namespace PredictiveCore
 			bool locationSpecific = false;
 			switch (standardCan)
 			{
-			case GarbageCan.ArchaeologyHouse:
+			case Can.ArchaeologyHouse:
 				if (rng.NextDouble () < 0.2 + dailyLuck)
 				{
 					locationSpecific = true;
@@ -283,7 +283,7 @@ namespace PredictiveCore
 						itemID = 535; // Geode
 				}
 				break;
-			case GarbageCan.Blacksmith:
+			case Can.Blacksmith:
 				if (rng.NextDouble () < 0.2 + dailyLuck)
 				{
 					locationSpecific = true;
@@ -291,7 +291,7 @@ namespace PredictiveCore
 					rng.Next (1, 5); // unused
 				}
 				break;
-			case GarbageCan.Saloon:
+			case Can.Saloon:
 				if (rng.NextDouble () < 0.2 + dailyLuck)
 				{
 					locationSpecific = true;
@@ -301,14 +301,14 @@ namespace PredictiveCore
 						itemID = Game1.dishOfTheDay.ParentSheetIndex;
 				}
 				break;
-			case GarbageCan.JoshHouse:
+			case Can.JoshHouse:
 				if (rng.NextDouble () < 0.2 + dailyLuck)
 				{
 					locationSpecific = true;
 					itemID = 223; // Cookie
 				}
 				break;
-			case GarbageCan.JojaMart:
+			case Can.JojaMart:
 				if (rng.NextDouble () < 0.2 &&
 					!Utility.HasAnyPlayerSeenEvent (191393))
 				{
@@ -316,7 +316,7 @@ namespace PredictiveCore
 					itemID = 167; // Joja Cola
 				}
 				break;
-			case GarbageCan.MovieTheater:
+			case Can.MovieTheater:
 				if (rng.NextDouble () < 0.2)
 				{
 					locationSpecific = true;

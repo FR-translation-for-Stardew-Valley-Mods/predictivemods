@@ -12,12 +12,12 @@ namespace PublicAccessTV
 {
 	public class MiningChannel : Channel
 	{
-		public static readonly List<MineFloorType> GilTypes =
-			new List<MineFloorType>
+		public static readonly List<Mining.FloorType> GilTypes =
+			new List<Mining.FloorType>
 		{
-			MineFloorType.Mushroom,
-			MineFloorType.Treasure,
-			MineFloorType.PepperRex,
+			Mining.FloorType.Mushroom,
+			Mining.FloorType.Treasure,
+			Mining.FloorType.PepperRex,
 		};
 
 		public MiningChannel ()
@@ -57,7 +57,7 @@ namespace PublicAccessTV
 		internal override void show (TV tv)
 		{
 			WorldDate today = Utilities.Now ();
-			List<MiningPrediction> predictions = Mining.ListFloorsForDate (today);
+			List<Mining.Prediction> predictions = Mining.ListFloorsForDate (today);
 
 			TemporaryAnimatedSprite background = loadBackground (tv, 0);
 			TemporaryAnimatedSprite marlon = loadPortrait (tv, "Marlon");
@@ -70,7 +70,7 @@ namespace PublicAccessTV
 
 			// Marlon or Gil reports on each type of special floor.
 			string joiner = CultureInfo.CurrentCulture.TextInfo.ListSeparator + " ";
-			foreach (MineFloorType type in predictions
+			foreach (Mining.FloorType type in predictions
 				.Select ((p) => p.type).Distinct ().ToList ())
 			{
 				List<int> floors = predictions

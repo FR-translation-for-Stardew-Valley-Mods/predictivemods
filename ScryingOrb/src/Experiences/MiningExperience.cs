@@ -55,8 +55,7 @@ namespace ScryingOrb
 		private void onDateChosen (WorldDate date)
 		{
 			// Gather the appropriate predictions.
-			List<MiningPrediction> predictions =
-				Mining.ListFloorsForDate (date);
+			List<Mining.Prediction> predictions = Mining.ListFloorsForDate (date);
 
 			bool today = date == Utilities.Now ();
 			List<string> pages = new List<string> ();
@@ -71,7 +70,7 @@ namespace ScryingOrb
 			};
 
 			string joiner = CultureInfo.CurrentCulture.TextInfo.ListSeparator + " ";
-			foreach (MineFloorType type in predictions
+			foreach (Mining.FloorType type in predictions
 				.Select ((p) => p.type).Distinct ().ToList ())
 			{
 				List<int> floors = predictions

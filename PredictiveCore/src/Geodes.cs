@@ -8,94 +8,94 @@ using SObject = StardewValley.Object;
 
 namespace PredictiveCore
 {
-	public enum GeodeType
-	{
-		Regular,
-		Frozen,
-		Magma,
-		Omni,
-		Trove,
-	}
-
-	public class Treasure
-	{
-		public static readonly List<string> UndonatableTreasures = new List<string>
-		{
-			"Coal",
-			"Clay",
-			"Stone",
-			"Copper Ore",
-			"Iron Ore",
-			"Gold Ore",
-			"Iridium Ore",
-			"Golden Pumpkin",
-			"Treasure Chest",
-			"Pearl"
-		};
-
-		private static readonly Dictionary<GeodeType, int> GeodeObjects =
-			new Dictionary<GeodeType, int>
-		{
-			{ GeodeType.Regular, 535 },
-			{ GeodeType.Frozen, 536 },
-			{ GeodeType.Magma, 537 },
-			{ GeodeType.Omni, 749 },
-			{ GeodeType.Trove, 275 }
-		};
-
-		internal Treasure (uint geodeNumber, GeodeType geodeType)
-		{
-			this.geodeNumber = geodeNumber;
-			this.geodeType = geodeType;
-			geodeObject = new SObject (GeodeObjects[geodeType], 1);
-
-			uint originalNumber = Game1.player.stats.GeodesCracked;
-			try
-			{
-				Game1.player.stats.GeodesCracked = geodeNumber;
-				item = Utility.getTreasureFromGeode (geodeObject);
-			}
-			finally
-			{
-				Game1.player.stats.GeodesCracked = originalNumber;
-			}
-		}
-
-		public readonly uint geodeNumber;
-		public readonly GeodeType geodeType;
-		public readonly SObject geodeObject;
-
-		public readonly SObject item;
-		public int stack => item.Stack;
-		public string displayName => item.DisplayName;
-
-		public bool valuable => item.Stack * item.Price > 75;
-		public bool needDonation => !UndonatableTreasures.Contains (item.Name) &&
-			!new LibraryMuseum ().museumAlreadyHasArtifact (item.ParentSheetIndex);
-	}
-
-	public class GeodePrediction
-	{
-		public readonly uint number;
-		public readonly SortedDictionary<GeodeType, Treasure> treasures;
-
-		private static readonly GeodeType[] Types = new GeodeType[]
-		{
-			GeodeType.Regular, GeodeType.Frozen, GeodeType.Magma,
-			GeodeType.Omni, GeodeType.Trove,
-		};
-
-		internal GeodePrediction (uint number)
-		{
-			this.number = number;
-			treasures = new SortedDictionary<GeodeType, Treasure> ();
-			foreach (GeodeType type in Types)
-				treasures.Add (type, new Treasure (number, type));
-		}
-	}
-
 	public static class Geodes
 	{
+		public enum GeodeType
+		{
+			Regular,
+			Frozen,
+			Magma,
+			Omni,
+			Trove,
+		}
+
+		public class Treasure
+		{
+			public static readonly List<string> UndonatableTreasures = new List<string>
+			{
+				"Coal",
+				"Clay",
+				"Stone",
+				"Copper Ore",
+				"Iron Ore",
+				"Gold Ore",
+				"Iridium Ore",
+				"Golden Pumpkin",
+				"Treasure Chest",
+				"Pearl"
+			};
+
+			private static readonly Dictionary<GeodeType, int> GeodeObjects =
+				new Dictionary<GeodeType, int>
+			{
+				{ GeodeType.Regular, 535 },
+				{ GeodeType.Frozen, 536 },
+				{ GeodeType.Magma, 537 },
+				{ GeodeType.Omni, 749 },
+				{ GeodeType.Trove, 275 }
+			};
+
+			internal Treasure (uint geodeNumber, GeodeType geodeType)
+			{
+				this.geodeNumber = geodeNumber;
+				this.geodeType = geodeType;
+				geodeObject = new SObject (GeodeObjects[geodeType], 1);
+
+				uint originalNumber = Game1.player.stats.GeodesCracked;
+				try
+				{
+					Game1.player.stats.GeodesCracked = geodeNumber;
+					item = Utility.getTreasureFromGeode (geodeObject);
+				}
+				finally
+				{
+					Game1.player.stats.GeodesCracked = originalNumber;
+				}
+			}
+
+			public readonly uint geodeNumber;
+			public readonly GeodeType geodeType;
+			public readonly SObject geodeObject;
+
+			public readonly SObject item;
+			public int stack => item.Stack;
+			public string displayName => item.DisplayName;
+
+			public bool valuable => item.Stack * item.Price > 75;
+			public bool needDonation => !UndonatableTreasures.Contains (item.Name) &&
+				!new LibraryMuseum ().museumAlreadyHasArtifact (item.ParentSheetIndex);
+		}
+
+		public class Prediction
+		{
+			public readonly uint number;
+			public readonly SortedDictionary<GeodeType, Treasure> treasures;
+
+			private static readonly GeodeType[] Types = new GeodeType[]
+			{
+				GeodeType.Regular, GeodeType.Frozen, GeodeType.Magma,
+				GeodeType.Omni, GeodeType.Trove,
+			};
+
+			internal Prediction (uint number)
+			{
+				this.number = number;
+				treasures = new SortedDictionary<GeodeType, Treasure> ();
+				foreach (GeodeType type in Types)
+					treasures.Add (type, new Treasure (number, type));
+			}
+		}
+
 		// Whether this module should be available for player use.
 		public static bool IsAvailable =>
 			Game1.player.stats.GeodesCracked > 0;
@@ -113,17 +113,17 @@ namespace PredictiveCore
 
 		// Lists the treasures in the next several geodes to be cracked on or
 		// after the given geode number, up to the given limit.
-		public static List<GeodePrediction> ListTreasures
+		public static List<Prediction> ListTreasures
 			(uint fromNumber, uint limit)
 		{
 			Utilities.CheckWorldReady ();
 			if (!IsAvailable)
 				throw new InvalidOperationException ("No geodes have been cracked.");
 
-			List<GeodePrediction> predictions = new List<GeodePrediction> ();
+			List<Prediction> predictions = new List<Prediction> ();
 
 			for (uint number = fromNumber; number < fromNumber + limit; ++number)
-				predictions.Add (new GeodePrediction (number));
+				predictions.Add (new Prediction (number));
 
 			return predictions;
 		}
@@ -134,7 +134,7 @@ namespace PredictiveCore
 				return;
 			Utilities.Helper.ConsoleCommands.Add ("predict_geodes",
 				"Predicts the treasures in the next several geodes to be cracked on or after a given geode, or the next geodes by default.\n\nUsage: predict_geodes [<limit> [<number>]]\n- limit: number of treasures to predict (default 20)\n- number: the number of geodes cracked after the first treasure to predict (a number starting from 1).",
-				(_command, args) => ConsoleCommand (new List<string> (args)));
+				(_command, args) => ConsoleCommand (args.ToList ()));
 		}
 
 		private static void ConsoleCommand (List<string> args)
@@ -160,7 +160,7 @@ namespace PredictiveCore
 				}
 				WorldDate date = Utilities.ArgsToWorldDate (args);
 
-				List<GeodePrediction> predictions = ListTreasures (number, limit);
+				List<Prediction> predictions = ListTreasures (number, limit);
 				Utilities.Monitor.Log ($"Next {limit} treasure(s) starting with geode {number}:",
 					LogLevel.Info);
 				Utilities.Monitor.Log ("  (*: museum donation needed; $: valuable)",
@@ -169,7 +169,7 @@ namespace PredictiveCore
 					LogLevel.Info);
 				Utilities.Monitor.Log ("-------|---------------------------|---------------------------|---------------------------|---------------------------|--------------------------",
 					LogLevel.Info);
-				foreach (GeodePrediction prediction in predictions)
+				foreach (Prediction prediction in predictions)
 				{
 					string treasures = string.Join (" | ",
 						prediction.treasures.Values.Select ((t) =>

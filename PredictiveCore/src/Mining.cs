@@ -3,35 +3,36 @@ using StardewValley;
 using StardewValley.Locations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PredictiveCore
 {
-	public enum MineType
-	{
-		TheMines,
-		SkullCavern,
-	}
-
-	public enum MineFloorType
-	{
-		Mushroom,
-		MonsterInfested,
-		SlimeInfested,
-		Quarry,
-		QuarryInfested,
-		Treasure,
-		PepperRex,
-	}
-
-	public struct MiningPrediction
-	{
-		public MineType mine;
-		public int floor;
-		public MineFloorType type;
-	}
-
 	public static class Mining
 	{
+		public enum Location
+		{
+			TheMines,
+			SkullCavern,
+		}
+
+		public enum FloorType
+		{
+			Mushroom,
+			MonsterInfested,
+			SlimeInfested,
+			Quarry,
+			QuarryInfested,
+			Treasure,
+			PepperRex,
+		}
+
+		public struct Prediction
+		{
+			public Location location;
+			public int floor;
+			public FloorType type;
+		}
+
 		// Whether this module should be available for player use.
 		public static bool IsAvailable =>
 			MineShaft.lowestLevelReached >= 1;
@@ -51,13 +52,13 @@ namespace PredictiveCore
 		}
 
 		// Lists the special floors to be found in mines on the given date.
-		public static List<MiningPrediction> ListFloorsForDate (WorldDate date)
+		public static List<Prediction> ListFloorsForDate (WorldDate date)
 		{
 			Utilities.CheckWorldReady ();
 			if (!IsAvailable)
 				throw new InvalidOperationException ("The mines have not been reached.");
 
-			List<MiningPrediction> predictions = new List<MiningPrediction> ();
+			List<Prediction> predictions = new List<Prediction> ();
 
 			// Logic from StardewValley.Locations.MineShaft.chooseLevelType()
 			// and StardewValley.Locations.MineShaft.loadLevel()
@@ -77,11 +78,11 @@ namespace PredictiveCore
 				if (floor % 10 == 0 && floor != 30 &&
 					!Game1.player.chestConsumedMineLevels.ContainsKey (floor))
 				{
-					predictions.Add (new MiningPrediction
+					predictions.Add (new Prediction
 					{
-						mine = MineType.TheMines,
+						location = Location.TheMines,
 						floor = floor,
-						type = MineFloorType.Treasure,
+						type = FloorType.Treasure,
 					});
 					continue;
 				}
@@ -96,13 +97,13 @@ namespace PredictiveCore
 				if (rng.NextDouble () < 0.044 && floor % 40 > 5 &&
 					floor % 40 < 30 && floor % 40 != 19)
 				{
-					predictions.Add (new MiningPrediction
+					predictions.Add (new Prediction
 					{
-						mine = MineType.TheMines,
+						location = Location.TheMines,
 						floor = floor,
 						type = (rng.NextDouble() < 0.5)
-							? MineFloorType.MonsterInfested
-							: MineFloorType.SlimeInfested,
+							? FloorType.MonsterInfested
+							: FloorType.SlimeInfested,
 					});
 					continue;
 				}
@@ -110,13 +111,13 @@ namespace PredictiveCore
 				// Check for quarry-style floor, with or without infestation.
 				if (rng.NextDouble() < 0.044 && hasQuarry && floor % 40 > 1)
 				{
-					predictions.Add (new MiningPrediction
+					predictions.Add (new Prediction
 					{
-						mine = MineType.TheMines,
+						location = Location.TheMines,
 						floor = floor,
 						type = (rng.NextDouble() < 0.25)
-							? MineFloorType.QuarryInfested
-							: MineFloorType.Quarry,
+							? FloorType.QuarryInfested
+							: FloorType.Quarry,
 					});
 					continue;
 				}
@@ -129,11 +130,11 @@ namespace PredictiveCore
 				rng.NextDouble ();
 				if (rng.NextDouble() < 0.035 && floor > 80)
 				{
-					predictions.Add (new MiningPrediction
+					predictions.Add (new Prediction
 					{
-						mine = MineType.TheMines,
+						location = Location.TheMines,
 						floor = floor,
-						type = MineFloorType.Mushroom,
+						type = FloorType.Mushroom,
 					});
 				}
 			}
@@ -153,11 +154,11 @@ namespace PredictiveCore
 						rng.NextDouble ();
 						if (rng.NextDouble () < 0.5)
 						{
-							predictions.Add (new MiningPrediction
+							predictions.Add (new Prediction
 							{
-								mine = MineType.SkullCavern,
+								location = Location.SkullCavern,
 								floor = floor - 120,
-								type = MineFloorType.PepperRex,
+								type = FloorType.PepperRex,
 							});
 						}
 					}
@@ -175,7 +176,7 @@ namespace PredictiveCore
 			}
 			Utilities.Helper.ConsoleCommands.Add ("predict_mine_floors",
 				"Predicts the special floors to be found in the Mines and Skull Cavern on a given date, or today by default.\n\nUsage: predict_mine_floors [<year> <season> <day>]\n- year: the target year (a number starting from 1).\n- season: the target season (one of 'spring', 'summer', 'fall', 'winter').\n- day: the target day (a number from 1 to 28).",
-				(_command, args) => ConsoleCommand (new List<string> (args)));
+				(_command, args) => ConsoleCommand (args.ToList ()));
 		}
 
 		private static void ConsoleCommand (List<string> args)
@@ -184,12 +185,12 @@ namespace PredictiveCore
 			{
 				WorldDate date = Utilities.ArgsToWorldDate (args);
 
-				List<MiningPrediction> predictions = ListFloorsForDate (date);
+				List<Prediction> predictions = ListFloorsForDate (date);
 				Utilities.Monitor.Log ($"Special floors in the Mines and Skull Cavern on {date}:",
 					LogLevel.Info);
-				foreach (MiningPrediction prediction in predictions)
+				foreach (Prediction prediction in predictions)
 				{
-					Utilities.Monitor.Log ($"- {prediction.mine}, floor {prediction.floor}: {prediction.type}",
+					Utilities.Monitor.Log ($"- {prediction.location}, floor {prediction.floor}: {prediction.type}",
 						LogLevel.Info);
 				}
 				if (predictions.Count == 0)

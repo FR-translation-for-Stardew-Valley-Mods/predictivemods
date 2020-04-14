@@ -4,35 +4,36 @@ using StardewValley.GameData.Movies;
 using StardewValley.Locations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PredictiveCore
 {
-	public struct MoviePrediction
-	{
-		public WorldDate effectiveDate;
-		public MovieData currentMovie;
-		public bool craneGameAvailable;
-
-		public WorldDate firstDateOfNextMovie;
-		public MovieData nextMovie;
-	}
-
 	public static class Movies
 	{
+		public struct Prediction
+		{
+			public WorldDate effectiveDate;
+			public MovieData currentMovie;
+			public bool craneGameAvailable;
+
+			public WorldDate firstDateOfNextMovie;
+			public MovieData nextMovie;
+		}
+
 		// Whether this module should be available for player use.
 		public static bool IsAvailable =>
 			Utility.doesMasterPlayerHaveMailReceivedButNotMailForTomorrow ("ccMovieTheater");
 
 		// Lists the current and next movie and crane game status as of the
 		// given date.
-		public static MoviePrediction PredictForDate (WorldDate date)
+		public static Prediction PredictForDate (WorldDate date)
 		{
 			Utilities.CheckWorldReady ();
 			if (!IsAvailable)
 				throw new InvalidOperationException ("The Movie Theater is not available.");
 
-			MoviePrediction prediction =
-				new MoviePrediction { effectiveDate = date };
+			Prediction prediction =
+				new Prediction { effectiveDate = date };
 			prediction.currentMovie =
 				MovieTheater.GetMovieForDate (date);
 			prediction.firstDateOfNextMovie =
@@ -59,7 +60,7 @@ namespace PredictiveCore
 				return;
 			Utilities.Helper.ConsoleCommands.Add ("predict_movies",
 				"Predicts the current and next movie and Crane Game status on a given date, or today by default.\n\nUsage: predict_movies [<year> <season> <day>]\n- year: the target year (a number starting from 1).\n- season: the target season (one of 'spring', 'summer', 'fall', 'winter').\n- day: the target day (a number from 1 to 28).",
-				(_command, args) => ConsoleCommand (new List<string> (args)));
+				(_command, args) => ConsoleCommand (args.ToList ()));
 		}
 
 		private static void ConsoleCommand (List<string> args)
@@ -67,7 +68,7 @@ namespace PredictiveCore
 			try
 			{
 				WorldDate date = Utilities.ArgsToWorldDate (args);
-				MoviePrediction prediction = PredictForDate (date);
+				Prediction prediction = PredictForDate (date);
 				Utilities.Monitor.Log ($"On {prediction.effectiveDate}, the movie showing will be \"{prediction.currentMovie.Title}\". \"{prediction.currentMovie.Description}\"",
 					LogLevel.Info);
 				Utilities.Monitor.Log ($"The Crane Game {(prediction.craneGameAvailable ? "WILL" : "will NOT")} be available.",

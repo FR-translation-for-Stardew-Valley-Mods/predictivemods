@@ -23,7 +23,7 @@ namespace PublicAccessTV
 
 		internal override void show (TV tv)
 		{
-			MoviePrediction prediction = Movies.PredictForDate (Utilities.Now ());
+			Movies.Prediction prediction = Movies.PredictForDate (Utilities.Now ());
 
 			TemporaryAnimatedSprite screenBackground = loadSprite (tv,
 				"MovieTheaterScreen_TileSheet", new Rectangle (31, 0, 162, 108));

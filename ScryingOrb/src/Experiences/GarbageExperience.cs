@@ -87,9 +87,9 @@ namespace ScryingOrb
 							showPredictions (date, Garbage.ListLootForDate (date), mode));
 					break;
 				case "hat":
-					GarbagePrediction? hat = Garbage.FindGarbageHat (today);
-					List<GarbagePrediction> predictions =
-						new List<GarbagePrediction> ();
+					Garbage.Prediction? hat = Garbage.FindGarbageHat (today);
+					List<Garbage.Prediction> predictions =
+						new List<Garbage.Prediction> ();
 					if (hat.HasValue)
 						predictions.Add (hat.Value);
 					showPredictions (hat.HasValue ? hat.Value.date : today,
@@ -104,7 +104,7 @@ namespace ScryingOrb
 		}
 
 		private void showPredictions (WorldDate date,
-			List<GarbagePrediction> predictions, string mode)
+			List<Garbage.Prediction> predictions, string mode)
 		{
 			bool today = date == Utilities.Now ();
 			List<string> pages = new List<string> ();
@@ -132,8 +132,8 @@ namespace ScryingOrb
 				Random rng = new Random ((int) Game1.uniqueIDForThisGame +
 					date.TotalDays);
 
-				foreach (GarbagePrediction prediction in
-					predictions.OrderBy ((GarbagePrediction a) => rng.Next ()))
+				foreach (Garbage.Prediction prediction in
+					predictions.OrderBy ((Garbage.Prediction a) => rng.Next ()))
 				{
 					string can = prediction.can.ToString ().Replace ("SVE_", "");
 					lines.Add (Helper.Translation.Get ($"garbage.prediction.{can}", new

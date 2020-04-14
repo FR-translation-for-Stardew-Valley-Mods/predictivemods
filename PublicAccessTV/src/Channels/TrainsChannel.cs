@@ -49,8 +49,8 @@ namespace PublicAccessTV
 
 		internal override void show (TV tv)
 		{
-			List<TrainPrediction> predictions =
-				Trains.ListNextTrainsForDate (Utilities.Now (), 3);
+			List<Trains.Prediction> predictions =
+				Trains.ListNextTrainsFromDate (Utilities.Now (), 3);
 			if (predictions.Count < 1)
 			{
 				throw new Exception ("No trains found.");

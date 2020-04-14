@@ -2,44 +2,45 @@
 using StardewValley;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PredictiveCore
 {
-	public enum NightEventType
-	{
-		None,
-		Earthquake,
-		Fairy,
-		Witch,
-		Meteorite,
-		StrangeCapsule,
-		StoneOwl,
-		NewYear, // used by PublicAccessTV only
-	}
-
-	public struct NightEventPrediction
-	{
-		public WorldDate date;
-		public NightEventType type;
-	}
-
 	public static class NightEvents
 	{
+		public enum Event
+		{
+			None,
+			Earthquake,
+			Fairy,
+			Witch,
+			Meteorite,
+			StrangeCapsule,
+			StoneOwl,
+			NewYear, // used by PublicAccessTV only
+		}
+
+		public struct Prediction
+		{
+			public WorldDate date;
+			public Event @event;
+		}
+
 		// Whether this module should be available for player use.
 		public static bool IsAvailable => true;
 
 		// Lists the next several night events to occur on or after the given
 		// date, up to the given limit, optionally of a given type.
-		public static List<NightEventPrediction> ListNextEventsForDate
-			(WorldDate fromDate, uint limit, NightEventType? onlyType = null)
+		public static List<Prediction> ListNextEventsFromDate
+			(WorldDate fromDate, uint limit, Event? onlyType = null)
 		{
 			Utilities.CheckWorldReady ();
 
 			// Logic from StardewValley.Utility.<>c.<pickFarmEvent>b__146_0()
 			// as implemented in Stardew Predictor by MouseyPounds.
 
-			List<NightEventPrediction> predictions =
-				new List<NightEventPrediction> ();
+			List<Prediction> predictions =
+				new List<Prediction> ();
 
 			for (int days = fromDate.TotalDays;
 				predictions.Count < limit &&
@@ -57,29 +58,29 @@ namespace PredictiveCore
 						continue;
 				}
 
-				NightEventType type = NightEventType.None;
+				Event @event = Event.None;
 				Random rng = new Random (((int) Game1.uniqueIDForThisGame / 2) +
 					days + 2);
 				if (days == 29)
-					type = NightEventType.Earthquake;
+					@event = Event.Earthquake;
 				// Ignoring the possibility of bundle completion here.
 				else if (rng.NextDouble () < 0.01 && tomorrow.Season != "winter")
-					type = NightEventType.Fairy;
+					@event = Event.Fairy;
 				else if (rng.NextDouble () < 0.01)
-					type = NightEventType.Witch;
+					@event = Event.Witch;
 				else if (rng.NextDouble () < 0.01)
-					type = NightEventType.Meteorite;
+					@event = Event.Meteorite;
 				else if (rng.NextDouble () < 0.01 && tomorrow.Year > 1)
-					type = NightEventType.StrangeCapsule;
+					@event = Event.StrangeCapsule;
 				else if (rng.NextDouble () < 0.01)
-					type = NightEventType.StoneOwl;
+					@event = Event.StoneOwl;
 
-				if (type == NightEventType.None ||
-						(onlyType != null && type != onlyType))
+				if (@event == Event.None ||
+						(onlyType != null && @event != onlyType))
 					continue;
 
-				predictions.Add (new NightEventPrediction
-					{ date = tonight, type = type });
+				predictions.Add (new Prediction
+					{ date = tonight, @event = @event });
 			}
 
 			return predictions;
@@ -91,7 +92,7 @@ namespace PredictiveCore
 				return;
 			Utilities.Helper.ConsoleCommands.Add ("predict_night_events",
 				"Predicts the next several night events to occur on or after a given date, or tonight by default.\n\nUsage: predict_night_events [<limit> [<year> <season> <day>]]\n- limit: number of events to predict (default 20)\n- year: the target year (a number starting from 1).\n- season: the target season (one of 'spring', 'summer', 'fall', 'winter').\n- day: the target day (a number from 1 to 28).",
-				(_command, args) => ConsoleCommand (new List<string> (args)));
+				(_command, args) => ConsoleCommand (args.ToList ()));
 		}
 
 		private static void ConsoleCommand (List<string> args)
@@ -107,12 +108,12 @@ namespace PredictiveCore
 				}
 				WorldDate date = Utilities.ArgsToWorldDate (args);
 
-				List<NightEventPrediction> predictions = ListNextEventsForDate (date, limit);
+				List<Prediction> predictions = ListNextEventsFromDate (date, limit);
 				Utilities.Monitor.Log ($"Next {limit} night event(s) occurring on or after {date}:",
 					LogLevel.Info);
-				foreach (NightEventPrediction prediction in predictions)
+				foreach (Prediction prediction in predictions)
 				{
-					Utilities.Monitor.Log ($"- {prediction.date}: {prediction.type}",
+					Utilities.Monitor.Log ($"- {prediction.date}: {prediction.@event}",
 						LogLevel.Info);
 				}
 			}
