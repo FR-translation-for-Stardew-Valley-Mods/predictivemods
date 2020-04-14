@@ -2,6 +2,12 @@
 
 [Scrying Orb](./)
 
+## 1.2.1
+
+*Release pending.*
+
+* Fix handling of offerings for geodes topic, especially Limestone and Mudstone.
+
 ## 1.2.0
 
 *Released April 8, 2020.*

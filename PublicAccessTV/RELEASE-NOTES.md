@@ -2,6 +2,12 @@
 
 [Public Access TV](./)
 
+## 1.2.1
+
+*Release pending.*
+
+* Fix rare error in introductory event for "In the Cans" channel
+
 ## 1.2.0
 
 *Released April 8, 2020.*
