@@ -35,11 +35,11 @@ namespace PredictiveCore
 			MoviePrediction prediction =
 				new MoviePrediction { effectiveDate = date };
 			prediction.currentMovie = MovieTheater.GetMovieForDate
-				(date.ToWorldDate ());
+				((WorldDate) date);
 			prediction.firstDateOfNextMovie = Utilities.GetNextSeasonStart
 				(date);
 			prediction.nextMovie = MovieTheater.GetMovieForDate
-				(prediction.firstDateOfNextMovie.ToWorldDate ());
+				((WorldDate) prediction.firstDateOfNextMovie);
 
 			// Logic from StardewValley.Locations.MovieTheater.addRandomNPCs()
 			// as implemented in Stardew Predictor by MouseyPounds.

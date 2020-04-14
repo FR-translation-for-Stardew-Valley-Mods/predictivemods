@@ -5,7 +5,7 @@
 	"Description": "Craftable that takes offerings to predict future events",
 	"UniqueID": "kdau.ScryingOrb",
 	"EntryDll": "ScryingOrb.dll",
-	"MinimumApiVersion": "3.3.2",
+	"MinimumApiVersion": "3.5.0",
 	"Dependencies": [
 		{ "UniqueID": "spacechase0.JsonAssets" }
 	],

@@ -55,7 +55,7 @@ namespace PredictiveCore
 				{
 					Friendship spouse = farmer.GetSpouseFriendship ();
 					if (spouse != null &&
-							spouse.WeddingDate == tomorrow.ToWorldDate ())
+							spouse.WeddingDate == (WorldDate) tomorrow)
 						continue;
 				}
 
