@@ -2,11 +2,12 @@
 
 [Public Access TV](./)
 
-## 1.2.1
+## 1.3.0
 
 *Release pending.*
 
 * Fix rare error in introductory event for "In the Cans" channel
+* Add Portuguese translation by Ertila007
 
 ## 1.2.0
 

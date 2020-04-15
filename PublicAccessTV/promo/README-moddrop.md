@@ -64,7 +64,7 @@ The first time you run the mod, it will generate a `config.json` file in its mai
 
 ## ![[Translation]](https://kdau.gitlab.io/headers/translation.png)
 
-This mod can be translated into any language supported by Stardew Valley. It is currently available in English, French and Russian.
+This mod can be translated into any language supported by Stardew Valley. It is currently available in English, French, Portuguese and Russian.
 
 Your contribution would be welcome. Please see the [details on the wiki](https://stardewvalleywiki.com/Modding:Translations) for help. You can send me your work in an issue [on GitLab](https://gitlab.com/kdau/predictivemods/-/issues), in the Bugs tab above or by DM on Discord.
 
@@ -76,6 +76,7 @@ Your contribution would be welcome. Please see the [details on the wiki](https:/
 * Coding of this mod relied on [Climates of Ferngill](https://www.moddrop.com/stardew-valley/mods/664033-climates-of-ferngill) by Sakorona as a key example.
 * The #making-mods channel on the [Stardew Valley Discord](https://discordapp.com/invite/StardewValley) offered valuable guidance and feedback.
 * The French translation was prepared by Inu'tile.
+* The Portuguese translation was prepared by Ertila007.
 * The Russian translation was prepared by Ghost3lboom.
 * The "Governor's Message" channel's opening jingles are clipped from [News jingle](https://freesound.org/people/jobro/sounds/169214/) by [jobro](https://freesound.org/people/jobro/), used under [CC BY-NC 3.0](http://creativecommons.org/licenses/by-nc/3.0/), and [jingle news](https://freesound.org/people/Jay_You/sounds/460424/) by [Stonefree](http://www.stonefree.de/), used under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
 * **(Spoiler for late-game 1.4 content)** The "Movie Sneak Preview" channel's concessions ambient is assembled from [Popcorn Machine.mp3](https://freesound.org/people/kentdavies959/sounds/466661/) by [kentdavies959](https://freesound.org/people/kentdavies959/), used under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), and [Pouring Carbonated Beverage Fizz.wav](https://freesound.org/people/baidonovan/sounds/187355/) by [baidonovan](https://freesound.org/people/baidonovan/), in the public domain.
